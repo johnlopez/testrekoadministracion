@@ -929,3 +929,383 @@ Stack trace:
 REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/administracion_usuario/default/index
 HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/default/index
 ---
+2015/06/19 19:20:20 [error] [exception.CException] exception 'CException' with message 'Property "PrivilegioAdministrador.authitem_permiso_administrador_name" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('authitem_permis...')
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\_view.php(17): CActiveRecord->__get('authitem_permis...')
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(130): require('C:\wamp\www\tes...')
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, false)
+#4 C:\wamp\www\yii\framework\zii\widgets\CListView.php(291): CBaseController->renderFile('C:\wamp\www\tes...', Array)
+#5 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(181): CListView->renderItems()
+#6 [internal function]: CBaseListView->renderSection(Array)
+#7 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(164): preg_replace_callback('/{(\w+)}/', Array, '{summary}?{sort...')
+#8 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(149): CBaseListView->renderContent()
+#9 C:\wamp\www\yii\framework\web\CBaseController.php(181): CBaseListView->run()
+#10 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\index.php(20): CBaseController->widget('zii.widgets.CLi...', Array)
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#12 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#14 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('index', Array, true)
+#15 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\PrivilegioAdministradorController.php(128): CController->render('index', Array)
+#16 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): PrivilegioAdministradorController->actionIndex()
+#17 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#18 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#19 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#20 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#21 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#22 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#23 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#24 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#25 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#26 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#27 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#28 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#29 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/default/index
+---
+2015/06/19 19:20:25 [error] [exception.CException] exception 'CException' with message 'Property "PrivilegioAdministrador.authitem_permiso_administrador_name" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('authitem_permis...')
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\_view.php(17): CActiveRecord->__get('authitem_permis...')
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(130): require('C:\wamp\www\tes...')
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, false)
+#4 C:\wamp\www\yii\framework\zii\widgets\CListView.php(291): CBaseController->renderFile('C:\wamp\www\tes...', Array)
+#5 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(181): CListView->renderItems()
+#6 [internal function]: CBaseListView->renderSection(Array)
+#7 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(164): preg_replace_callback('/{(\w+)}/', Array, '{summary}?{sort...')
+#8 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(149): CBaseListView->renderContent()
+#9 C:\wamp\www\yii\framework\web\CBaseController.php(181): CBaseListView->run()
+#10 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\index.php(20): CBaseController->widget('zii.widgets.CLi...', Array)
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#12 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#14 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('index', Array, true)
+#15 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\PrivilegioAdministradorController.php(128): CController->render('index', Array)
+#16 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): PrivilegioAdministradorController->actionIndex()
+#17 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#18 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#19 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#20 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#21 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#22 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#23 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#24 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#25 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#26 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#27 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#28 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#29 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/default/index
+---
+2015/06/19 19:28:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/administracion_usuario/default/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/administracion_usuario/default/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/default/index
+---
+2015/06/19 19:31:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/administracion_usuario/default/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/administracion_usuario/default/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/default/index
+---
+2015/06/19 19:31:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/administracion_usuario/default/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/administracion_usuario/default/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/default/index
+---
+2015/06/19 19:31:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_usuario/administracion_usuario/default/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_usuario/administracion_usuario/default/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_usuario/default/index
+---
+2015/06/19 19:31:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_usuario/administracion_usuario/default/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_usuario/administracion_usuario/default/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_usuario/default/index
+---
+2015/06/19 19:31:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/administracion_usuario/default/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/administracion_usuario/default/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/default/index
+---
+2015/06/19 19:31:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_usuario/administracion_usuario/default/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_usuario/administracion_usuario/default/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_usuario/default/index
+---
+2015/06/19 19:31:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_usuario/administracion_usuario/default/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_usuario/administracion_usuario/default/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_usuario/usuario/index
+---
+2015/06/19 19:32:12 [error] [exception.CException] exception 'CException' with message 'Property "PrivilegioAdministrador.authitem_permiso_administrador_name" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('authitem_permis...')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('authitem_permis...')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2451): CHtml::resolveValue(Object(PrivilegioAdministrador), 'authitem_permis...')
+#3 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1533): CHtml::activeInputField('text', Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#4 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(792): CHtml::activeTextField(Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\_form.php(30): CActiveForm->textField(Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#6 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#8 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#9 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\create.php(18): CController->renderPartial('_form', Array)
+#10 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#12 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('create', Array, true)
+#14 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\PrivilegioAdministradorController.php(79): CController->render('create', Array)
+#15 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): PrivilegioAdministradorController->actionCreate()
+#16 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#17 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#18 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#19 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#20 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#21 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#22 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#23 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('create')
+#25 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#26 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#27 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#28 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/create
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/index
+---
+2015/06/19 19:40:16 [error] [exception.CException] exception 'CException' with message 'Property "PrivilegioAdministrador.authitem_permiso_administrador_name" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('authitem_permis...')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('authitem_permis...')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2451): CHtml::resolveValue(Object(PrivilegioAdministrador), 'authitem_permis...')
+#3 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1533): CHtml::activeInputField('text', Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#4 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(792): CHtml::activeTextField(Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\_form.php(30): CActiveForm->textField(Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#6 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#8 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#9 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\create.php(18): CController->renderPartial('_form', Array)
+#10 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#12 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('create', Array, true)
+#14 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\PrivilegioAdministradorController.php(79): CController->render('create', Array)
+#15 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): PrivilegioAdministradorController->actionCreate()
+#16 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#17 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#18 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#19 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#20 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#21 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#22 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#23 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('create')
+#25 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#26 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#27 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#28 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/create
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/index
+---
+2015/06/19 19:40:24 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/admin
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/index
+---
+2015/06/19 19:41:01 [error] [exception.CException] exception 'CException' with message 'Property "PrivilegioAdministrador.authitem_permiso_administrador_name" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('authitem_permis...')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('authitem_permis...')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2451): CHtml::resolveValue(Object(PrivilegioAdministrador), 'authitem_permis...')
+#3 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1533): CHtml::activeInputField('text', Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#4 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(792): CHtml::activeTextField(Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\_search.php(26): CActiveForm->textField(Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#6 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#8 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#9 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\admin.php(40): CController->renderPartial('_search', Array)
+#10 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#12 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('admin', Array, true)
+#14 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\PrivilegioAdministradorController.php(155): CController->render('admin', Array)
+#15 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): PrivilegioAdministradorController->actionAdmin()
+#16 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#17 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#18 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#19 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#20 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#21 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#22 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#23 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#25 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#26 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#27 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#28 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/admin
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/index
+---
+2015/06/19 19:41:03 [error] [exception.CException] exception 'CException' with message 'Property "PrivilegioAdministrador.authitem_permiso_administrador_name" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('authitem_permis...')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('authitem_permis...')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2451): CHtml::resolveValue(Object(PrivilegioAdministrador), 'authitem_permis...')
+#3 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1533): CHtml::activeInputField('text', Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#4 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(792): CHtml::activeTextField(Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\_search.php(26): CActiveForm->textField(Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#6 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#8 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#9 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\admin.php(40): CController->renderPartial('_search', Array)
+#10 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#12 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('admin', Array, true)
+#14 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\PrivilegioAdministradorController.php(155): CController->render('admin', Array)
+#15 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): PrivilegioAdministradorController->actionAdmin()
+#16 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#17 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#18 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#19 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#20 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#21 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#22 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#23 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#25 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#26 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#27 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#28 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/admin
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/index
+---
+2015/06/19 19:41:17 [error] [exception.CException] exception 'CException' with message 'Property "PrivilegioAdministrador.authitem_permiso_administrador_name" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('authitem_permis...')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('authitem_permis...')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2451): CHtml::resolveValue(Object(PrivilegioAdministrador), 'authitem_permis...')
+#3 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1533): CHtml::activeInputField('text', Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#4 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(792): CHtml::activeTextField(Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\_form.php(30): CActiveForm->textField(Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#6 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#8 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#9 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\create.php(18): CController->renderPartial('_form', Array)
+#10 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#12 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('create', Array, true)
+#14 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\PrivilegioAdministradorController.php(91): CController->render('create', Array)
+#15 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): PrivilegioAdministradorController->actionCreate()
+#16 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#17 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#18 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#19 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#20 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#21 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#22 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#23 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('create')
+#25 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#26 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#27 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#28 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/create
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/index
+---
+2015/06/19 19:42:20 [error] [exception.CException] exception 'CException' with message 'Property "PrivilegioAdministrador.authitem_permiso_administrador_name" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('authitem_permis...')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('authitem_permis...')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2451): CHtml::resolveValue(Object(PrivilegioAdministrador), 'authitem_permis...')
+#3 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1533): CHtml::activeInputField('text', Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#4 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(792): CHtml::activeTextField(Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\_search.php(26): CActiveForm->textField(Object(PrivilegioAdministrador), 'authitem_permis...', Array)
+#6 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#8 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#9 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\privilegioAdministrador\admin.php(40): CController->renderPartial('_search', Array)
+#10 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#12 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('admin', Array, true)
+#14 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\PrivilegioAdministradorController.php(155): CController->render('admin', Array)
+#15 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): PrivilegioAdministradorController->actionAdmin()
+#16 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#17 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#18 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#19 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#20 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#21 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#22 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#23 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#25 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#26 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#27 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#28 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/admin
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/index
+---
+2015/06/19 19:45:05 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/admin
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/privilegioadministrador/index
+---

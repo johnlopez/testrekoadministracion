@@ -1,24 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "privilegio_administrador".
+ * This is the model class for table "controlador_administrador".
  *
- * The followings are the available columns in table 'privilegio_administrador':
+ * The followings are the available columns in table 'controlador_administrador':
  * @property integer $id
  * @property string $nombre
- * @property integer $controlador_administrador_id
+ * @property string $authitem_permiso_administrador_name
  *
  * The followings are the available model relations:
- * @property ControladorAdministrador $controladorAdministrador
+ * @property AuthitemPermisoAdministrador $authitemPermisoAdministradorName
+ * @property PrivilegioAdministrador[] $privilegioAdministradors
  */
-class PrivilegioAdministrador extends CActiveRecord
+class ControladorAdministrador extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'privilegio_administrador';
+		return 'controlador_administrador';
 	}
 
 	/**
@@ -29,12 +30,12 @@ class PrivilegioAdministrador extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('controlador_administrador_id', 'required'),
-			array('controlador_administrador_id', 'numerical', 'integerOnly'=>true),
+			array('authitem_permiso_administrador_name', 'required'),
 			array('nombre', 'length', 'max'=>45),
+			array('authitem_permiso_administrador_name', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre, controlador_administrador_id', 'safe', 'on'=>'search'),
+			array('id, nombre, authitem_permiso_administrador_name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,7 +47,8 @@ class PrivilegioAdministrador extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'controladorAdministrador' => array(self::BELONGS_TO, 'ControladorAdministrador', 'controlador_administrador_id'),
+			'authitemPermisoAdministradorName' => array(self::BELONGS_TO, 'AuthitemPermisoAdministrador', 'authitem_permiso_administrador_name'),
+			'privilegioAdministradors' => array(self::HAS_MANY, 'PrivilegioAdministrador', 'controlador_administrador_id'),
 		);
 	}
 
@@ -58,7 +60,7 @@ class PrivilegioAdministrador extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'nombre' => 'Nombre',
-			'controlador_administrador_id' => 'Controlador Administrador',
+			'authitem_permiso_administrador_name' => 'Authitem Permiso Administrador Name',
 		);
 	}
 
@@ -82,7 +84,7 @@ class PrivilegioAdministrador extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('nombre',$this->nombre,true);
-		$criteria->compare('controlador_administrador_id',$this->controlador_administrador_id);
+		$criteria->compare('authitem_permiso_administrador_name',$this->authitem_permiso_administrador_name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -93,7 +95,7 @@ class PrivilegioAdministrador extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return PrivilegioAdministrador the static model class
+	 * @return ControladorAdministrador the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
