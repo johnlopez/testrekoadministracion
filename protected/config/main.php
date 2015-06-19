@@ -27,12 +27,18 @@ return array(
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
-                'administracion_usuario_administrador',
+                
+            'administracion_usuario_administrador',
+            'administracion_usuario',
 		
 	),
 
 	// application components
 	'components'=>array(
+                'authManager'=>array(
+                    "class"=>"CDbAuthManager",
+                    "connectionID"=>"db",
+                ),
 
 		'user'=>array(
 			// enable cookie-based authentication
