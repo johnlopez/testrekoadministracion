@@ -1,6 +1,6 @@
 <?php
 
-class UsuarioController extends Controller
+class AuthitemPermisoAdministradorController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -74,16 +74,16 @@ class UsuarioController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Usuario;
+		$model=new AuthitemPermisoAdministrador;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Usuario']))
+		if(isset($_POST['AuthitemPermisoAdministrador']))
 		{
-			$model->attributes=$_POST['Usuario'];
+			$model->attributes=$_POST['AuthitemPermisoAdministrador'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','id'=>$model->name));
 		}
 
 		$this->render('create',array(
@@ -103,11 +103,11 @@ class UsuarioController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Usuario']))
+		if(isset($_POST['AuthitemPermisoAdministrador']))
 		{
-			$model->attributes=$_POST['Usuario'];
+			$model->attributes=$_POST['AuthitemPermisoAdministrador'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','id'=>$model->name));
 		}
 
 		$this->render('update',array(
@@ -134,7 +134,7 @@ class UsuarioController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Usuario');
+		$dataProvider=new CActiveDataProvider('AuthitemPermisoAdministrador');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -145,10 +145,10 @@ class UsuarioController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Usuario('search');
+		$model=new AuthitemPermisoAdministrador('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Usuario']))
-			$model->attributes=$_GET['Usuario'];
+		if(isset($_GET['AuthitemPermisoAdministrador']))
+			$model->attributes=$_GET['AuthitemPermisoAdministrador'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -159,12 +159,12 @@ class UsuarioController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Usuario the loaded model
+	 * @return AuthitemPermisoAdministrador the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Usuario::model()->findByPk($id);
+		$model=AuthitemPermisoAdministrador::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -172,11 +172,11 @@ class UsuarioController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Usuario $model the model to be validated
+	 * @param AuthitemPermisoAdministrador $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='usuario-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='authitem-permiso-administrador-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

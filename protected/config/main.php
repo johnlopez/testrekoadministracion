@@ -30,6 +30,7 @@ return array(
                 
             'administracion_usuario_administrador',
             'administracion_usuario',
+            'administracion_rol_administrador',
 		
 	),
 
@@ -38,6 +39,9 @@ return array(
                 'authManager'=>array(
                     "class"=>"CDbAuthManager",
                     "connectionID"=>"db",
+                    'itemTable'=>'authitem_permiso_administrador', // Tabla que contiene los elementos de autorizacion rol_institucion
+                    'assignmentTable'=>'authassignment_administrador', // Tabla que contiene la asignacion usuario_rol_administrador
+                    'itemChildTable'=>'authitemchild_administrador', // Tabla que contiene los elementos padre-hijo                    
                 ),
 
 		'user'=>array(

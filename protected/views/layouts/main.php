@@ -29,6 +29,9 @@
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
+                                array('label'=>'administracion_usuario_administrador', 'url'=>array('/administracion_usuario_administrador/default/index')),
+                                array('label'=>'administracion_rol_administrador', 'url'=>array('/administracion_rol_administrador/default/index')),
+                                array('label'=>'administracion_usuario', 'url'=>array('administracion_usuario/default/index')),
 				array('label'=>'Home', 'url'=>array('/site/index')),
 				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 				array('label'=>'Contact', 'url'=>array('/site/contact')),

@@ -15,3 +15,10 @@ in the "<?php echo $this->module->id; ?>" module.
 <p>
 You may customize this page by editing <tt><?php echo __FILE__; ?></tt>
 </p>
+<div id="mainmenu">
+		<?php $this->widget('zii.widgets.CMenu',array(
+			'items'=>array(
+                                array('label'=>'usuario_administrador', 'url'=>array('/administracion_usuario_administrador/usuarioadministrador/index')),		
+			),
+		)); ?>
+</div><!-- mainmenu -->
