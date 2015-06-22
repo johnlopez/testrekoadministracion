@@ -106,11 +106,16 @@ class RolAdministradorController extends Controller
 	 * Lists all models.
 	 */
 	public function actionIndex()
-	{                                               
+	{
+                //Yii::app()->Validar->obtenerPrivilegio(1,'administracion_rol_administrador','roladministrador','index');
 		$dataProvider=new CActiveDataProvider('RolAdministrador');
-		$this->render('index',array(
+                //Yii::log( Yii::app()->Validar->vista,'','reko2.component');
+		/*$this->render('index',array(
 			'dataProvider'=>$dataProvider,
-		));
+		));*/
+                $this->render('index',array(
+			'dataProvider'=>$dataProvider,
+                ));
 	}
 
 	/**
