@@ -36,6 +36,9 @@ return array(
 
 	// application components
 	'components'=>array(
+                'Validar' => array(
+                    'class'=>'application.components.Validar',
+                ),
                 'authManager'=>array(
                     "class"=>"CDbAuthManager",
                     "connectionID"=>"db",
