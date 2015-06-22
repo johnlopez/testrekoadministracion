@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 22-06-2015 a las 15:22:50
+-- Tiempo de generación: 22-06-2015 a las 21:13:17
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -19,6 +19,35 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `testreko`
 --
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `validar_privilegio`(nuevo_usuario_id int , nuevo_permiso_nombre varchar(50) , nuevo_controlador_nombre varchar(50) , nuevo_privilegio_nombre varchar(50),out vista varchar(50))
+SELECT PRIV.nombre into vista
+FROM
+		privilegio_administrador PRIV,
+        controlador_administrador C,
+        authitem_permiso_administrador P,
+        rol_administrador_has_authitem_permiso_administrador RP,
+        rol_administrador R,
+        usuario_administrador_has_rol_administrador UR,
+        usuario_administrador U
+        
+WHERE PRIV.controlador_administrador_id = C.id
+AND C.authitem_permiso_administrador_name = P.name
+AND RP.authitem_permiso_administrador_name = P.name
+AND RP.rol_administrador_id = R.id
+AND UR.rol_administrador_id = R.id
+AND UR.usuario_administrador_id = U.id
+
+AND U.id = nuevo_usuario_id
+AND P.name = nuevo_permiso_nombre
+AND C.nombre = nuevo_controlador_nombre
+AND PRIV.nombre = nuevo_privilegio_nombre$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -90,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `controlador_administrador` (
   `authitem_permiso_administrador_name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_controlador_administrador_authitem_permiso_administrador_idx` (`authitem_permiso_administrador_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `controlador_administrador`
@@ -101,7 +130,9 @@ INSERT INTO `controlador_administrador` (`id`, `nombre`, `authitem_permiso_admin
 (2, 'ControladorAdministrador', 'administracion_rol_administrador'),
 (3, 'Default', 'administracion_rol_administrador'),
 (4, 'PrivilegioAdministrador', 'administracion_rol_administrador'),
-(5, 'RolAdministrador', 'administracion_rol_administrador');
+(5, 'RolAdministrador', 'administracion_rol_administrador'),
+(6, 'UsuarioAdministrador', 'administracion_usuario_administrador'),
+(7, 'Default', 'administracion_usuario_administrador');
 
 -- --------------------------------------------------------
 
@@ -115,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `privilegio_administrador` (
   `controlador_administrador_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_privilegio_administrador_controlador_administrador1_idx` (`controlador_administrador_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=43 ;
 
 --
 -- Volcado de datos para la tabla `privilegio_administrador`
@@ -151,7 +182,19 @@ INSERT INTO `privilegio_administrador` (`id`, `nombre`, `controlador_administrad
 (27, 'admin', 5),
 (28, 'create', 5),
 (29, 'update', 5),
-(30, 'delete', 5);
+(30, 'delete', 5),
+(31, 'index', 6),
+(32, 'view', 6),
+(33, 'admin', 6),
+(34, 'create', 6),
+(35, 'update', 6),
+(36, 'delete', 6),
+(37, 'index', 7),
+(38, 'view', 7),
+(39, 'admin', 7),
+(40, 'create', 7),
+(41, 'update', 7),
+(42, 'delete', 7);
 
 -- --------------------------------------------------------
 
