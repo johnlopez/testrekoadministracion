@@ -1,6 +1,6 @@
 <?php
 
-class UsuarioAdministradorController extends Controller
+class EscritorioAdministradorController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -25,8 +25,24 @@ class UsuarioAdministradorController extends Controller
 	 * @return array access control rules
 	 */
 	public function accessRules()
-	{            
-                return Yii::app()->Validar->validarAcceso();
+	{
+		return array(
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('index','view'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete'),
+				'users'=>array('@'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+		);
 	}
 
 	/**
@@ -46,16 +62,16 @@ class UsuarioAdministradorController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new UsuarioAdministrador;
+		$model=new EscritorioAdministrador;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['UsuarioAdministrador']))
+		if(isset($_POST['EscritorioAdministrador']))
 		{
-			$model->attributes=$_POST['UsuarioAdministrador'];
+			$model->attributes=$_POST['EscritorioAdministrador'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','id'=>$model->name));
 		}
 
 		$this->render('create',array(
@@ -75,11 +91,11 @@ class UsuarioAdministradorController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['UsuarioAdministrador']))
+		if(isset($_POST['EscritorioAdministrador']))
 		{
-			$model->attributes=$_POST['UsuarioAdministrador'];
+			$model->attributes=$_POST['EscritorioAdministrador'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','id'=>$model->name));
 		}
 
 		$this->render('update',array(
@@ -106,10 +122,7 @@ class UsuarioAdministradorController extends Controller
 	 */
 	public function actionIndex()
 	{
-//                Yii::app()->authManager->createRole("administracion_usuario");
-//                echo "Se creo un Rol";
-            
-		$dataProvider=new CActiveDataProvider('UsuarioAdministrador');
+		$dataProvider=new CActiveDataProvider('EscritorioAdministrador');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -120,10 +133,10 @@ class UsuarioAdministradorController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new UsuarioAdministrador('search');
+		$model=new EscritorioAdministrador('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['UsuarioAdministrador']))
-			$model->attributes=$_GET['UsuarioAdministrador'];
+		if(isset($_GET['EscritorioAdministrador']))
+			$model->attributes=$_GET['EscritorioAdministrador'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -134,12 +147,12 @@ class UsuarioAdministradorController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return UsuarioAdministrador the loaded model
+	 * @return EscritorioAdministrador the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=UsuarioAdministrador::model()->findByPk($id);
+		$model=EscritorioAdministrador::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -147,11 +160,11 @@ class UsuarioAdministradorController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param UsuarioAdministrador $model the model to be validated
+	 * @param EscritorioAdministrador $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='usuario-administrador-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='escritorio-administrador-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

@@ -31,6 +31,7 @@ return array(
             'administracion_usuario_administrador',
             'administracion_usuario',
             'administracion_rol_administrador',
+            'escritorio_administrador',
 		
 	),
 
