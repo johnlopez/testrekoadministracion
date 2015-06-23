@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 22-06-2015 a las 21:13:17
+-- Tiempo de generación: 23-06-2015 a las 20:59:36
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -68,7 +68,8 @@ CREATE TABLE IF NOT EXISTS `authassignment_administrador` (
 --
 
 INSERT INTO `authassignment_administrador` (`itemname`, `userid`, `bizrule`, `data`) VALUES
-('administracion_rol_administrador', '1', NULL, NULL);
+('administracion_rol_administrador', '1', NULL, NULL),
+('administracion_usuario_administrador', '1', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -133,6 +134,19 @@ INSERT INTO `controlador_administrador` (`id`, `nombre`, `authitem_permiso_admin
 (5, 'RolAdministrador', 'administracion_rol_administrador'),
 (6, 'UsuarioAdministrador', 'administracion_usuario_administrador'),
 (7, 'Default', 'administracion_usuario_administrador');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `escritorio_administrador`
+--
+
+CREATE TABLE IF NOT EXISTS `escritorio_administrador` (
+  `id` int(11) NOT NULL,
+  `usuario_administrador_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_escritorio_administrador_usuario_administrador1_idx` (`usuario_administrador_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -235,7 +249,8 @@ CREATE TABLE IF NOT EXISTS `rol_administrador_has_authitem_permiso_administrador
 --
 
 INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_administrador_id`, `authitem_permiso_administrador_name`) VALUES
-(1, 'administracion_rol_administrador');
+(1, 'administracion_rol_administrador'),
+(1, 'administracion_usuario_administrador');
 
 -- --------------------------------------------------------
 
@@ -315,6 +330,12 @@ ALTER TABLE `authitemchild_administrador`
 --
 ALTER TABLE `controlador_administrador`
   ADD CONSTRAINT `fk_controlador_administrador_authitem_permiso_administrador1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `escritorio_administrador`
+--
+ALTER TABLE `escritorio_administrador`
+  ADD CONSTRAINT `fk_escritorio_administrador_usuario_administrador1` FOREIGN KEY (`usuario_administrador_id`) REFERENCES `usuario_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `privilegio_administrador`
