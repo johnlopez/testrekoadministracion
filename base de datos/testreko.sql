@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 23-06-2015 a las 20:59:36
+-- Tiempo de generación: 24-06-2015 a las 20:57:09
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -24,6 +24,22 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `asignar_permiso_a_rol`(nuevo_rol_id int , nuevo_permiso_name varchar(50))
+begin
+INSERT INTO rol_administrador_has_authitem_permiso_administrador (rol_administrador_id,authitem_permiso_administrador_name) 
+SELECT RA.id,P.name
+FROM 	
+		rol_administrador RA,
+        authitem_permiso_administrador P
+WHERE  RA.id=nuevo_rol_id
+AND P.name=nuevo_permiso_name;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_permiso`()
+begin
+select * from authitem_permiso_administrador;
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `validar_privilegio`(nuevo_usuario_id int , nuevo_permiso_nombre varchar(50) , nuevo_controlador_nombre varchar(50) , nuevo_privilegio_nombre varchar(50),out vista varchar(50))
 SELECT PRIV.nombre into vista
 FROM
@@ -250,6 +266,7 @@ CREATE TABLE IF NOT EXISTS `rol_administrador_has_authitem_permiso_administrador
 
 INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_administrador_id`, `authitem_permiso_administrador_name`) VALUES
 (1, 'administracion_rol_administrador'),
+(1, 'administracion_usuario'),
 (1, 'administracion_usuario_administrador');
 
 -- --------------------------------------------------------

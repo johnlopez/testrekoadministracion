@@ -114,4 +114,10 @@ class AuthitemPermisoAdministrador extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        public function listarPermisos() {
+            
+            $comando = Yii::app()->db->createCommand("CALL listar_permiso")->queryAll();
+            return $comando;
+        }
 }

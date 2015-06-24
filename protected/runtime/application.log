@@ -3934,3 +3934,1787 @@ Stack trace:
 REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index
 HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/index
 ---
+2015/06/24 12:43:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+---
+2015/06/24 12:47:56 [error] [php] Undefined index: name (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:19)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (19)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 12:55:26 [error] [php] Undefined variable: form (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:20)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (20)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 13:49:38 [error] [php] Missing argument 2 for CHtml::activeCheckBoxList(), called in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php on line 37 and defined (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2087)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#1 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#2 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#3 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#4 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#5 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#7 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#10 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#14 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#16 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (37)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 13:50:08 [error] [php] Missing argument 3 for CHtml::activeCheckBoxList(), called in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php on line 37 and defined (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2087)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#1 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#2 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#3 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#4 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#5 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#7 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#10 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#14 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#16 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (37)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 13:51:46 [error] [php] Missing argument 3 for CHtml::listData(), called in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php on line 37 and defined (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2270)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#1 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#2 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#3 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#4 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#5 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#7 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#10 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#14 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#16 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (37)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 13:52:18 [error] [php] Missing argument 3 for CHtml::listData(), called in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php on line 37 and defined (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2270)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#1 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#2 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#3 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#4 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#5 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#7 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#10 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#14 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#16 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (37)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 13:52:19 [error] [php] Missing argument 3 for CHtml::listData(), called in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php on line 37 and defined (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2270)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#1 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#2 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#3 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#4 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#5 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#7 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#10 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#14 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#16 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (37)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 13:52:20 [error] [php] Missing argument 3 for CHtml::listData(), called in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php on line 37 and defined (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2270)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#1 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#2 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#3 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#4 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#5 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#7 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#10 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#14 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#16 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (37)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 13:52:20 [error] [php] Missing argument 3 for CHtml::listData(), called in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php on line 37 and defined (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2270)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#1 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#2 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#3 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#4 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#5 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#7 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#10 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#14 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#16 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (37)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 13:52:21 [error] [php] Missing argument 3 for CHtml::listData(), called in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php on line 37 and defined (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2270)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#1 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#2 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#3 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#4 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#5 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#7 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#10 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#14 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#16 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (37)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 13:53:05 [error] [php] Missing argument 3 for CHtml::listData(), called in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php on line 37 and defined (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2270)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#1 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#2 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#3 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#4 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#5 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#7 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#10 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#14 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#16 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (37)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 13:57:35 [error] [php] Undefined variable: form (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:20)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (20)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 13:58:10 [error] [php] Undefined variable: permiso (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:18)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (18)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 13:58:31 [error] [php] Undefined variable: listarpermiso (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:18)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (18)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 14:03:53 [error] [php] Undefined variable: listarpermiso (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:18)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (18)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 14:03:54 [error] [php] Undefined variable: listarpermiso (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:18)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (18)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 14:04:10 [error] [php] Undefined variable: listarpermiso (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:19)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (19)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 14:04:12 [error] [php] Undefined variable: listarpermiso (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:19)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (19)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 14:04:13 [error] [php] Undefined variable: listarpermiso (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:19)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (19)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 14:04:39 [error] [php] Undefined variable: listarpermiso (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:22)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (22)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 14:09:45 [error] [php] Undefined variable: listarpermiso (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:22)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (22)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 14:10:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('profile')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/profile
+---
+2015/06/24 14:10:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('profile')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/profile
+---
+2015/06/24 14:10:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('profile')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/profile
+---
+2015/06/24 14:10:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('profile')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/profile
+---
+2015/06/24 14:10:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('profile')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/profile
+---
+2015/06/24 14:10:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('profile')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/profile
+---
+2015/06/24 14:10:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "_form".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('_form')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('_form')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('profile/_form')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/profile/_form
+---
+2015/06/24 14:11:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "_form".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('_form')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('_form')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('profile/_form')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/profile/_form
+---
+2015/06/24 14:11:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('profile')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/profile/
+---
+2015/06/24 15:10:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "profile".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('profile')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/profile/
+---
+2015/06/24 15:10:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "profile".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('profile')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/profile/
+---
+2015/06/24 15:11:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "profile/_form".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('profile/_form')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/profile/_form
+---
+2015/06/24 15:11:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "profile".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('profile')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/profile
+---
+2015/06/24 15:23:58 [error] [php] Undefined variable: model (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:36)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (36)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 15:25:48 [error] [php] Undefined variable: listarPermiso (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:18)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (18)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 15:26:03 [error] [exception.CException] exception 'CException' with message 'Property "AuthitemPermisoAdministrador.nombre" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('nombre')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('nombre')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2451): CHtml::resolveValue(Object(AuthitemPermisoAdministrador), 'nombre')
+#3 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1533): CHtml::activeInputField('text', Object(AuthitemPermisoAdministrador), 'nombre', Array)
+#4 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(792): CHtml::activeTextField(Object(AuthitemPermisoAdministrador), 'nombre', Array)
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(40): CActiveForm->textField(Object(AuthitemPermisoAdministrador), 'nombre', Array)
+#6 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#8 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#9 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#10 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): CController->render('asignar', Array)
+#11 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#12 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#13 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#14 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#15 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#16 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#17 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#18 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#19 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#20 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#21 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#22 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#23 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#24 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 15:38:44 [error] [exception.CException] exception 'CException' with message 'Property "AuthitemPermisoAdministrador.order_id" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('order_id')
+#1 C:\wamp\www\yii\framework\base\CComponent.php(612) : eval()'d code(1): CActiveRecord->__get('order_id')
+#2 C:\wamp\www\yii\framework\base\CComponent.php(612): eval()
+#3 C:\wamp\www\yii\framework\zii\widgets\grid\CCheckBoxColumn.php(224): CComponent->evaluateExpression('$data->order_id', Array)
+#4 C:\wamp\www\yii\framework\zii\widgets\grid\CGridColumn.php(231): CCheckBoxColumn->getDataCellContent(0)
+#5 C:\wamp\www\yii\framework\zii\widgets\grid\CGridColumn.php(154): CGridColumn->renderDataCellContent(0, Object(AuthitemPermisoAdministrador))
+#6 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(638): CGridColumn->renderDataCell(0)
+#7 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(622): CGridView->renderDataCell(Object(CCheckBoxColumn), 0)
+#8 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(578): CGridView->renderTableRow(0)
+#9 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(488): CGridView->renderTableBody()
+#10 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(181): CGridView->renderItems()
+#11 [internal function]: CBaseListView->renderSection(Array)
+#12 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(164): preg_replace_callback('/{(\w+)}/', Array, '{summary}?{item...')
+#13 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(149): CBaseListView->renderContent()
+#14 C:\wamp\www\yii\framework\web\CBaseController.php(181): CBaseListView->run()
+#15 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(101): CBaseController->widget('zii.widgets.gri...', Array)
+#16 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#17 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#18 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#19 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#20 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): CController->render('asignar', Array)
+#21 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#22 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#23 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#24 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#25 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#26 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#27 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#28 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#29 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#30 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#31 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#32 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#33 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#34 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 15:39:21 [error] [exception.CException] exception 'CException' with message 'Property "AuthitemPermisoAdministrador.order_id" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('order_id')
+#1 C:\wamp\www\yii\framework\base\CComponent.php(612) : eval()'d code(1): CActiveRecord->__get('order_id')
+#2 C:\wamp\www\yii\framework\base\CComponent.php(612): eval()
+#3 C:\wamp\www\yii\framework\zii\widgets\grid\CCheckBoxColumn.php(224): CComponent->evaluateExpression('$data->order_id', Array)
+#4 C:\wamp\www\yii\framework\zii\widgets\grid\CGridColumn.php(231): CCheckBoxColumn->getDataCellContent(0)
+#5 C:\wamp\www\yii\framework\zii\widgets\grid\CGridColumn.php(154): CGridColumn->renderDataCellContent(0, Object(AuthitemPermisoAdministrador))
+#6 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(638): CGridColumn->renderDataCell(0)
+#7 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(622): CGridView->renderDataCell(Object(CCheckBoxColumn), 0)
+#8 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(578): CGridView->renderTableRow(0)
+#9 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(488): CGridView->renderTableBody()
+#10 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(181): CGridView->renderItems()
+#11 [internal function]: CBaseListView->renderSection(Array)
+#12 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(164): preg_replace_callback('/{(\w+)}/', Array, '{summary}?{item...')
+#13 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(149): CBaseListView->renderContent()
+#14 C:\wamp\www\yii\framework\web\CBaseController.php(181): CBaseListView->run()
+#15 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(101): CBaseController->widget('zii.widgets.gri...', Array)
+#16 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#17 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#18 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#19 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#20 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): CController->render('asignar', Array)
+#21 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#22 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#23 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#24 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#25 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#26 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#27 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#28 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#29 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#30 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#31 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#32 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#33 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#34 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 15:39:56 [error] [exception.CException] exception 'CException' with message 'Property "AuthitemPermisoAdministrador.order_id" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('order_id')
+#1 C:\wamp\www\yii\framework\base\CComponent.php(612) : eval()'d code(1): CActiveRecord->__get('order_id')
+#2 C:\wamp\www\yii\framework\base\CComponent.php(612): eval()
+#3 C:\wamp\www\yii\framework\zii\widgets\grid\CCheckBoxColumn.php(224): CComponent->evaluateExpression('$data->order_id', Array)
+#4 C:\wamp\www\yii\framework\zii\widgets\grid\CGridColumn.php(231): CCheckBoxColumn->getDataCellContent(0)
+#5 C:\wamp\www\yii\framework\zii\widgets\grid\CGridColumn.php(154): CGridColumn->renderDataCellContent(0, Object(AuthitemPermisoAdministrador))
+#6 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(638): CGridColumn->renderDataCell(0)
+#7 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(622): CGridView->renderDataCell(Object(CCheckBoxColumn), 0)
+#8 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(578): CGridView->renderTableRow(0)
+#9 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(488): CGridView->renderTableBody()
+#10 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(181): CGridView->renderItems()
+#11 [internal function]: CBaseListView->renderSection(Array)
+#12 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(164): preg_replace_callback('/{(\w+)}/', Array, '{summary}?{item...')
+#13 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(149): CBaseListView->renderContent()
+#14 C:\wamp\www\yii\framework\web\CBaseController.php(181): CBaseListView->run()
+#15 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(101): CBaseController->widget('zii.widgets.gri...', Array)
+#16 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#17 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#18 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#19 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#20 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): CController->render('asignar', Array)
+#21 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#22 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#23 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#24 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#25 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#26 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#27 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#28 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#29 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#30 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#31 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#32 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#33 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#34 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 15:49:47 [error] [exception.CException] exception 'CException' with message 'CActiveForm and its behaviors do not have a method or closure named "dropDownListBox".' in C:\wamp\www\yii\framework\base\CComponent.php:266
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(40): CComponent->__call('dropDownListBox', Array)
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(40): CActiveForm->dropDownListBox(Object(AuthitemPermisoAdministrador), 'name', Array)
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#4 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#5 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#6 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): CController->render('asignar', Array)
+#7 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#8 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#10 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#12 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#13 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#14 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#15 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#17 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#18 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#19 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#20 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 15:50:01 [error] [exception.CException] exception 'CException' with message 'CActiveForm and its behaviors do not have a method or closure named "dropListBox".' in C:\wamp\www\yii\framework\base\CComponent.php:266
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(40): CComponent->__call('dropListBox', Array)
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(40): CActiveForm->dropListBox(Object(AuthitemPermisoAdministrador), 'name', Array)
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#4 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#5 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#6 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): CController->render('asignar', Array)
+#7 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#8 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#10 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#12 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#13 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#14 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#15 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#17 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#18 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#19 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#20 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 15:52:03 [error] [php] include(Modulos.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(40): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#3 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#4 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#6 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#7 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#9 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#11 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#12 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#13 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#15 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#17 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#18 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (40)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 16:15:45 [error] [php] Missing argument 3 for CHtml::listData(), called in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php on line 40 and defined (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2270)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#1 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#2 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#3 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#4 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#5 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#7 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#10 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#14 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#16 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (40)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 16:16:00 [error] [php] Missing argument 3 for CHtml::listData(), called in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php on line 40 and defined (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2270)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#1 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#2 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#3 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#4 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#5 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#7 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#10 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#14 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#16 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (40)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 16:16:03 [error] [php] Missing argument 3 for CHtml::listData(), called in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php on line 40 and defined (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2270)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#1 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#2 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#3 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#4 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#5 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#7 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#10 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#14 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#16 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (40)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 16:18:10 [error] [php] call_user_func() expects parameter 1 to be a valid callback, first array member is not a valid class name or object (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2340)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(48): listData()
+#1 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#3 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#4 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#6 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#7 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#9 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#11 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#12 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#13 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#15 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#17 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#18 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (48)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 16:18:30 [error] [php] call_user_func() expects parameter 1 to be a valid callback, first array member is not a valid class name or object (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2340)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(48): listData()
+#1 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#3 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#4 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#6 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#7 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#9 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#11 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#12 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#13 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#15 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#17 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#18 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (48)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 16:18:36 [error] [php] call_user_func() expects parameter 1 to be a valid callback, first array member is not a valid class name or object (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2340)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(48): listData()
+#1 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#3 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#4 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#6 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#7 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#9 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#11 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#12 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#13 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#15 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#17 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#18 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (48)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 16:20:59 [error] [php] call_user_func() expects parameter 1 to be a valid callback, first array member is not a valid class name or object (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2340)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(48): listData()
+#1 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#3 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#4 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#6 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#7 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#9 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#11 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#12 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#13 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#15 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#17 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#18 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (48)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 16:21:09 [error] [php] call_user_func() expects parameter 1 to be a valid callback, first array member is not a valid class name or object (C:\wamp\www\yii\framework\web\helpers\CHtml.php:2340)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(47): listData()
+#1 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#3 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#4 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(159): RolAdministradorController->render()
+#6 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#7 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#9 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#11 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#12 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#13 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#15 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#17 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#18 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (47)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (159)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 18:48:56 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE testreko.asignar_permiso_a_rol; expected 2, got 0. The SQL statement executed was: CALL asignar_permiso_a_rol.
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php (104)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (161)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 18:48:56 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE testreko.asignar_permiso_a_rol; expected 2, got 0. The SQL statement executed was: CALL asignar_permiso_a_rol' in C:\wamp\www\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php(104): CDbCommand->queryAll()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(161): RolAdministrador->asignarPermisoARol(1, 'administracion_...')
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+---
+2015/06/24 18:50:51 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE testreko.asignar_permiso_a_rol; expected 2, got 0. The SQL statement executed was: CALL asignar_permiso_a_rol.
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php (104)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (161)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 18:50:51 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE testreko.asignar_permiso_a_rol; expected 2, got 0. The SQL statement executed was: CALL asignar_permiso_a_rol' in C:\wamp\www\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php(104): CDbCommand->queryAll()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(161): RolAdministrador->asignarPermisoARol(1, 'administracion_...')
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+---
+2015/06/24 18:57:27 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE testreko.asignar_permiso_a_rol; expected 2, got 0. The SQL statement executed was: CALL asignar_permiso_a_rol.
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php (104)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (161)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 18:57:27 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE testreko.asignar_permiso_a_rol; expected 2, got 0. The SQL statement executed was: CALL asignar_permiso_a_rol' in C:\wamp\www\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php(104): CDbCommand->queryAll()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(161): RolAdministrador->asignarPermisoARol(1, 'administracion_...')
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+---
+2015/06/24 18:58:15 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE testreko.asignar_permiso_a_rol; expected 2, got 0. The SQL statement executed was: CALL asignar_permiso_a_rol.
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php (104)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (161)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 18:58:15 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE testreko.asignar_permiso_a_rol; expected 2, got 0. The SQL statement executed was: CALL asignar_permiso_a_rol' in C:\wamp\www\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php(104): CDbCommand->queryAll()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(161): RolAdministrador->asignarPermisoARol(1, 'administracion_...')
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 19:00:30 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE testreko.asignar_permiso_a_rol; expected 2, got 0. The SQL statement executed was: CALL asignar_permiso_a_rol.
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php (104)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (161)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 19:00:30 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE testreko.asignar_permiso_a_rol; expected 2, got 0. The SQL statement executed was: CALL asignar_permiso_a_rol' in C:\wamp\www\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php(104): CDbCommand->queryAll()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(161): RolAdministrador->asignarPermisoARol(1, 'administracion_...')
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 19:09:16 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name).
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php (104)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (161)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 19:09:16 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name)' in C:\wamp\www\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php(104): CDbCommand->queryAll()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(161): RolAdministrador->asignarPermisoARol(1, 'administracion_...')
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 19:10:38 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name).
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php (109)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (161)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 19:10:38 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name)' in C:\wamp\www\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php(109): CDbCommand->execute()
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(161): RolAdministrador->asignarPermisoARol(1, 'administracion_...')
+#2 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#3 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#13 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#14 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 19:11:32 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name).
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php (109)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (161)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 19:11:32 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name)' in C:\wamp\www\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php(109): CDbCommand->execute()
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(161): RolAdministrador->asignarPermisoARol(1, 'administracion_...')
+#2 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#3 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#13 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#14 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 19:15:46 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-administracion_usuario' for key 'PRIMARY'. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name).
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php (107)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (161)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 19:15:46 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-administracion_usuario' for key 'PRIMARY'. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name)' in C:\wamp\www\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php(107): CDbCommand->execute()
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(161): RolAdministrador->asignarPermisoARol(1, 'administracion_...')
+#2 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#3 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#13 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#14 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 19:16:29 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-administracion_usuario' for key 'PRIMARY'. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name).
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php (107)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (161)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 19:16:29 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-administracion_usuario' for key 'PRIMARY'. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name)' in C:\wamp\www\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php(107): CDbCommand->execute()
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(161): RolAdministrador->asignarPermisoARol(1, 'administracion_...')
+#2 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#3 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#13 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#14 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 19:36:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/
+---
+2015/06/24 19:36:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "escritorio_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/06/24 19:36:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "escritorio_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/06/24 19:36:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "escritorio_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/06/24 19:36:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "escritorio_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/06/24 19:36:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "escritorio_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/06/24 19:37:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "escritorio_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/06/24 19:41:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/default/update
+---
+2015/06/24 19:41:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "escritorio_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/06/24 19:42:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "escritorio_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/06/24 20:32:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "escritorio_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/06/24 20:34:35 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-administracion_usuario' for key 'PRIMARY'. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name).
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php (107)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (161)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 20:34:35 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-administracion_usuario' for key 'PRIMARY'. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name)' in C:\wamp\www\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php(107): CDbCommand->execute()
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(161): RolAdministrador->asignarPermisoARol(1, 'administracion_...')
+#2 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#3 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#13 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#14 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 20:34:43 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-administracion_usuario' for key 'PRIMARY'. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name).
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php (107)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (161)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 20:34:43 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-administracion_usuario' for key 'PRIMARY'. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name)' in C:\wamp\www\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php(107): CDbCommand->execute()
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(161): RolAdministrador->asignarPermisoARol(1, 'administracion_...')
+#2 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#3 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#13 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#14 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 20:35:03 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-administracion_usuario' for key 'PRIMARY'. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name).
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php (107)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (161)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 20:35:03 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-administracion_usuario' for key 'PRIMARY'. The SQL statement executed was: CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name)' in C:\wamp\www\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\models\RolAdministrador.php(107): CDbCommand->execute()
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(161): RolAdministrador->asignarPermisoARol(1, 'administracion_...')
+#2 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#3 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#13 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#14 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 20:35:25 [error] [exception.CException] exception 'CException' with message 'Property "RolAdministrador.name" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('name')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('name')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2090): CHtml::resolveValue(Object(RolAdministrador), 'name')
+#3 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(946): CHtml::activeCheckBoxList(Object(RolAdministrador), 'name', Array, Array)
+#4 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(40): CActiveForm->checkBoxList(Object(RolAdministrador), 'name', Array)
+#5 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#6 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#7 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#8 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#9 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(162): CController->render('asignar', Array)
+#10 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#11 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#12 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#13 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#14 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#15 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#16 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#17 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#18 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#19 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#20 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#21 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#22 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#23 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/24 20:35:58 [error] [exception.CException] exception 'CException' with message 'Property "RolAdministrador.name" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('name')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('name')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2090): CHtml::resolveValue(Object(RolAdministrador), 'name')
+#3 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(946): CHtml::activeCheckBoxList(Object(RolAdministrador), 'name', Array, Array)
+#4 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(40): CActiveForm->checkBoxList(Object(RolAdministrador), 'name', Array)
+#5 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#6 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#7 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#8 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#9 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(162): CController->render('asignar', Array)
+#10 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#11 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#12 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#13 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#14 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#15 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#16 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#17 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#18 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#19 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#20 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#21 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#22 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#23 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+---
+2015/06/24 20:37:06 [error] [php] Undefined variable: data (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:23)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(162): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (23)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (162)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 20:37:29 [error] [php] Undefined variable: data (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:24)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(162): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (24)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (162)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 20:37:42 [error] [exception.CException] exception 'CException' with message 'Property "AuthitemPermisoAdministrador.id" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('id')
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(24): CActiveRecord->__get('id')
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#4 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#5 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#6 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(162): CController->render('asignar', Array)
+#7 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#8 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#10 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#12 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#13 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#14 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#15 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#17 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#18 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#19 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#20 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+---
+2015/06/24 20:37:53 [error] [exception.CException] exception 'CException' with message 'Property "AuthitemPermisoAdministrador.id" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('id')
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(24): CActiveRecord->__get('id')
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#4 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#5 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#6 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(162): CController->render('asignar', Array)
+#7 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#8 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#10 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#12 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#13 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#14 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#15 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#17 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#18 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#19 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#20 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+---
+2015/06/24 20:37:54 [error] [exception.CException] exception 'CException' with message 'Property "AuthitemPermisoAdministrador.id" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('id')
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(24): CActiveRecord->__get('id')
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#4 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#5 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#6 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(162): CController->render('asignar', Array)
+#7 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#8 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#10 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#12 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#13 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#14 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#15 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#17 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#18 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#19 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#20 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+---
+2015/06/24 20:37:54 [error] [exception.CException] exception 'CException' with message 'Property "AuthitemPermisoAdministrador.id" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('id')
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(24): CActiveRecord->__get('id')
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#4 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#5 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#6 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(162): CController->render('asignar', Array)
+#7 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#8 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#10 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#12 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#13 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#14 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#15 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#17 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#18 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#19 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#20 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+---
+2015/06/24 20:38:52 [error] [exception.CException] exception 'CException' with message 'Property "AuthitemPermisoAdministrador.id" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('id')
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php(24): CActiveRecord->__get('id')
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#4 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#5 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#6 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(162): CController->render('asignar', Array)
+#7 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#8 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#10 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#12 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#13 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#14 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#15 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#17 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#18 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#19 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#20 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+---
+2015/06/24 20:46:19 [error] [php] Undefined variable: id (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php:164)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (164)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 20:47:02 [error] [php] Undefined variable: id (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php:164)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (164)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 20:47:36 [error] [php] Undefined variable: id (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php:164)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (164)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/24 20:47:41 [error] [php] Undefined variable: id (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php:164)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (164)
+in C:\wamp\www\testrekoadministracion\index.php (13)

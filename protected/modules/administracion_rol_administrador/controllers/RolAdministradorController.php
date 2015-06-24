@@ -154,8 +154,9 @@ class RolAdministradorController extends Controller
 	}
         public function actionAsignar()
 	{            
-		
-		$this->render('asignar');
+                $model = new AuthitemPermisoAdministrador();
+                //$listarPermiso = $model->listarPermisos();
+		$this->render('asignar', array('model' => $model));
 	}
 
 	/**

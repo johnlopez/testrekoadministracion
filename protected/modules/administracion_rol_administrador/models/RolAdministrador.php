@@ -99,4 +99,12 @@ class RolAdministrador extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        public function asignarPermisoARol($nuevo_rol_id,$nuevo_permiso_name) {
+            
+            $comando = Yii::app()->db->createCommand("CALL asignar_permiso_a_rol(:nuevo_rol_id,:nuevo_permiso_name)");
+            $comando->bindParam(':nuevo_rol_id',$nuevo_rol_id);
+            $comando->bindParam(':nuevo_permiso_name',$nuevo_permiso_name );
+            $comando->execute();
+            return $comando;
+        }
 }
