@@ -1,17 +1,31 @@
-<?php
-$this->breadcrumbs=array(
-	'Rol Administrador'=>array('index'),
-	'Manage'=>array('admin'),
-        'Asignar'=>array('asignar'),
-);
+        public function actionAsignar()
+	{            
+                $model = new AuthitemPermisoAdministrador();
+                //$listarPermiso = $model->listarPermisos();
+		$this->render('asignar', array('model' => $model));
+	}
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
-<h1>Asignar Authitem Permiso Administrador a Rol Administrador</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div>
     <?php 
@@ -50,10 +64,3 @@ $this->breadcrumbs=array(
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
-
-<?php echo $id = Yii::app()->request->getQuery('id'); ?>
-<?php echo $id = Yii::app()->request->getQuery('nombre'); ?><br>
-
-<?php echo $idd = Yii::app()->request->getParam('id'); ?>
-<?php echo $idd = Yii::app()->request->getParam('nombre'); ?>
-
