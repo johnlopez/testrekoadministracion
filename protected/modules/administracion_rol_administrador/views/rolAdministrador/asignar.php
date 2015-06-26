@@ -4,22 +4,18 @@ $this->breadcrumbs=array(
 	'Manage'=>array('admin'),
         'Asignar'=>array('asignar'),
 );
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 ?>
 <h1>Asignar Authitem Permiso Administrador a Rol Administrador</h1>
 
-<div>
-    <?php 
-//        foreach ($listarPermiso as $permiso){
-//            echo $permiso['name']."<br>";
-//        }
-    ?>
-</div>
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$vrol,
+	'attributes'=>array(
+		'id',
+		'nombre',
+		
+	),
+)); ?>
+
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -35,13 +31,11 @@ $this->breadcrumbs=array(
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+	<div>
 		<?php echo $form->labelEx($model,'permisos'); ?>
                 <?php echo $form->checkBoxList($model,'name', CHtml::listData(AuthitemPermisoAdministrador::model()->findAll(),'name','name'));?>
 		<?php echo $form->error($model,'name'); ?>
-	</div>
-
-	
+	</div>	
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Guardar Cambios' : 'Save'); ?>
@@ -51,9 +45,9 @@ $this->breadcrumbs=array(
 
 </div><!-- form -->
 
-<?php echo $id = Yii::app()->request->getQuery('id'); ?>
-<?php echo $id = Yii::app()->request->getQuery('nombre'); ?><br>
 
-<?php echo $idd = Yii::app()->request->getParam('id'); ?>
-<?php echo $idd = Yii::app()->request->getParam('nombre'); ?>
+
+
+
+
 

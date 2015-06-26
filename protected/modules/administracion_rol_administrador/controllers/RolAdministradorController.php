@@ -155,8 +155,13 @@ class RolAdministradorController extends Controller
         public function actionAsignar()
 	{            
                 $model = new AuthitemPermisoAdministrador();
+                
                 //$listarPermiso = $model->listarPermisos();
-		$this->render('asignar', array('model' => $model));
+                if(isset($_GET['id']))
+                        $rol= new RolAdministrador();
+                        $vrol = $rol::model()->findByPk($_GET['id']);
+			
+		$this->render('asignar', array('model' => $model,'vrol'=>$vrol));
 	}
 
 

@@ -8151,3 +8151,929 @@ Stack trace:
 REQUEST_URI=/testrekoadministracion/path/to/icon.png
 HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
 ---
+2015/06/26 13:35:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 13:39:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 13:40:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 14:53:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 14:53:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 14:54:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 14:55:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 14:55:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 14:56:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 14:56:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 15:45:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 15:46:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 15:46:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 15:51:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 15:51:35 [error] [php] include(FormCarComplainStatus.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\yii\framework\base\CComponent.php(612) : eval()'d code(1): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\base\CComponent.php(612): eval()
+#2 C:\wamp\www\yii\framework\zii\widgets\grid\CButtonColumn.php(342): CButtonColumn->evaluateExpression()
+#3 C:\wamp\www\yii\framework\zii\widgets\grid\CButtonColumn.php(321): CButtonColumn->renderButton()
+#4 C:\wamp\www\yii\framework\zii\widgets\grid\CGridColumn.php(231): CButtonColumn->getDataCellContent()
+#5 C:\wamp\www\yii\framework\zii\widgets\grid\CGridColumn.php(154): CButtonColumn->renderDataCellContent()
+#6 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(638): CButtonColumn->renderDataCell()
+#7 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(622): CGridView->renderDataCell()
+#8 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(578): CGridView->renderTableRow()
+#9 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(488): CGridView->renderTableBody()
+#10 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(181): CGridView->renderItems()
+#11 unknown(0): CGridView->renderSection()
+#12 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(164): preg_replace_callback()
+#13 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(149): CGridView->renderContent()
+#14 C:\wamp\www\yii\framework\web\CBaseController.php(181): CGridView->run()
+#15 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\admin.php(100): RolAdministradorController->widget()
+#16 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#17 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#18 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#19 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#20 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(153): RolAdministradorController->render()
+#21 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAdmin()
+#22 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#23 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#24 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#25 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#26 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#27 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#28 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#29 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#30 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#31 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#32 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#33 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\admin.php (100)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (153)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/26 15:52:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 15:54:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 15:54:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 15:54:58 [error] [php] include(FormCarComplainStatus.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\yii\framework\base\CComponent.php(612) : eval()'d code(1): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\base\CComponent.php(612): eval()
+#2 C:\wamp\www\yii\framework\zii\widgets\grid\CButtonColumn.php(342): CButtonColumn->evaluateExpression()
+#3 C:\wamp\www\yii\framework\zii\widgets\grid\CButtonColumn.php(321): CButtonColumn->renderButton()
+#4 C:\wamp\www\yii\framework\zii\widgets\grid\CGridColumn.php(231): CButtonColumn->getDataCellContent()
+#5 C:\wamp\www\yii\framework\zii\widgets\grid\CGridColumn.php(154): CButtonColumn->renderDataCellContent()
+#6 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(638): CButtonColumn->renderDataCell()
+#7 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(622): CGridView->renderDataCell()
+#8 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(578): CGridView->renderTableRow()
+#9 C:\wamp\www\yii\framework\zii\widgets\grid\CGridView.php(488): CGridView->renderTableBody()
+#10 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(181): CGridView->renderItems()
+#11 unknown(0): CGridView->renderSection()
+#12 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(164): preg_replace_callback()
+#13 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(149): CGridView->renderContent()
+#14 C:\wamp\www\yii\framework\web\CBaseController.php(181): CGridView->run()
+#15 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\admin.php(100): RolAdministradorController->widget()
+#16 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#17 C:\wamp\www\yii\framework\web\CBaseController.php(95): RolAdministradorController->renderInternal()
+#18 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#19 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#20 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(153): RolAdministradorController->render()
+#21 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAdmin()
+#22 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#23 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#24 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#25 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#26 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#27 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#28 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#29 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#30 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#31 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#32 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#33 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\admin.php (100)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (153)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/06/26 15:55:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 15:56:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 15:57:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:06:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:06:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:06:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:09:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:09:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:09:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:09:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:09:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:09:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:09:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:09:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:09:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:09:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:09:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:09:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:10:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:10:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:10:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:10:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:11:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:13:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:13:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:13:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:13:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:13:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:13:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:13:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:13:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:13:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:13:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:13:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:13:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:16:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:16:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:20:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:20:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:22:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:22:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:22:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 16:22:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 18:35:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "administracion_rol_administrador".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('administracion_...')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('administracion_...')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar/id/1
+---
+2015/06/26 18:36:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "administracion_rol_administrador".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('administracion_...')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('administracion_...')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar/id/1
+---
+2015/06/26 18:36:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "administracion_rol_administrador".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('administracion_...')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('administracion_...')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar/id/1
+---
+2015/06/26 18:36:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "administracion_rol_administrador".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('administracion_...')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('administracion_...')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar/id/1
+---
+2015/06/26 18:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "administracion_rol_administrador".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('administracion_...')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('administracion_...')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/index
+---
+2015/06/26 18:37:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "administracion_rol_administrador".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('administracion_...')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('administracion_...')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/index
+---
+2015/06/26 18:37:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 18:37:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 18:37:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "administracion_rol_administrador".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('administracion_...')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('administracion_...')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/index
+---
+2015/06/26 18:37:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "administracion_rol_administrador".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('administracion_...')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('administracion_...')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/index
+---
+2015/06/26 18:37:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "administracion_rol_administrador".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('administracion_...')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('administracion_...')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/administracion_rol_administrador/roladministrador/asignar
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/index
+---
+2015/06/26 18:37:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 18:37:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 18:56:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 18:56:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 18:59:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/up.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/up.png')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/up.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/06/26 18:59:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/email.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/email.pn...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/images/email.png
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
