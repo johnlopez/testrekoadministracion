@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-06-2015 a las 20:57:09
+-- Tiempo de generación: 30-06-2015 a las 17:34:46
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -24,6 +24,36 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_usuario_administrador`(
+nuevo_id int,
+nuevo_usuario varchar(50),
+nuevo_clave varchar(50)
+)
+begin
+update usuario_administrador set
+id = nuevo_id,
+usuario = nuevo_usuario,
+clave = nuevo_clave
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `agregar_usuario_administrador`(
+nuevo_usuario varchar(50),
+nuevo_clave varchar(50),
+OUT llave_id int(11)
+)
+begin
+insert into usuario_administrador(
+usuario,
+clave
+)
+values(
+nuevo_usuario,
+nuevo_clave
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `asignar_permiso_a_rol`(nuevo_rol_id int , nuevo_permiso_name varchar(50))
 begin
 INSERT INTO rol_administrador_has_authitem_permiso_administrador (rol_administrador_id,authitem_permiso_administrador_name) 
@@ -35,10 +65,38 @@ WHERE  RA.id=nuevo_rol_id
 AND P.name=nuevo_permiso_name;
 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `asignar_privilegio_rol`(nuevo_rol_id int , nuevo_privilegio_id int)
+begin
+INSERT INTO rol_administrador_has_privilegio_administrador (rol_administrador_id,privilegio_administrador_id) 
+SELECT R.id,PRIV.id
+FROM 
+rol_administrador R,
+       rol_administrador_has_authitem_permiso_administrador RP,
+       authitem_permiso_administrador P,
+       controlador_administrador C,        
+privilegio_administrador PRIV      
+      
+WHERE   R.id = RP.rol_administrador_id
+AND P.name = RP.authitem_permiso_administrador_name
+AND P.name = C.authitem_permiso_administrador_name
+AND C.id = PRIV.controlador_administrador_id
+
+AND R.id=nuevo_rol_id
+AND PRIV.id = nuevo_privilegio_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminar_usuario_administrador`(
+nuevo_id int
+)
+delete from usuario_administrador where id = nuevo_id$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_permiso`()
 begin
 select * from authitem_permiso_administrador;
 end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_usuario_administrador`()
+select * from usuario_administrador$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `validar_privilegio`(nuevo_usuario_id int , nuevo_permiso_nombre varchar(50) , nuevo_controlador_nombre varchar(50) , nuevo_privilegio_nombre varchar(50),out vista varchar(50))
 SELECT PRIV.nombre into vista
@@ -120,6 +178,8 @@ CREATE TABLE IF NOT EXISTS `authitem_permiso_administrador` (
 --
 
 INSERT INTO `authitem_permiso_administrador` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
+('administracion_diego', 2, NULL, NULL, NULL),
+('administracion_john', 2, NULL, NULL, NULL),
 ('administracion_rol_administrador', 2, '', '', ''),
 ('administracion_usuario', 2, '', NULL, 'N;'),
 ('administracion_usuario_administrador', 2, '', NULL, 'N;');
@@ -237,14 +297,17 @@ CREATE TABLE IF NOT EXISTS `rol_administrador` (
   `nombre` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `rol_administrador`
 --
 
 INSERT INTO `rol_administrador` (`id`, `nombre`, `descripcion`) VALUES
-(1, 'superadministrador', NULL);
+(1, 'superadministrador', NULL),
+(2, 'roldiego', 'hola mundo'),
+(3, 'roljohn', 'hola john'),
+(4, 'rolbacan', 'bacan');
 
 -- --------------------------------------------------------
 
@@ -267,7 +330,32 @@ CREATE TABLE IF NOT EXISTS `rol_administrador_has_authitem_permiso_administrador
 INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_administrador_id`, `authitem_permiso_administrador_name`) VALUES
 (1, 'administracion_rol_administrador'),
 (1, 'administracion_usuario'),
-(1, 'administracion_usuario_administrador');
+(1, 'administracion_usuario_administrador'),
+(2, 'administracion_diego'),
+(3, 'administracion_diego'),
+(3, 'administracion_john'),
+(4, 'administracion_diego');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rol_administrador_has_privilegio_administrador`
+--
+
+CREATE TABLE IF NOT EXISTS `rol_administrador_has_privilegio_administrador` (
+  `rol_administrador_id` int(11) NOT NULL,
+  `privilegio_administrador_id` int(11) NOT NULL,
+  PRIMARY KEY (`rol_administrador_id`,`privilegio_administrador_id`),
+  KEY `fk_rol_administrador_has_privilegio_administrador_privilegi_idx` (`privilegio_administrador_id`),
+  KEY `fk_rol_administrador_has_privilegio_administrador_rol_admin_idx` (`rol_administrador_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `rol_administrador_has_privilegio_administrador`
+--
+
+INSERT INTO `rol_administrador_has_privilegio_administrador` (`rol_administrador_id`, `privilegio_administrador_id`) VALUES
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -366,6 +454,13 @@ ALTER TABLE `privilegio_administrador`
 ALTER TABLE `rol_administrador_has_authitem_permiso_administrador`
   ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_rol_a1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_authi1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `rol_administrador_has_privilegio_administrador`
+--
+ALTER TABLE `rol_administrador_has_privilegio_administrador`
+  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_rol_adminis1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_privilegio_1` FOREIGN KEY (`privilegio_administrador_id`) REFERENCES `privilegio_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario_administrador_has_rol_administrador`
