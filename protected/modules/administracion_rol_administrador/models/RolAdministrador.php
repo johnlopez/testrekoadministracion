@@ -107,4 +107,41 @@ class RolAdministrador extends CActiveRecord
             $comando->execute();
             return $comando;
         }
+        
+        public function privilegioPermiso($nuevo_permiso) {
+            
+             $comando = Yii::app()->db->createCommand("CALL privilegio_permiso(:nuevo_permiso)");
+             $comando->bindParam(':nuevo_permiso',$nuevo_permiso);
+             return $comando->queryAll();
+        }
+        
+        public function asignarPrivilegioRol($rol_id, $privilegio_id) {
+            
+            $comando = Yii::app()->db->createCommand("CALL asignar_privilegio_rol(:nuevo_rol_id,:nuevo_privilegio_id)");
+            $comando->bindParam(':nuevo_rol_id',$rol_id);
+            $comando->bindParam(':nuevo_privilegio_id',$privilegio_id);
+            $comando->execute();
+            return $comando;
+            
+        }
+        
+        public function desasignarPermisoRol($rol_id,$permiso_nombre) {
+            
+            $comando = Yii::app()->db->createCommand("CALL desasignar_permiso_rol(:nuevo_rol_id,:nuevo_permiso_name)");
+            $comando->bindParam(':nuevo_rol_id',$rol_id);
+            $comando->bindParam(':nuevo_permiso_name',$permiso_nombre);
+            $comando->execute();
+            return $comando;
+        }
+        
+        public function desasignarPrivilegio($rol_id, $privilegio_id) {
+            
+            $comando = Yii::app()->db->createCommand("CALL desasignar_privilegio(:nuevo_rol_id,:nuevo_privilegio_id)");
+            $comando->bindParam(':nuevo_rol_id',$rol_id);
+            $comando->bindParam(':nuevo_privilegio_id',$privilegio_id);
+            $comando->execute();
+            return $comando;
+        }
+        
+        
 }

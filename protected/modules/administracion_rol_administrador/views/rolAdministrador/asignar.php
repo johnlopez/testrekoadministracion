@@ -12,14 +12,14 @@ $this->breadcrumbs=array(
  
     <?php echo $form->errorSummary($model); ?>
  
+    <h3>Permisos por asignar</h3>
     <div class="row rememberMe">
         <?php echo $form->checkBoxList($model,'name', CHtml::listData(AuthitemPermisoAdministrador::model()->findAll(),'name','name')); ?>
-        <?php echo $form->label($model,'name'); ?>
     </div>
- 
     <div class="row submit">
-        <?php echo CHtml::submitButton('Guardar'); ?>
+        <?php echo CHtml::submitButton('Guardar')."<br><br>"; ?>
     </div>
- 
+   
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 30-06-2015 a las 17:34:46
+-- Tiempo de generación: 03-07-2015 a las 15:43:02
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -70,19 +70,26 @@ begin
 INSERT INTO rol_administrador_has_privilegio_administrador (rol_administrador_id,privilegio_administrador_id) 
 SELECT R.id,PRIV.id
 FROM 
-rol_administrador R,
-       rol_administrador_has_authitem_permiso_administrador RP,
-       authitem_permiso_administrador P,
-       controlador_administrador C,        
-privilegio_administrador PRIV      
+	   rol_administrador R,
+	   privilegio_administrador PRIV      
       
-WHERE   R.id = RP.rol_administrador_id
-AND P.name = RP.authitem_permiso_administrador_name
-AND P.name = C.authitem_permiso_administrador_name
-AND C.id = PRIV.controlador_administrador_id
-
-AND R.id=nuevo_rol_id
+WHERE R.id=nuevo_rol_id  
 AND PRIV.id = nuevo_privilegio_id;
+
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `desasignar_permiso_rol`(nuevo_rol_id int,nuevo_permiso_name varchar(100))
+begin
+delete from rol_administrador_has_authitem_permiso_administrador 
+where rol_administrador_id = nuevo_rol_id
+and authitem_permiso_administrador_name = nuevo_permiso_name;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `desasignar_privilegio`(nuevo_rol_id int,nuevo_privilegio_id int)
+begin
+delete from rol_administrador_has_privilegio_administrador 
+where rol_administrador_id = nuevo_rol_id
+and privilegio_administrador_id = nuevo_privilegio_id;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminar_usuario_administrador`(
@@ -97,6 +104,20 @@ end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_usuario_administrador`()
 select * from usuario_administrador$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `privilegio_permiso`(nuevo_permiso varchar(250))
+begin
+SELECT PRIV.id
+FROM 
+authitem_permiso_administrador P,
+       controlador_administrador C,        
+privilegio_administrador PRIV      
+      
+WHERE P.name = C.authitem_permiso_administrador_name
+AND C.id = PRIV.controlador_administrador_id
+
+AND P.name = nuevo_permiso;
+end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `validar_privilegio`(nuevo_usuario_id int , nuevo_permiso_nombre varchar(50) , nuevo_controlador_nombre varchar(50) , nuevo_privilegio_nombre varchar(50),out vista varchar(50))
 SELECT PRIV.nombre into vista
@@ -323,19 +344,6 @@ CREATE TABLE IF NOT EXISTS `rol_administrador_has_authitem_permiso_administrador
   KEY `fk_rol_administrador_has_authitem_permiso_administrador_rol_idx` (`rol_administrador_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `rol_administrador_has_authitem_permiso_administrador`
---
-
-INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_administrador_id`, `authitem_permiso_administrador_name`) VALUES
-(1, 'administracion_rol_administrador'),
-(1, 'administracion_usuario'),
-(1, 'administracion_usuario_administrador'),
-(2, 'administracion_diego'),
-(3, 'administracion_diego'),
-(3, 'administracion_john'),
-(4, 'administracion_diego');
-
 -- --------------------------------------------------------
 
 --
@@ -349,13 +357,6 @@ CREATE TABLE IF NOT EXISTS `rol_administrador_has_privilegio_administrador` (
   KEY `fk_rol_administrador_has_privilegio_administrador_privilegi_idx` (`privilegio_administrador_id`),
   KEY `fk_rol_administrador_has_privilegio_administrador_rol_admin_idx` (`rol_administrador_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `rol_administrador_has_privilegio_administrador`
---
-
-INSERT INTO `rol_administrador_has_privilegio_administrador` (`rol_administrador_id`, `privilegio_administrador_id`) VALUES
-(3, 1);
 
 -- --------------------------------------------------------
 
