@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 07-07-2015 a las 19:35:04
+-- Tiempo de generación: 07-07-2015 a las 20:56:14
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -287,7 +287,7 @@ CREATE TABLE IF NOT EXISTS `controlador_administrador` (
   `authitem_permiso_administrador_name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_controlador_administrador_authitem_permiso_administrador_idx` (`authitem_permiso_administrador_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Volcado de datos para la tabla `controlador_administrador`
@@ -304,7 +304,10 @@ INSERT INTO `controlador_administrador` (`id`, `nombre`, `authitem_permiso_admin
 (8, 'Usuario', 'administracion_usuario'),
 (9, 'Default', 'administracion_usuario'),
 (10, 'RolUsuario', 'administracion_rol_usuario'),
-(11, 'Default', 'administracion_rol_usuario');
+(11, 'Default', 'administracion_rol_usuario'),
+(12, 'AuthitemPermisoUsuario', 'administracion_rol_usuario'),
+(13, 'ControladorUsuario', 'administracion_rol_usuario'),
+(14, 'PrivilegioUsuario', 'administracion_rol_usuario');
 
 -- --------------------------------------------------------
 
@@ -366,7 +369,7 @@ CREATE TABLE IF NOT EXISTS `privilegio_administrador` (
   `controlador_administrador_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_privilegio_administrador_controlador_administrador1_idx` (`controlador_administrador_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=67 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=85 ;
 
 --
 -- Volcado de datos para la tabla `privilegio_administrador`
@@ -438,7 +441,25 @@ INSERT INTO `privilegio_administrador` (`id`, `nombre`, `controlador_administrad
 (63, 'admin', 11),
 (64, 'create', 11),
 (65, 'update', 11),
-(66, 'delete', 11);
+(66, 'delete', 11),
+(67, 'index', 12),
+(68, 'view', 12),
+(69, 'admin', 12),
+(70, 'create', 12),
+(71, 'update', 12),
+(72, 'delete', 12),
+(73, 'index', 13),
+(74, 'view', 13),
+(75, 'admin', 13),
+(76, 'create', 13),
+(77, 'update', 13),
+(78, 'delete', 13),
+(79, 'index', 14),
+(80, 'view', 14),
+(81, 'admin', 14),
+(82, 'create', 14),
+(83, 'update', 14),
+(84, 'delete', 14);
 
 -- --------------------------------------------------------
 

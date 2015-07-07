@@ -9659,3 +9659,92 @@ Stack trace:
 REQUEST_URI=/testrekoadministracion/administracion_rol/default/index
 HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
 ---
+2015/07/07 19:47:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_usuario/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_usuario/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_usuario/default/index
+---
+2015/07/07 20:18:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/index
+---
+2015/07/07 20:19:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/default/index
+---
+2015/07/07 20:19:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_usuario/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_usuario/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_usuario/default/index
+---
+2015/07/07 20:20:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/default/index
+---
+2015/07/07 20:23:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_usuario/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_usuario/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_usuario/privilegiousuario/index
+---
+2015/07/07 20:26:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_usuario/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_usuario/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_usuario/rolusuario/index
+---
+2015/07/07 20:27:02 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_usuario/authitempermisousuario/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_usuario/default/index
+---
+2015/07/07 20:32:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/index
+---

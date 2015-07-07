@@ -1,6 +1,6 @@
 <?php
 
-class RolUsuarioController extends Controller
+class PrivilegioUsuarioController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -66,14 +66,14 @@ class RolUsuarioController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new RolUsuario;
+		$model=new PrivilegioUsuario;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['RolUsuario']))
+		if(isset($_POST['PrivilegioUsuario']))
 		{
-			$model->attributes=$_POST['RolUsuario'];
+			$model->attributes=$_POST['PrivilegioUsuario'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -95,9 +95,9 @@ class RolUsuarioController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['RolUsuario']))
+		if(isset($_POST['PrivilegioUsuario']))
 		{
-			$model->attributes=$_POST['RolUsuario'];
+			$model->attributes=$_POST['PrivilegioUsuario'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -126,7 +126,7 @@ class RolUsuarioController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('RolUsuario');
+		$dataProvider=new CActiveDataProvider('PrivilegioUsuario');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -137,10 +137,10 @@ class RolUsuarioController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new RolUsuario('search');
+		$model=new PrivilegioUsuario('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['RolUsuario']))
-			$model->attributes=$_GET['RolUsuario'];
+		if(isset($_GET['PrivilegioUsuario']))
+			$model->attributes=$_GET['PrivilegioUsuario'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -151,12 +151,12 @@ class RolUsuarioController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return RolUsuario the loaded model
+	 * @return PrivilegioUsuario the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=RolUsuario::model()->findByPk($id);
+		$model=PrivilegioUsuario::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -164,11 +164,11 @@ class RolUsuarioController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param RolUsuario $model the model to be validated
+	 * @param PrivilegioUsuario $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='rol-usuario-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='privilegio-usuario-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
