@@ -1,6 +1,6 @@
 <?php
 
-class Administracion_rolModule extends CWebModule
+class Administracion_rol_usuarioModule extends CWebModule
 {
 	public function init()
 	{
@@ -9,8 +9,8 @@ class Administracion_rolModule extends CWebModule
 
 		// import the module-level models and components
 		$this->setImport(array(
-			'administracion_rol.models.*',
-			'administracion_rol.components.*',
+			'administracion_rol_usuario.models.*',
+			'administracion_rol_usuario.components.*',
 		));
 	}
 

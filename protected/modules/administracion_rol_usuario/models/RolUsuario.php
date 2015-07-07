@@ -1,24 +1,26 @@
 <?php
 
 /**
- * This is the model class for table "rol".
+ * This is the model class for table "rol_usuario".
  *
- * The followings are the available columns in table 'rol':
+ * The followings are the available columns in table 'rol_usuario':
  * @property integer $id
  * @property string $nombre
  * @property string $descripcion
  *
  * The followings are the available model relations:
+ * @property AuthitemPermisoUsuario[] $authitemPermisoUsuarios
+ * @property PrivilegioUsuario[] $privilegioUsuarios
  * @property Usuario[] $usuarios
  */
-class Rol extends CActiveRecord
+class RolUsuario extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'rol';
+		return 'rol_usuario';
 	}
 
 	/**
@@ -44,7 +46,9 @@ class Rol extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'usuarios' => array(self::MANY_MANY, 'Usuario', 'rol_has_usuario(rol_id, usuario_id)'),
+			'authitemPermisoUsuarios' => array(self::MANY_MANY, 'AuthitemPermisoUsuario', 'rol_usuario_has_authitem_permiso_usuario(rol_usuario_id, authitem_permiso_usuario_name)'),
+			'privilegioUsuarios' => array(self::MANY_MANY, 'PrivilegioUsuario', 'rol_usuario_has_privilegio_usuario(rol_usuario_id, privilegio_usuario_id)'),
+			'usuarios' => array(self::MANY_MANY, 'Usuario', 'usuario_has_rol_usuario(rol_usuario_id, usuario_id)'),
 		);
 	}
 
@@ -91,7 +95,7 @@ class Rol extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Rol the static model class
+	 * @return RolUsuario the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

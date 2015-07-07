@@ -1,18 +1,18 @@
 <?php
-/* @var $this RolController */
+/* @var $this RolUsuarioController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Rols',
+	'Rol Usuarios',
 );
 
 $this->menu=array(
-	array('label'=>'Create Rol', 'url'=>array('create')),
-	array('label'=>'Manage Rol', 'url'=>array('admin')),
+	array('label'=>'Create RolUsuario', 'url'=>array('create')),
+	array('label'=>'Manage RolUsuario', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Rols</h1>
+<h1>Rol Usuarios</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

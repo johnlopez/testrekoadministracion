@@ -1,6 +1,6 @@
 <?php
 
-class RolController extends Controller
+class RolUsuarioController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -24,30 +24,26 @@ class RolController extends Controller
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-        public function accessRules()
+	public function accessRules()
 	{
-            return Yii::app()->Validar->validarAcceso();
+		return array(
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('index','view'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete'),
+				'users'=>array('admin'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+		);
 	}
-//        public function accessRules()
-//	{
-//		return array(
-//			array('allow',  // allow all users to perform 'index' and 'view' actions
-//				'actions'=>array('index','view','asignar'),
-//				'users'=>array('@'),
-//			),
-//			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-//				'actions'=>array('create','update'),
-//				'users'=>array('@'),
-//			),
-//			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-//				'actions'=>array('admin','delete'),
-//				'users'=>array('@'),
-//			),
-//			array('deny',  // deny all users
-//				'users'=>array('*'),
-//			),
-//		);
-//	}
 
 	/**
 	 * Displays a particular model.
@@ -66,14 +62,14 @@ class RolController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Rol;
+		$model=new RolUsuario;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Rol']))
+		if(isset($_POST['RolUsuario']))
 		{
-			$model->attributes=$_POST['Rol'];
+			$model->attributes=$_POST['RolUsuario'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -95,9 +91,9 @@ class RolController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Rol']))
+		if(isset($_POST['RolUsuario']))
 		{
-			$model->attributes=$_POST['Rol'];
+			$model->attributes=$_POST['RolUsuario'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -126,7 +122,7 @@ class RolController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Rol');
+		$dataProvider=new CActiveDataProvider('RolUsuario');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -137,10 +133,10 @@ class RolController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Rol('search');
+		$model=new RolUsuario('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Rol']))
-			$model->attributes=$_GET['Rol'];
+		if(isset($_GET['RolUsuario']))
+			$model->attributes=$_GET['RolUsuario'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -151,12 +147,12 @@ class RolController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Rol the loaded model
+	 * @return RolUsuario the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Rol::model()->findByPk($id);
+		$model=RolUsuario::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -164,11 +160,11 @@ class RolController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Rol $model the model to be validated
+	 * @param RolUsuario $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='rol-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='rol-usuario-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

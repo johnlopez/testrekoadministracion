@@ -1,6 +1,6 @@
 <?php
-/* @var $this RolController */
-/* @var $model Rol */
+/* @var $this RolUsuarioController */
+/* @var $model RolUsuario */
 /* @var $form CActiveForm */
 ?>
 
