@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 03-07-2015 a las 15:43:02
+-- Tiempo de generación: 07-07-2015 a las 13:38:46
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -199,8 +199,6 @@ CREATE TABLE IF NOT EXISTS `authitem_permiso_administrador` (
 --
 
 INSERT INTO `authitem_permiso_administrador` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
-('administracion_diego', 2, NULL, NULL, NULL),
-('administracion_john', 2, NULL, NULL, NULL),
 ('administracion_rol_administrador', 2, '', '', ''),
 ('administracion_usuario', 2, '', NULL, 'N;'),
 ('administracion_usuario_administrador', 2, '', NULL, 'N;');
@@ -217,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `controlador_administrador` (
   `authitem_permiso_administrador_name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_controlador_administrador_authitem_permiso_administrador_idx` (`authitem_permiso_administrador_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Volcado de datos para la tabla `controlador_administrador`
@@ -230,7 +228,9 @@ INSERT INTO `controlador_administrador` (`id`, `nombre`, `authitem_permiso_admin
 (4, 'PrivilegioAdministrador', 'administracion_rol_administrador'),
 (5, 'RolAdministrador', 'administracion_rol_administrador'),
 (6, 'UsuarioAdministrador', 'administracion_usuario_administrador'),
-(7, 'Default', 'administracion_usuario_administrador');
+(7, 'Default', 'administracion_usuario_administrador'),
+(8, 'Usuario', 'administracion_usuario'),
+(9, 'Default', 'administracion_usuario');
 
 -- --------------------------------------------------------
 
@@ -257,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `privilegio_administrador` (
   `controlador_administrador_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_privilegio_administrador_controlador_administrador1_idx` (`controlador_administrador_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=43 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 ;
 
 --
 -- Volcado de datos para la tabla `privilegio_administrador`
@@ -305,7 +305,19 @@ INSERT INTO `privilegio_administrador` (`id`, `nombre`, `controlador_administrad
 (39, 'admin', 7),
 (40, 'create', 7),
 (41, 'update', 7),
-(42, 'delete', 7);
+(42, 'delete', 7),
+(43, 'index', 8),
+(44, 'view', 8),
+(45, 'admin', 8),
+(46, 'create', 8),
+(47, 'update', 8),
+(48, 'delete', 8),
+(49, 'index', 9),
+(50, 'view', 9),
+(51, 'admin', 9),
+(52, 'create', 9),
+(53, 'update', 9),
+(54, 'delete', 9);
 
 -- --------------------------------------------------------
 
@@ -325,10 +337,7 @@ CREATE TABLE IF NOT EXISTS `rol_administrador` (
 --
 
 INSERT INTO `rol_administrador` (`id`, `nombre`, `descripcion`) VALUES
-(1, 'superadministrador', NULL),
-(2, 'roldiego', 'hola mundo'),
-(3, 'roljohn', 'hola john'),
-(4, 'rolbacan', 'bacan');
+(1, 'superadministrador', NULL);
 
 -- --------------------------------------------------------
 
@@ -343,6 +352,15 @@ CREATE TABLE IF NOT EXISTS `rol_administrador_has_authitem_permiso_administrador
   KEY `fk_rol_administrador_has_authitem_permiso_administrador_aut_idx` (`authitem_permiso_administrador_name`),
   KEY `fk_rol_administrador_has_authitem_permiso_administrador_rol_idx` (`rol_administrador_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `rol_administrador_has_authitem_permiso_administrador`
+--
+
+INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_administrador_id`, `authitem_permiso_administrador_name`) VALUES
+(1, 'administracion_rol_administrador'),
+(1, 'administracion_usuario'),
+(1, 'administracion_usuario_administrador');
 
 -- --------------------------------------------------------
 
