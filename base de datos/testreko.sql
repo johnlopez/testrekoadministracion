@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 07-07-2015 a las 13:38:46
+-- Tiempo de generación: 07-07-2015 a las 14:33:57
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -163,7 +163,9 @@ CREATE TABLE IF NOT EXISTS `authassignment_administrador` (
 --
 
 INSERT INTO `authassignment_administrador` (`itemname`, `userid`, `bizrule`, `data`) VALUES
+('administracion_rol', '1', NULL, NULL),
 ('administracion_rol_administrador', '1', NULL, NULL),
+('administracion_usuario', '1', NULL, NULL),
 ('administracion_usuario_administrador', '1', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -199,6 +201,7 @@ CREATE TABLE IF NOT EXISTS `authitem_permiso_administrador` (
 --
 
 INSERT INTO `authitem_permiso_administrador` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
+('administracion_rol', 2, NULL, NULL, NULL),
 ('administracion_rol_administrador', 2, '', '', ''),
 ('administracion_usuario', 2, '', NULL, 'N;'),
 ('administracion_usuario_administrador', 2, '', NULL, 'N;');
@@ -215,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `controlador_administrador` (
   `authitem_permiso_administrador_name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_controlador_administrador_authitem_permiso_administrador_idx` (`authitem_permiso_administrador_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Volcado de datos para la tabla `controlador_administrador`
@@ -230,7 +233,9 @@ INSERT INTO `controlador_administrador` (`id`, `nombre`, `authitem_permiso_admin
 (6, 'UsuarioAdministrador', 'administracion_usuario_administrador'),
 (7, 'Default', 'administracion_usuario_administrador'),
 (8, 'Usuario', 'administracion_usuario'),
-(9, 'Default', 'administracion_usuario');
+(9, 'Default', 'administracion_usuario'),
+(10, 'Rol', 'administracion_rol'),
+(11, 'Default', 'administracion_rol');
 
 -- --------------------------------------------------------
 
@@ -257,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `privilegio_administrador` (
   `controlador_administrador_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_privilegio_administrador_controlador_administrador1_idx` (`controlador_administrador_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=67 ;
 
 --
 -- Volcado de datos para la tabla `privilegio_administrador`
@@ -317,7 +322,32 @@ INSERT INTO `privilegio_administrador` (`id`, `nombre`, `controlador_administrad
 (51, 'admin', 9),
 (52, 'create', 9),
 (53, 'update', 9),
-(54, 'delete', 9);
+(54, 'delete', 9),
+(55, 'index', 10),
+(56, 'view', 10),
+(57, 'admin', 10),
+(58, 'create', 10),
+(59, 'update', 10),
+(60, 'delete', 10),
+(61, 'index', 11),
+(62, 'view', 11),
+(63, 'admin', 11),
+(64, 'create', 11),
+(65, 'update', 11),
+(66, 'delete', 11);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rol`
+--
+
+CREATE TABLE IF NOT EXISTS `rol` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -358,6 +388,7 @@ CREATE TABLE IF NOT EXISTS `rol_administrador_has_authitem_permiso_administrador
 --
 
 INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_administrador_id`, `authitem_permiso_administrador_name`) VALUES
+(1, 'administracion_rol'),
 (1, 'administracion_rol_administrador'),
 (1, 'administracion_usuario'),
 (1, 'administracion_usuario_administrador');
@@ -374,6 +405,20 @@ CREATE TABLE IF NOT EXISTS `rol_administrador_has_privilegio_administrador` (
   PRIMARY KEY (`rol_administrador_id`,`privilegio_administrador_id`),
   KEY `fk_rol_administrador_has_privilegio_administrador_privilegi_idx` (`privilegio_administrador_id`),
   KEY `fk_rol_administrador_has_privilegio_administrador_rol_admin_idx` (`rol_administrador_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rol_has_usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `rol_has_usuario` (
+  `rol_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  PRIMARY KEY (`rol_id`,`usuario_id`),
+  KEY `fk_rol_has_usuario_usuario1_idx` (`usuario_id`),
+  KEY `fk_rol_has_usuario_rol1_idx` (`rol_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -478,8 +523,15 @@ ALTER TABLE `rol_administrador_has_authitem_permiso_administrador`
 -- Filtros para la tabla `rol_administrador_has_privilegio_administrador`
 --
 ALTER TABLE `rol_administrador_has_privilegio_administrador`
-  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_rol_adminis1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_privilegio_1` FOREIGN KEY (`privilegio_administrador_id`) REFERENCES `privilegio_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_privilegio_1` FOREIGN KEY (`privilegio_administrador_id`) REFERENCES `privilegio_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_rol_adminis1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `rol_has_usuario`
+--
+ALTER TABLE `rol_has_usuario`
+  ADD CONSTRAINT `fk_rol_has_usuario_rol1` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_has_usuario_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario_administrador_has_rol_administrador`
