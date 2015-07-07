@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 07-07-2015 a las 14:33:57
+-- Tiempo de generación: 07-07-2015 a las 15:11:55
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -147,6 +147,19 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `aula`
+--
+
+CREATE TABLE IF NOT EXISTS `aula` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `authassignment_administrador`
 --
 
@@ -171,6 +184,20 @@ INSERT INTO `authassignment_administrador` (`itemname`, `userid`, `bizrule`, `da
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `authassignment_usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `authassignment_usuario` (
+  `itemname` varchar(64) NOT NULL,
+  `userid` varchar(64) NOT NULL,
+  `bizrule` text,
+  `data` text,
+  PRIMARY KEY (`itemname`,`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `authitemchild_administrador`
 --
 
@@ -179,6 +206,19 @@ CREATE TABLE IF NOT EXISTS `authitemchild_administrador` (
   `child` varchar(64) NOT NULL,
   PRIMARY KEY (`parent`,`child`),
   KEY `child` (`child`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `authitemchild_usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `authitemchild_usuario` (
+  `parent` varchar(64) NOT NULL,
+  `child` varchar(64) NOT NULL,
+  PRIMARY KEY (`parent`,`child`),
+  KEY `fk_{A42514E0-6FBA-430A-9C03-85AA2195A71C}` (`child`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -205,6 +245,21 @@ INSERT INTO `authitem_permiso_administrador` (`name`, `type`, `description`, `bi
 ('administracion_rol_administrador', 2, '', '', ''),
 ('administracion_usuario', 2, '', NULL, 'N;'),
 ('administracion_usuario_administrador', 2, '', NULL, 'N;');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `authitem_permiso_usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `authitem_permiso_usuario` (
+  `name` varchar(64) NOT NULL,
+  `type` int(11) NOT NULL,
+  `description` text,
+  `bizrule` text,
+  `data` text,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -335,6 +390,19 @@ INSERT INTO `privilegio_administrador` (`id`, `nombre`, `controlador_administrad
 (64, 'create', 11),
 (65, 'update', 11),
 (66, 'delete', 11);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `repositorio`
+--
+
+CREATE TABLE IF NOT EXISTS `repositorio` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -488,11 +556,24 @@ ALTER TABLE `authassignment_administrador`
   ADD CONSTRAINT `authassignment_ibfk_1` FOREIGN KEY (`itemname`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `authassignment_usuario`
+--
+ALTER TABLE `authassignment_usuario`
+  ADD CONSTRAINT `fk_{5DA5BC00-2AAE-40E5-B1C5-FAE6CD295098}` FOREIGN KEY (`itemname`) REFERENCES `authitem_permiso_usuario` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `authitemchild_administrador`
 --
 ALTER TABLE `authitemchild_administrador`
   ADD CONSTRAINT `authitemchild_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `authitemchild_ibfk_2` FOREIGN KEY (`child`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `authitemchild_usuario`
+--
+ALTER TABLE `authitemchild_usuario`
+  ADD CONSTRAINT `fk_{22EAC8DC-C8D1-4914-85F1-B5A9690F5188}` FOREIGN KEY (`parent`) REFERENCES `authitem_permiso_usuario` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_{A42514E0-6FBA-430A-9C03-85AA2195A71C}` FOREIGN KEY (`child`) REFERENCES `authitem_permiso_usuario` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `controlador_administrador`
