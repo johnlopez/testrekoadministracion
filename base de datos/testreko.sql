@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 07-07-2015 a las 20:56:14
+-- Tiempo de generación: 08-07-2015 a las 14:43:42
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -136,6 +136,29 @@ AND RP.authitem_permiso_administrador_name = P.name
 AND RP.rol_administrador_id = R.id
 AND UR.rol_administrador_id = R.id
 AND UR.usuario_administrador_id = U.id
+
+AND U.id = nuevo_usuario_id
+AND P.name = nuevo_permiso_nombre
+AND C.nombre = nuevo_controlador_nombre
+AND PRIV.nombre = nuevo_privilegio_nombre$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `validar_privilegio_usuario`(nuevo_usuario_id int , nuevo_permiso_nombre varchar(50) , nuevo_controlador_nombre varchar(50) , nuevo_privilegio_nombre varchar(50),out vista varchar(50))
+SELECT PRIV.nombre into vista
+FROM
+		privilegio_usuario PRIV,
+        controlador_usuario C,
+        authitem_permiso_usuario P,
+        rol_usuario_has_authitem_permiso_usuario RP,
+        rol_usuario R,
+        usuario_has_rol_usuario UR,
+        usuario U
+        
+WHERE PRIV.controlador_usuario_id = C.id
+AND C.authitem_permiso_usuario_name = P.name
+AND RP.authitem_permiso_usuario_name = P.name
+AND RP.rol_usuario_id = R.id
+AND UR.rol_usuario_id = R.id
+AND UR.usuario_id = U.id
 
 AND U.id = nuevo_usuario_id
 AND P.name = nuevo_permiso_nombre
