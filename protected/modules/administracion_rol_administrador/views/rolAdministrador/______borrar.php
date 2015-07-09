@@ -1,3 +1,69 @@
+
+                public function actionAssign($id)
+        {
+            if('preguntar si esta asignado ( $_GET["item"],rol->id)')//BOOLEANO
+            {
+                'quitar permiso a rol($_GET["item"],rol->id)';
+            }
+            else
+            {
+                'asignar permiso a rol($_GET["item"],rol->id)';
+            }
+            $this->redirect(array("asignar","id"=>$id));
+        }
+
+-------------------------------------
+<?php 
+
+    $enabled = 0;
+    echo CHtml::link($enabled?"Denegar":"Asignar")."<br>";
+
+?>
+---------- Vista Asignar-------------
+<?php foreach ('listar permisos' as $data) :?>
+<?php $enabled= 'preguntar si esta asignado ( permiso->name , rol->id)';//Booleano ?>
+
+    <?php echo $data->name?>
+    <?php echo CHtml::link($enabled?"Denegar":"Asignar",array("nombre_controlador/nombre_action","id"=>$variable_del_rol->id,"item"=>$data->name),array('formato del boton CSS'))?>
+
+    
+    <?php echo $enabled?"<span class=\"label\">Asigned</span>":"";?>
+
+    
+<?php endforeach; ?>
+-----------------------------
+<?php
+public function actionAsignar()
+	{            
+                $model = new AuthitemPermisoAdministrador();
+                $rol = new RolAdministrador();
+                if(isset($_GET['id'])) {
+                    
+                    $vrol = $rol::model()->findByPk($_GET['id']);			
+                    $this->render('asignar', array('model' => $model,'vrol'=>$vrol));
+                }
+                
+                if(isset($_POST['AuthitemPermisoAdministrador']))
+                {                    
+                    foreach ($_POST['AuthitemPermisoAdministrador']['name'] as $permiso)
+                    {
+                         $rol->asignarPermisoARol($_GET['id'], $permiso);
+                         //$rol->desasignarPermisoRol($_GET['id'], $permiso);
+                         $listado = $rol->privilegioPermiso($permiso);
+                    
+                        foreach ($listado as $lista)
+                        {
+                            $rol->asignarPrivilegioRol($_GET['id'], $lista['id']);
+                            //$rol->desasignarPrivilegio($_GET['id'], $lista['id']);
+                            echo $lista['id']."<br>"; 
+                        }
+                    }
+                    
+                }
+	}
+
+?>
+
 ------------Asignar-----------
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$vrol,

@@ -144,4 +144,13 @@ class RolAdministrador extends CActiveRecord
         }
         
         
+        public function checkRolPermiso($nuevo_rol_id,$nuevo_permiso_name) {
+             $comando = Yii::app()->db->createCommand("CALL check_rol_permiso(:nuevo_rol_id,:nuevo_permiso_name,@retorno)");
+             $comando->bindParam(':nuevo_rol_id',$nuevo_rol_id);
+             $comando->bindParam(':nuevo_permiso_name',$nuevo_permiso_name );
+             $comando->execute();
+             return Yii::app()->db->createCommand("select @retorno as result;")->queryScalar();
+        }
+        
+        
 }

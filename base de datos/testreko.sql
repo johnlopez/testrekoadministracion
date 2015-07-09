@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 08-07-2015 a las 14:43:42
+-- Tiempo de generación: 09-07-2015 a las 20:30:28
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -77,6 +77,27 @@ WHERE R.id=nuevo_rol_id
 AND PRIV.id = nuevo_privilegio_id;
 
 end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_rol_permiso`(nuevo_rol_id int , nuevo_permiso_name varchar(50), out retorno BOOL)
+BEGIN
+DECLARE resultado_rol int(11);
+DECLARE resultado_permiso varchar(50);
+
+SET resultado_rol = NULL;
+SET resultado_permiso = NULL;
+
+SELECT RP.rol_administrador_id,RP.authitem_permiso_administrador_name INTO resultado_rol,resultado_permiso
+FROM 	
+		rol_administrador_has_authitem_permiso_administrador RP
+WHERE  RP.rol_administrador_id = nuevo_rol_id
+AND RP.authitem_permiso_administrador_name = nuevo_permiso_name; 
+
+IF ( (resultado_rol IS NOT NULL) AND (resultado_permiso IS NOT NULL) ) THEN
+	SELECT TRUE into retorno;
+ELSE 
+	SELECT FALSE into retorno;
+END IF;
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `desasignar_permiso_rol`(nuevo_rol_id int,nuevo_permiso_name varchar(100))
 begin
@@ -540,14 +561,15 @@ CREATE TABLE IF NOT EXISTS `rol_administrador` (
   `nombre` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `rol_administrador`
 --
 
 INSERT INTO `rol_administrador` (`id`, `nombre`, `descripcion`) VALUES
-(1, 'superadministrador', NULL);
+(1, 'superadministrador', NULL),
+(5, 'root', '');
 
 -- --------------------------------------------------------
 
