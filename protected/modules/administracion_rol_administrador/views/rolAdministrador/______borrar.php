@@ -1,4 +1,19 @@
-
+<div class="form">
+<?php $form=$this->beginWidget('CActiveForm'); ?>
+ 
+    <?php echo $form->errorSummary($permiso); ?>
+ 
+    <h3>Permisos por asignar</h3>
+    <div class="row rememberMe">
+        <?php echo $form->checkBoxList($permiso,'name', CHtml::listData(AuthitemPermisoAdministrador::model()->findAll(),'name','name')); ?>
+    </div>
+    <div class="row submit">
+        <?php echo CHtml::submitButton('Guardar')."<br><br>"; ?>
+    </div>
+   
+<?php $this->endWidget(); ?>
+</div><!-- form -->
+------------------------------------
                 public function actionAssign($id)
         {
             if('preguntar si esta asignado ( $_GET["item"],rol->id)')//BOOLEANO

@@ -15,32 +15,12 @@ $this->breadcrumbs=array(
 		
 	),
 )); ?>
-<h1>.</h1>
-
-<div class="form">
-<?php $form=$this->beginWidget('CActiveForm'); ?>
- 
-    <?php echo $form->errorSummary($permiso); ?>
- 
-    <h3>Permisos por asignar</h3>
-    <div class="row rememberMe">
-        <?php echo $form->checkBoxList($permiso,'name', CHtml::listData(AuthitemPermisoAdministrador::model()->findAll(),'name','name')); ?>
-    </div>
-    <div class="row submit">
-        <?php echo CHtml::submitButton('Guardar')."<br><br>"; ?>
-    </div>
-   
-<?php $this->endWidget(); ?>
-</div><!-- form -->
-
-
-
-
+<h3>Permisos por asignar</h3>
 
 <?php foreach(AuthitemPermisoAdministrador::model()->findAll() as $data):?>
 <?php $enabled = RolAdministrador::model()->checkRolPermiso($vrol->id,$data->name); ?>
 
-    <?php echo CHtml::link($enabled?"Denegar":"Asignar",array("roladministrador/assign","id_rol"=>$vrol->id,"nombre_permiso"=>$data->name)); ?>
+    <?php echo CHtml::link($enabled?"Denegar":"Asignar",array("roladministrador/assign","id"=>$vrol->id,"nombre_permiso"=>$data->name)); ?>
     <?php echo $data->name."<br>"; ?>
 
 
