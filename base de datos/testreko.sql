@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 09-07-2015 a las 20:30:28
+-- Tiempo de generación: 10-07-2015 a las 19:40:41
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -78,6 +78,17 @@ AND PRIV.id = nuevo_privilegio_id;
 
 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `asignar_rol_usuario`(nuevo_usuario_id int , nuevo_rol_id varchar(50))
+begin
+INSERT INTO usuario_administrador_has_rol_administrador (usuario_administrador_id,rol_administrador_id) 
+SELECT U.id,R.id
+FROM 	
+		usuario_administrador U,
+        rol_administrador R
+WHERE  U.id=nuevo_usuario_id
+AND R.id=nuevo_rol_id;
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `check_rol_permiso`(nuevo_rol_id int , nuevo_permiso_name varchar(50), out retorno BOOL)
 BEGIN
 DECLARE resultado_rol int(11);
@@ -99,6 +110,27 @@ ELSE
 END IF;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_usuario_rol`(nuevo_usuario_id int , nuevo_rol_id int, out retorno BOOL)
+BEGIN
+DECLARE resultado_usuario int(11);
+DECLARE resultado_rol int(11);
+
+SET resultado_usuario = NULL;
+SET resultado_rol = NULL;
+
+SELECT UR.usuario_administrador_id,UR.rol_administrador_id INTO resultado_usuario,resultado_rol
+FROM 	
+		usuario_administrador_has_rol_administrador UR
+WHERE  UR.usuario_administrador_id = nuevo_usuario_id
+AND UR.rol_administrador_id = nuevo_rol_id; 
+
+IF ( (resultado_usuario IS NOT NULL) AND (resultado_rol IS NOT NULL) ) THEN
+	SELECT TRUE into retorno;
+ELSE 
+	SELECT FALSE into retorno;
+END IF;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `desasignar_permiso_rol`(nuevo_rol_id int,nuevo_permiso_name varchar(100))
 begin
 delete from rol_administrador_has_authitem_permiso_administrador 
@@ -111,6 +143,13 @@ begin
 delete from rol_administrador_has_privilegio_administrador 
 where rol_administrador_id = nuevo_rol_id
 and privilegio_administrador_id = nuevo_privilegio_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `desasignar_rol_usuario`(nuevo_usuario_id int,nuevo_rol_id int)
+begin
+delete from usuario_administrador_has_rol_administrador 
+where usuario_administrador_id = nuevo_usuario_id
+and rol_administrador_id = nuevo_rol_id;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminar_usuario_administrador`(
@@ -608,6 +647,66 @@ CREATE TABLE IF NOT EXISTS `rol_administrador_has_privilegio_administrador` (
   KEY `fk_rol_administrador_has_privilegio_administrador_privilegi_idx` (`privilegio_administrador_id`),
   KEY `fk_rol_administrador_has_privilegio_administrador_rol_admin_idx` (`rol_administrador_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `rol_administrador_has_privilegio_administrador`
+--
+
+INSERT INTO `rol_administrador_has_privilegio_administrador` (`rol_administrador_id`, `privilegio_administrador_id`) VALUES
+(1, 31),
+(1, 32),
+(1, 33),
+(1, 34),
+(1, 35),
+(1, 36),
+(1, 37),
+(1, 38),
+(1, 39),
+(1, 40),
+(1, 41),
+(1, 42),
+(1, 43),
+(1, 44),
+(1, 45),
+(1, 46),
+(1, 47),
+(1, 48),
+(1, 49),
+(1, 50),
+(1, 51),
+(1, 52),
+(1, 53),
+(1, 54),
+(1, 55),
+(1, 56),
+(1, 57),
+(1, 58),
+(1, 59),
+(1, 60),
+(1, 61),
+(1, 62),
+(1, 63),
+(1, 64),
+(1, 65),
+(1, 66),
+(1, 67),
+(1, 68),
+(1, 69),
+(1, 70),
+(1, 71),
+(1, 72),
+(1, 73),
+(1, 74),
+(1, 75),
+(1, 76),
+(1, 77),
+(1, 78),
+(1, 79),
+(1, 80),
+(1, 81),
+(1, 82),
+(1, 83),
+(1, 84);
 
 -- --------------------------------------------------------
 

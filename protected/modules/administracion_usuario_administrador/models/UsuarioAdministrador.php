@@ -93,4 +93,29 @@ class UsuarioAdministrador extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        public function checkUsuarioRol($nuevo_usuario_id,$nuevo_rol_id) {
+             $comando = Yii::app()->db->createCommand("CALL check_usuario_rol(:nuevo_usuario_id,:nuevo_rol_id,@retorno)");
+             $comando->bindParam(':nuevo_usuario_id',$nuevo_usuario_id);
+             $comando->bindParam(':nuevo_rol_id',$nuevo_rol_id );
+             $comando->execute();
+             return Yii::app()->db->createCommand("select @retorno as result;")->queryScalar();
+        }
+        
+        public function desasignarRolUsuario($nuevo_usuario_id,$nuevo_rol_id) {
+            
+            $comando = Yii::app()->db->createCommand("CALL desasignar_rol_usuario(:nuevo_usuario_id,:nuevo_rol_id)");
+            $comando->bindParam(':nuevo_usuario_id',$nuevo_usuario_id);
+            $comando->bindParam(':nuevo_rol_id',$nuevo_rol_id);
+            $comando->execute();
+            return $comando;
+        }
+        public function asignarRolUsuario($nuevo_usuario_id,$nuevo_rol_id){
+            
+            $comando = Yii::app()->db->createCommand("CALL asignar_rol_usuario(:nuevo_usuario_id,:nuevo_rol_id)");
+            $comando->bindParam(':nuevo_usuario_id',$nuevo_usuario_id);
+            $comando->bindParam(':nuevo_rol_id',$nuevo_rol_id );
+            $comando->execute();
+            return $comando;
+        }
 }

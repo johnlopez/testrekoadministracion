@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 );
 ?>
 <h1>Asignar Authitem Permiso Administrador a Rol Administrador</h1>
-
+<br>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$vrol,
 	'attributes'=>array(
@@ -15,15 +15,14 @@ $this->breadcrumbs=array(
 		
 	),
 )); ?>
-<h3>Permisos por asignar</h3>
+<br>
+<br>
+<h3>Listado De Permisos</h3>
 
-<?php foreach(AuthitemPermisoAdministrador::model()->findAll() as $data):?>
-<?php $enabled = RolAdministrador::model()->checkRolPermiso($vrol->id,$data->name); ?>
-
+<?php foreach($permiso->findAll() as $data):?>
+    <?php $enabled = $vrol->checkRolPermiso($vrol->id,$data->name); ?>
     <?php echo CHtml::link($enabled?"Denegar":"Asignar",array("roladministrador/assign","id"=>$vrol->id,"nombre_permiso"=>$data->name)); ?>
     <?php echo $data->name."<br>"; ?>
-
-
 <?php endforeach; ?>
 
 

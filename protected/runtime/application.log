@@ -10412,3 +10412,672 @@ Stack trace:
 REQUEST_URI=/testrekoadministracion/administracion_rol_usuario/escritorio_administrador/escritorioadministrador/index
 HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_usuario/rolusuario/index
 ---
+2015/07/09 20:51:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/admin
+---
+2015/07/10 12:51:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar/id/1
+---
+2015/07/10 12:52:15 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_usuario/rolusuario/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_usuario/default/index
+---
+2015/07/10 14:03:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar/id/1
+---
+2015/07/10 14:03:15 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/admin
+---
+2015/07/10 14:03:47 [error] [php] include(RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(183): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#2 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#4 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#7 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#10 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#13 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (183)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:03:57 [error] [php] include(RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(183): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#2 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#4 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#7 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#10 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#13 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (183)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:06:42 [error] [php] include(RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(183): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#2 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#4 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#7 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#10 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#13 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (183)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:06:53 [error] [php] include(RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(183): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#2 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#4 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#7 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#10 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#13 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (183)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:07:24 [error] [php] include(RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(183): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#2 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#4 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#7 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#10 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#13 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (183)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:07:41 [error] [php] include(RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(183): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#2 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#4 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#7 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#10 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#13 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (183)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:11:35 [error] [php] include(RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(183): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#2 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#4 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#7 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#10 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#13 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (183)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:15:02 [error] [php] include(RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(183): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#2 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#4 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#7 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#10 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#13 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (183)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:15:59 [error] [php] include(RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(183): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#2 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#4 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#7 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#10 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#13 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (183)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:21:43 [error] [php] include(RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\views\usuarioAdministrador\asignar.php(22): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(95): UsuarioAdministradorController->renderInternal()
+#3 C:\wamp\www\yii\framework\web\CController.php(869): UsuarioAdministradorController->renderFile()
+#4 C:\wamp\www\yii\framework\web\CController.php(782): UsuarioAdministradorController->renderPartial()
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(189): UsuarioAdministradorController->render()
+#6 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#7 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#9 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#11 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#12 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#13 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#15 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#17 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#18 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\views\usuarioAdministrador\asignar.php (22)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (189)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:30:21 [error] [php] include(´RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\views\usuarioAdministrador\asignar.php(22): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(95): UsuarioAdministradorController->renderInternal()
+#3 C:\wamp\www\yii\framework\web\CController.php(869): UsuarioAdministradorController->renderFile()
+#4 C:\wamp\www\yii\framework\web\CController.php(782): UsuarioAdministradorController->renderPartial()
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(190): UsuarioAdministradorController->render()
+#6 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#7 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#9 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#11 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#12 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#13 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#15 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#17 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#18 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\views\usuarioAdministrador\asignar.php (22)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (190)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:30:38 [error] [php] include(´RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\views\usuarioAdministrador\asignar.php(25): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(95): UsuarioAdministradorController->renderInternal()
+#3 C:\wamp\www\yii\framework\web\CController.php(869): UsuarioAdministradorController->renderFile()
+#4 C:\wamp\www\yii\framework\web\CController.php(782): UsuarioAdministradorController->renderPartial()
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(190): UsuarioAdministradorController->render()
+#6 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#7 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#9 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#11 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#12 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#13 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#15 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#17 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#18 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\views\usuarioAdministrador\asignar.php (25)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (190)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:30:40 [error] [php] include(´RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\views\usuarioAdministrador\asignar.php(25): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(95): UsuarioAdministradorController->renderInternal()
+#3 C:\wamp\www\yii\framework\web\CController.php(869): UsuarioAdministradorController->renderFile()
+#4 C:\wamp\www\yii\framework\web\CController.php(782): UsuarioAdministradorController->renderPartial()
+#5 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(190): UsuarioAdministradorController->render()
+#6 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#7 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#9 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#11 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#12 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#13 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#14 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#15 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#17 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#18 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\views\usuarioAdministrador\asignar.php (25)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (190)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:31:30 [error] [php] include(RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(183): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#2 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#4 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#7 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#10 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#13 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (183)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:31:30 [error] [php] include(RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(183): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#2 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#4 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#7 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#10 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#13 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (183)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:31:31 [error] [php] include(RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(183): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#2 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#4 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#7 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#10 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#13 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (183)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:31:49 [error] [php] include(RolAdministrador.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(183): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#2 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#4 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#7 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#10 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#13 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (183)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:35:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_usuario_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+---
+2015/07/10 14:36:45 [error] [php] Undefined variable: rol (C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php:23)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RolAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): RolAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php(163): RolAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RolAdministradorController->actionAsignar()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RolAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RolAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): RolAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RolAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar/id/1
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\views\rolAdministrador\asignar.php (23)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_rol_administrador\controllers\RolAdministradorController.php (163)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 14:37:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar/id/1
+---
+2015/07/10 14:54:07 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_usuario/rolusuario/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_usuario/default/index
+---
+2015/07/10 16:23:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_usuario/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_usuario/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_usuario/rolusuario/index
+---
+2015/07/10 16:26:53 [error] [exception.CException] exception 'CException' with message 'UsuarioAdministrador and its behaviors do not have a method or closure named "checkUsuarioRol".' in C:\wamp\www\yii\framework\base\CComponent.php:266
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(227): CComponent->__call('checkUsuarioRol', Array)
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\views\usuarioAdministrador\asignar.php(23): CActiveRecord->__call('checkUsuarioRol', Array)
+#2 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\views\usuarioAdministrador\asignar.php(23): UsuarioAdministrador->checkUsuarioRol('1', 'superadministra...')
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#4 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#5 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#6 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#7 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(190): CController->render('asignar', Array)
+#8 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#9 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#10 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#12 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#16 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#18 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#19 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#20 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#21 {main}
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/admin
+---
+2015/07/10 18:41:08 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[42000]: Syntax error or access violation: 1305 PROCEDURE testreko.check_usuario_permiso does not exist. The SQL statement executed was: CALL check_usuario_permiso(:nuevo_usuario_id,:nuevo_rol_id,@retorno).
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\models\UsuarioAdministrador.php (101)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\views\usuarioAdministrador\asignar.php (23)
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (190)
+2015/07/10 18:41:09 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1305 PROCEDURE testreko.check_usuario_permiso does not exist. The SQL statement executed was: CALL check_usuario_permiso(:nuevo_usuario_id,:nuevo_rol_id,@retorno)' in C:\wamp\www\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\models\UsuarioAdministrador.php(101): CDbCommand->execute()
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\views\usuarioAdministrador\asignar.php(23): UsuarioAdministrador->checkUsuarioRol('1', 'superadministra...')
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#4 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#5 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#6 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(190): CController->render('asignar', Array)
+#7 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#8 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#10 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#12 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#13 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#14 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#15 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#17 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#18 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#19 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#20 {main}
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/admin
+---
+2015/07/10 18:50:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar/id/1
+---
+2015/07/10 18:53:24 [error] [exception.CException] exception 'CException' with message 'Property "RolAdministrador.name" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('name')
+#1 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\views\usuarioAdministrador\asignar.php(26): CActiveRecord->__get('name')
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#4 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#5 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('asignar', Array, true)
+#6 C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php(190): CController->render('asignar', Array)
+#7 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): UsuarioAdministradorController->actionAsignar()
+#8 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#10 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#12 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#13 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#14 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#15 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignar')
+#17 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#18 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#19 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#20 {main}
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/admin
+---
+2015/07/10 18:54:52 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assign')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/assign/id/1/nombre_rol/superadministrador
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/asignar/id/1
+---
+2015/07/10 18:55:15 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\wamp\www\yii\framework\web\CController.php:336
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assign')
+#9 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#10 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#11 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/assign/
+---
+2015/07/10 18:55:28 [error] [php] Undefined index: nombre_permiso (C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php:197)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): UsuarioAdministradorController->runAction()
+#3 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#4 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#5 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): UsuarioAdministradorController->filterAccessControl()
+#6 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#7 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#8 C:\wamp\www\yii\framework\web\CController.php(265): UsuarioAdministradorController->runActionWithFilters()
+#9 C:\wamp\www\yii\framework\web\CWebApplication.php(282): UsuarioAdministradorController->run()
+#10 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#11 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#12 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/administracion_usuario_administrador/usuarioadministrador/assign/id/1/nombre_rol/root
+in C:\wamp\www\testrekoadministracion\protected\modules\administracion_usuario_administrador\controllers\UsuarioAdministradorController.php (197)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/10 19:33:35 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_usuario/rolusuario/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_usuario/default/index
+---
+2015/07/10 19:34:20 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_usuario/rolusuario/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_usuario/default/index
+---
+2015/07/10 19:34:52 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_usuario/rolusuario/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_usuario/default/index
+---
