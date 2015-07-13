@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-07-2015 a las 16:05:13
+-- Tiempo de generación: 13-07-2015 a las 20:59:09
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -54,7 +54,7 @@ nuevo_clave
 SELECT LAST_INSERT_ID () into llave_id;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `asignar_permiso_a_rol`(nuevo_rol_id int , nuevo_permiso_name varchar(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `asignar_permiso_rol`(nuevo_rol_id int , nuevo_permiso_name varchar(50))
 begin
 INSERT INTO rol_administrador_has_authitem_permiso_administrador (rol_administrador_id,authitem_permiso_administrador_name) 
 SELECT RA.id,P.name
@@ -123,6 +123,27 @@ ELSE
 END IF;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_rol_privilegio`(nuevo_rol_id int , nuevo_privilegio_id int, out retorno BOOL)
+BEGIN
+DECLARE resultado_rol int(11);
+DECLARE resultado_privilegio int(11);
+
+SET resultado_rol = NULL;
+SET resultado_privilegio = NULL;
+
+SELECT RPRIV.rol_administrador_id , RPRIV.privilegio_administrador_id INTO resultado_rol , resultado_privilegio
+FROM 	
+		rol_administrador_has_privilegio_administrador RPRIV
+WHERE  RPRIV.rol_administrador_id = nuevo_rol_id
+AND RPRIV.privilegio_administrador_id = nuevo_privilegio_id; 
+
+IF ( (resultado_rol IS NOT NULL) AND (resultado_privilegio IS NOT NULL) ) THEN
+	SELECT TRUE into retorno;
+ELSE 
+	SELECT FALSE into retorno;
+END IF;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `check_usuario_rol`(nuevo_usuario_id int , nuevo_rol_id int, out retorno BOOL)
 BEGIN
 DECLARE resultado_usuario int(11);
@@ -158,7 +179,7 @@ where userid = nuevo_usuario_id
 and itemname = nuevo_permiso_name;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `desasignar_privilegio`(nuevo_rol_id int,nuevo_privilegio_id int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `desasignar_privilegio_rol`(nuevo_rol_id int,nuevo_privilegio_id int)
 begin
 delete from rol_administrador_has_privilegio_administrador 
 where rol_administrador_id = nuevo_rol_id
@@ -195,10 +216,7 @@ AND P.name = RP.authitem_permiso_administrador_name
 AND R.id = nuevo_rol_id;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_usuario_administrador`()
-select * from usuario_administrador$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `privilegio_permiso`(nuevo_permiso varchar(250))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_privilegio_permiso`(nuevo_permiso varchar(250))
 begin
 SELECT PRIV.id
 FROM 
@@ -211,6 +229,9 @@ AND C.id = PRIV.controlador_administrador_id
 
 AND P.name = nuevo_permiso;
 end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_usuario_administrador`()
+select * from usuario_administrador$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `validar_privilegio`(nuevo_usuario_id int , nuevo_permiso_nombre varchar(50) , nuevo_controlador_nombre varchar(50) , nuevo_privilegio_nombre varchar(50),out vista varchar(50))
 SELECT PRIV.nombre into vista
@@ -667,7 +688,7 @@ INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_adminis
 (1, 'administracion_rol_usuario'),
 (1, 'administracion_usuario'),
 (1, 'administracion_usuario_administrador'),
-(5, 'administracion_usuario');
+(5, 'administracion_rol_usuario');
 
 -- --------------------------------------------------------
 
@@ -701,59 +722,77 @@ INSERT INTO `rol_administrador_has_privilegio_administrador` (`rol_administrador
 (1, 41),
 (1, 42),
 (1, 43),
-(5, 43),
 (1, 44),
-(5, 44),
 (1, 45),
-(5, 45),
 (1, 46),
-(5, 46),
 (1, 47),
-(5, 47),
 (1, 48),
-(5, 48),
 (1, 49),
-(5, 49),
 (1, 50),
-(5, 50),
 (1, 51),
-(5, 51),
 (1, 52),
-(5, 52),
 (1, 53),
-(5, 53),
 (1, 54),
-(5, 54),
 (1, 55),
+(5, 55),
 (1, 56),
+(5, 56),
 (1, 57),
+(5, 57),
 (1, 58),
+(5, 58),
 (1, 59),
+(5, 59),
 (1, 60),
+(5, 60),
 (1, 61),
+(5, 61),
 (1, 62),
+(5, 62),
 (1, 63),
+(5, 63),
 (1, 64),
+(5, 64),
 (1, 65),
+(5, 65),
 (1, 66),
+(5, 66),
 (1, 67),
+(5, 67),
 (1, 68),
+(5, 68),
 (1, 69),
+(5, 69),
 (1, 70),
+(5, 70),
 (1, 71),
+(5, 71),
 (1, 72),
+(5, 72),
 (1, 73),
+(5, 73),
 (1, 74),
+(5, 74),
 (1, 75),
+(5, 75),
 (1, 76),
+(5, 76),
 (1, 77),
+(5, 77),
 (1, 78),
+(5, 78),
 (1, 79),
+(5, 79),
 (1, 80),
+(5, 80),
 (1, 81),
+(5, 81),
 (1, 82),
+(5, 82),
 (1, 83),
-(1, 84);
+(5, 83),
+(1, 84),
+(5, 84);
 
 -- --------------------------------------------------------
 

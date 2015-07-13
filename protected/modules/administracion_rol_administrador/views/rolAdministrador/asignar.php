@@ -22,7 +22,15 @@ $this->breadcrumbs=array(
 <?php foreach($permiso->findAll() as $data):?>
     <?php $enabled = $vrol->checkRolPermiso($vrol->id,$data->name); ?>
     <?php echo CHtml::link($enabled?"Denegar":"Asignar",array("roladministrador/assign","id"=>$vrol->id,"nombre_permiso"=>$data->name)); ?>
-    <?php echo $data->name."<br>"; ?>
+    <?php echo $data->name; ?>
+    <?php 
+        if($enabled)
+        {
+            echo CHtml::linkButton('Editar Privilegios',array('submit' => array('roladministrador/asignarprivilegio', 'id'=>$vrol->id)));
+
+        }
+    ?>
+    <br>              
 <?php endforeach; ?>
 
 

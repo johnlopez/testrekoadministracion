@@ -33,7 +33,11 @@ class RolAdministradorController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','asignar','assign'),
+				'actions'=>array('index','view',                                                    
+                                                    'asignar',
+                                                    'assign',
+                                                    'asignarprivilegio'
+                                ),
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -152,64 +156,7 @@ class RolAdministradorController extends Controller
 			'model'=>$model,
 		));
 	}
-        public function actionAsignar()
-	{                     
-                $permiso = new AuthitemPermisoAdministrador();
-                $rol = new RolAdministrador();
-                
-                if(isset($_GET['id'])) {
-                    
-                    $vrol = $rol::model()->findByPk($_GET['id']);			
-                    $this->render('asignar', array('permiso' => $permiso,'vrol'=>$vrol));
-                }
-                
-//                if(isset($_POST['AuthitemPermisoAdministrador']))
-//                {                    
-//                    foreach ($_POST['AuthitemPermisoAdministrador']['name'] as $permiso)
-//                    {
-//                         $rol->asignarPermisoARol($_GET['id'], $permiso);
-//                         //$rol->desasignarPermisoRol($_GET['id'], $permiso);
-//                         $listado = $rol->privilegioPermiso($permiso);
-//                    
-//                        foreach ($listado as $lista)
-//                        {
-//                            $rol->asignarPrivilegioRol($_GET['id'], $lista['id']);
-//                            //$rol->desasignarPrivilegio($_GET['id'], $lista['id']);
-//                            echo $lista['id']."<br>"; 
-//                        }
-//                    }
-//                    
-//                }
-	}
         
-        public function actionAssign($id)
-        {
-            $rol = new RolAdministrador();
-
-            if(RolAdministrador::model()->checkRolPermiso($id,$_GET["nombre_permiso"]))
-            {
-                $rol->desasignarPermisoRol($id,$_GET["nombre_permiso"]);
-                $listado = $rol->privilegioPermiso($_GET["nombre_permiso"]);                   
-                foreach ($listado as $lista)
-                {
-                    $rol->desasignarPrivilegio($id, $lista['id']);
-                }
-            }
-            else
-            {
-                $rol->asignarPermisoARol($id,$_GET["nombre_permiso"]);
-                $listado = $rol->privilegioPermiso($_GET["nombre_permiso"]);
-                foreach ($listado as $lista)
-                {
-                    $rol->asignarPrivilegioRol($id,$lista['id']);
-                    echo $lista['id']."<br>"; 
-                }
-            }
-            $this->redirect(array("asignar","id"=>$id));
-        }
-        
-
-
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -237,4 +184,56 @@ class RolAdministradorController extends Controller
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionAsignar()
+	{                     
+            $permiso = new AuthitemPermisoAdministrador();
+            $rol = new RolAdministrador();
+
+            if(isset($_GET['id'])) {
+
+                $vrol = $rol::model()->findByPk($_GET['id']);			
+                $this->render('asignar', array('permiso' => $permiso,'vrol'=>$vrol));
+            }            
+	}
+        
+        public function actionAssign($id)
+        {
+            $rol = new RolAdministrador();
+
+            if(RolAdministrador::model()->checkRolPermiso($id,$_GET["nombre_permiso"]))
+            {
+                $rol->desasignarPermisoRol($id,$_GET["nombre_permiso"]);
+                $listado = $rol->listarPrivilegioPermiso($_GET["nombre_permiso"]);                   
+                foreach ($listado as $lista)
+                {
+                    $rol->desasignarPrivilegioRol($id, $lista['id']);
+                }
+            }
+            else
+            {
+                $rol->asignarPermisoRol($id,$_GET["nombre_permiso"]);
+                $listado = $rol->listarPrivilegioPermiso($_GET["nombre_permiso"]);
+                foreach ($listado as $lista)
+                {
+                    $rol->asignarPrivilegioRol($id,$lista['id']);
+                    echo $lista['id']."<br>"; 
+                }
+            }
+            $this->redirect(array("asignar","id"=>$id));
+        }
+        
+        public function actionAsignarPrivilegio()
+        {
+            $rol = new RolAdministrador();
+            $permiso = new AuthitemPermisoAdministrador();
+            echo "hellow hellow";
+            if(isset($_POST['id'])) {
+//                $vpermiso = $permiso::model()->findByPk($_GET['nombre_permiso']);			
+//                $vrol = $rol::model()->findByPk($_GET['id']);	
+//                $vprivilegio  = $rol->listarPrivilegioPermiso($_GET['nombre_permiso']);
+
+                $this->render('asignarprivilegio');
+            } 
+        }
 }
