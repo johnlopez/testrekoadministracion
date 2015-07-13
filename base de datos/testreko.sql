@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 10-07-2015 a las 19:40:41
+-- Tiempo de generación: 13-07-2015 a las 16:05:13
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -63,6 +63,19 @@ FROM
         authitem_permiso_administrador P
 WHERE  RA.id=nuevo_rol_id
 AND P.name=nuevo_permiso_name;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `asignar_permiso_usuario`(nuevo_usuario_id int , nuevo_permiso_name varchar(50))
+begin
+INSERT INTO authassignment_administrador (userid,itemname) 
+SELECT U.id,P.name
+FROM 
+	   usuario_administrador U,
+	   authitem_permiso_administrador P      
+      
+WHERE U.id=nuevo_usuario_id  
+AND P.name = nuevo_permiso_name;
+
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `asignar_privilegio_rol`(nuevo_rol_id int , nuevo_privilegio_id int)
@@ -138,6 +151,13 @@ where rol_administrador_id = nuevo_rol_id
 and authitem_permiso_administrador_name = nuevo_permiso_name;
 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `desasignar_permiso_usuario`(nuevo_usuario_id int,nuevo_permiso_name varchar(50))
+begin
+delete from authassignment_administrador 
+where userid = nuevo_usuario_id
+and itemname = nuevo_permiso_name;
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `desasignar_privilegio`(nuevo_rol_id int,nuevo_privilegio_id int)
 begin
 delete from rol_administrador_has_privilegio_administrador 
@@ -160,6 +180,19 @@ delete from usuario_administrador where id = nuevo_id$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_permiso`()
 begin
 select * from authitem_permiso_administrador;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_permiso_rol`(nuevo_rol_id varchar(250))
+begin
+SELECT P.name
+FROM 
+		rol_administrador R,
+        rol_administrador_has_authitem_permiso_administrador RP,
+		authitem_permiso_administrador P      
+      
+WHERE R.id = RP.rol_administrador_id
+AND P.name = RP.authitem_permiso_administrador_name
+AND R.id = nuevo_rol_id;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_usuario_administrador`()
@@ -262,6 +295,7 @@ INSERT INTO `authassignment_administrador` (`itemname`, `userid`, `bizrule`, `da
 ('administracion_rol_administrador', '1', NULL, NULL),
 ('administracion_rol_usuario', '1', NULL, NULL),
 ('administracion_usuario', '1', NULL, NULL),
+('administracion_usuario', '2', NULL, NULL),
 ('administracion_usuario_administrador', '1', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -632,7 +666,8 @@ INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_adminis
 (1, 'administracion_rol_administrador'),
 (1, 'administracion_rol_usuario'),
 (1, 'administracion_usuario'),
-(1, 'administracion_usuario_administrador');
+(1, 'administracion_usuario_administrador'),
+(5, 'administracion_usuario');
 
 -- --------------------------------------------------------
 
@@ -666,17 +701,29 @@ INSERT INTO `rol_administrador_has_privilegio_administrador` (`rol_administrador
 (1, 41),
 (1, 42),
 (1, 43),
+(5, 43),
 (1, 44),
+(5, 44),
 (1, 45),
+(5, 45),
 (1, 46),
+(5, 46),
 (1, 47),
+(5, 47),
 (1, 48),
+(5, 48),
 (1, 49),
+(5, 49),
 (1, 50),
+(5, 50),
 (1, 51),
+(5, 51),
 (1, 52),
+(5, 52),
 (1, 53),
+(5, 53),
 (1, 54),
+(5, 54),
 (1, 55),
 (1, 56),
 (1, 57),
@@ -826,7 +873,8 @@ CREATE TABLE IF NOT EXISTS `usuario_administrador_has_rol_administrador` (
 --
 
 INSERT INTO `usuario_administrador_has_rol_administrador` (`usuario_administrador_id`, `rol_administrador_id`) VALUES
-(1, 1);
+(1, 1),
+(2, 5);
 
 -- --------------------------------------------------------
 

@@ -20,9 +20,7 @@ $this->breadcrumbs=array(
 <h3>Listado De Roles</h3>
 
 <?php foreach($rol->findAll() as $data):?>
-    <?php $enabled = $vusuario->checkUsuarioRol($vusuario->id,$data->nombre); ?>
-    <?php echo CHtml::link($enabled?"Denegar":"Asignar",array("usuarioadministrador/assign","id"=>$vusuario->id,"nombre_rol"=>$data->nombre)); ?>
+    <?php $enabled = $vusuario->checkUsuarioRol($vusuario->id,$data->id); ?>
+    <?php echo CHtml::link($enabled?"Denegar":"Asignar",array("usuarioadministrador/assign","id"=>$vusuario->id,"id_rol"=>$data->id)); ?>
     <?php echo $data->nombre."<br>"; ?>
 <?php endforeach; ?>
-
-

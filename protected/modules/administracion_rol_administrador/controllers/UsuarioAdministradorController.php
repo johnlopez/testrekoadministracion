@@ -32,7 +32,7 @@ class UsuarioAdministradorController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','asignar','assign'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -126,9 +126,6 @@ class UsuarioAdministradorController extends Controller
 	 */
 	public function actionIndex()
 	{
-//                Yii::app()->authManager->createRole("administracion_usuario");
-//                echo "Se creo un Rol";
-            
 		$dataProvider=new CActiveDataProvider('UsuarioAdministrador');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
@@ -177,5 +174,42 @@ class UsuarioAdministradorController extends Controller
 			Yii::app()->end();
 		}
 	}
-               
+        
+        public function actionAsignar()
+	{               
+                $rol = new RolAdministrador();
+                $usuario = new UsuarioAdministrador;
+                                
+                if(isset($_GET['id'])){
+                    
+                    $vusuario = $usuario::model()->findByPk($_GET['id']);			
+                    $this->render('asignar', array('rol' => $rol,'vusuario'=>$vusuario));
+                }
+	}
+        public function actionAssign($id)
+        {
+            $usuario = new UsuarioAdministrador();
+
+            if(UsuarioAdministrador::model()->checkUsuarioRol($id,$_GET["id_rol"]))
+            {
+                $usuario->desasignarRolUsuario($id,$_GET["id_rol"]);
+                $listado = $usuario->listarPermisoRol($_GET["id_rol"]);
+                foreach ($listado as $lista)
+                {
+                    $usuario->desasignarPermisoUsuario($id, $lista['name']);
+                }
+
+            }
+            else
+            {
+                $usuario->asignarRolUsuario($id,$_GET["id_rol"]); 
+                $listado = $usuario->listarPermisoRol($_GET["id_rol"]);
+                foreach ($listado as $lista)
+                {
+                    $usuario->asignarPermisoUsuario($id, $lista['name']);
+                }
+            }
+            
+            $this->redirect(array("asignar","id"=>$id));
+        }
 }
