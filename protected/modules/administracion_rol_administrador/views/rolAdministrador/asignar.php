@@ -26,8 +26,11 @@ $this->breadcrumbs=array(
     <?php 
         if($enabled)
         {
-            echo CHtml::linkButton('Editar Privilegios',array('submit' => array('roladministrador/asignarprivilegio', 'id'=>$vrol->id)));
-
+            echo CHtml::beginForm();
+            echo CHtml::hiddenField('id',$vrol->id);
+            echo CHtml::hiddenField('nombre_permiso',$data->name);
+            echo CHtml::linkButton('Editar Privilegios', array('submit' => $this->createUrl('roladministrador/asignarprivilegio')));
+            echo CHtml::endForm();         
         }
     ?>
     <br>              

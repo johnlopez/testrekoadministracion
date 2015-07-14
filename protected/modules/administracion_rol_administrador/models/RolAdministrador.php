@@ -114,6 +114,18 @@ class RolAdministrador extends CActiveRecord
              $comando->bindParam(':nuevo_permiso',$nuevo_permiso);
              return $comando->queryAll();
         }
+        public function listarControladorPermiso($nuevo_permiso) {
+            
+             $comando = Yii::app()->db->createCommand("CALL listar_controlador_permiso(:nuevo_permiso)");
+             $comando->bindParam(':nuevo_permiso',$nuevo_permiso);
+             return $comando->queryAll();
+        }
+        public function listarPrivilegioControlador($nuevo_controlador_id) {
+            
+             $comando = Yii::app()->db->createCommand("CALL listar_privilegio_controlador(:nuevo_controlador_id)");
+             $comando->bindParam(':nuevo_controlador_id',$nuevo_controlador_id);
+             return $comando->queryAll();
+        }
         
         public function asignarPrivilegioRol($rol_id, $privilegio_id) {
             
@@ -151,6 +163,12 @@ class RolAdministrador extends CActiveRecord
              $comando->execute();
              return Yii::app()->db->createCommand("select @retorno as result;")->queryScalar();
         }
-        
+        public function checkRolPrivilegio($nuevo_rol_id,$nuevo_privilegio_id) {
+             $comando = Yii::app()->db->createCommand("CALL check_rol_privilegio(:nuevo_rol_id,:nuevo_privilegio_id,@retorno)");
+             $comando->bindParam(':nuevo_rol_id',$nuevo_rol_id);
+             $comando->bindParam(':nuevo_privilegio_id',$nuevo_privilegio_id );
+             $comando->execute();
+             return Yii::app()->db->createCommand("select @retorno as result;")->queryScalar();
+        }
         
 }

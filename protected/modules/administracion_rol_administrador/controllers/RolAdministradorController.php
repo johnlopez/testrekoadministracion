@@ -36,7 +36,8 @@ class RolAdministradorController extends Controller
 				'actions'=>array('index','view',                                                    
                                                     'asignar',
                                                     'assign',
-                                                    'asignarprivilegio'
+                                                    'asignarprivilegio',
+                                                    'assignprivilegio'
                                 ),
 				'users'=>array('@'),
 			),
@@ -227,13 +228,37 @@ class RolAdministradorController extends Controller
         {
             $rol = new RolAdministrador();
             $permiso = new AuthitemPermisoAdministrador();
-            echo "hellow hellow";
-            if(isset($_POST['id'])) {
-//                $vpermiso = $permiso::model()->findByPk($_GET['nombre_permiso']);			
-//                $vrol = $rol::model()->findByPk($_GET['id']);	
-//                $vprivilegio  = $rol->listarPrivilegioPermiso($_GET['nombre_permiso']);
+               
+            if(isset($_POST['id'])){
+                                           
+                $vrol = $rol::model()->findByPk($_POST['id']);
+                $vpermiso = $permiso::model()->findByPk($_POST['nombre_permiso']);			
+                $controlador  = $rol->listarControladorPermiso($_POST['nombre_permiso']);
 
-                $this->render('asignarprivilegio');
-            } 
+                $this->render('asignarprivilegio', array('vrol'=>$vrol,'vpermiso' => $vpermiso,'controlador'=>$controlador));
+            }
+        }
+        public function actionAssignprivilegio()
+        {
+            if(isset($_POST['id'])){                        
+
+                $rol = new RolAdministrador();
+                $permiso = new AuthitemPermisoAdministrador();
+
+
+                if(RolAdministrador::model()->checkRolPrivilegio($_POST['id'],$_POST['id_privilegio']))
+                {
+                    $rol->desasignarPrivilegioRol($_POST['id'],$_POST['id_privilegio']);
+                }
+                else
+                {
+                    $rol->asignarPrivilegioRol($_POST['id'],$_POST['id_privilegio']);
+                }
+                $vrol = $rol::model()->findByPk($_POST['id']);
+                $vpermiso = $permiso::model()->findByPk($_POST['nombre_permiso']);			
+                $controlador  = $rol->listarControladorPermiso($_POST['nombre_permiso']);
+
+                $this->render('asignarprivilegio', array('vrol'=>$vrol,'vpermiso' => $vpermiso,'controlador'=>$controlador));
+            }
         }
 }

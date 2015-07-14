@@ -196,9 +196,9 @@ class UsuarioAdministradorController extends Controller
                 $listado = $usuario->listarPermisoRol($_GET["id_rol"]);
                 foreach ($listado as $lista)
                 {
-                    $usuario->desasignarPermisoUsuario($id, $lista['name']);
+                    Yii::app()->authManager->revoke($lista['name'],$id);
+                    //$usuario->desasignarPermisoUsuario($id, $lista['name']);
                 }
-
             }
             else
             {
@@ -206,7 +206,8 @@ class UsuarioAdministradorController extends Controller
                 $listado = $usuario->listarPermisoRol($_GET["id_rol"]);
                 foreach ($listado as $lista)
                 {
-                    $usuario->asignarPermisoUsuario($id, $lista['name']);
+                    Yii::app()->authManager->assign($lista['name'],$id);
+                    //$usuario->asignarPermisoUsuario($id, $lista['name']);
                 }
             }
             

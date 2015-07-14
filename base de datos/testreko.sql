@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-07-2015 a las 20:59:09
+-- Tiempo de generación: 14-07-2015 a las 20:03:46
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -198,6 +198,17 @@ nuevo_id int
 )
 delete from usuario_administrador where id = nuevo_id$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_controlador_permiso`(nuevo_permiso varchar(250))
+begin
+SELECT C.id,C.nombre
+FROM 
+		authitem_permiso_administrador P,
+		controlador_administrador C        
+      
+WHERE P.name = C.authitem_permiso_administrador_name
+AND P.name = nuevo_permiso;
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_permiso`()
 begin
 select * from authitem_permiso_administrador;
@@ -216,13 +227,24 @@ AND P.name = RP.authitem_permiso_administrador_name
 AND R.id = nuevo_rol_id;
 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_privilegio_controlador`(nuevo_controlador_id int)
+begin
+SELECT PRIV.id,PRIV.nombre
+FROM 
+		controlador_administrador C,      
+        privilegio_administrador PRIV
+      
+WHERE C.id = PRIV.controlador_administrador_id
+AND C.id = nuevo_controlador_id;
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_privilegio_permiso`(nuevo_permiso varchar(250))
 begin
-SELECT PRIV.id
+SELECT PRIV.id,PRIV.nombre,PRIV.controlador_administrador_id
 FROM 
-authitem_permiso_administrador P,
-       controlador_administrador C,        
-privilegio_administrador PRIV      
+		authitem_permiso_administrador P,
+		controlador_administrador C,        
+		privilegio_administrador PRIV      
       
 WHERE P.name = C.authitem_permiso_administrador_name
 AND C.id = PRIV.controlador_administrador_id
@@ -242,7 +264,9 @@ FROM
         rol_administrador_has_authitem_permiso_administrador RP,
         rol_administrador R,
         usuario_administrador_has_rol_administrador UR,
-        usuario_administrador U
+        usuario_administrador U,
+		rol_administrador_has_privilegio_administrador RPRIV
+
         
 WHERE PRIV.controlador_administrador_id = C.id
 AND C.authitem_permiso_administrador_name = P.name
@@ -250,6 +274,8 @@ AND RP.authitem_permiso_administrador_name = P.name
 AND RP.rol_administrador_id = R.id
 AND UR.rol_administrador_id = R.id
 AND UR.usuario_administrador_id = U.id
+AND RPRIV.rol_administrador_id = R.id
+AND RPRIV.privilegio_administrador_id = PRIV.id
 
 AND U.id = nuevo_usuario_id
 AND P.name = nuevo_permiso_nombre
@@ -315,8 +341,9 @@ CREATE TABLE IF NOT EXISTS `authassignment_administrador` (
 INSERT INTO `authassignment_administrador` (`itemname`, `userid`, `bizrule`, `data`) VALUES
 ('administracion_rol_administrador', '1', NULL, NULL),
 ('administracion_rol_usuario', '1', NULL, NULL),
+('administracion_rol_usuario', '2', NULL, 'N;'),
 ('administracion_usuario', '1', NULL, NULL),
-('administracion_usuario', '2', NULL, NULL),
+('administracion_usuario', '2', NULL, 'N;'),
 ('administracion_usuario_administrador', '1', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -687,8 +714,7 @@ INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_adminis
 (1, 'administracion_rol_administrador'),
 (1, 'administracion_rol_usuario'),
 (1, 'administracion_usuario'),
-(1, 'administracion_usuario_administrador'),
-(5, 'administracion_rol_usuario');
+(1, 'administracion_usuario_administrador');
 
 -- --------------------------------------------------------
 
@@ -734,65 +760,35 @@ INSERT INTO `rol_administrador_has_privilegio_administrador` (`rol_administrador
 (1, 53),
 (1, 54),
 (1, 55),
-(5, 55),
 (1, 56),
-(5, 56),
 (1, 57),
-(5, 57),
 (1, 58),
-(5, 58),
 (1, 59),
-(5, 59),
 (1, 60),
-(5, 60),
 (1, 61),
-(5, 61),
 (1, 62),
-(5, 62),
 (1, 63),
-(5, 63),
 (1, 64),
-(5, 64),
 (1, 65),
-(5, 65),
 (1, 66),
-(5, 66),
 (1, 67),
-(5, 67),
 (1, 68),
-(5, 68),
 (1, 69),
-(5, 69),
 (1, 70),
-(5, 70),
 (1, 71),
-(5, 71),
 (1, 72),
-(5, 72),
 (1, 73),
-(5, 73),
 (1, 74),
-(5, 74),
 (1, 75),
-(5, 75),
 (1, 76),
-(5, 76),
 (1, 77),
-(5, 77),
 (1, 78),
-(5, 78),
 (1, 79),
-(5, 79),
 (1, 80),
-(5, 80),
 (1, 81),
-(5, 81),
 (1, 82),
-(5, 82),
 (1, 83),
-(5, 83),
-(1, 84),
-(5, 84);
+(1, 84);
 
 -- --------------------------------------------------------
 
