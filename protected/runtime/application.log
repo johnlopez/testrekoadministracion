@@ -14643,3 +14643,749 @@ Stack trace:
 REQUEST_URI=/testrekoadministracion/administracion_rol_usuario/rolusuario/index
 HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_usuario/default/index
 ---
+2015/07/15 13:20:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_rol_administrador/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/administracion_rol_administrador/roladministrador/asignar/id/5
+---
+2015/07/15 19:53:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "assets/img/RegEdit.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('assets/img/RegE...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/
+---
+2015/07/15 19:53:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "assets/img/Devices.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('assets/img/Devi...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/
+---
+2015/07/15 19:53:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "assets/img/Coding app.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('assets/img/Codi...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/
+---
+2015/07/15 19:53:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/bootmetro/assets/ico/favicon.ico".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/bootmetr...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/bootmetro/assets/ico/favicon.ico
+---
+2015/07/15 19:56:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/assets/img...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/site/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/site/index
+---
+2015/07/15 19:56:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/assets/img...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/site/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/site/index
+---
+2015/07/15 19:56:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/assets/img...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/site/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/site/index
+---
+2015/07/15 20:03:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/assets/img...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/site/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/site/index
+---
+2015/07/15 20:03:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/assets/img...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/site/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/site/index
+---
+2015/07/15 20:03:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/assets/img...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/site/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/site/index
+---
+2015/07/15 20:06:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/assets/img...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/site/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/site/index
+---
+2015/07/15 20:06:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/assets/img...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/site/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/site/index
+---
+2015/07/15 20:06:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/assets/img...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/site/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/site/index
+---
+2015/07/15 20:08:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:08:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:08:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:13:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:13:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:13:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:14:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:14:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:14:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:14:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:14:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:14:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:14:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "escritorio_administrador/base-css.html".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/base-css.html
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:20:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:20:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:20:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:22:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:22:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:22:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:24:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:24:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:24:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:34:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:34:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:34:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:34:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:34:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:34:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:36:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:36:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:36:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:36:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:36:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:36:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:37:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:37:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:37:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:39:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:39:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:39:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:41:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:41:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:41:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:42:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:42:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:42:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:42:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:42:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:42:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:45:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:45:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:45:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:47:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Coding%20app.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:47:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/RegEdit.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/15 20:47:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "assets".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('assets')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('assets')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/assets/img/Devices.png
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---

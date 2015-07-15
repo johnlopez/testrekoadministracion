@@ -207,7 +207,7 @@ class UsuarioAdministradorController extends Controller
                 foreach ($listado as $lista)
                 {
                     Yii::app()->authManager->assign($lista['name'],$id);
-                    //$usuario->asignarPermisoUsuario($id, $lista['name']);
+                    //$usuario->asignarPermisoUsuario($id, $lista['name']);                    
                 }
             }
             
