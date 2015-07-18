@@ -1,4 +1,5 @@
 <?php
+ Yii::setPathOfAlias('bootstrap',dirname(__FILE__).'/../extensions/bootstrap');
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
@@ -8,8 +9,8 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'My Web Application',
-        'theme'=>"bootmetro",
-
+//        'theme'=>"bootmetro",
+        'theme'=>"bootstrap",
 	// preloading 'log' component
 	'preload'=>array('log'),
 
@@ -23,6 +24,9 @@ return array(
 		// uncomment the following to enable the Gii tool
 		
 		'gii'=>array(
+                        'generatorPaths'=>array(
+                            'bootstrap.gii',
+                        ),
 			'class'=>'system.gii.GiiModule',
 			'password'=>'123',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
@@ -41,6 +45,9 @@ return array(
 	'components'=>array(
                 'Validar' => array(
                     'class'=>'application.components.Validar',
+                ),
+                'bootstrap'=>array(
+                    'class'=>'bootstrap.components.Bootstrap',
                 ),
                 'authManager'=>array(
                     "class"=>"CDbAuthManager",
