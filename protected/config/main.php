@@ -10,7 +10,8 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'My Web Application',
 //        'theme'=>"bootmetro",
-        'theme'=>"bootstrap",
+        'theme'=>"bootmetro2",
+//        'theme'=>"bootstrap",
 	// preloading 'log' component
 	'preload'=>array('log'),
 
@@ -38,6 +39,7 @@ return array(
             'administracion_rol_administrador',
             'administracion_rol_usuario',
             'escritorio_administrador',
+            'cajita',
 		
 	),
 

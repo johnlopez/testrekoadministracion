@@ -1,12 +1,12 @@
 <?php
 
-class EscritorioAdministradorController extends Controller
+class UsuarioController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/bootmetro';
+	public $layout='//layouts/column2';
 
 	/**
 	 * @return array action filters
@@ -15,7 +15,6 @@ class EscritorioAdministradorController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -62,16 +61,16 @@ class EscritorioAdministradorController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new EscritorioAdministrador;
+		$model=new Usuario;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['EscritorioAdministrador']))
+		if(isset($_POST['Usuario']))
 		{
-			$model->attributes=$_POST['EscritorioAdministrador'];
+			$model->attributes=$_POST['Usuario'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->name));
+				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
@@ -91,11 +90,11 @@ class EscritorioAdministradorController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['EscritorioAdministrador']))
+		if(isset($_POST['Usuario']))
 		{
-			$model->attributes=$_POST['EscritorioAdministrador'];
+			$model->attributes=$_POST['Usuario'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->name));
+				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(
@@ -110,11 +109,17 @@ class EscritorioAdministradorController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow deletion via POST request
+			$this->loadModel($id)->delete();
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -122,7 +127,7 @@ class EscritorioAdministradorController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('EscritorioAdministrador');
+		$dataProvider=new CActiveDataProvider('Usuario');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,10 +138,10 @@ class EscritorioAdministradorController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new EscritorioAdministrador('search');
+		$model=new Usuario('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['EscritorioAdministrador']))
-			$model->attributes=$_GET['EscritorioAdministrador'];
+		if(isset($_GET['Usuario']))
+			$model->attributes=$_GET['Usuario'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -146,13 +151,11 @@ class EscritorioAdministradorController extends Controller
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer $id the ID of the model to be loaded
-	 * @return EscritorioAdministrador the loaded model
-	 * @throws CHttpException
+	 * @param integer the ID of the model to be loaded
 	 */
 	public function loadModel($id)
 	{
-		$model=EscritorioAdministrador::model()->findByPk($id);
+		$model=Usuario::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -160,11 +163,11 @@ class EscritorioAdministradorController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param EscritorioAdministrador $model the model to be validated
+	 * @param CModel the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='escritorio-administrador-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='usuario-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
