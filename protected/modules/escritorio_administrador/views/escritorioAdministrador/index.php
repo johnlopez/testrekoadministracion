@@ -5,7 +5,7 @@
     <!-- panorama sections --><!-- panorama sections --><!-- panorama sections --><!-- panorama sections -->           
         <a class="tile wide imagetext bg-color-blue" href="<?php echo 'http://localhost/testrekoadministracion/'.$data->name;?>">
            <div class="image-wrapper">
-              <span class="icon icon-happy"></span>
+              <span class="icon  icon-winsows"></span>
            </div>
            <div class="column-text">
               <div class="text">Administracion</div>
