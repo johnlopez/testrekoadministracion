@@ -19290,3 +19290,863 @@ Stack trace:
 REQUEST_URI=/testrekoadministracion/themes/metroui/tiles.html
 HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
 ---
+2015/07/20 20:42:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/tiles.html".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/css/metro.css".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/css/metr...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/css/metro.css
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/css/metro-icons.css".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/css/metr...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/css/metro-icons.css
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/1.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/1...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/1.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/2.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/2...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/2.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/3.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/3...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/3.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/js/jquery-2.1.3.min.js".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/js/jquer...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/js/jquery-2.1.3.min.js
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/js/metro.js".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/js/metro...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/js/metro.js
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/4.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/4...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/4.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/me.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/m...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/me.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/5.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/5...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/5.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/spface.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/s...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/spface.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/jeki_chan.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/j...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/jeki_chan.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/shvarcenegger.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/s...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/shvarcenegger.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/clouds2.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/c...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/clouds2.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/jek_vorobey.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/j...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/jek_vorobey.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/outlook.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/o...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/outlook.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/excel.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/e...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/excel.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/jolie.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/j...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/jolie.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/word.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/w...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/word.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/access.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/a...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/access.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/powerpoint.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/p...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/powerpoint.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/grid2.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/g...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/grid2.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/vin_d.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/v...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/vin_d.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/Crysis-2-icon.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/C...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/Crysis-2-icon.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/WorldofTanks.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/W...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/WorldofTanks.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/halo.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/h...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/halo.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/Battlefield_4_Icon.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/B...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/Battlefield_4_Icon.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/x-box.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/x...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/x-box.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/1.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/1...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/1.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/3.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/3...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/3.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:42:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/2.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/2...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/2.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/favicon.ico".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/favicon....')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/favicon.ico
+---
+2015/07/20 20:43:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/tiles.html".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/1.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/1...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/1.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/2.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/2...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/2.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/5.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/5...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/5.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/3.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/3...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/3.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/4.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/4...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/4.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/me.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/m...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/me.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/spface.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/s...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/spface.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/jeki_chan.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/j...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/jeki_chan.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/vin_d.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/v...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/vin_d.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/shvarcenegger.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/s...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/shvarcenegger.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/jek_vorobey.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/j...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/jek_vorobey.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/jolie.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/j...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/jolie.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/outlook.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/o...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/outlook.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/access.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/a...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/access.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/word.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/w...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/word.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/excel.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/e...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/excel.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/clouds2.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/c...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/clouds2.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/powerpoint.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/p...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/powerpoint.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/Crysis-2-icon.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/C...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/Crysis-2-icon.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/WorldofTanks.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/W...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/WorldofTanks.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/grid2.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/g...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/grid2.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/Battlefield_4_Icon.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/B...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/Battlefield_4_Icon.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/halo.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/h...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/halo.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/x-box.png".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/x...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/x-box.png
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/2.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/2...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/2.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/spface.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/s...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/spface.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/3.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/3...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/3.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/4.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/4...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/4.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 20:43:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/images/5.jpg".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/images/5...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/images/5.jpg
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/20 21:02:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/tiles.html".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/21 12:49:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/favicon.ico".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/favicon.ico
+---
+2015/07/21 13:37:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/js/jquery.js".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/js/jquery.js
+HTTP_REFERER=http://localhost/testrekoadministracion/
+---
+2015/07/21 14:38:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/favicon.ico".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/favicon.ico
+---
+2015/07/21 14:38:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/favicon.ico".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/favicon.ico
+---
+2015/07/21 15:09:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/tiles.html".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/
+---
+2015/07/21 15:14:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/tiles.html".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/
+---
+2015/07/21 15:14:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/tiles.html".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/
+---
+2015/07/21 15:45:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/tiles.html".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/
+---
+2015/07/21 15:45:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/tiles.html".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/
+---
+2015/07/21 18:10:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/tiles.html".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/
+---
+2015/07/21 18:59:23 [error] [php] Undefined variable: dataArray (C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php:5)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): EscritorioAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): EscritorioAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php(128): EscritorioAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): EscritorioAdministradorController->actionIndex()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): EscritorioAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): EscritorioAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): EscritorioAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): EscritorioAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php (5)
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php (128)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/21 20:08:56 [error] [php] Undefined offset: 2 (C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php:21)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): EscritorioAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): EscritorioAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php(128): EscritorioAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): EscritorioAdministradorController->actionIndex()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): EscritorioAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): EscritorioAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): EscritorioAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): EscritorioAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php (21)
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php (128)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/21 20:08:59 [error] [php] Undefined offset: 2 (C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php:21)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): EscritorioAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): EscritorioAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php(128): EscritorioAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): EscritorioAdministradorController->actionIndex()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): EscritorioAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): EscritorioAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): EscritorioAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): EscritorioAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php (21)
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php (128)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/21 20:09:12 [error] [php] Undefined offset: 2 (C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php:21)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): EscritorioAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): EscritorioAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php(128): EscritorioAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): EscritorioAdministradorController->actionIndex()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): EscritorioAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): EscritorioAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): EscritorioAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): EscritorioAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php (21)
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php (128)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/21 20:09:13 [error] [php] Undefined offset: 2 (C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php:21)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): EscritorioAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): EscritorioAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php(128): EscritorioAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): EscritorioAdministradorController->actionIndex()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): EscritorioAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): EscritorioAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): EscritorioAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): EscritorioAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php (21)
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php (128)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/21 20:09:18 [error] [php] Undefined offset: 2 (C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php:21)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): EscritorioAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): EscritorioAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php(128): EscritorioAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): EscritorioAdministradorController->actionIndex()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): EscritorioAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): EscritorioAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): EscritorioAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): EscritorioAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php (21)
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php (128)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/21 20:09:37 [error] [php] Undefined offset: 2 (C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php:21)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): EscritorioAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): EscritorioAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php(128): EscritorioAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): EscritorioAdministradorController->actionIndex()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): EscritorioAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): EscritorioAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): EscritorioAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): EscritorioAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php (21)
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php (128)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/21 20:09:40 [error] [php] Undefined offset: 2 (C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php:21)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): EscritorioAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): EscritorioAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php(128): EscritorioAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): EscritorioAdministradorController->actionIndex()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): EscritorioAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): EscritorioAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): EscritorioAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): EscritorioAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php (21)
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php (128)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/21 20:10:08 [error] [php] Undefined offset: 2 (C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php:21)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): EscritorioAdministradorController->renderFile()
+#1 C:\wamp\www\yii\framework\web\CController.php(782): EscritorioAdministradorController->renderPartial()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php(128): EscritorioAdministradorController->render()
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): EscritorioAdministradorController->actionIndex()
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): EscritorioAdministradorController->runAction()
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): EscritorioAdministradorController->filterAccessControl()
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): EscritorioAdministradorController->runActionWithFilters()
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): EscritorioAdministradorController->run()
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\views\escritorioAdministrador\index.php (21)
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php (128)
+in C:\wamp\www\testrekoadministracion\index.php (13)
