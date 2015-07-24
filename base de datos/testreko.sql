@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 15-07-2015 a las 21:22:31
+-- Tiempo de generación: 24-07-2015 a las 20:09:38
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -52,6 +52,17 @@ nuevo_usuario,
 nuevo_clave
 );
 SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `asignar_permiso_a_rol`(nuevo_rol_id int , nuevo_permiso_name varchar(50))
+begin
+INSERT INTO rol_administrador_has_authitem_permiso_administrador (rol_administrador_id,authitem_permiso_administrador_name) 
+SELECT RA.id,P.name
+FROM 	
+		rol_administrador RA,
+        authitem_permiso_administrador P
+WHERE  RA.id=nuevo_rol_id
+AND P.name=nuevo_permiso_name;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `asignar_permiso_rol`(nuevo_rol_id int , nuevo_permiso_name varchar(50))
@@ -179,6 +190,13 @@ where userid = nuevo_usuario_id
 and itemname = nuevo_permiso_name;
 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `desasignar_privilegio`(nuevo_rol_id int,nuevo_privilegio_id int)
+begin
+delete from rol_administrador_has_privilegio_administrador 
+where rol_administrador_id = nuevo_rol_id
+and privilegio_administrador_id = nuevo_privilegio_id;
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `desasignar_privilegio_rol`(nuevo_rol_id int,nuevo_privilegio_id int)
 begin
 delete from rol_administrador_has_privilegio_administrador 
@@ -255,6 +273,20 @@ end$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_usuario_administrador`()
 select * from usuario_administrador$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `privilegio_permiso`(nuevo_permiso varchar(250))
+begin
+SELECT PRIV.id
+FROM 
+authitem_permiso_administrador P,
+       controlador_administrador C,        
+privilegio_administrador PRIV      
+      
+WHERE P.name = C.authitem_permiso_administrador_name
+AND C.id = PRIV.controlador_administrador_id
+
+AND P.name = nuevo_permiso;
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `validar_privilegio`(nuevo_usuario_id int , nuevo_permiso_nombre varchar(50) , nuevo_controlador_nombre varchar(50) , nuevo_privilegio_nombre varchar(50),out vista varchar(50))
 SELECT PRIV.nombre into vista
 FROM
@@ -264,9 +296,7 @@ FROM
         rol_administrador_has_authitem_permiso_administrador RP,
         rol_administrador R,
         usuario_administrador_has_rol_administrador UR,
-        usuario_administrador U,
-		rol_administrador_has_privilegio_administrador RPRIV
-
+        usuario_administrador U
         
 WHERE PRIV.controlador_administrador_id = C.id
 AND C.authitem_permiso_administrador_name = P.name
@@ -274,8 +304,6 @@ AND RP.authitem_permiso_administrador_name = P.name
 AND RP.rol_administrador_id = R.id
 AND UR.rol_administrador_id = R.id
 AND UR.usuario_administrador_id = U.id
-AND RPRIV.rol_administrador_id = R.id
-AND RPRIV.privilegio_administrador_id = PRIV.id
 
 AND U.id = nuevo_usuario_id
 AND P.name = nuevo_permiso_nombre
@@ -525,6 +553,27 @@ CREATE TABLE IF NOT EXISTS `escritorio_usuario` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `icono_aplicacion_administrador`
+--
+
+CREATE TABLE IF NOT EXISTS `icono_aplicacion_administrador` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `label` varchar(45) DEFAULT NULL,
+  `enlace` varchar(45) DEFAULT NULL,
+  `tamaño` varchar(45) DEFAULT NULL,
+  `color_cuadro` varchar(45) DEFAULT NULL,
+  `color_contenido` varchar(45) DEFAULT NULL,
+  `icono` varchar(45) DEFAULT NULL,
+  `estilo` longtext,
+  `enlace_por_defecto` varchar(45) DEFAULT NULL,
+  `authitem_permiso_administrador_name` varchar(64) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_icono_aplicacion_administrador_authitem_permiso_administ_idx` (`authitem_permiso_administrador_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `privilegio_administrador`
 --
 
@@ -714,7 +763,8 @@ INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_adminis
 (1, 'administracion_rol_administrador'),
 (1, 'administracion_rol_usuario'),
 (1, 'administracion_usuario'),
-(1, 'administracion_usuario_administrador');
+(1, 'administracion_usuario_administrador'),
+(5, 'administracion_rol_usuario');
 
 -- --------------------------------------------------------
 
@@ -760,35 +810,65 @@ INSERT INTO `rol_administrador_has_privilegio_administrador` (`rol_administrador
 (1, 53),
 (1, 54),
 (1, 55),
+(5, 55),
 (1, 56),
+(5, 56),
 (1, 57),
+(5, 57),
 (1, 58),
+(5, 58),
 (1, 59),
+(5, 59),
 (1, 60),
+(5, 60),
 (1, 61),
+(5, 61),
 (1, 62),
+(5, 62),
 (1, 63),
+(5, 63),
 (1, 64),
+(5, 64),
 (1, 65),
+(5, 65),
 (1, 66),
+(5, 66),
 (1, 67),
+(5, 67),
 (1, 68),
+(5, 68),
 (1, 69),
+(5, 69),
 (1, 70),
+(5, 70),
 (1, 71),
+(5, 71),
 (1, 72),
+(5, 72),
 (1, 73),
+(5, 73),
 (1, 74),
+(5, 74),
 (1, 75),
+(5, 75),
 (1, 76),
+(5, 76),
 (1, 77),
+(5, 77),
 (1, 78),
+(5, 78),
 (1, 79),
+(5, 79),
 (1, 80),
+(5, 80),
 (1, 81),
+(5, 81),
 (1, 82),
+(5, 82),
 (1, 83),
-(1, 84);
+(5, 83),
+(1, 84),
+(5, 84);
 
 -- --------------------------------------------------------
 
@@ -877,7 +957,8 @@ CREATE TABLE IF NOT EXISTS `usuario_administrador` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuario` varchar(45) DEFAULT NULL,
   `clave` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `usuario` (`usuario`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
@@ -985,6 +1066,12 @@ ALTER TABLE `escritorio_administrador`
 --
 ALTER TABLE `escritorio_usuario`
   ADD CONSTRAINT `fk_escritorio_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `icono_aplicacion_administrador`
+--
+ALTER TABLE `icono_aplicacion_administrador`
+  ADD CONSTRAINT `fk_icono_aplicacion_administrador_authitem_permiso_administra1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `privilegio_administrador`
