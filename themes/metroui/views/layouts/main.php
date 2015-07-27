@@ -286,11 +286,37 @@
         <h1 class="tile-area-title">            
             <a href="http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index" ><span class="mif-home mif-4x mif-ani-shuttle mif-ani-slow" style="color: white;"></span></a>
         </h1>
-        <div class="tile-area-controls">
-            <button class="image-button icon-right bg-transparent fg-white bg-hover-dark no-border"><span class="sub-header no-margin text-light">Sergey Pimenov</span> <span class="icon mif-user"></span></button>
+        <div class="tile-area-controls">            
+            <button class="image-button bg-transparent fg-white bg-hover-dark no-border">
+                <span class="sub-header fg-black no-margin text-light">           
+                    <?php                     
+                        echo !Yii::app()->user->isGuest
+                        ? ''
+                        : CHtml::link("Login", array('/site/login'), array()); 
+                    ?>
+                    <?php
+                        echo Yii::app()->user->isGuest
+                        ? ''
+                        : CHtml::link("Logout", array('/site/logout'), array()); 
+                    ?>
+               </span> 
+            </button>
+            
+            <button class="image-button icon-right bg-transparent fg-white bg-hover-dark no-border">
+                <span class="sub-header no-margin text-light">
+                    <?php
+                    echo Yii::app()->user->isGuest
+                    ? ''
+                    : CHtml::link(Yii::app()->user->name);                    
+                    ?>
+                </span> 
+
+                <span class="icon mif-user">                    
+                </span>
+            </button>            
             <button class="square-button bg-transparent fg-white bg-hover-dark no-border" onclick="showSearch()"><span class="mif-search"></span></button>
             <button class="square-button bg-transparent fg-white bg-hover-dark no-border" onclick="showSettings()"><span class="mif-cog"></span></button>
-            <a href="<?php echo Yii::app()->theme->baseUrl; ?>/tiles.html" class="square-button bg-transparent fg-white bg-hover-dark no-border"><span class="mif-switch"></span></a>
+            <a href="<?php echo Yii::app()->theme->baseUrl; ?>/tiles.html" class="square-button bg-transparent fg-white bg-hover-dark no-border"><span class="mif-switch"></span></a>                   
         </div>
 
         <?php echo $content; ?>
@@ -317,9 +343,8 @@
         Cd.write("<img src='http://c.hit.ua/hit?i=136046&g=0&x=2"+Cp+Cr+
         "&r="+escape(Cd.referrer)+"&u="+escape(window.location.href)+
         "' border='0' wi"+"dth='1' he"+"ight='1'/>");
-        //--></script></a>
+        //--></script>
+    </a>
     <!-- / hit.ua -->
-
-
 </body>
 </html>

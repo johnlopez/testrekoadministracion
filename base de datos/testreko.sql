@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-07-2015 a las 20:09:38
+-- Tiempo de generación: 27-07-2015 a las 20:45:50
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -444,7 +444,16 @@ INSERT INTO `authitem_permiso_administrador` (`name`, `type`, `description`, `bi
 ('administracion_rol_administrador', 2, '', '', ''),
 ('administracion_rol_usuario', 2, NULL, NULL, NULL),
 ('administracion_usuario', 2, '', NULL, 'N;'),
-('administracion_usuario_administrador', 2, '', NULL, 'N;');
+('administracion_usuario_administrador', 2, '', NULL, 'N;'),
+('admin_aplicacion', 2, NULL, NULL, NULL),
+('admin_curricular', 2, NULL, NULL, NULL),
+('admin_error_log_mensaje', 2, NULL, NULL, NULL),
+('admin_escritorio', 2, NULL, NULL, NULL),
+('admin_institucion', 2, NULL, NULL, NULL),
+('admin_rol_administrador', 2, NULL, NULL, NULL),
+('admin_rol_usuario', 2, NULL, NULL, NULL),
+('admin_usuario', 2, NULL, NULL, NULL),
+('admin_usuario_administrador', 2, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 

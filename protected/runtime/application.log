@@ -20531,3 +20531,283 @@ Stack trace:
 REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/www.google.cl
 HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
 ---
+2015/07/27 12:50:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/favicon.ico".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/favicon.ico
+---
+2015/07/27 13:59:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/tiles.html".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/27 13:59:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/tiles.html".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/themes/metroui/tiles.html
+---
+2015/07/27 14:09:43 [error] [php] include(mif-switch.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\wamp\www\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 unknown(0): spl_autoload_call()
+#1 C:\wamp\www\yii\framework\YiiBase.php(303): class_exists()
+#2 C:\wamp\www\yii\framework\web\CWidgetFactory.php(146): import()
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(146): CWidgetFactory->createWidget()
+#4 C:\wamp\www\yii\framework\web\CBaseController.php(180): EscritorioAdministradorController->createWidget()
+#5 C:\wamp\www\testrekoadministracion\protected\extensions\bootstrap\widgets\TbNavbar.php(155): EscritorioAdministradorController->widget()
+#6 C:\wamp\www\yii\framework\web\CBaseController.php(181): TbNavbar->run()
+#7 C:\wamp\www\testrekoadministracion\themes\metroui\views\layouts\main.php(301): EscritorioAdministradorController->widget()
+#8 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#9 C:\wamp\www\yii\framework\web\CBaseController.php(95): EscritorioAdministradorController->renderInternal()
+#10 C:\wamp\www\yii\framework\web\widgets\CContentDecorator.php(76): EscritorioAdministradorController->renderFile()
+#11 C:\wamp\www\yii\framework\web\widgets\CContentDecorator.php(54): CContentDecorator->decorate()
+#12 C:\wamp\www\yii\framework\web\widgets\COutputProcessor.php(44): CContentDecorator->processOutput()
+#13 C:\wamp\www\yii\framework\web\CBaseController.php(214): CContentDecorator->run()
+#14 C:\wamp\www\yii\framework\web\CBaseController.php(308): EscritorioAdministradorController->endWidget()
+#15 C:\wamp\www\testrekoadministracion\themes\metroui\views\layouts\column2.php(22): EscritorioAdministradorController->endContent()
+#16 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#17 C:\wamp\www\yii\framework\web\CBaseController.php(95): EscritorioAdministradorController->renderInternal()
+#18 C:\wamp\www\yii\framework\web\CController.php(784): EscritorioAdministradorController->renderFile()
+#19 C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php(128): EscritorioAdministradorController->render()
+#20 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): EscritorioAdministradorController->actionIndex()
+#21 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#22 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): EscritorioAdministradorController->runAction()
+#23 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#24 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#25 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): EscritorioAdministradorController->filterAccessControl()
+#26 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#27 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#28 C:\wamp\www\yii\framework\web\CController.php(265): EscritorioAdministradorController->runActionWithFilters()
+#29 C:\wamp\www\yii\framework\web\CWebApplication.php(282): EscritorioAdministradorController->run()
+#30 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#31 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#32 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+in C:\wamp\www\testrekoadministracion\protected\extensions\bootstrap\widgets\TbNavbar.php (155)
+in C:\wamp\www\testrekoadministracion\themes\metroui\views\layouts\main.php (301)
+in C:\wamp\www\testrekoadministracion\themes\metroui\views\layouts\column2.php (22)
+2015/07/27 14:09:55 [error] [php] Illegal offset type in isset or empty (C:\wamp\www\yii\framework\YiiBase.php:265)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CBaseController.php(180): EscritorioAdministradorController->createWidget()
+#1 C:\wamp\www\testrekoadministracion\themes\metroui\views\layouts\main.php(301): EscritorioAdministradorController->widget()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): EscritorioAdministradorController->renderInternal()
+#4 C:\wamp\www\yii\framework\web\widgets\CContentDecorator.php(76): EscritorioAdministradorController->renderFile()
+#5 C:\wamp\www\yii\framework\web\widgets\CContentDecorator.php(54): CContentDecorator->decorate()
+#6 C:\wamp\www\yii\framework\web\widgets\COutputProcessor.php(44): CContentDecorator->processOutput()
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(214): CContentDecorator->run()
+#8 C:\wamp\www\yii\framework\web\CBaseController.php(308): EscritorioAdministradorController->endWidget()
+#9 C:\wamp\www\testrekoadministracion\themes\metroui\views\layouts\column2.php(22): EscritorioAdministradorController->endContent()
+#10 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(95): EscritorioAdministradorController->renderInternal()
+#12 C:\wamp\www\yii\framework\web\CController.php(784): EscritorioAdministradorController->renderFile()
+#13 C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php(128): EscritorioAdministradorController->render()
+#14 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): EscritorioAdministradorController->actionIndex()
+#15 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#16 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): EscritorioAdministradorController->runAction()
+#17 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#18 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#19 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): EscritorioAdministradorController->filterAccessControl()
+#20 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#21 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#22 C:\wamp\www\yii\framework\web\CController.php(265): EscritorioAdministradorController->runActionWithFilters()
+#23 C:\wamp\www\yii\framework\web\CWebApplication.php(282): EscritorioAdministradorController->run()
+#24 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#25 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#26 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+in C:\wamp\www\testrekoadministracion\themes\metroui\views\layouts\main.php (301)
+in C:\wamp\www\testrekoadministracion\themes\metroui\views\layouts\column2.php (22)
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php (128)
+2015/07/27 14:33:55 [error] [php] htmlspecialchars() expects parameter 1 to be string, array given (C:\wamp\www\yii\framework\web\helpers\CHtml.php:108)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\helpers\CHtml.php(163): renderAttributes()
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(595): tag()
+#2 C:\wamp\www\testrekoadministracion\themes\metroui\views\layouts\main.php(303): label()
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#4 C:\wamp\www\yii\framework\web\CBaseController.php(95): EscritorioAdministradorController->renderInternal()
+#5 C:\wamp\www\yii\framework\web\widgets\CContentDecorator.php(76): EscritorioAdministradorController->renderFile()
+#6 C:\wamp\www\yii\framework\web\widgets\CContentDecorator.php(54): CContentDecorator->decorate()
+#7 C:\wamp\www\yii\framework\web\widgets\COutputProcessor.php(44): CContentDecorator->processOutput()
+#8 C:\wamp\www\yii\framework\web\CBaseController.php(214): CContentDecorator->run()
+#9 C:\wamp\www\yii\framework\web\CBaseController.php(308): EscritorioAdministradorController->endWidget()
+#10 C:\wamp\www\testrekoadministracion\themes\metroui\views\layouts\column2.php(22): EscritorioAdministradorController->endContent()
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#12 C:\wamp\www\yii\framework\web\CBaseController.php(95): EscritorioAdministradorController->renderInternal()
+#13 C:\wamp\www\yii\framework\web\CController.php(784): EscritorioAdministradorController->renderFile()
+#14 C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php(128): EscritorioAdministradorController->render()
+#15 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): EscritorioAdministradorController->actionIndex()
+#16 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#17 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): EscritorioAdministradorController->runAction()
+#18 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#19 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#20 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): EscritorioAdministradorController->filterAccessControl()
+#21 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#22 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#23 C:\wamp\www\yii\framework\web\CController.php(265): EscritorioAdministradorController->runActionWithFilters()
+#24 C:\wamp\www\yii\framework\web\CWebApplication.php(282): EscritorioAdministradorController->run()
+#25 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#26 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#27 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+in C:\wamp\www\testrekoadministracion\themes\metroui\views\layouts\main.php (303)
+in C:\wamp\www\testrekoadministracion\themes\metroui\views\layouts\column2.php (22)
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php (128)
+2015/07/27 15:45:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "<".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('<')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('<')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/%3C?php%20echo%20Yii::app()-%3Etheme-%3EbaseUrl;%20?%3E/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/27 15:45:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "<".' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('<')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('<')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/%3C?php%20echo%20Yii::app()-%3Etheme-%3EbaseUrl;%20?%3E/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/%3C?php%20echo%20Yii::app()-%3Etheme-%3EbaseUrl;%20?%3E/tiles.html
+---
+2015/07/27 15:51:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/tiles.html".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/27 16:02:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/tiles.html".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/27 16:15:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui/tiles.html".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui/tiles.html
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/27 19:38:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_institucion".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_institucion
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/27 19:39:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_curricular".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_curricular
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/27 20:01:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_institucion".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_institucion
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/27 20:01:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_curricular".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_curricular
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/27 20:01:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_escritorio".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_escritorio
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/27 20:01:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_aplicacion_administrador".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_aplicacion_administrador
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/27 20:04:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_error_log_mensaje".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_error_log_mensaje
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/27 20:04:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_aula".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_aula
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/27 20:04:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_repositorio".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_repositorio
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/27 20:16:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_institucion".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_institucion
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---
+2015/07/27 20:17:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion_institucion".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion_...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/administracion_institucion
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+---

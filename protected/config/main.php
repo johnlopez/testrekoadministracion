@@ -41,6 +41,8 @@ return array(
             'administracion_rol_usuario',
             'escritorio_administrador',
             'cajita',
+            'admin_institucion',
+
 		
 	),
 

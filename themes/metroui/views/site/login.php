@@ -1,3 +1,7 @@
+<div class="tile-group double">
+    <span class="tile-group-title"></span>
+    <div class="tile-container">
+
 <?php
 /* @var $this SiteController */
 /* @var $model LoginForm */
@@ -45,3 +49,7 @@ $this->breadcrumbs=array(
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+         
+    </div>
+</div>
