@@ -6,7 +6,7 @@ class EscritorioAdministradorController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout='//layouts/metroui';
 
 	/**
 	 * @return array action filters
@@ -123,8 +123,12 @@ class EscritorioAdministradorController extends Controller
 	public function actionIndex()
 	{
 		$dataProvider=new CActiveDataProvider('EscritorioAdministrador');
+                $permiso = new EscritorioAdministrador();
+                $vpermiso = $permiso->getPermisoUsuario(Yii::app()->user->getId());                
+                
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+                        'vpermiso'=>$vpermiso,
 		));
 	}
 

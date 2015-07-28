@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 27-07-2015 a las 20:45:50
+-- Tiempo de generación: 28-07-2015 a las 21:04:37
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -287,6 +287,42 @@ AND C.id = PRIV.controlador_administrador_id
 AND P.name = nuevo_permiso;
 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_escritorio_administrador_get_icono_permiso_usuario`(nuevo_usuario_id int)
+BEGIN
+SELECT I.estilo,P.name
+FROM 
+		usuario_administrador U,      
+        usuario_administrador_has_rol_administrador UR,
+        rol_administrador R,
+        rol_administrador_has_authitem_permiso_administrador RP,
+        authitem_permiso_administrador P,
+        icono_aplicacion_administrador I
+      
+WHERE U.id = UR.usuario_administrador_id
+AND R.id = UR.rol_administrador_id
+AND R.id = RP.rol_administrador_id
+AND P.name = RP.authitem_permiso_administrador_name
+AND P.name = I.authitem_permiso_administrador_name
+AND U.id = nuevo_usuario_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_escritorio_administrador_get_permiso_usuario`(nuevo_usuario_id int)
+BEGIN
+SELECT P.name
+FROM 
+		usuario_administrador U,      
+        usuario_administrador_has_rol_administrador UR,
+        rol_administrador R,
+        rol_administrador_has_authitem_permiso_administrador RP,
+        authitem_permiso_administrador P
+      
+WHERE U.id = UR.usuario_administrador_id
+AND R.id = UR.rol_administrador_id
+AND R.id = RP.rol_administrador_id
+AND P.name = RP.authitem_permiso_administrador_name
+AND U.id = nuevo_usuario_id;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `validar_privilegio`(nuevo_usuario_id int , nuevo_permiso_nombre varchar(50) , nuevo_controlador_nombre varchar(50) , nuevo_privilegio_nombre varchar(50),out vista varchar(50))
 SELECT PRIV.nombre into vista
 FROM
@@ -446,10 +482,12 @@ INSERT INTO `authitem_permiso_administrador` (`name`, `type`, `description`, `bi
 ('administracion_usuario', 2, '', NULL, 'N;'),
 ('administracion_usuario_administrador', 2, '', NULL, 'N;'),
 ('admin_aplicacion', 2, NULL, NULL, NULL),
+('admin_aula', 2, NULL, NULL, NULL),
 ('admin_curricular', 2, NULL, NULL, NULL),
 ('admin_error_log_mensaje', 2, NULL, NULL, NULL),
 ('admin_escritorio', 2, NULL, NULL, NULL),
 ('admin_institucion', 2, NULL, NULL, NULL),
+('admin_repositorio', 2, NULL, NULL, NULL),
 ('admin_rol_administrador', 2, NULL, NULL, NULL),
 ('admin_rol_usuario', 2, NULL, NULL, NULL),
 ('admin_usuario', 2, NULL, NULL, NULL),
@@ -567,18 +605,28 @@ CREATE TABLE IF NOT EXISTS `escritorio_usuario` (
 
 CREATE TABLE IF NOT EXISTS `icono_aplicacion_administrador` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `label` varchar(45) DEFAULT NULL,
-  `enlace` varchar(45) DEFAULT NULL,
-  `tamaño` varchar(45) DEFAULT NULL,
-  `color_cuadro` varchar(45) DEFAULT NULL,
-  `color_contenido` varchar(45) DEFAULT NULL,
-  `icono` varchar(45) DEFAULT NULL,
   `estilo` longtext,
-  `enlace_por_defecto` varchar(45) DEFAULT NULL,
   `authitem_permiso_administrador_name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_icono_aplicacion_administrador_authitem_permiso_administ_idx` (`authitem_permiso_administrador_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+
+--
+-- Volcado de datos para la tabla `icono_aplicacion_administrador`
+--
+
+INSERT INTO `icono_aplicacion_administrador` (`id`, `estilo`, `authitem_permiso_administrador_name`) VALUES
+(1, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario_administrador";?>" >\n            <div class="tile-wide bg-teal fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-user"></span>\n                </div>\n                <span class="tile-label">\n                    <?php \n                        $pizza  = CHtml::encode(''administracion_usuario_administrador'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>\n                </span>\n            </div>\n        </a>', 'admin_usuario_administrador'),
+(2, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_rol_administrador";?>" >\n            <div class="tile bg-darkBlue fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-security"></span>\n                </div>\n                <span class="tile-label">            \n                    <?php \n                        $pizza  = CHtml::encode(''administracion_rol_administrador'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>                \n                </span>\n            </div>\n        </a>', 'admin_rol_administrador'),
+(3, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_rol_usuario";?>" >\n            <div class="tile bg-darkCyan fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-security"></span>\n                </div>\n                <span class="tile-label">            \n                    <?php \n                        $pizza  = CHtml::encode(''administracion_rol_usuario'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>                \n                </span>\n            </div>\n        </a>', 'admin_rol_usuario'),
+(4, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario";?>" >\n            <div class="tile-wide bg-darkGreen fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-users"></span>\n                </div>\n                <span class="tile-label">\n                    <?php \n                        $pizza  = CHtml::encode(''administracion_usuario'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>\n                </span>\n            </div>\n        </a>', 'admin_usuario'),
+(5, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_institucion";?>" >\n            <div class="tile-large bg-darkPink fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-library"></span>\n                </div>\n                <span class="tile-label">\n                    <?php \n                        $pizza  = CHtml::encode(''administracion_institucion'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>\n                </span>\n            </div>\n        </a>', 'admin_institucion'),
+(6, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_curricular";?>" >\n            <div class="tile-wide bg-darkViolet fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-school"></span>\n                </div>\n                <span class="tile-label">            \n                    <?php \n                        $pizza  = CHtml::encode(''administracion_curricular'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>                \n                </span>\n            </div>\n        </a>', 'admin_curricular'),
+(7, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_escritorio";?>" >\n            <div class="tile-wide bg-green fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-display"></span>\n                </div>\n                <span class="tile-label">\n                    <?php \n                        $pizza  = CHtml::encode(''administracion_escritorio'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>\n                </span>\n            </div>\n        </a>', 'admin_escritorio'),
+(8, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_aplicacion";?>" >\n            <div class="tile bg-amber fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-widgets"></span>\n                </div>\n                <span class="tile-label">            \n                    <?php \n                        $pizza  = CHtml::encode(''administracion_aplicacion'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>                \n                </span>\n            </div>\n        </a>', 'admin_aplicacion'),
+(9, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_aula";?>"><div class="tile-wide bg-lime fg-white" data-role="tile"><div class="tile-content iconic"><span class="icon mif-books"></span></div><span class="tile-label"><?php $pizza=CHtml::encode(''administracion_aula'');$porciones=explode("_", $pizza);foreach($porciones as $p){echo $p." ";} ?></span></div></a>', 'admin_aula'),
+(10, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_repositorio";?>" >\n            <div class="tile-large bg-brown fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-cabinet"></span>\n                </div>\n                <span class="tile-label">            \n                    <?php \n                        $pizza  = CHtml::encode(''administracion_repositorio'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>                \n                </span>\n            </div>  \n        </a>', 'admin_repositorio'),
+(11, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_error_log_mensaje";?>" >\n            <div class="tile-large bg-red fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-history"></span>\n                </div>\n                <span class="tile-label">\n                    <?php \n                        $pizza  = CHtml::encode(''administracion_error_log_mensaje'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>\n                </span>\n            </div>  \n        </a>', 'admin_error_log_mensaje');
 
 -- --------------------------------------------------------
 
@@ -773,7 +821,21 @@ INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_adminis
 (1, 'administracion_rol_usuario'),
 (1, 'administracion_usuario'),
 (1, 'administracion_usuario_administrador'),
-(5, 'administracion_rol_usuario');
+(1, 'admin_aula'),
+(1, 'admin_curricular'),
+(1, 'admin_error_log_mensaje'),
+(1, 'admin_escritorio'),
+(1, 'admin_institucion'),
+(1, 'admin_repositorio'),
+(1, 'admin_rol_administrador'),
+(1, 'admin_rol_usuario'),
+(1, 'admin_usuario'),
+(1, 'admin_usuario_administrador'),
+(5, 'admin_aula'),
+(5, 'admin_curricular'),
+(5, 'admin_escritorio'),
+(5, 'admin_institucion'),
+(5, 'admin_repositorio');
 
 -- --------------------------------------------------------
 
@@ -819,65 +881,35 @@ INSERT INTO `rol_administrador_has_privilegio_administrador` (`rol_administrador
 (1, 53),
 (1, 54),
 (1, 55),
-(5, 55),
 (1, 56),
-(5, 56),
 (1, 57),
-(5, 57),
 (1, 58),
-(5, 58),
 (1, 59),
-(5, 59),
 (1, 60),
-(5, 60),
 (1, 61),
-(5, 61),
 (1, 62),
-(5, 62),
 (1, 63),
-(5, 63),
 (1, 64),
-(5, 64),
 (1, 65),
-(5, 65),
 (1, 66),
-(5, 66),
 (1, 67),
-(5, 67),
 (1, 68),
-(5, 68),
 (1, 69),
-(5, 69),
 (1, 70),
-(5, 70),
 (1, 71),
-(5, 71),
 (1, 72),
-(5, 72),
 (1, 73),
-(5, 73),
 (1, 74),
-(5, 74),
 (1, 75),
-(5, 75),
 (1, 76),
-(5, 76),
 (1, 77),
-(5, 77),
 (1, 78),
-(5, 78),
 (1, 79),
-(5, 79),
 (1, 80),
-(5, 80),
 (1, 81),
-(5, 81),
 (1, 82),
-(5, 82),
 (1, 83),
-(5, 83),
-(1, 84),
-(5, 84);
+(1, 84);
 
 -- --------------------------------------------------------
 

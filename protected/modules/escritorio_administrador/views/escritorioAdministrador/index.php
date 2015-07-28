@@ -1,10 +1,11 @@
 <div class="tile-group double">
     <span class="tile-group-title">Cajita</span>
     <div class="tile-container">
+        
         <a href="<?php echo Yii::app()->getBaseUrl()."/cajita";?>" >
-            <div class="tile-large bg-red fg-white" data-role="tile">
+            <div class="tile-large bg-steel fg-white" data-role="tile">
                 <div class="tile-content iconic">
-                    <span class="icon mif-history"></span>
+                    <span class="icon mif-shopping-basket"></span>
                 </div>
                 <span class="tile-label">
                     <?php 
@@ -16,222 +17,289 @@
                 </span>
             </div>  
         </a>
-
     </div>
 </div>
 
+
+<?php $var = 0 ?>  
+<?php foreach ($vpermiso as $p): ?>
+<?php if( $p['name'] == 'admin_usuario_administrador' && $var == 0
+        || $p['name'] == 'admin_rol_administrador' && $var == 0
+        || $p['name'] == 'admin_rol_usuario' && $var == 0
+        || $p['name'] == 'admin_usuario' && $var == 0            
+) :?>
+<?php $var = 1;?>
 <div class="tile-group double">
     <span class="tile-group-title">Usuarios y Roles</span>
     <div class="tile-container">
-        <a href="<?php echo Yii::app()->getBaseUrl()."/administracion_usuario_administrador";?>" >
-            <div class="tile-wide bg-teal fg-white" data-role="tile">
-                <div class="tile-content iconic">
-                    <span class="icon mif-user"></span>
-                </div>
-                <span class="tile-label">
-                    <?php 
-                        $pizza  = CHtml::encode('administracion_usuario_administrador');
-                        $porciones = explode("_", $pizza);
-                        foreach ($porciones as $p)
-                        echo $p." "; // porción
-                    ?>
-                </span>
-            </div>
-        </a>
-        <a href="<?php echo Yii::app()->getBaseUrl()."/administracion_rol_administrador";?>" >
-            <div class="tile bg-darkBlue fg-white" data-role="tile">
-                <div class="tile-content iconic">
-                    <span class="icon mif-security"></span>
-                </div>
-                <span class="tile-label">            
-                    <?php 
-                        $pizza  = CHtml::encode('administracion_rol_administrador');
-                        $porciones = explode("_", $pizza);
-                        foreach ($porciones as $p)
-                        echo $p." "; // porción
-                    ?>                
-                </span>
-            </div>
-        </a>
-        <a href="<?php echo Yii::app()->getBaseUrl()."/administracion_rol_usuario";?>" >
-            <div class="tile bg-darkCyan fg-white" data-role="tile">
-                <div class="tile-content iconic">
-                    <span class="icon mif-security"></span>
-                </div>
-                <span class="tile-label">            
-                    <?php 
-                        $pizza  = CHtml::encode('administracion_rol_usuario');
-                        $porciones = explode("_", $pizza);
-                        foreach ($porciones as $p)
-                        echo $p." "; // porción
-                    ?>                
-                </span>
-            </div>
-        </a>
-        <a href="<?php echo Yii::app()->getBaseUrl()."/administracion_usuario";?>" >
-            <div class="tile-wide bg-darkGreen fg-white" data-role="tile">
-                <div class="tile-content iconic">
-                    <span class="icon mif-users"></span>
-                </div>
-                <span class="tile-label">
-                    <?php 
-                        $pizza  = CHtml::encode('administracion_usuario');
-                        $porciones = explode("_", $pizza);
-                        foreach ($porciones as $p)
-                        echo $p." "; // porción
-                    ?>
-                </span>
-            </div>
-        </a>
+        <?php foreach ($vpermiso as $p): ?>
+            <?php if( $p['name'] == 'admin_usuario_administrador') :?>
+                <a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario_administrador";?>" >
+                    <div class="tile-wide bg-teal fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-user"></span>
+                        </div>
+                        <span class="tile-label">
+                            <?php 
+                                $pizza  = CHtml::encode('administracion_usuario_administrador');
+                                $porciones = explode("_", $pizza);
+                                foreach ($porciones as $p)
+                                echo $p." "; // porción
+                            ?>
+                        </span>
+                    </div>
+                </a>
+            <?php endif;?>
+        <?php endforeach; ?>
+        <?php foreach ($vpermiso as $p): ?>
+            <?php if( $p['name'] == 'admin_rol_administrador') :?>
+                <a href="<?php echo Yii::app()->getBaseUrl()."/admin_rol_administrador";?>" >
+                    <div class="tile bg-darkBlue fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-security"></span>
+                        </div>
+                        <span class="tile-label">            
+                            <?php 
+                                $pizza  = CHtml::encode('administracion_rol_administrador');
+                                $porciones = explode("_", $pizza);
+                                foreach ($porciones as $p)
+                                echo $p." "; // porción
+                            ?>                
+                        </span>
+                    </div>
+                </a>
+            <?php endif;?>
+        <?php endforeach; ?>
+        <?php foreach ($vpermiso as $p): ?>
+            <?php if( $p['name'] == 'admin_rol_usuario') :?>
+                <a href="<?php echo Yii::app()->getBaseUrl()."/admin_rol_usuario";?>" >
+                    <div class="tile bg-darkCyan fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-security"></span>
+                        </div>
+                        <span class="tile-label">            
+                            <?php 
+                                $pizza  = CHtml::encode('administracion_rol_usuario');
+                                $porciones = explode("_", $pizza);
+                                foreach ($porciones as $p)
+                                echo $p." "; // porción
+                            ?>                
+                        </span>
+                    </div>
+                </a>
+            <?php endif;?>
+        <?php endforeach; ?>
+        <?php foreach ($vpermiso as $p): ?>
+            <?php if( $p['name'] == 'admin_usuario') :?>
+                <a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario";?>" >
+                    <div class="tile-wide bg-darkGreen fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-users"></span>
+                        </div>
+                        <span class="tile-label">
+                            <?php 
+                                $pizza  = CHtml::encode('administracion_usuario');
+                                $porciones = explode("_", $pizza);
+                                foreach ($porciones as $p)
+                                echo $p." "; // porción
+                            ?>
+                        </span>
+                    </div>
+                </a>
+            <?php endif;?>
+        <?php endforeach; ?>
     </div>
 </div>
+<?php endif;?>
+<?php endforeach; ?>
+<?php $var = 0 ?>  
+<?php foreach ($vpermiso as $p): ?>
+<?php if( $p['name'] == 'admin_institucion' && $var == 0
+        || $p['name'] == 'admin_curricular' && $var == 0    
+) :?>
+<?php $var = 1 ?>  
 <div class="tile-group double">
     <span class="tile-group-title">Institucion y Gestion Curricular</span>
     <div class="tile-container">
-        <a href="<?php echo Yii::app()->getBaseUrl()."/admin_institucion";?>" >
-            <div class="tile-large bg-darkPink fg-white" data-role="tile">
-                <div class="tile-content iconic">
-                    <span class="icon mif-library"></span>
-                </div>
-                <span class="tile-label">
-                    <?php 
-                        $pizza  = CHtml::encode('administracion_institucion');
-                        $porciones = explode("_", $pizza);
-                        foreach ($porciones as $p)
-                        echo $p." "; // porción
-                    ?>
-                </span>
-            </div>
-        </a>
-        <a href="<?php echo Yii::app()->getBaseUrl()."/administracion_curricular";?>" >
-            <div class="tile-wide bg-darkViolet fg-white" data-role="tile">
-                <div class="tile-content iconic">
-                    <span class="icon mif-school"></span>
-                </div>
-                <span class="tile-label">            
-                    <?php 
-                        $pizza  = CHtml::encode('administracion_curricular');
-                        $porciones = explode("_", $pizza);
-                        foreach ($porciones as $p)
-                        echo $p." "; // porción
-                    ?>                
-                </span>
-            </div>
-        </a>
+        <?php foreach ($vpermiso as $p): ?>
+            <?php if( $p['name'] == 'admin_institucion') :?>
+                <a href="<?php echo Yii::app()->getBaseUrl()."/admin_institucion";?>" >
+                    <div class="tile-large bg-darkPink fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-library"></span>
+                        </div>
+                        <span class="tile-label">
+                            <?php 
+                                $pizza  = CHtml::encode('administracion_institucion');
+                                $porciones = explode("_", $pizza);
+                                foreach ($porciones as $p)
+                                echo $p." "; // porción
+                            ?>
+                        </span>
+                    </div>
+                </a>
+            <?php endif;?>
+        <?php endforeach; ?>
+        <?php foreach ($vpermiso as $p): ?>
+            <?php if( $p['name'] == 'admin_curricular') :?>
+                <a href="<?php echo Yii::app()->getBaseUrl()."/admin_curricular";?>" >
+                    <div class="tile-wide bg-darkViolet fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-school"></span>
+                        </div>
+                        <span class="tile-label">            
+                            <?php 
+                                $pizza  = CHtml::encode('administracion_curricular');
+                                $porciones = explode("_", $pizza);
+                                foreach ($porciones as $p)
+                                echo $p." "; // porción
+                            ?>                
+                        </span>
+                    </div>
+                </a>
+            <?php endif;?>
+        <?php endforeach; ?>
     </div>
 </div>
-
+<?php endif;?>
+<?php endforeach; ?>
+<?php $var = 0 ?>  
+<?php foreach ($vpermiso as $p): ?>
+<?php if( $p['name'] == 'admin_escritorio' && $var == 0
+        || $p['name'] == 'admin_aplicacion' && $var == 0
+) :?>
+<?php $var = 1 ?>  
 <div class="tile-group double">
     <span class="tile-group-title">Escritorio y Aplicaciones</span>
     <div class="tile-container">
-        <a href="<?php echo Yii::app()->getBaseUrl()."/administracion_escritorio";?>" >
-            <div class="tile-wide bg-green fg-white" data-role="tile">
-                <div class="tile-content iconic">
-                    <span class="icon mif-display"></span>
-                </div>
-                <span class="tile-label">
-                    <?php 
-                        $pizza  = CHtml::encode('administracion_escritorio');
-                        $porciones = explode("_", $pizza);
-                        foreach ($porciones as $p)
-                        echo $p." "; // porción
-                    ?>
-                </span>
-            </div>
-        </a>
-        <a href="<?php echo Yii::app()->getBaseUrl()."/administracion_aplicacion_administrador";?>" >
-            <div class="tile bg-amber fg-white" data-role="tile">
-                <div class="tile-content iconic">
-                    <span class="icon mif-widgets"></span>
-                </div>
-                <span class="tile-label">            
-                    <?php 
-                        $pizza  = CHtml::encode('administracion_aplicacion_administrador');
-                        $porciones = explode("_", $pizza);
-                        foreach ($porciones as $p)
-                        echo $p." "; // porción
-                    ?>                
-                </span>
-            </div>
-        </a>
-        <a href="<?php echo Yii::app()->getBaseUrl()."/administracion_aplicacion_usuario";?>" >
-            <div class="tile bg-orange fg-white" data-role="tile">
-                <div class="tile-content iconic">
-                    <span class="icon mif-widgets"></span>
-                </div>
-                <span class="tile-label">            
-                    <?php 
-                        $pizza  = CHtml::encode('administracion_aplicacion_usuario');
-                        $porciones = explode("_", $pizza);
-                        foreach ($porciones as $p)
-                        echo $p." "; // porción
-                    ?>                
-                </span>
-            </div>  
-        </a>
+        <?php foreach ($vpermiso as $p): ?>
+            <?php if( $p['name'] == 'admin_escritorio') :?>
+                <a href="<?php echo Yii::app()->getBaseUrl()."/admin_escritorio";?>" >
+                    <div class="tile-wide bg-green fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-display"></span>
+                        </div>
+                        <span class="tile-label">
+                            <?php 
+                                $pizza  = CHtml::encode('administracion_escritorio');
+                                $porciones = explode("_", $pizza);
+                                foreach ($porciones as $p)
+                                echo $p." "; // porción
+                            ?>
+                        </span>
+                    </div>
+                </a>
+            <?php endif;?>
+        <?php endforeach; ?>
+        <?php foreach ($vpermiso as $p): ?>
+            <?php if( $p['name'] == 'admin_aplicacion') :?>
+                <a href="<?php echo Yii::app()->getBaseUrl()."/admin_aplicacion";?>" >
+                    <div class="tile bg-amber fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-widgets"></span>
+                        </div>
+                        <span class="tile-label">            
+                            <?php 
+                                $pizza  = CHtml::encode('administracion_aplicacion');
+                                $porciones = explode("_", $pizza);
+                                foreach ($porciones as $p)
+                                echo $p." "; // porción
+                            ?>                
+                        </span>
+                    </div>
+                </a>
+            <?php endif;?>
+        <?php endforeach; ?>
 
     </div>
 </div>
+<?php endif;?>
+<?php endforeach; ?>
 
+<?php $var = 0 ?>  
+<?php foreach ($vpermiso as $p): ?>
+<?php if( $p['name'] == 'admin_aula' && $var == 0
+        || $p['name'] == 'admin_repositorio' && $var == 0     
+) :?>
+<?php $var = 1 ?>
 <div class="tile-group double">
     <span class="tile-group-title">Aula y Repositorio</span>
     <div class="tile-container">
-        <a href="<?php echo Yii::app()->getBaseUrl()."/administracion_aula";?>" >
-            <div class="tile-wide bg-lime fg-white" data-role="tile">
-                <div class="tile-content iconic">
-                    <span class="icon mif-books"></span>
-                </div>
-                <span class="tile-label">
-                    <?php 
-                        $pizza  = CHtml::encode('administracion_aula');
-                        $porciones = explode("_", $pizza);
-                        foreach ($porciones as $p)
-                        echo $p." "; // porción
-                    ?>
-                </span>
-            </div>
-        </a>
-        <a href="<?php echo Yii::app()->getBaseUrl()."/administracion_repositorio";?>" >
-            <div class="tile-large bg-brown fg-white" data-role="tile">
-                <div class="tile-content iconic">
-                    <span class="icon mif-cabinet"></span>
-                </div>
-                <span class="tile-label">            
-                    <?php 
-                        $pizza  = CHtml::encode('administracion_repositorio');
-                        $porciones = explode("_", $pizza);
-                        foreach ($porciones as $p)
-                        echo $p." "; // porción
-                    ?>                
-                </span>
-            </div>  
-        </a>
+        <?php foreach ($vpermiso as $p): ?>
+            <?php if( $p['name'] == 'admin_aula') :?>
+                <a href="<?php echo Yii::app()->getBaseUrl()."/admin_aula";?>" >
+                    <div class="tile-wide bg-lime fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-books"></span>
+                        </div>
+                        <span class="tile-label">
+                            <?php 
+                                $pizza  = CHtml::encode('administracion_aula');
+                                $porciones = explode("_", $pizza);
+                                foreach ($porciones as $p)
+                                echo $p." "; // porción
+                            ?>
+                        </span>
+                    </div>
+                </a>
+            <?php endif;?>
+        <?php endforeach; ?>
+        <?php foreach ($vpermiso as $p): ?>
+            <?php if( $p['name'] == 'admin_repositorio') :?>
+                <a href="<?php echo Yii::app()->getBaseUrl()."/admin_repositorio";?>" >
+                    <div class="tile-large bg-brown fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-cabinet"></span>
+                        </div>
+                        <span class="tile-label">            
+                            <?php 
+                                $pizza  = CHtml::encode('administracion_repositorio');
+                                $porciones = explode("_", $pizza);
+                                foreach ($porciones as $p)
+                                echo $p." "; // porción
+                            ?>                
+                        </span>
+                    </div>  
+                </a>
+            <?php endif;?>
+        <?php endforeach; ?>
 
     </div>
 </div>
-
+<?php endif;?>
+<?php endforeach; ?>
+<?php $var = 0 ?>
+<?php foreach ($vpermiso as $p): ?>
+<?php if( $p['name'] == 'admin_error_log_mensaje' && $var == 0 
+) :?>
+<?php $var = 1 ?>
 <div class="tile-group double">
     <span class="tile-group-title">Error Log Mensaje</span>
     <div class="tile-container">
-        <a href="<?php echo Yii::app()->getBaseUrl()."/administracion_error_log_mensaje";?>" >
-            <div class="tile-large bg-red fg-white" data-role="tile">
-                <div class="tile-content iconic">
-                    <span class="icon mif-history"></span>
-                </div>
-                <span class="tile-label">
-                    <?php 
-                        $pizza  = CHtml::encode('administracion_error_log_mensaje');
-                        $porciones = explode("_", $pizza);
-                        foreach ($porciones as $p)
-                        echo $p." "; // porción
-                    ?>
-                </span>
-            </div>  
-        </a>
+        <?php foreach ($vpermiso as $p): ?>
+            <?php if( $p['name'] == 'admin_error_log_mensaje') :?>
+                <a href="<?php echo Yii::app()->getBaseUrl()."/admin_error_log_mensaje";?>" >
+                    <div class="tile-large bg-red fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-history"></span>
+                        </div>
+                        <span class="tile-label">
+                            <?php 
+                                $pizza  = CHtml::encode('administracion_error_log_mensaje');
+                                $porciones = explode("_", $pizza);
+                                foreach ($porciones as $p)
+                                echo $p." "; // porción
+                            ?>
+                        </span>
+                    </div>  
+                </a>
+            <?php endif;?>
+        <?php endforeach; ?>
 
     </div>
 </div>
-
+<?php endif;?>
+<?php endforeach; ?>
 <div class="tile-group double">
     <span class="tile-group-title">General</span>
 

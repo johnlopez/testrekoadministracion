@@ -12,7 +12,9 @@ return array(
 //        'theme'=>"bootmetro",
 //        'theme'=>"bootmetro2",
 //        'theme'=>"bootstrap",
-        'theme'=>"metroui",       
+//        'theme'=>"metroui", 
+        'theme'=>"metroui-bootstrap",       
+
 	// preloading 'log' component
 	'preload'=>array('log'),
 
@@ -41,7 +43,18 @@ return array(
             'administracion_rol_usuario',
             'escritorio_administrador',
             'cajita',
+            'admin_aplicacion',
+            'admin_aula',
+            'admin_curricular',
+            'admin_error_log_mensaje',
+            'admin_escritorio',
             'admin_institucion',
+            'admin_repositorio',
+            'admin_rol_administrador',
+            'admin_rol_usuario',
+            'admin_usuario',
+            'admin_usuario_administrador',
+
 
 		
 	),
