@@ -284,8 +284,12 @@
 
     <div class="tile-area tile-area-scheme-dark fg-white">
         <h1 class="tile-area-title">            
-            <a href="http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index" ><span class="mif-home mif-4x mif-ani-shuttle mif-ani-slow" style="color: white;"></span></a>
-            <a href="http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index" ><span class="mif-home mif-4x mif-ani-shuttle mif-ani-slow" style="color: white;"></span></a>
+            <a href="http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index" ><span >
+                
+                    <div class="mif-music mif-3x mif-ani-shuttle mif-ani-slow" style="color: transparent; width: 70px; height: 70px; border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-image: url(<?php echo Yii::app()->theme->baseUrl; ?>/images/reko.png); background-size: cover; background-repeat: no-repeat;"></div>
+                    
+                </span></a>
+            <a href="http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index" ><span class="mif-home mif-3x mif-ani-shuttle mif-ani-slow" style="color: transparent;"></span></a>
         </h1>
         <div class="tile-area-controls">            
             <button class="image-button bg-transparent fg-white bg-hover-dark no-border">

@@ -1,25 +1,3 @@
-<div class="tile-group double">
-    <span class="tile-group-title">Cajita</span>
-    <div class="tile-container">
-        
-        <a href="<?php echo Yii::app()->getBaseUrl()."/cajita";?>" >
-            <div class="tile-large bg-steel fg-white" data-role="tile">
-                <div class="tile-content iconic">
-                    <span class="icon mif-shopping-basket"></span>
-                </div>
-                <span class="tile-label">
-                    <?php 
-                        $pizza  = CHtml::encode('cajita');
-                        $porciones = explode("_", $pizza);
-                        foreach ($porciones as $p)
-                        echo $p." "; // porción
-                    ?>
-                </span>
-            </div>  
-        </a>
-    </div>
-</div>
-
 
 <?php $var = 0 ?>  
 <?php foreach ($vpermiso as $p): ?>

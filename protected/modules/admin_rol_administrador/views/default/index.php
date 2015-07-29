@@ -7,11 +7,36 @@ $this->breadcrumbs=array(
 ?>
 <h1><?php echo $this->uniqueId . '/' . $this->action->id; ?></h1>
 
-<p>
-This is the view content for action "<?php echo $this->action->id; ?>".
-The action belongs to the controller "<?php echo get_class($this); ?>"
-in the "<?php echo $this->module->id; ?>" module.
-</p>
-<p>
-You may customize this page by editing <tt><?php echo __FILE__; ?></tt>
-</p>
+<?php $this->widget('zii.widgets.CMenu',array(
+        'items'=>array(
+                array('label'=>'usuario_administrador', 'url'=>array('/admin_rol_administrador/usuarioadministrador/index'),"<br>"),
+        ),
+)); ?>
+
+<?php $this->widget('zii.widgets.CMenu',array(
+        'items'=>array(
+                array('label'=>'rol_administrador', 'url'=>array('/admin_rol_administrador/roladministrador/index'),"<br>"),
+        ),
+)); ?>
+
+
+<?php $this->widget('zii.widgets.CMenu',array(
+        'items'=>array(
+                array('label'=>'authitem_permiso_administrador', 'url'=>array('/admin_rol_administrador/authitempermisoadministrador/index')),
+        ),
+)); ?>
+
+
+<?php $this->widget('zii.widgets.CMenu',array(
+        'items'=>array(
+                array('label'=>'controlador_administrador', 'url'=>array('/admin_rol_administrador/controladoradministrador/index')),
+
+        ),
+)); ?>
+
+<?php $this->widget('zii.widgets.CMenu',array(
+        'items'=>array(
+
+                array('label'=>'privilegio_administrador', 'url'=>array('/admin_rol_administrador/privilegioadministrador/index')),		
+        ),
+)); ?>
