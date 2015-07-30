@@ -101,6 +101,25 @@
                             <li><a href="#">Contacto</a></li>
                         </ul>
                     </li>
+                    <?php if(!Yii::app()->user->isGuest):?>
+                    <li class="place-right">
+                        <a href="#" class="dropdown-toggle">Administracion</a>
+                        <ul class="d-menu place-right" data-role="dropdown">
+                            <li><a href="http://localhost/testrekoadministracion/admin_usuario_administrador">Admin Usuario Administrador</a></li>
+                            <li><a href="http://localhost/testrekoadministracion/admin_rol_administrador">Admin Rol Administrador</a></li>
+                            <li><a href="http://localhost/testrekoadministracion/admin_usuario">Admin Usuario</a></li>
+                            <li><a href="http://localhost/testrekoadministracion/admin_rol_usuario">Admin Rol Usuario</a></li>
+                            <li><a href="http://localhost/testrekoadministracion/admin_institucion">Admin Istitucion</a></li>
+                            <li><a href="http://localhost/testrekoadministracion/admin_curricular">Admin Curricular</a></li>
+                            <li><a href="http://localhost/testrekoadministracion/admin_aula">Admin Aula</a></li>
+                            <li><a href="http://localhost/testrekoadministracion/admin_repositorio">Admin Repositorio</a></li>
+                            <li><a href="http://localhost/testrekoadministracion/admin_repositorio">Admin Escritorio</a></li>
+                            <li><a href="http://localhost/testrekoadministracion/admin_repositorio">Admin Aplicaciones</a></li>
+                            <li><a href="http://localhost/testrekoadministracion/admin_error_log_mensaje">Admin Error Log Mensaje</a></li>
+
+                        </ul>
+                    </li>
+                    <?php endif;?>
                 </ul>
             </div>
         </header>
