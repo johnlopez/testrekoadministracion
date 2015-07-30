@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 28-07-2015 a las 21:04:37
+-- Tiempo de generación: 30-07-2015 a las 14:55:11
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -332,7 +332,8 @@ FROM
         rol_administrador_has_authitem_permiso_administrador RP,
         rol_administrador R,
         usuario_administrador_has_rol_administrador UR,
-        usuario_administrador U
+        usuario_administrador U,
+        rol_administrador_has_privilegio_administrador RPRIV
         
 WHERE PRIV.controlador_administrador_id = C.id
 AND C.authitem_permiso_administrador_name = P.name
@@ -340,6 +341,8 @@ AND RP.authitem_permiso_administrador_name = P.name
 AND RP.rol_administrador_id = R.id
 AND UR.rol_administrador_id = R.id
 AND UR.usuario_administrador_id = U.id
+AND RPRIV.rol_administrador_id = R.id
+AND RPRIV.privilegio_administrador_id = PRIV.id
 
 AND U.id = nuevo_usuario_id
 AND P.name = nuevo_permiso_nombre
@@ -408,7 +411,9 @@ INSERT INTO `authassignment_administrador` (`itemname`, `userid`, `bizrule`, `da
 ('administracion_rol_usuario', '2', NULL, 'N;'),
 ('administracion_usuario', '1', NULL, NULL),
 ('administracion_usuario', '2', NULL, 'N;'),
-('administracion_usuario_administrador', '1', NULL, NULL);
+('administracion_usuario_administrador', '1', NULL, NULL),
+('admin_rol_usuario', '2', NULL, 'N;'),
+('admin_usuario', '2', NULL, 'N;');
 
 -- --------------------------------------------------------
 
@@ -534,20 +539,20 @@ CREATE TABLE IF NOT EXISTS `controlador_administrador` (
 --
 
 INSERT INTO `controlador_administrador` (`id`, `nombre`, `authitem_permiso_administrador_name`) VALUES
-(1, 'AuthitemPermisoAdministrador', 'administracion_rol_administrador'),
-(2, 'ControladorAdministrador', 'administracion_rol_administrador'),
-(3, 'Default', 'administracion_rol_administrador'),
-(4, 'PrivilegioAdministrador', 'administracion_rol_administrador'),
-(5, 'RolAdministrador', 'administracion_rol_administrador'),
-(6, 'UsuarioAdministrador', 'administracion_usuario_administrador'),
-(7, 'Default', 'administracion_usuario_administrador'),
-(8, 'Usuario', 'administracion_usuario'),
-(9, 'Default', 'administracion_usuario'),
-(10, 'RolUsuario', 'administracion_rol_usuario'),
-(11, 'Default', 'administracion_rol_usuario'),
-(12, 'AuthitemPermisoUsuario', 'administracion_rol_usuario'),
-(13, 'ControladorUsuario', 'administracion_rol_usuario'),
-(14, 'PrivilegioUsuario', 'administracion_rol_usuario');
+(1, 'AuthitemPermisoAdministrador', 'admin_rol_administrador'),
+(2, 'ControladorAdministrador', 'admin_rol_administrador'),
+(3, 'Default', 'admin_rol_administrador'),
+(4, 'PrivilegioAdministrador', 'admin_rol_administrador'),
+(5, 'RolAdministrador', 'admin_rol_administrador'),
+(6, 'UsuarioAdministrador', 'admin_usuario_administrador'),
+(7, 'Default', 'admin_usuario_administrador'),
+(8, 'Usuario', 'admin_usuario'),
+(9, 'Default', 'admin_usuario'),
+(10, 'RolUsuario', 'admin_rol_usuario'),
+(11, 'default', 'admin_rol_usuario'),
+(12, 'AuthitemPermisoUsuario', 'admin_rol_usuario'),
+(13, 'ControladorUsuario', 'admin_rol_usuario'),
+(14, 'PrivilegioUsuario', 'admin_rol_usuario');
 
 -- --------------------------------------------------------
 
@@ -788,7 +793,7 @@ CREATE TABLE IF NOT EXISTS `rol_administrador` (
   `nombre` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `rol_administrador`
@@ -796,7 +801,8 @@ CREATE TABLE IF NOT EXISTS `rol_administrador` (
 
 INSERT INTO `rol_administrador` (`id`, `nombre`, `descripcion`) VALUES
 (1, 'superadministrador', NULL),
-(5, 'root', '');
+(5, 'root', ''),
+(6, 'supervisor usuario', 'usuario y rol usuario');
 
 -- --------------------------------------------------------
 
@@ -821,6 +827,7 @@ INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_adminis
 (1, 'administracion_rol_usuario'),
 (1, 'administracion_usuario'),
 (1, 'administracion_usuario_administrador'),
+(1, 'admin_aplicacion'),
 (1, 'admin_aula'),
 (1, 'admin_curricular'),
 (1, 'admin_error_log_mensaje'),
@@ -831,11 +838,9 @@ INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_adminis
 (1, 'admin_rol_usuario'),
 (1, 'admin_usuario'),
 (1, 'admin_usuario_administrador'),
-(5, 'admin_aula'),
-(5, 'admin_curricular'),
-(5, 'admin_escritorio'),
-(5, 'admin_institucion'),
-(5, 'admin_repositorio');
+(5, 'admin_rol_usuario'),
+(6, 'admin_rol_usuario'),
+(6, 'admin_usuario');
 
 -- --------------------------------------------------------
 
@@ -869,47 +874,118 @@ INSERT INTO `rol_administrador_has_privilegio_administrador` (`rol_administrador
 (1, 41),
 (1, 42),
 (1, 43),
+(6, 43),
 (1, 44),
+(6, 44),
 (1, 45),
+(6, 45),
 (1, 46),
+(6, 46),
 (1, 47),
+(6, 47),
 (1, 48),
+(6, 48),
 (1, 49),
+(6, 49),
 (1, 50),
+(6, 50),
 (1, 51),
+(6, 51),
 (1, 52),
+(6, 52),
 (1, 53),
+(6, 53),
 (1, 54),
+(6, 54),
 (1, 55),
+(5, 55),
+(6, 55),
 (1, 56),
+(6, 56),
 (1, 57),
+(5, 57),
+(6, 57),
 (1, 58),
+(5, 58),
+(6, 58),
 (1, 59),
+(5, 59),
+(6, 59),
 (1, 60),
+(5, 60),
+(6, 60),
 (1, 61),
+(5, 61),
+(6, 61),
 (1, 62),
+(5, 62),
+(6, 62),
 (1, 63),
+(5, 63),
+(6, 63),
 (1, 64),
+(5, 64),
+(6, 64),
 (1, 65),
+(5, 65),
+(6, 65),
 (1, 66),
+(5, 66),
+(6, 66),
 (1, 67),
+(5, 67),
+(6, 67),
 (1, 68),
+(5, 68),
+(6, 68),
 (1, 69),
+(5, 69),
+(6, 69),
 (1, 70),
+(5, 70),
+(6, 70),
 (1, 71),
+(5, 71),
+(6, 71),
 (1, 72),
+(5, 72),
+(6, 72),
 (1, 73),
+(5, 73),
+(6, 73),
 (1, 74),
+(5, 74),
+(6, 74),
 (1, 75),
+(5, 75),
+(6, 75),
 (1, 76),
+(5, 76),
+(6, 76),
 (1, 77),
+(5, 77),
+(6, 77),
 (1, 78),
+(5, 78),
+(6, 78),
 (1, 79),
+(5, 79),
+(6, 79),
 (1, 80),
+(5, 80),
+(6, 80),
 (1, 81),
+(5, 81),
+(6, 81),
 (1, 82),
+(5, 82),
+(6, 82),
 (1, 83),
-(1, 84);
+(5, 83),
+(6, 83),
+(1, 84),
+(5, 84),
+(6, 84);
 
 -- --------------------------------------------------------
 
@@ -1031,7 +1107,7 @@ CREATE TABLE IF NOT EXISTS `usuario_administrador_has_rol_administrador` (
 
 INSERT INTO `usuario_administrador_has_rol_administrador` (`usuario_administrador_id`, `rol_administrador_id`) VALUES
 (1, 1),
-(2, 5);
+(2, 6);
 
 -- --------------------------------------------------------
 
