@@ -26,6 +26,13 @@
         <header class="margin20 no-margin-left no-margin-right">
             <div class="clear-float">
                 <div class="place-right">
+                    <form>
+                        <div class="input-control text margin20" style="width: 300px">
+                            <input type="text" name="q" placeholder="Search...">
+                            <button class="button"><span class="mif-search"></span></button>
+                        </div>
+                    </form>
+                    <div class="place-right">
                     <div class="tile-area-controls">            
                         <button class="image-button bg-transparent fg-white bg-hover-dark no-border">
                             <span class="sub-header fg-black no-margin text-light">           
@@ -55,10 +62,12 @@
                             </span>
                         </button>            
                         <button class="square-button bg-transparent fg-white bg-hover-dark no-border" onclick="showSearch()"><span class="mif-search"></span></button>
-                        <button class="square-button bg-transparent fg-white bg-hover-dark no-border" onclick="showSettings()"><span class="mif-cog"></span></button>
-                        <a href="<?php echo Yii::app()->theme->baseUrl; ?>/tiles.html" class="square-button bg-transparent fg-white bg-hover-dark no-border"><span class="mif-switch"></span></a>                   
+                        
                     </div>
                 </div>
+                </div>
+                
+                
                 <a class="place-left" href="#" title="">
                     <h1 class="tile-area-title">            
                         <a href="http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index" >
@@ -66,21 +75,28 @@
                         </a>
                     </h1>
                 </a>
+                <a class="place-left" href="http://localhost/testrekoadministracion/" title="">
+                    <h1>REKO</h1>
+                </a>
             </div>
 
             <div class="main-menu-wrapper">
                 <ul class="horizontal-menu" style="margin-left: -20px">
-                    <li><a href="#">news</a></li>
-                    <li><a href="#">sports</a></li>
-                    <li><a href="#">entertainment</a></li>
-                    <li><a href="#">money</a></li>
-                    <li><a href="#">autos</a></li>
-                    <li><a href="#">health</a></li>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Tutoriales</a></li>
+                    <li><a href="#">Soporte Tecnico</a></li>
+                    <li><a href="#">Novedades</a></li>
+                    <li><a href="#">Contacto</a></li>
                     <li class="place-right">
-                        <a href="#" class="dropdown-toggle">options</a>
+                        <a href="#" class="dropdown-toggle">Menu</a>
                         <ul class="d-menu place-right" data-role="dropdown">
-                            <li><a href="#">Go to Classic MSN</a></li>
-                            <li><a href="#">MSN Worldwide</a></li>
+                            <li><a href="#">Inicio</a></li>
+                            <li><a href="#">Reko</a></li>
+                            <li><a href="#">Tutoriales</a></li>
+                            <li><a href="#">Experiencia de Uso</a></li>
+                            <li><a href="#">Soporte Técnico</a></li>
+                            <li><a href="#">Novedades</a></li>
+                            <li><a href="#">Contacto</a></li>
                         </ul>
                     </li>
                 </ul>

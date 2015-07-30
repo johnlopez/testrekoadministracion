@@ -283,14 +283,20 @@
     </div>
 
     <div class="tile-area tile-area-scheme-dark fg-white">
-        <h1 class="tile-area-title">            
-            <a href="http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index" ><span >
+            <div class="clear-float">
+                              
+                <a class="place-left" href="#" title="">
+                    <h1 class="tile-area-title">            
+                        <a href="http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index" >
+                            <div class="mif-music  mif-ani-shuttle mif-ani-slow" style="color: transparent; width: 80px; height:80px; border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-image: url(<?php echo Yii::app()->theme->baseUrl; ?>/images/reko.png); background-size: cover; background-repeat: no-repeat;"></div>
+                        </a>
+                    </h1>
+                </a>
                 
-                    <div class="mif-music mif-3x mif-ani-shuttle mif-ani-slow" style="color: transparent; width: 70px; height: 70px; border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-image: url(<?php echo Yii::app()->theme->baseUrl; ?>/images/reko.png); background-size: cover; background-repeat: no-repeat;"></div>
-                    
-                </span></a>
-            <a href="http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index" ><span class="mif-home mif-3x mif-ani-shuttle mif-ani-slow" style="color: transparent;"></span></a>
-        </h1>
+                <a class="place-left" href="http://localhost/testrekoadministracion/admin_usuario_administrador#" title="">
+                    <h1>REKO</h1>
+                </a>
+            </div>
         <div class="tile-area-controls">            
             <button class="image-button bg-transparent fg-white bg-hover-dark no-border">
                 <span class="sub-header fg-black no-margin text-light">           
