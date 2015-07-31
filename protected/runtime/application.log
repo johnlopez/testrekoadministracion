@@ -23091,3 +23091,38 @@ Stack trace:
 #3 {main}
 REQUEST_URI=/testrekoadministracion/themes/metroui-bootstrap/favicon.ico
 ---
+2015/07/31 10:51:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui-bootstrap/favicon.ico".' in C:\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui-...')
+#1 C:\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui-bootstrap/favicon.ico
+HTTP_REFERER=http://localhost/testrekoadministracion/
+---
+2015/07/31 10:52:29 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1305 PROCEDURE testreko.sp_escritorio_administrador_get_permiso_usuario does not exist. The SQL statement executed was: CALL sp_escritorio_administrador_get_permiso_usuario(:nuevo_usuario_id).
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\models\EscritorioAdministrador.php (124)
+in C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php (127)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/07/31 10:52:29 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1305 PROCEDURE testreko.sp_escritorio_administrador_get_permiso_usuario does not exist. The SQL statement executed was: CALL sp_escritorio_administrador_get_permiso_usuario(:nuevo_usuario_id)' in C:\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\yii\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\models\EscritorioAdministrador.php(124): CDbCommand->queryAll()
+#2 C:\wamp\www\testrekoadministracion\protected\modules\escritorio_administrador\controllers\EscritorioAdministradorController.php(127): EscritorioAdministrador->getPermisoUsuario('1')
+#3 C:\yii\framework\web\actions\CInlineAction.php(49): EscritorioAdministradorController->actionIndex()
+#4 C:\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 C:\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 C:\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 C:\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 C:\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 C:\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 C:\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#13 C:\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('escritorio_admi...')
+#14 C:\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#15 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/
+---
