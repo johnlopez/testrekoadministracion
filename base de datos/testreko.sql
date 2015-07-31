@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 31-07-2015 a las 12:32:19
+-- Tiempo de generación: 31-07-2015 a las 17:19:13
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -285,6 +285,121 @@ WHERE P.name = C.authitem_permiso_administrador_name
 AND C.id = PRIV.controlador_administrador_id
 
 AND P.name = nuevo_permiso;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracioncurricular_actualizar_modulo`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_fecha_modificacion datetime
+)
+begin
+update modulo set 
+id = nuevo_id,
+nombre = nuevo_nombre,
+descripcion = nuevo_descripcion,
+fecha_modificacion = nuevo_fecha_modificacion
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracioncurricular_actualizar_programa_academico`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_version varchar(50),
+nuevo_fecha_modificacion datetime
+)
+begin
+update programa_academico set
+id = nuevo_id,
+nombre = nuevo_nombre,
+descripcion = nuevo_descripcion,
+version = nuevo_version,
+fecha_modificacion = now()
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracioncurricular_actualizar_seccion`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_jornada varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_fecha_modificacion datetime
+)
+begin
+update seccion set
+id = nuevo_id,
+nombre = nuevo_nombre,
+jornada = nuevo_jornada,
+descripcion = nuevo_descripcion,
+fecha_modificacion = now()
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracioncurricular_agregar_modulo`(
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_fecha_creacion datetime,
+OUT llave_id int(11)
+)
+begin
+insert into modulo(
+nombre,
+descripcion,
+fecha_creacion
+)
+values(
+nuevo_nombre,
+nuevo_descripcion,
+now()
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracioncurricular_agregar_programa_academico`(
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_version varchar(50),
+nuevo_fecha_creacion datetime,
+OUT llave_id int(11)
+)
+begin
+insert into programa_academico(
+nombre,
+descripcion,
+version,
+fecha_creacion
+)
+values(
+nuevo_nombre ,
+nuevo_descripcion ,
+nuevo_version ,
+now()
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracioncurricular_agregar_seccion`(
+nuevo_nombre varchar(50),
+nuevo_jornada varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_fecha_creacion datetime,
+OUT llave_id int(11)
+)
+begin
+insert into seccion(
+nombre,
+jornada,
+descripcion,
+fecha_creacion
+)
+values(
+nuevo_nombre,
+nuevo_jornada,
+nuevo_descripcion,
+now()
+);
+SELECT LAST_INSERT_ID () into llave_id;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_escritorio_administrador_get_icono_permiso_usuario`(nuevo_usuario_id int)
@@ -579,6 +694,116 @@ INSERT INTO `controlador_usuario` (`id`, `nombre`, `authitem_permiso_usuario_nam
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `dato_academico`
+--
+
+CREATE TABLE IF NOT EXISTS `dato_academico` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `universidad` varchar(45) DEFAULT NULL,
+  `carrera` varchar(45) DEFAULT NULL,
+  `ano_cursado` int(11) DEFAULT NULL,
+  `duracion_carrera` int(11) DEFAULT NULL,
+  `sede` varchar(45) DEFAULT NULL,
+  `direccion_sede` varchar(45) DEFAULT NULL,
+  `comuna_sede` varchar(45) DEFAULT NULL,
+  `ciudad_sede` varchar(45) DEFAULT NULL,
+  `usuario_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_dato_academico_usuario1_idx` (`usuario_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dato_laboral`
+--
+
+CREATE TABLE IF NOT EXISTS `dato_laboral` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_empresa` varchar(45) DEFAULT NULL,
+  `ano_antiguedad` int(11) DEFAULT NULL,
+  `cargo` varchar(45) DEFAULT NULL,
+  `actividad` varchar(45) DEFAULT NULL,
+  `comuna_empresa` varchar(45) DEFAULT NULL,
+  `ciudad_empresa` varchar(45) DEFAULT NULL,
+  `telefono_empresa` int(11) DEFAULT NULL,
+  `celular_empresa` int(11) DEFAULT NULL,
+  `rut_numero` int(11) DEFAULT NULL,
+  `digito_verificador` int(11) DEFAULT NULL,
+  `usuario_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_dato_laboral_usuario1_idx` (`usuario_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dato_login`
+--
+
+CREATE TABLE IF NOT EXISTS `dato_login` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pregunta_secreta_1` varchar(45) DEFAULT NULL,
+  `pregunta_secreta_2` varchar(45) DEFAULT NULL,
+  `respuesta_secreta_1` varchar(45) DEFAULT NULL,
+  `respuesta_secreta_2` varchar(45) DEFAULT NULL,
+  `usuario_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_dato_login_usuario1_idx` (`usuario_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dato_personal`
+--
+
+CREATE TABLE IF NOT EXISTS `dato_personal` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `primer_nombre` varchar(45) DEFAULT NULL,
+  `segundo_nombre` varchar(45) DEFAULT NULL,
+  `apellido_paterno` varchar(45) DEFAULT NULL,
+  `apellido_materno` varchar(45) DEFAULT NULL,
+  `fecha_nacimiento` datetime DEFAULT NULL,
+  `edad` int(11) DEFAULT NULL,
+  `rut` int(11) DEFAULT NULL,
+  `digito_verificador` int(11) DEFAULT NULL,
+  `direccion_personal` varchar(45) DEFAULT NULL,
+  `numero_casa` int(11) DEFAULT NULL,
+  `telefono_personal` int(11) DEFAULT NULL,
+  `celular_personal` int(11) DEFAULT NULL,
+  `dato_personalcol` varchar(45) DEFAULT NULL,
+  `comuna_personal` varchar(45) DEFAULT NULL,
+  `ciudad_personal` varchar(45) DEFAULT NULL,
+  `interes` varchar(45) DEFAULT NULL,
+  `estado_civil` varchar(45) DEFAULT NULL,
+  `idioma` varchar(45) DEFAULT NULL,
+  `nacionalidad` varchar(45) DEFAULT NULL,
+  `usuario_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_dato_personal_usuario1_idx` (`usuario_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `entidad`
+--
+
+CREATE TABLE IF NOT EXISTS `entidad` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `institucion_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_entidad_institucion1_idx` (`institucion_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `escritorio_administrador`
 --
 
@@ -601,6 +826,19 @@ CREATE TABLE IF NOT EXISTS `escritorio_usuario` (
   PRIMARY KEY (`id`),
   KEY `fk_escritorio_usuario1_idx` (`usuario_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `estado_usuario` (
+  `logica_estado_usuario_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  KEY `fk_estado_usuario_logica_estado_usuario1_idx` (`logica_estado_usuario_id`),
+  KEY `fk_estado_usuario_usuario1_idx` (`usuario_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -632,6 +870,108 @@ INSERT INTO `icono_aplicacion_administrador` (`id`, `estilo`, `authitem_permiso_
 (9, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_aula";?>"><div class="tile-wide bg-lime fg-white" data-role="tile"><div class="tile-content iconic"><span class="icon mif-books"></span></div><span class="tile-label"><?php $pizza=CHtml::encode(''administracion_aula'');$porciones=explode("_", $pizza);foreach($porciones as $p){echo $p." ";} ?></span></div></a>', 'admin_aula'),
 (10, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_repositorio";?>" >\n            <div class="tile-large bg-brown fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-cabinet"></span>\n                </div>\n                <span class="tile-label">            \n                    <?php \n                        $pizza  = CHtml::encode(''administracion_repositorio'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>                \n                </span>\n            </div>  \n        </a>', 'admin_repositorio'),
 (11, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_error_log_mensaje";?>" >\n            <div class="tile-large bg-red fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-history"></span>\n                </div>\n                <span class="tile-label">\n                    <?php \n                        $pizza  = CHtml::encode(''administracion_error_log_mensaje'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>\n                </span>\n            </div>  \n        </a>', 'admin_error_log_mensaje');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `institucion`
+--
+
+CREATE TABLE IF NOT EXISTS `institucion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `vision` varchar(45) DEFAULT NULL,
+  `mision` varchar(45) DEFAULT NULL,
+  `acreditada` bit(1) DEFAULT NULL,
+  `fecha_inicio_acreditacion` datetime DEFAULT NULL,
+  `fecha_termino_acreditacion` datetime DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `logica_estado_usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `logica_estado_usuario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `modulo`
+--
+
+CREATE TABLE IF NOT EXISTS `modulo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pais`
+--
+
+CREATE TABLE IF NOT EXISTS `pais` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `codigo` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pais_has_dato_academico`
+--
+
+CREATE TABLE IF NOT EXISTS `pais_has_dato_academico` (
+  `pais_id` int(11) NOT NULL,
+  `dato_academico_id` int(11) NOT NULL,
+  PRIMARY KEY (`pais_id`,`dato_academico_id`),
+  KEY `fk_pais_has_dato_academico_dato_academico1_idx` (`dato_academico_id`),
+  KEY `fk_pais_has_dato_academico_pais1_idx` (`pais_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pais_has_dato_laboral`
+--
+
+CREATE TABLE IF NOT EXISTS `pais_has_dato_laboral` (
+  `pais_id` int(11) NOT NULL,
+  `dato_laboral_id` int(11) NOT NULL,
+  PRIMARY KEY (`pais_id`,`dato_laboral_id`),
+  KEY `fk_pais_has_dato_laboral_dato_laboral1_idx` (`dato_laboral_id`),
+  KEY `fk_pais_has_dato_laboral_pais1_idx` (`pais_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pais_has_dato_personal`
+--
+
+CREATE TABLE IF NOT EXISTS `pais_has_dato_personal` (
+  `pais_id` int(11) NOT NULL,
+  `dato_personal_id` int(11) NOT NULL,
+  PRIMARY KEY (`pais_id`,`dato_personal_id`),
+  KEY `fk_pais_has_dato_personal_dato_personal1_idx` (`dato_personal_id`),
+  KEY `fk_pais_has_dato_personal_pais1_idx` (`pais_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -768,6 +1108,51 @@ INSERT INTO `privilegio_usuario` (`id`, `nombre`, `controlador_usuario_id`) VALU
 (10, 'create', 2),
 (11, 'update', 2),
 (12, 'delete', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `programa_academico`
+--
+
+CREATE TABLE IF NOT EXISTS `programa_academico` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `version` varchar(45) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `programa_academico_has_modulo`
+--
+
+CREATE TABLE IF NOT EXISTS `programa_academico_has_modulo` (
+  `programa_academico_id` int(11) NOT NULL,
+  `modulo_id` int(11) NOT NULL,
+  PRIMARY KEY (`programa_academico_id`,`modulo_id`),
+  KEY `fk_programa_academico_has_modulo_modulo1_idx` (`modulo_id`),
+  KEY `fk_programa_academico_has_modulo_programa_academico1_idx` (`programa_academico_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `region`
+--
+
+CREATE TABLE IF NOT EXISTS `region` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `codigo` varchar(45) DEFAULT NULL,
+  `pais_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_region_pais1_idx` (`pais_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1045,6 +1430,24 @@ CREATE TABLE IF NOT EXISTS `rol_usuario_has_privilegio_usuario` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `seccion`
+--
+
+CREATE TABLE IF NOT EXISTS `seccion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `jornada` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `modulo_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`modulo_id`),
+  KEY `fk_seccion_modulo1_idx` (`modulo_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -1176,6 +1579,36 @@ ALTER TABLE `controlador_usuario`
   ADD CONSTRAINT `fk_controlador_authitem_permiso_usuario1` FOREIGN KEY (`authitem_permiso_usuario_name`) REFERENCES `authitem_permiso_usuario` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `dato_academico`
+--
+ALTER TABLE `dato_academico`
+  ADD CONSTRAINT `fk_dato_academico_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `dato_laboral`
+--
+ALTER TABLE `dato_laboral`
+  ADD CONSTRAINT `fk_dato_laboral_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `dato_login`
+--
+ALTER TABLE `dato_login`
+  ADD CONSTRAINT `fk_dato_login_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `dato_personal`
+--
+ALTER TABLE `dato_personal`
+  ADD CONSTRAINT `fk_dato_personal_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `entidad`
+--
+ALTER TABLE `entidad`
+  ADD CONSTRAINT `fk_entidad_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `escritorio_administrador`
 --
 ALTER TABLE `escritorio_administrador`
@@ -1188,10 +1621,38 @@ ALTER TABLE `escritorio_usuario`
   ADD CONSTRAINT `fk_escritorio_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `estado_usuario`
+--
+ALTER TABLE `estado_usuario`
+  ADD CONSTRAINT `fk_estado_usuario_logica_estado_usuario1` FOREIGN KEY (`logica_estado_usuario_id`) REFERENCES `logica_estado_usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_estado_usuario_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `icono_aplicacion_administrador`
 --
 ALTER TABLE `icono_aplicacion_administrador`
   ADD CONSTRAINT `fk_icono_aplicacion_administrador_authitem_permiso_administra1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `pais_has_dato_academico`
+--
+ALTER TABLE `pais_has_dato_academico`
+  ADD CONSTRAINT `fk_pais_has_dato_academico_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pais_has_dato_academico_dato_academico1` FOREIGN KEY (`dato_academico_id`) REFERENCES `dato_academico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `pais_has_dato_laboral`
+--
+ALTER TABLE `pais_has_dato_laboral`
+  ADD CONSTRAINT `fk_pais_has_dato_laboral_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pais_has_dato_laboral_dato_laboral1` FOREIGN KEY (`dato_laboral_id`) REFERENCES `dato_laboral` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `pais_has_dato_personal`
+--
+ALTER TABLE `pais_has_dato_personal`
+  ADD CONSTRAINT `fk_pais_has_dato_personal_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pais_has_dato_personal_dato_personal1` FOREIGN KEY (`dato_personal_id`) REFERENCES `dato_personal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `privilegio_administrador`
@@ -1204,6 +1665,19 @@ ALTER TABLE `privilegio_administrador`
 --
 ALTER TABLE `privilegio_usuario`
   ADD CONSTRAINT `fk_privilegio_controlador_usuario1` FOREIGN KEY (`controlador_usuario_id`) REFERENCES `controlador_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `programa_academico_has_modulo`
+--
+ALTER TABLE `programa_academico_has_modulo`
+  ADD CONSTRAINT `fk_programa_academico_has_modulo_programa_academico1` FOREIGN KEY (`programa_academico_id`) REFERENCES `programa_academico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_programa_academico_has_modulo_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `region`
+--
+ALTER TABLE `region`
+  ADD CONSTRAINT `fk_region_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `rol_administrador_has_authitem_permiso_administrador`
@@ -1232,6 +1706,12 @@ ALTER TABLE `rol_usuario_has_authitem_permiso_usuario`
 ALTER TABLE `rol_usuario_has_privilegio_usuario`
   ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_privilegio_usuario1` FOREIGN KEY (`privilegio_usuario_id`) REFERENCES `privilegio_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `seccion`
+--
+ALTER TABLE `seccion`
+  ADD CONSTRAINT `fk_seccion_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario_administrador_has_rol_administrador`
