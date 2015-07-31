@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 30-07-2015 a las 14:55:11
+-- Tiempo de generación: 31-07-2015 a las 12:32:19
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -1052,6 +1052,9 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuario` varchar(45) DEFAULT NULL,
   `clave` varchar(45) DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
@@ -1059,10 +1062,10 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `usuario`, `clave`) VALUES
-(1, 'francisco', '123'),
-(2, 'marcelo', '123'),
-(3, 'patricio', '123');
+INSERT INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`) VALUES
+(1, 'francisco', '123', NULL, NULL, NULL),
+(2, 'marcelo', '123', NULL, NULL, NULL),
+(3, 'patricio', '123', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
