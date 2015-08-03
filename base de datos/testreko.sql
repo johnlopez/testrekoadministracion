@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 31-07-2015 a las 17:19:13
+-- Tiempo de generación: 03-08-2015 a las 20:54:11
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -906,6 +906,24 @@ CREATE TABLE IF NOT EXISTS `logica_estado_usuario` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `modelo_aprendizaje`
+--
+
+CREATE TABLE IF NOT EXISTS `modelo_aprendizaje` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `repositorio_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_modelo_aprendizaje_repositorio1_idx` (`repositorio_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `modulo`
 --
 
@@ -1157,13 +1175,32 @@ CREATE TABLE IF NOT EXISTS `region` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `repositorio`
+-- Estructura de tabla para la tabla `repositorio_local`
 --
 
-CREATE TABLE IF NOT EXISTS `repositorio` (
+CREATE TABLE IF NOT EXISTS `repositorio_local` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `repositorio_troncal`
+--
+
+CREATE TABLE IF NOT EXISTS `repositorio_troncal` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -1632,6 +1669,12 @@ ALTER TABLE `estado_usuario`
 --
 ALTER TABLE `icono_aplicacion_administrador`
   ADD CONSTRAINT `fk_icono_aplicacion_administrador_authitem_permiso_administra1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `modelo_aprendizaje`
+--
+ALTER TABLE `modelo_aprendizaje`
+  ADD CONSTRAINT `fk_modelo_aprendizaje_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio_troncal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pais_has_dato_academico`
