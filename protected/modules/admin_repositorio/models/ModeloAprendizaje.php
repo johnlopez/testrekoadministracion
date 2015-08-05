@@ -10,10 +10,12 @@
  * @property string $fecha_acceso
  * @property string $fecha_modificacion
  * @property string $fecha_creacion
- * @property integer $repositorio_id
  *
  * The followings are the available model relations:
- * @property RepositorioTroncal $repositorio
+ * @property RepositorioLocalAdmin[] $repositorioLocalAdmins
+ * @property RepositorioLocalApp[] $repositorioLocalApps
+ * @property RepositorioTroncalAdmin[] $repositorioTroncalAdmins
+ * @property RepositorioTroncalApp[] $repositorioTroncalApps
  */
 class ModeloAprendizaje extends CActiveRecord
 {
@@ -33,13 +35,11 @@ class ModeloAprendizaje extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('repositorio_id', 'required'),
-			array('repositorio_id', 'numerical', 'integerOnly'=>true),
 			array('nombre, descripcion', 'length', 'max'=>45),
 			array('fecha_acceso, fecha_modificacion, fecha_creacion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre, descripcion, fecha_acceso, fecha_modificacion, fecha_creacion, repositorio_id', 'safe', 'on'=>'search'),
+			array('id, nombre, descripcion, fecha_acceso, fecha_modificacion, fecha_creacion', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,7 +51,10 @@ class ModeloAprendizaje extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'repositorio' => array(self::BELONGS_TO, 'RepositorioTroncal', 'repositorio_id'),
+			'repositorioLocalAdmins' => array(self::HAS_MANY, 'RepositorioLocalAdmin', 'modelo_aprendizaje_id'),
+			'repositorioLocalApps' => array(self::HAS_MANY, 'RepositorioLocalApp', 'modelo_aprendizaje_id'),
+			'repositorioTroncalAdmins' => array(self::HAS_MANY, 'RepositorioTroncalAdmin', 'modelo_aprendizaje_id'),
+			'repositorioTroncalApps' => array(self::HAS_MANY, 'RepositorioTroncalApp', 'modelo_aprendizaje_id'),
 		);
 	}
 
@@ -67,7 +70,6 @@ class ModeloAprendizaje extends CActiveRecord
 			'fecha_acceso' => 'Fecha Acceso',
 			'fecha_modificacion' => 'Fecha Modificacion',
 			'fecha_creacion' => 'Fecha Creacion',
-			'repositorio_id' => 'Repositorio',
 		);
 	}
 
@@ -95,7 +97,6 @@ class ModeloAprendizaje extends CActiveRecord
 		$criteria->compare('fecha_acceso',$this->fecha_acceso,true);
 		$criteria->compare('fecha_modificacion',$this->fecha_modificacion,true);
 		$criteria->compare('fecha_creacion',$this->fecha_creacion,true);
-		$criteria->compare('repositorio_id',$this->repositorio_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

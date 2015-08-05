@@ -1,6 +1,6 @@
 <?php
-/* @var $this RepositorioLocalController */
-/* @var $model RepositorioLocal */
+/* @var $this RepositorioTroncalAdminController */
+/* @var $model RepositorioTroncalAdmin */
 /* @var $form CActiveForm */
 ?>
 
@@ -39,6 +39,11 @@
 	<div class="row">
 		<?php echo $form->label($model,'fecha_creacion'); ?>
 		<?php echo $form->textField($model,'fecha_creacion'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'modelo_aprendizaje_id'); ?>
+		<?php echo $form->textField($model,'modelo_aprendizaje_id'); ?>
 	</div>
 
 	<div class="row buttons">

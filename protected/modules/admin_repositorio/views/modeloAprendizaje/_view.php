@@ -29,9 +29,5 @@
 	<?php echo CHtml::encode($data->fecha_creacion); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('repositorio_id')); ?>:</b>
-	<?php echo CHtml::encode($data->repositorio_id); ?>
-	<br />
-
 
 </div>

@@ -1,24 +1,28 @@
 <?php
 
 /**
- * This is the model class for table "repositorio_local".
+ * This is the model class for table "repositorio_local_admin".
  *
- * The followings are the available columns in table 'repositorio_local':
+ * The followings are the available columns in table 'repositorio_local_admin':
  * @property integer $id
  * @property string $nombre
  * @property string $descripcion
  * @property string $fecha_acceso
  * @property string $fecha_modificacion
  * @property string $fecha_creacion
+ * @property integer $modelo_aprendizaje_id
+ *
+ * The followings are the available model relations:
+ * @property ModeloAprendizaje $modeloAprendizaje
  */
-class RepositorioLocal extends CActiveRecord
+class RepositorioLocalAdmin extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'repositorio_local';
+		return 'repositorio_local_admin';
 	}
 
 	/**
@@ -29,11 +33,13 @@ class RepositorioLocal extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('modelo_aprendizaje_id', 'required'),
+			array('modelo_aprendizaje_id', 'numerical', 'integerOnly'=>true),
 			array('nombre, descripcion', 'length', 'max'=>45),
 			array('fecha_acceso, fecha_modificacion, fecha_creacion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre, descripcion, fecha_acceso, fecha_modificacion, fecha_creacion', 'safe', 'on'=>'search'),
+			array('id, nombre, descripcion, fecha_acceso, fecha_modificacion, fecha_creacion, modelo_aprendizaje_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -45,6 +51,7 @@ class RepositorioLocal extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'modeloAprendizaje' => array(self::BELONGS_TO, 'ModeloAprendizaje', 'modelo_aprendizaje_id'),
 		);
 	}
 
@@ -60,6 +67,7 @@ class RepositorioLocal extends CActiveRecord
 			'fecha_acceso' => 'Fecha Acceso',
 			'fecha_modificacion' => 'Fecha Modificacion',
 			'fecha_creacion' => 'Fecha Creacion',
+			'modelo_aprendizaje_id' => 'Modelo Aprendizaje',
 		);
 	}
 
@@ -87,6 +95,7 @@ class RepositorioLocal extends CActiveRecord
 		$criteria->compare('fecha_acceso',$this->fecha_acceso,true);
 		$criteria->compare('fecha_modificacion',$this->fecha_modificacion,true);
 		$criteria->compare('fecha_creacion',$this->fecha_creacion,true);
+		$criteria->compare('modelo_aprendizaje_id',$this->modelo_aprendizaje_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -97,7 +106,7 @@ class RepositorioLocal extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return RepositorioLocal the static model class
+	 * @return RepositorioLocalAdmin the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

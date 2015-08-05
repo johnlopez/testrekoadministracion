@@ -1,6 +1,6 @@
 <?php
-/* @var $this RepositorioLocalController */
-/* @var $data RepositorioLocal */
+/* @var $this RepositorioTroncalAdminController */
+/* @var $data RepositorioTroncalAdmin */
 ?>
 
 <div class="view">
@@ -27,6 +27,10 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('fecha_creacion')); ?>:</b>
 	<?php echo CHtml::encode($data->fecha_creacion); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('modelo_aprendizaje_id')); ?>:</b>
+	<?php echo CHtml::encode($data->modelo_aprendizaje_id); ?>
 	<br />
 
 

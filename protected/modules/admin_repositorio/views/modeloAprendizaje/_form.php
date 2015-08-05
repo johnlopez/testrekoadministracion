@@ -49,12 +49,6 @@
 		<?php echo $form->error($model,'fecha_creacion'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'repositorio_id'); ?>
-		<?php echo $form->textField($model,'repositorio_id'); ?>
-		<?php echo $form->error($model,'repositorio_id'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

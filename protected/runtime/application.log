@@ -24699,3 +24699,51 @@ Stack trace:
 #3 {main}
 REQUEST_URI=/testrekoadministracion/admin_institucion/usuario
 ---
+2015/08/05 16:26:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui-bootstrap/favicon.ico".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui-...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui-bootstrap/favicon.ico
+---
+2015/08/05 18:23:41 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'testreko.repositorio_troncal' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `repositorio_troncal`.
+in C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\views\repositorioTroncal\index.php (20)
+in C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositorioTroncalController.php (133)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/08/05 18:23:41 [error] [exception.CDbException] exception 'CDbException' with message 'The table "repositorio_troncal" for active record class "RepositorioTroncal" cannot be found in the database.' in C:\wamp\www\yii\framework\db\ar\CActiveRecord.php:2385
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(RepositorioTroncal))
+#1 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(661): CActiveRecord->getMetaData()
+#2 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(1606): CActiveRecord->getTableSchema()
+#3 C:\wamp\www\yii\framework\web\CActiveDataProvider.php(228): CActiveRecord->count(Object(CDbCriteria))
+#4 C:\wamp\www\yii\framework\web\CDataProvider.php(224): CActiveDataProvider->calculateTotalItemCount()
+#5 C:\wamp\www\yii\framework\web\CActiveDataProvider.php(178): CDataProvider->getTotalItemCount()
+#6 C:\wamp\www\yii\framework\web\CDataProvider.php(168): CActiveDataProvider->fetchData()
+#7 C:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(125): CDataProvider->getData()
+#8 C:\wamp\www\yii\framework\zii\widgets\CListView.php(211): CBaseListView->init()
+#9 C:\wamp\www\yii\framework\web\CBaseController.php(147): CListView->init()
+#10 C:\wamp\www\yii\framework\web\CBaseController.php(180): CBaseController->createWidget('zii.widgets.CLi...', Array)
+#11 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\views\repositorioTroncal\index.php(20): CBaseController->widget('zii.widgets.CLi...', Array)
+#12 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#13 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#14 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#15 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('index', Array, true)
+#16 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositorioTroncalController.php(133): CController->render('index', Array)
+#17 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RepositorioTroncalController->actionIndex()
+#18 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#19 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#20 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#21 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#22 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#23 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#24 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#25 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#27 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#28 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#29 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#30 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriotroncal/index
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio
+---

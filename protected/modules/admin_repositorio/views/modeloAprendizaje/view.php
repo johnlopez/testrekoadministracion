@@ -27,6 +27,5 @@ $this->menu=array(
 		'fecha_acceso',
 		'fecha_modificacion',
 		'fecha_creacion',
-		'repositorio_id',
 	),
 )); ?>

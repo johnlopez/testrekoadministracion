@@ -1,13 +1,13 @@
 <?php
-/* @var $this RepositorioLocalController */
-/* @var $model RepositorioLocal */
+/* @var $this RepositorioTroncalAdminController */
+/* @var $model RepositorioTroncalAdmin */
 /* @var $form CActiveForm */
 ?>
 
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'repositorio-local-form',
+	'id'=>'repositorio-troncal-admin-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
 	// controller action is handling ajax validation correctly.
 	// There is a call to performAjaxValidation() commented in generated controller code.
@@ -47,6 +47,12 @@
 		<?php echo $form->labelEx($model,'fecha_creacion'); ?>
 		<?php echo $form->textField($model,'fecha_creacion'); ?>
 		<?php echo $form->error($model,'fecha_creacion'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'modelo_aprendizaje_id'); ?>
+		<?php echo $form->textField($model,'modelo_aprendizaje_id'); ?>
+		<?php echo $form->error($model,'modelo_aprendizaje_id'); ?>
 	</div>
 
 	<div class="row buttons">

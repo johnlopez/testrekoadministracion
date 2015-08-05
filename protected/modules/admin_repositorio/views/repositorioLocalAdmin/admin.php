@@ -1,15 +1,15 @@
 <?php
-/* @var $this RepositorioTroncalController */
-/* @var $model RepositorioTroncal */
+/* @var $this RepositorioLocalAdminController */
+/* @var $model RepositorioLocalAdmin */
 
 $this->breadcrumbs=array(
-	'Repositorio Troncals'=>array('index'),
+	'Repositorio Local Admins'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List RepositorioTroncal', 'url'=>array('index')),
-	array('label'=>'Create RepositorioTroncal', 'url'=>array('create')),
+	array('label'=>'List RepositorioLocalAdmin', 'url'=>array('index')),
+	array('label'=>'Create RepositorioLocalAdmin', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -18,7 +18,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#repositorio-troncal-grid').yiiGridView('update', {
+	$('#repositorio-local-admin-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Repositorio Troncals</h1>
+<h1>Manage Repositorio Local Admins</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -41,7 +41,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'repositorio-troncal-grid',
+	'id'=>'repositorio-local-admin-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
@@ -51,6 +51,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'fecha_acceso',
 		'fecha_modificacion',
 		'fecha_creacion',
+		/*
+		'modelo_aprendizaje_id',
+		*/
 		array(
 			'class'=>'CButtonColumn',
 		),

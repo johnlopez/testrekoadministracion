@@ -41,11 +41,6 @@
 		<?php echo $form->textField($model,'fecha_creacion'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'repositorio_id'); ?>
-		<?php echo $form->textField($model,'repositorio_id'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>

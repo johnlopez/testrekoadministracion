@@ -1,6 +1,6 @@
 <?php
 
-class RepositorioTroncalController extends Controller
+class RepositorioLocalAdminController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -24,16 +24,12 @@ class RepositorioTroncalController extends Controller
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-//	public function accessRules()
-//	{
-//            return Yii::app()->Validar->validarAcceso();
-//	}
-        public function accessRules()
+	public function accessRules()
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','asignar'),
-				'users'=>array('@'),
+				'actions'=>array('index','view'),
+				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
@@ -41,14 +37,13 @@ class RepositorioTroncalController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('@'),
+				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
 	}
-
 
 	/**
 	 * Displays a particular model.
@@ -67,14 +62,14 @@ class RepositorioTroncalController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new RepositorioTroncal;
+		$model=new RepositorioLocalAdmin;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['RepositorioTroncal']))
+		if(isset($_POST['RepositorioLocalAdmin']))
 		{
-			$model->attributes=$_POST['RepositorioTroncal'];
+			$model->attributes=$_POST['RepositorioLocalAdmin'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -96,9 +91,9 @@ class RepositorioTroncalController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['RepositorioTroncal']))
+		if(isset($_POST['RepositorioLocalAdmin']))
 		{
-			$model->attributes=$_POST['RepositorioTroncal'];
+			$model->attributes=$_POST['RepositorioLocalAdmin'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -127,7 +122,7 @@ class RepositorioTroncalController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('RepositorioTroncal');
+		$dataProvider=new CActiveDataProvider('RepositorioLocalAdmin');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -138,10 +133,10 @@ class RepositorioTroncalController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new RepositorioTroncal('search');
+		$model=new RepositorioLocalAdmin('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['RepositorioTroncal']))
-			$model->attributes=$_GET['RepositorioTroncal'];
+		if(isset($_GET['RepositorioLocalAdmin']))
+			$model->attributes=$_GET['RepositorioLocalAdmin'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -152,12 +147,12 @@ class RepositorioTroncalController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return RepositorioTroncal the loaded model
+	 * @return RepositorioLocalAdmin the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=RepositorioTroncal::model()->findByPk($id);
+		$model=RepositorioLocalAdmin::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -165,11 +160,11 @@ class RepositorioTroncalController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param RepositorioTroncal $model the model to be validated
+	 * @param RepositorioLocalAdmin $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='repositorio-troncal-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='repositorio-local-admin-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
