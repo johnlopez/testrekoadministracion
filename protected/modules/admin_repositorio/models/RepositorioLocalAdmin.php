@@ -33,7 +33,6 @@ class RepositorioLocalAdmin extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('modelo_aprendizaje_id', 'required'),
 			array('modelo_aprendizaje_id', 'numerical', 'integerOnly'=>true),
 			array('nombre, descripcion', 'length', 'max'=>45),
 			array('fecha_acceso, fecha_modificacion, fecha_creacion', 'safe'),
