@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 31-07-2015 a las 17:19:13
+-- Tiempo de generación: 05-08-2015 a las 21:07:51
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -438,6 +438,23 @@ AND P.name = RP.authitem_permiso_administrador_name
 AND U.id = nuevo_usuario_id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_escritorio_usuario_get_permiso_usuario`(nuevo_usuario_id int)
+BEGIN
+SELECT P.name
+FROM 
+		usuario U,      
+        usuario_has_rol_usuario UR,
+        rol_usuario R,
+        rol_usuario_has_authitem_permiso_usuario RP,
+        authitem_permiso_usuario P
+      
+WHERE U.id = UR.usuario_id
+AND R.id = UR.rol_usuario_id
+AND R.id = RP.rol_usuario_id
+AND P.name = RP.authitem_permiso_usuario_name
+AND U.id = nuevo_usuario_id;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `validar_privilegio`(nuevo_usuario_id int , nuevo_permiso_nombre varchar(50) , nuevo_controlador_nombre varchar(50) , nuevo_privilegio_nombre varchar(50),out vista varchar(50))
 SELECT PRIV.nombre into vista
 FROM
@@ -549,7 +566,14 @@ CREATE TABLE IF NOT EXISTS `authassignment_usuario` (
 --
 
 INSERT INTO `authassignment_usuario` (`itemname`, `userid`, `bizrule`, `data`) VALUES
-('aula', '1', NULL, NULL);
+('aula', '1', NULL, NULL),
+('aula', '2', NULL, NULL),
+('aula', '3', NULL, NULL),
+('aula', '4', NULL, NULL),
+('aula', '5', NULL, NULL),
+('repositorio', '1', NULL, NULL),
+('repositorio', '4', NULL, NULL),
+('repositorio', '5', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -633,7 +657,8 @@ CREATE TABLE IF NOT EXISTS `authitem_permiso_usuario` (
 --
 
 INSERT INTO `authitem_permiso_usuario` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
-('aula', 2, NULL, NULL, NULL);
+('aula', 2, NULL, NULL, NULL),
+('repositorio', 2, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -681,7 +706,7 @@ CREATE TABLE IF NOT EXISTS `controlador_usuario` (
   `authitem_permiso_usuario_name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_controlador_authitem_permiso_usuario1_idx` (`authitem_permiso_usuario_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `controlador_usuario`
@@ -689,7 +714,9 @@ CREATE TABLE IF NOT EXISTS `controlador_usuario` (
 
 INSERT INTO `controlador_usuario` (`id`, `nombre`, `authitem_permiso_usuario_name`) VALUES
 (1, 'Aula', 'aula'),
-(2, 'Default', 'aula');
+(2, 'Default', 'aula'),
+(3, 'Repositorio', 'repositorio'),
+(4, 'Default', 'repositorio');
 
 -- --------------------------------------------------------
 
@@ -906,6 +933,22 @@ CREATE TABLE IF NOT EXISTS `logica_estado_usuario` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `modelo_aprendizaje`
+--
+
+CREATE TABLE IF NOT EXISTS `modelo_aprendizaje` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `modulo`
 --
 
@@ -1089,7 +1132,7 @@ CREATE TABLE IF NOT EXISTS `privilegio_usuario` (
   `controlador_usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_privilegio_controlador_usuario1_idx` (`controlador_usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
 
 --
 -- Volcado de datos para la tabla `privilegio_usuario`
@@ -1107,7 +1150,19 @@ INSERT INTO `privilegio_usuario` (`id`, `nombre`, `controlador_usuario_id`) VALU
 (9, 'admin', 2),
 (10, 'create', 2),
 (11, 'update', 2),
-(12, 'delete', 2);
+(12, 'delete', 2),
+(13, 'index', 3),
+(14, 'view', 3),
+(15, 'admin', 3),
+(16, 'create', 3),
+(17, 'update', 3),
+(18, 'delete', 3),
+(19, 'index', 4),
+(20, 'view', 4),
+(21, 'admin', 4),
+(22, 'create', 4),
+(23, 'update', 4),
+(24, 'delete', 4);
 
 -- --------------------------------------------------------
 
@@ -1157,14 +1212,73 @@ CREATE TABLE IF NOT EXISTS `region` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `repositorio`
+-- Estructura de tabla para la tabla `repositorio_local_admin`
 --
 
-CREATE TABLE IF NOT EXISTS `repositorio` (
+CREATE TABLE IF NOT EXISTS `repositorio_local_admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `modelo_aprendizaje_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_repositorio_local_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `repositorio_local_app`
+--
+
+CREATE TABLE IF NOT EXISTS `repositorio_local_app` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `modelo_aprendizaje_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_repositorio_local_app_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `repositorio_troncal_admin`
+--
+
+CREATE TABLE IF NOT EXISTS `repositorio_troncal_admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `modelo_aprendizaje_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_repositorio_troncal_admin_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `repositorio_troncal_app`
+--
+
+CREATE TABLE IF NOT EXISTS `repositorio_troncal_app` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `modelo_aprendizaje_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_repositorio_troncal_app_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -1383,14 +1497,16 @@ CREATE TABLE IF NOT EXISTS `rol_usuario` (
   `nombre` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `rol_usuario`
 --
 
 INSERT INTO `rol_usuario` (`id`, `nombre`, `descripcion`) VALUES
-(1, 'alumno', 'rol alumno');
+(1, 'superusuario', 'rol superusuario'),
+(2, 'profesor', 'rol profesor'),
+(3, 'alumno', 'rol alumno');
 
 -- --------------------------------------------------------
 
@@ -1411,7 +1527,11 @@ CREATE TABLE IF NOT EXISTS `rol_usuario_has_authitem_permiso_usuario` (
 --
 
 INSERT INTO `rol_usuario_has_authitem_permiso_usuario` (`rol_usuario_id`, `authitem_permiso_usuario_name`) VALUES
-(1, 'aula');
+(1, 'aula'),
+(1, 'repositorio'),
+(2, 'aula'),
+(2, 'repositorio'),
+(3, 'aula');
 
 -- --------------------------------------------------------
 
@@ -1441,7 +1561,7 @@ CREATE TABLE IF NOT EXISTS `seccion` (
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `modulo_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`,`modulo_id`),
+  PRIMARY KEY (`id`),
   KEY `fk_seccion_modulo1_idx` (`modulo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -1459,16 +1579,18 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`) VALUES
-(1, 'francisco', '123', NULL, NULL, NULL),
-(2, 'marcelo', '123', NULL, NULL, NULL),
-(3, 'patricio', '123', NULL, NULL, NULL);
+(1, 'creyes', '123', NULL, NULL, NULL),
+(2, 'francisco', '123', NULL, NULL, NULL),
+(3, 'victor', '123', NULL, NULL, NULL),
+(4, 'marcelo', '123', NULL, NULL, NULL),
+(5, 'patricio', '123', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1534,7 +1656,11 @@ CREATE TABLE IF NOT EXISTS `usuario_has_rol_usuario` (
 --
 
 INSERT INTO `usuario_has_rol_usuario` (`usuario_id`, `rol_usuario_id`) VALUES
-(1, 1);
+(1, 1),
+(4, 2),
+(5, 2),
+(2, 3),
+(3, 3);
 
 --
 -- Restricciones para tablas volcadas
@@ -1680,6 +1806,30 @@ ALTER TABLE `region`
   ADD CONSTRAINT `fk_region_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `repositorio_local_admin`
+--
+ALTER TABLE `repositorio_local_admin`
+  ADD CONSTRAINT `fk_repositorio_local_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `repositorio_local_app`
+--
+ALTER TABLE `repositorio_local_app`
+  ADD CONSTRAINT `fk_repositorio_local_app_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `repositorio_troncal_admin`
+--
+ALTER TABLE `repositorio_troncal_admin`
+  ADD CONSTRAINT `fk_repositorio_troncal_admin_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `repositorio_troncal_app`
+--
+ALTER TABLE `repositorio_troncal_app`
+  ADD CONSTRAINT `fk_repositorio_troncal_app_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `rol_administrador_has_authitem_permiso_administrador`
 --
 ALTER TABLE `rol_administrador_has_authitem_permiso_administrador`
@@ -1711,7 +1861,7 @@ ALTER TABLE `rol_usuario_has_privilegio_usuario`
 -- Filtros para la tabla `seccion`
 --
 ALTER TABLE `seccion`
-  ADD CONSTRAINT `fk_seccion_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_seccion_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario_administrador_has_rol_administrador`
