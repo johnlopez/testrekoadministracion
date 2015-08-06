@@ -21,3 +21,6 @@
 000000000
 100 hotel
 101 california
+102 starway
+103 to
+104 heaven
