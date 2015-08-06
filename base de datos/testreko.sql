@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 05-08-2015 a las 21:07:51
+-- Tiempo de generación: 06-08-2015 a las 21:30:55
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -944,7 +944,15 @@ CREATE TABLE IF NOT EXISTS `modelo_aprendizaje` (
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `modelo_aprendizaje`
+--
+
+INSERT INTO `modelo_aprendizaje` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`) VALUES
+(1, 'autoaprendizaje', 'modelo de auto aprendizaje', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'e-learning', 'modelo de e-learning', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1222,7 +1230,7 @@ CREATE TABLE IF NOT EXISTS `repositorio_local_admin` (
   `fecha_acceso` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
-  `modelo_aprendizaje_id` int(11) NOT NULL,
+  `modelo_aprendizaje_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_repositorio_local_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -1240,7 +1248,7 @@ CREATE TABLE IF NOT EXISTS `repositorio_local_app` (
   `fecha_acceso` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
-  `modelo_aprendizaje_id` int(11) NOT NULL,
+  `modelo_aprendizaje_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_repositorio_local_app_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -1258,10 +1266,18 @@ CREATE TABLE IF NOT EXISTS `repositorio_troncal_admin` (
   `fecha_acceso` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
-  `modelo_aprendizaje_id` int(11) NOT NULL,
+  `modelo_aprendizaje_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_repositorio_troncal_admin_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `repositorio_troncal_admin`
+--
+
+INSERT INTO `repositorio_troncal_admin` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `modelo_aprendizaje_id`) VALUES
+(1, 'repositorio diego', 'prueba repositorio diego', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(2, 'repositorio christian', 'prueba repositorio christian', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -1276,7 +1292,7 @@ CREATE TABLE IF NOT EXISTS `repositorio_troncal_app` (
   `fecha_acceso` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
-  `modelo_aprendizaje_id` int(11) NOT NULL,
+  `modelo_aprendizaje_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_repositorio_troncal_app_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -1809,7 +1825,7 @@ ALTER TABLE `region`
 -- Filtros para la tabla `repositorio_local_admin`
 --
 ALTER TABLE `repositorio_local_admin`
-  ADD CONSTRAINT `fk_repositorio_local_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_repositorio_local_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `repositorio_local_app`
@@ -1821,13 +1837,13 @@ ALTER TABLE `repositorio_local_app`
 -- Filtros para la tabla `repositorio_troncal_admin`
 --
 ALTER TABLE `repositorio_troncal_admin`
-  ADD CONSTRAINT `fk_repositorio_troncal_admin_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_repositorio_troncal_admin_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `repositorio_troncal_app`
 --
 ALTER TABLE `repositorio_troncal_app`
-  ADD CONSTRAINT `fk_repositorio_troncal_app_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_repositorio_troncal_app_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_administrador_has_authitem_permiso_administrador`
