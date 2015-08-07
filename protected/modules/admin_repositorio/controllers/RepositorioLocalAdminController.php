@@ -32,7 +32,7 @@ class RepositorioLocalAdminController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','asignar'),
+				'actions'=>array('asignarmodeloaprendizaje','index','view','asignar'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -173,5 +173,36 @@ class RepositorioLocalAdminController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+        
+        public function actionAsignarmodeloaprendizaje()
+	{  
+                $repositorio = new RepositorioLocalAdmin();
+                $modeloaprendizaje = new ModeloAprendizaje();
+
+                $vmodeloaprendizaje = $modeloaprendizaje::model()->findAll();
+                
+                if(isset($_GET['id'])) 
+                {                    
+                    if(isset($_POST['ModeloAprendizaje']))
+                    {
+                        $repositorio->asignarModeloAprendizajeRepositorioLocalAdmin($_GET['id'], $_POST['ModeloAprendizaje']['id']);
+                    
+                        $model=new RepositorioLocalAdmin('search');
+                        $model->unsetAttributes();  // clear any default values
+                        if(isset($_GET['RepositorioLocalAdmin']))
+                                $model->attributes=$_GET['RepositorioLocalAdmin'];
+
+                        $this->render('admin',array(
+                                'model'=>$model,
+                        ));
+                    }
+                    else
+                    {                    
+                        $vrepositorio = $repositorio::model()->findByPk($_GET['id']);                    
+                        $this->render('asignarmodeloaprendizaje', array('vmodeloaprendizaje'=>$vmodeloaprendizaje,'modeloaprendizaje'=>$modeloaprendizaje,'vrepositorio'=>$vrepositorio));                    
+                    }
+                }              
+                
 	}
 }

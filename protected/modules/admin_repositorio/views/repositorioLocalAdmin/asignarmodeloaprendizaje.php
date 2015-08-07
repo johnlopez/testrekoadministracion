@@ -1,11 +1,11 @@
 <?php
 $this->breadcrumbs=array(
-	'Repositorio Troncal Admin'=>array('index'),
+	'Repositorio Local Admin'=>array('index'),
 	'Manage'=>array('admin'),
         'Asignar'=>array('asignarmodeloaprendizaje'),
 );
 ?>
-<h1>Asignar Modelo Aprendizaje a Repositorio Troncal Admin</h1>
+<h1>Asignar Modelo Aprendizaje a Repositorio Local Admin</h1>
 <br>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$vrepositorio,

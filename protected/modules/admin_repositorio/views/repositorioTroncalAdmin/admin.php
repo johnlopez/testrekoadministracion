@@ -50,10 +50,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'descripcion',
 		'fecha_acceso',
 		'fecha_modificacion',
-		'fecha_creacion',
-		/*
+		'fecha_creacion',		
 		'modelo_aprendizaje_id',
-		*/
+		
 		array(
 			'class'=>'CButtonColumn',
                         'template' => '{view}{update}{delete}{asignar}',

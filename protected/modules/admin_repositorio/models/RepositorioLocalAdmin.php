@@ -111,4 +111,13 @@ class RepositorioLocalAdmin extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        public function asignarModeloAprendizajeRepositorioLocalAdmin($nuevo_repositorio_id,$nuevo_modelo_id) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_repositorio_asignar_mod_aprendizaje_rep_local_admin(:nuevo_repositorio_id,:nuevo_modelo_id)");
+            $comando->bindParam(':nuevo_repositorio_id',$nuevo_repositorio_id);
+            $comando->bindParam(':nuevo_modelo_id',$nuevo_modelo_id );
+            $comando->execute();
+            return $comando;
+        }
 }
