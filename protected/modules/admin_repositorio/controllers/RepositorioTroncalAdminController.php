@@ -177,32 +177,31 @@ class RepositorioTroncalAdminController extends Controller
         
         public function actionAsignarmodeloaprendizaje()
 	{  
-                $repositorio = new RepositorioTroncalAdmin();
-                $modeloaprendizaje = new ModeloAprendizaje();
+            $repositorio = new RepositorioTroncalAdmin();
+            $modeloaprendizaje = new ModeloAprendizaje();
 
-                $vmodeloaprendizaje = $modeloaprendizaje::model()->findAll();
-                
-                if(isset($_GET['id'])) 
-                {                    
-                    if(isset($_POST['ModeloAprendizaje']))
-                    {
-                        $repositorio->asignarModeloAprendizajeRepositorioTroncalAdmin($_GET['id'], $_POST['ModeloAprendizaje']['id']);
-                    
-                        $model=new RepositorioTroncalAdmin('search');
-                        $model->unsetAttributes();  // clear any default values
-                        if(isset($_GET['RepositorioTroncalAdmin']))
-                                $model->attributes=$_GET['RepositorioTroncalAdmin'];
+            $vmodeloaprendizaje = $modeloaprendizaje::model()->findAll();
 
-                        $this->render('admin',array(
-                                'model'=>$model,
-                        ));
-                    }
-                    else
-                    {                    
-                        $vrepositorio = $repositorio::model()->findByPk($_GET['id']);                    
-                        $this->render('asignarmodeloaprendizaje', array('vmodeloaprendizaje'=>$vmodeloaprendizaje,'modeloaprendizaje'=>$modeloaprendizaje,'vrepositorio'=>$vrepositorio));                    
-                    }
+            if(isset($_GET['id'])) 
+            {                    
+                if(isset($_POST['ModeloAprendizaje']))
+                {
+                    $repositorio->asignarModeloAprendizajeRepositorioTroncalAdmin($_GET['id'], $_POST['ModeloAprendizaje']['id']);
+
+                    $model=new RepositorioTroncalAdmin('search');
+                    $model->unsetAttributes();  // clear any default values
+                    if(isset($_GET['RepositorioTroncalAdmin']))
+                            $model->attributes=$_GET['RepositorioTroncalAdmin'];
+
+                    $this->render('admin',array(
+                            'model'=>$model,
+                    ));
                 }
-                
+                else
+                {                    
+                    $vrepositorio = $repositorio::model()->findByPk($_GET['id']);                    
+                    $this->render('asignarmodeloaprendizaje', array('vmodeloaprendizaje'=>$vmodeloaprendizaje,'modeloaprendizaje'=>$modeloaprendizaje,'vrepositorio'=>$vrepositorio));                    
+                }
+            }                
 	}
 }
