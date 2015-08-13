@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 10-08-2015 a las 21:45:43
+-- Tiempo de generación: 13-08-2015 a las 16:11:07
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -273,6 +273,16 @@ end$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_usuario_administrador`()
 select * from usuario_administrador$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `lista_rol_permiso`(rol_id int(11))
+BEGIN
+
+SELECT A.roldesc,B.* FROM `rol` A, `rolpermiso` B 
+WHERE A.idrol = B.rolid
+AND A.idrol = rol_id UNION SELECT null,null,A.idpermiso FROM (`permiso` A LEFT JOIN `rolpermiso` B ON A.idpermiso = B.permisoid AND B.rolid = rol_id)
+WHERE B.rolid is NULL;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `privilegio_permiso`(nuevo_permiso varchar(250))
 begin
 SELECT PRIV.id
@@ -285,6 +295,46 @@ WHERE P.name = C.authitem_permiso_administrador_name
 AND C.id = PRIV.controlador_administrador_id
 
 AND P.name = nuevo_permiso;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionaplicacion_actualizar_aplicacion`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_ocultar bit(1),
+nuevo_fecha_modificacion datetime
+)
+begin
+update aplicacion set
+id = nuevo_id,
+nombre = nuevo_nombre,
+descripcion = nuevo_descripcion,
+ocultar = nuevo_ocultar,
+fecha_modificacion = now()
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionaplicacion_agregar_aplicacion`(
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_ocultar bit(1),
+nuevo_fecha_creacion datetime,
+OUT llave_id int(11)
+)
+begin
+insert into aplicacion(
+nombre,
+descripcion,
+ocultar,
+fecha_creacion
+)
+values(
+nuevo_nombre,
+nuevo_descripcion,
+nuevo_ocultar,
+now()
+);
+SELECT LAST_INSERT_ID () into llave_id;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracioncurricular_actualizar_modulo`(
@@ -402,6 +452,887 @@ now()
 SELECT LAST_INSERT_ID () into llave_id;
 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracioninstitucion_actualizar_entidad`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_fecha_modificacion datetime
+)
+begin
+update entidad set
+id = nuevo_id,
+nombre = nuevo_nombre,
+descripcion = nuevo_descripcion,
+fecha_modificacion = now()
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracioninstitucion_actualizar_institucion`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_vision varchar(50),
+nuevo_mision varchar(50),
+nuevo_acreditada bit(1),
+nuevo_fecha_inicio_acreditacion datetime,
+nuevo_fecha_termino_acreditacion datetime,
+nuevo_descripcion varchar(50),
+nuevo_fecha_modificacion datetime
+)
+begin
+update institucion set
+id = nuevo_id,
+nombre = nuevo_nombre,
+vision = nuevo_vision,
+mision = nuevo_mision,
+acreditada = nuevo_acreditada,
+fecha_inicio_acreditacion = nuevo_fecha_inicio_acreditacion,
+fecha_termino_acreditacion = nuevo_fecha_termino_acreditacion,
+descripcion = nuevo_descripcion,
+fecha_modificacion = now()
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracioninstitucion_agregar_entidad`(
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_fecha_creacion datetime,
+OUT llave_id int(11)
+)
+begin
+insert into entidad(
+nombre,
+descripcion,
+fecha_creacion
+)
+values(
+nuevo_nombre,
+nuevo_descripcion,
+now()
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracioninstitucion_agregar_institucion`(
+nuevo_nombre varchar(50),
+nuevo_vision varchar(50),
+nuevo_mision varchar(50),
+nuevo_acreditada bit(1),
+nuevo_fecha_inicio_acreditacion datetime,
+nuevo_fecha_termino_acreditacion datetime,
+nuevo_descripcion varchar(50),
+nuevo_fecha_creacion datetime,
+OUT llave_id int(11)
+)
+begin
+insert into institucion(
+nombre,
+vision,
+mision,
+acreditada,
+fecha_inicio_acreditacion,
+fecha_termino_acreditacion,
+descripcion,
+fecha_creacion
+)
+values(
+nuevo_nombre,
+nuevo_vision, 
+nuevo_mision, 
+nuevo_acreditada, 
+nuevo_fecha_inicio_acreditacion, 
+nuevo_fecha_termino_acreditacion, 
+nuevo_descripcion, 
+now()
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_actualizar_dato_academico`(
+nuevo_id int,
+nuevo_universidad varchar(50),
+nuevo_carrera varchar(30),
+nuevo_ano_cursado int,
+nuevo_duracion_carrera int,
+nuevo_sede varchar(30),
+nuevo_direccion_sede varchar(30),
+nuevo_comuna_sede varchar(30),
+nuevo_ciudad_sede varchar(30),
+nuevo_usuario_id int
+)
+BEGIN	
+UPDATE dato_academico SET
+id = nuevo_id,
+universidad = nuevo_universidad,
+carrera = nuevo_carrera,
+ano_cursado = nuevo_ano_cursado,
+duracion_carrera = nuevo_duracion_carrera,
+sede = nuevo_sede,
+direccion_sede = nuevo_direccion_sede,
+comuna_sede = nuevo_comuna_sede,
+ciudad_sede = nuevo_ciudad_sede,
+usuario_id = nuevo_usuario_id
+where id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_actualizar_dato_laboral`(
+nuevo_id int,
+nuevo_nombre_empresa varchar(50),
+nuevo_ano_antiguedad varchar(30),
+nuevo_cargo varchar(30),
+nuevo_actividad varchar(30),
+nuevo_comuna_empresa varchar(30),
+nuevo_ciudad_empresa varchar(30),
+nuevo_telefono_empresa int,
+nuevo_celular_empresa int,
+nuevo_rut_numero int,
+nuevo_digito_verificador int,
+nuevo_usuario_id int
+)
+BEGIN	
+UPDATE dato_laboral set
+id = nuevo_id,
+nombre_empresa = nuevo_nombre_empresa,
+ano_antiguedad = nuevo_ano_antiguedad,
+cargo = nuevo_cargo,
+actividad = nuevo_actividad,
+comuna_empresa = nuevo_comuna_empresa,
+ciudad_empresa = nuevo_ciudad_empresa,
+telefono_empresa = nuevo_telefono_empresa,
+celular_empresa = nuevo_celular_empresa,
+rut_numero = nuevo_rut_numero,
+digito_verificador = nuevo_digito_verificador,
+usuario_id = nuevo_usuario_id
+where id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_actualizar_dato_login`(
+nuevo_id int,
+nuevo_pregunta_secreta_1 varchar(50),
+nuevo_pregunta_secreta_2 varchar(50),
+nuevo_respuesta_secreta_1 varchar(50),
+nuevo_respuesta_secreta_2 varchar(50),
+nuevo_usuario_id int
+)
+BEGIN
+UPDATE dato_login set
+id = nuevo_id,
+pregunta_secreta_1 = nuevo_pregunta_secreta_1,
+pregunta_secreta_2 = nuevo_pregunta_secreta_2,
+respuesta_secreta_1 = nuevo_respuesta_secreta_1,
+respuesta_secreta_2 = nuevo_respuesta_secreta_2,
+usuario_id = nuevo_usuario_id
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_actualizar_dato_personal`(
+nuevo_id int,
+nuevo_primer_nombre varchar(50),
+nuevo_segundo_nombre varchar(50),
+nuevo_apellido_paterno varchar(50),
+nuevo_apellido_materno varchar(50),
+nuevo_fecha_nacimiento datetime,
+nuevo_edad int,
+nuevo_rut int,
+nuevo_digito_verificador int,
+nuevo_direccion_personal varchar(50),
+nuevo_numero_casa int,
+nuevo_telefono_personal int,
+nuevo_celular_personal int,
+nuevo_comuna_personal varchar(50),
+nuevo_ciudad_personal varchar(50),
+nuevo_interes varchar(50),
+nuevo_estado_civil varchar (20),
+nuevo_idioma varchar(50),
+nuevo_nacionalidad varchar(50),
+nuevo_usuario_id int
+)
+BEGIN
+UPDATE dato_personal set
+id = nuevo_id,
+primer_nombre = nuevo_primer_nombre,
+segundo_nombre = nuevo_segundo_nombre,
+apellido_paterno = nuevo_apellido_paterno,
+apellido_materno = nuevo_apellido_materno,
+fecha_nacimiento = nuevo_fecha_nacimiento,
+edad = nuevo_edad,
+rut = nuevo_rut,
+digito_verificador = nuevo_digito_verificador,
+direccion_personal = nuevo_direccion_personal,
+numero_casa = nuevo_numero_casa,
+telefono_personal = nuevo_telefono_personal,
+celular_personal = nuevo_celular_personal,
+comuna_personal = nuevo_comuna_personal,
+ciudad_personal = nuevo_ciudad_personal,
+interes = nuevo_interes,
+estado_civil = nuevo_estado_civil,
+idioma = nuevo_idioma,
+nacionalidad = nuevo_nacionalidad,
+usuario_id = nuevo_usuario_id
+where id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_actualizar_logica_estado_usuario`(
+nuevo_id int,
+nuevo_estado varchar(50)
+)
+begin
+update logica_estado_usuario set
+id = nuevo_id,
+estado = nuevo_estado
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_actualizar_pais`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_codigo varchar(50)
+)
+BEGIN
+UPDATE pais set
+id = nuevo_id,
+nombre = nuevo_nombre,
+codigo = nuevo_codigo
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_actualizar_region`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_codigo varchar(50),
+nuevo_pais_id int
+)
+BEGIN
+UPDATE pais set
+id = nuevo_id,
+nombre = nuevo_nombre,
+codigo = nuevo_codigo,
+pais_id = nuevo_pais_id
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_actualizar_usuario`(
+nuevo_id int,
+nuevo_usuario varchar(50),
+nuevo_clave varchar(50),
+nuevo_fecha_modificacion datetime
+)
+BEGIN
+UPDATE usuario SET
+id = nuevo_id,
+usuario = nuevo_usuario,
+clave = nuevo_clave,
+fecha_modificacion = now()
+WHERE id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_agregar_dato_academico`(
+nuevo_universidad varchar(50),
+nuevo_carrera varchar(50),
+nuevo_ano_cursado int,
+nuevo_duracion_carrera int,
+nuevo_sede varchar(50),
+nuevo_direccion_sede varchar(50) ,
+nuevo_comuna_sede varchar(50),
+nuevo_ciudad_sede varchar(50),
+nuevo_usuario_id int,
+OUT llave_id int(11)
+)
+begin
+INSERT INTO dato_academico(
+universidad,
+carrera,
+ano_cursado,
+duracion_carrera,
+sede,
+direccion_sede,
+comuna_sede,
+ciudad_sede,
+usuario_id
+)
+
+VALUES(
+nuevo_universidad,
+nuevo_carrera,
+nuevo_ano_cursado,
+nuevo_duracion_carrera,
+nuevo_sede,
+nuevo_direccion_sede,
+nuevo_comuna_sede,
+nuevo_ciudad_sede,
+nuevo_usuario_id
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_agregar_dato_laboral`(
+nuevo_nombre_empresa varchar(50),
+nuevo_año_antiguedad int,
+nuevo_cargo varchar(50),
+nuevo_actividad varchar(200),
+nuevo_comuna_empresa varchar(50),
+nuevo_ciudad_empresa varchar(50),
+nuevo_telefono_empresa int,
+nuevo_celular_empresa int,
+nuevo_rut_numero int,
+nuevo_digito_verificador int,
+nuevo_usuario_id int,
+OUT llave_id int(11)
+)
+begin
+INSERT INTO dato_laboral(
+nombre_empresa,
+ano_antiguedad,
+cargo,
+actividad,
+comuna_empresa,
+ciudad_empresa,
+telefono_empresa,
+celular_empresa,
+rut_numero,
+digito_verificador,
+usuario_id
+)
+
+VALUES(
+nuevo_nombre_empresa,
+nuevo_año_antiguedad,
+nuevo_cargo,
+nuevo_actividad,
+nuevo_comuna_empresa,
+nuevo_ciudad_empresa,
+nuevo_telefono_empresa,
+nuevo_celular_empresa,
+nuevo_rut_numero,
+nuevo_digito_verificador,
+nuevo_usuario_id 
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_agregar_dato_login`(
+nuevo_pregunta_secreta1 varchar(50),
+nuevo_pregunta_secreta2 varchar(50),
+nuevo_respuesta_secreta1 varchar(50),
+nuevo_respuesta_secreta2 varchar(50),
+nuevo_usuario_id int,
+OUT llave_id int(11)
+)
+begin
+INSERT INTO dato_login(
+pregunta_secreta_1,
+pregunta_secreta_2,
+respuesta_secreta_1,
+respuesta_secreta_2,
+usuario_id
+)
+
+VALUES(
+nuevo_pregunta_secreta1,
+nuevo_pregunta_secreta2,
+nuevo_respuesta_secreta1,
+nuevo_respuesta_secreta2,
+nuevo_usuario_id
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_agregar_dato_personal`(
+nuevo_primer_nombre varchar(50),
+nuevo_segundo_nombre varchar(50),
+nuevo_apellido_paterno varchar(50),
+nuevo_apellido_materno varchar(50),
+nuevo_fecha_nacimiento datetime,
+nuevo_edad int,
+nuevo_rut int,
+nuevo_digito_verificador int,
+nuevo_direccion_personal varchar(50),
+nuevo_numero_casa int,
+nuevo_telefono_personal int,
+nuevo_celular_personal int,
+nuevo_comuna_personal varchar(50),
+nuevo_ciudad_personal varchar(50),
+nuevo_interes varchar(50),
+nuevo_estado_civil varchar (20),
+nuevo_idioma varchar(50),
+nuevo_nacionalidad varchar(50),
+nuevo_usuario_id int,
+OUT llave_id int(11)
+)
+begin
+INSERT INTO dato_personal(
+ primer_nombre,
+ segundo_nombre,
+ apellido_paterno,
+ apellido_materno,
+ fecha_nacimiento,
+ edad,
+ rut,
+ digito_verificador,
+ direccion_personal,
+ numero_casa,
+ telefono_personal,
+ celular_personal,
+ comuna_personal,
+ ciudad_personal,
+ interes,
+ estado_civil,
+ idioma,
+ nacionalidad,
+ usuario_id
+)
+
+VALUES (
+ nuevo_primer_nombre,
+ nuevo_segundo_nombre,
+ nuevo_apellido_paterno,
+ nuevo_apellido_materno,
+ nuevo_fecha_nacimiento,
+ nuevo_edad,
+ nuevo_rut,
+ nuevo_digito_verificador,
+ nuevo_direccion_personal ,
+ nuevo_numero_casa ,
+ nuevo_telefono_personal ,
+ nuevo_celular_personal ,
+ nuevo_comuna_personal ,
+ nuevo_ciudad_personal ,
+ nuevo_interes,
+ nuevo_estado_civil,
+ nuevo_idioma,
+ nuevo_nacionalidad,
+ nuevo_usuario_id 
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_agregar_logica_estado_usuario`(
+nuevo_estado varchar(50),
+OUT llave_id int(11)
+)
+begin
+insert into logica_estado_usuario(
+estado
+)
+values(
+nuevo_estado
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_agregar_pais`(
+nuevo_nombre varchar(50),
+nuevo_codigo varchar(50),
+OUT llave_id int(11)
+)
+begin
+INSERT INTO pais(
+nombre,
+codigo
+)
+
+VALUES(
+nuevo_nombre,
+nuevo_codigo
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_agregar_region`(
+nuevo_nombre varchar(50),
+nuevo_codigo varchar(50),
+nuevo_pais_id int,
+OUT llave_id int(11)
+)
+begin
+INSERT INTO region(
+nombre,
+codigo,
+pais_id
+)
+
+VALUES(
+nuevo_nombre,
+nuevo_codigo,
+nuevo_pais_id
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_agregar_usuario`(
+nuevo_usuario varchar(50),
+nuevo_clave varchar(50),
+nuevo_fecha_creacion datetime,
+OUT llave_id int(11)
+)
+begin
+INSERT INTO usuario(
+usuario,
+clave,
+fecha_creacion
+)
+VALUES(
+nuevo_usuario,
+nuevo_clave,
+now()
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_administracionusuario_listar_usuario`()
+begin
+select * from usuario;
+select * from dato_academico;
+select * from dato_laboral;
+select * from dato_login;
+select * from dato_personal;
+select * from logica_estado_usuario;
+select * from pais;
+select * from region;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_aplicacion_actualizar_aplicacion`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_ocultar bit(1),
+nuevo_fecha_modificacion datetime
+)
+begin
+update aplicacion set
+id = nuevo_id,
+nombre = nuevo_nombre,
+descripcion = nuevo_descripcion,
+ocultar = nuevo_ocultar,
+fecha_modificacion = now()
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_aplicacion_agregar_aplicacion`(
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_ocultar bit(1),
+nuevo_fecha_creacion datetime,
+OUT llave_id int(11)
+)
+begin
+insert into aplicacion(
+nombre,
+descripcion,
+ocultar,
+fecha_creacion
+)
+values(
+nuevo_nombre,
+nuevo_descripcion,
+nuevo_ocultar,
+now()
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_actualizar_modulo`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_fecha_modificacion datetime
+)
+begin
+update modulo set 
+id = nuevo_id,
+nombre = nuevo_nombre,
+descripcion = nuevo_descripcion,
+fecha_modificacion = nuevo_fecha_modificacion
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_actualizar_programa_academico`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_version varchar(50),
+nuevo_fecha_modificacion datetime
+)
+begin
+update programa_academico set
+id = nuevo_id,
+nombre = nuevo_nombre,
+descripcion = nuevo_descripcion,
+version = nuevo_version,
+fecha_modificacion = now()
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_actualizar_seccion`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_jornada varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_fecha_modificacion datetime
+)
+begin
+update seccion set
+id = nuevo_id,
+nombre = nuevo_nombre,
+jornada = nuevo_jornada,
+descripcion = nuevo_descripcion,
+fecha_modificacion = now()
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_agregar_modulo`(
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_fecha_creacion datetime,
+OUT llave_id int(11)
+)
+begin
+insert into modulo(
+nombre,
+descripcion,
+fecha_creacion
+)
+values(
+nuevo_nombre,
+nuevo_descripcion,
+now()
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_agregar_programa_academico`(
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_version varchar(50),
+nuevo_fecha_creacion datetime,
+OUT llave_id int(11)
+)
+begin
+insert into programa_academico(
+nombre,
+descripcion,
+version,
+fecha_creacion
+)
+values(
+nuevo_nombre ,
+nuevo_descripcion ,
+nuevo_version ,
+now()
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_agregar_seccion`(
+nuevo_nombre varchar(50),
+nuevo_jornada varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_fecha_creacion datetime,
+OUT llave_id int(11)
+)
+begin
+insert into seccion(
+nombre,
+jornada,
+descripcion,
+fecha_creacion
+)
+values(
+nuevo_nombre,
+nuevo_jornada,
+nuevo_descripcion,
+now()
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_asigna_modulo_programa_academico`(lista_modulo_id varchar(255), lista_largo int, nuevo_programa_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_modulo_id int default NULL;
+DECLARE modulo_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_modulo_id = getValueFromArray(lista_modulo_id, ',', x);	
+    SELECT modulo_id INTO modulo_id_tmp FROM programa_academico_has_modulo WHERE modulo_id = nuevo_modulo_id AND programa_academico_id = nuevo_programa_id;
+    IF ( modulo_id_tmp IS NULL) THEN
+		INSERT INTO programa_academico_has_modulo (`modulo_id`,`programa_academico_id`) VALUES (nuevo_modulo_id,nuevo_programa_id);
+	ELSE
+		SET modulo_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_modulo_id, modulo_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_desasigna_modulo_programa_academico`(lista_modulo_id varchar(255), lista_largo int, nuevo_programa_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_modulo_id int default NULL;
+DECLARE modulo_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_modulo_id = getValueFromArray(lista_modulo_id, ',', x);	
+    SELECT modulo_id INTO modulo_id_tmp FROM programa_academico_has_modulo WHERE modulo_id = nuevo_modulo_id AND programa_academico_id = nuevo_programa_id;
+    IF ( modulo_id_tmp IS NOT NULL) THEN
+		DELETE FROM programa_academico_has_modulo WHERE programa_academico_id = nuevo_programa_id AND modulo_id = nuevo_modulo_id;
+	ELSE
+		SET modulo_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_modulo_id, modulo_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_lista_programa_modulo`(nuevo_programa_id int(11))
+BEGIN
+SELECT A.nombre,B.programa_academico_id,B.modulo_id FROM `programa_academico` A, `programa_academico_has_modulo` B 
+WHERE A.id = B.programa_academico_id
+AND A.id = nuevo_programa_id UNION SELECT null,null,A.id FROM (`modulo` A LEFT JOIN `programa_academico_has_modulo` B ON A.id = B.modulo_id AND B.programa_academico_id = nuevo_programa_id)
+WHERE B.modulo_id is NULL
+order by modulo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_actualizar_entidad`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_fecha_modificacion datetime
+)
+begin
+update entidad set
+id = nuevo_id,
+nombre = nuevo_nombre,
+descripcion = nuevo_descripcion,
+fecha_modificacion = now()
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_actualizar_institucion`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_vision varchar(50),
+nuevo_mision varchar(50),
+nuevo_acreditada bit(1),
+nuevo_fecha_inicio_acreditacion datetime,
+nuevo_fecha_termino_acreditacion datetime,
+nuevo_descripcion varchar(50),
+nuevo_fecha_modificacion datetime
+)
+begin
+update institucion set
+id = nuevo_id,
+nombre = nuevo_nombre,
+vision = nuevo_vision,
+mision = nuevo_mision,
+acreditada = nuevo_acreditada,
+fecha_inicio_acreditacion = nuevo_fecha_inicio_acreditacion,
+fecha_termino_acreditacion = nuevo_fecha_termino_acreditacion,
+descripcion = nuevo_descripcion,
+fecha_modificacion = now()
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_agregar_entidad`(
+nuevo_nombre varchar(50),
+nuevo_descripcion varchar(50),
+nuevo_fecha_creacion datetime,
+OUT llave_id int(11)
+)
+begin
+insert into entidad(
+nombre,
+descripcion,
+fecha_creacion
+)
+values(
+nuevo_nombre,
+nuevo_descripcion,
+now()
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_agregar_institucion`(
+nuevo_nombre varchar(50),
+nuevo_vision varchar(50),
+nuevo_mision varchar(50),
+nuevo_acreditada bit(1),
+nuevo_fecha_inicio_acreditacion datetime,
+nuevo_fecha_termino_acreditacion datetime,
+nuevo_descripcion varchar(50),
+nuevo_fecha_creacion datetime,
+OUT llave_id int(11)
+)
+begin
+insert into institucion(
+nombre,
+vision,
+mision,
+acreditada,
+fecha_inicio_acreditacion,
+fecha_termino_acreditacion,
+descripcion,
+fecha_creacion
+)
+values(
+nuevo_nombre,
+nuevo_vision, 
+nuevo_mision, 
+nuevo_acreditada, 
+nuevo_fecha_inicio_acreditacion, 
+nuevo_fecha_termino_acreditacion, 
+nuevo_descripcion, 
+now()
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_asigna_entidad_institucion`(lista_entidad_id varchar(255), lista_largo int,nuevo_institucion_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_entidad_id int default NULL;
+DECLARE entidad_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_entidad_id = getValueFromArray(lista_entidad_id, ',', x);	
+    SELECT institucion_id INTO entidad_id_tmp FROM entidad,institucion WHERE institucion_id = nuevo_entidad_id
+    AND institucion.id = nuevo_institucion_id;
+    IF (entidad_id_tmp IS NULL) THEN
+		INSERT INTO entidad (`institucion_id`) VALUES (nuevo_entidad_id);
+	ELSE
+		SET entidad_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_entidad_id, entidad_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_lista_institucion_entidad`(nuevo_institucion_id int(11))
+BEGIN
+SELECT A.nombre,B.institucion_id FROM `institucion` A, `entidad` B 
+WHERE A.id = B.institucion_id
+AND A.id = nuevo_institucion_id
+order by institucion_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_nusuario_listar_usuario`()
+begin
+select * from usuario;
+select * from dato_academico;
+select * from dato_laboral;
+select * from dato_login;
+select * from dato_personal;
+select * from logica_estado_usuario;
+select * from pais;
+select * from region;
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_asignar_mod_aprendizaje_rep_local_admin`(nuevo_repositorio_id int , nuevo_modelo_id int)
 begin
 UPDATE repositorio_local_admin SET modelo_aprendizaje_id =  nuevo_modelo_id
@@ -415,6 +1346,539 @@ UPDATE repositorio_troncal_admin SET modelo_aprendizaje_id =  nuevo_modelo_id
 WHERE id = nuevo_repositorio_id;
 
 end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_asigna_rol_institucion`(lista_institucion_id varchar(255), lista_largo int, nuevo_rol_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_institucion_id int default NULL;
+DECLARE institucion_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_institucion_id = getValueFromArray(lista_institucion_id, ',', x);	
+    SELECT institucion_id INTO institucion_id_tmp FROM institucion_has_rol_usuario WHERE institucion_id = nuevo_institucion_id AND rol_usuario_id = nuevo_rol_id;
+    IF (institucion_id_tmp IS NULL) THEN
+		INSERT INTO institucion_has_rol_usuario (`institucion_id`,`rol_usuario_id`) VALUES (nuevo_institucion_id,nuevo_rol_id);
+	ELSE
+		SET institucion_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_institucion_id, institucion_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_desasigna_rol_institucion`(lista_institucion_id varchar(255), lista_largo int, nuevo_rol_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_institucion_id int default NULL;
+DECLARE institucion_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_institucion_id = getValueFromArray(lista_institucion_id, ',', x);	
+    SELECT institucion_id INTO institucion_id_tmp FROM institucion_has_rol_usuario WHERE institucion_id = nuevo_institucion_id AND rol_usuario_id = nuevo_rol_id;
+    IF (institucion_id_tmp IS NOT NULL) THEN
+		DELETE FROM institucion_has_rol_usuario WHERE rol_usuario_id = nuevo_rol_id AND institucion_id = nuevo_institucion_id;
+	ELSE
+		SET institucion_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_institucion_id, institucion_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_lista_rol_institucion`(nuevo_rol_id int(11))
+BEGIN
+SELECT A.nombre,B.rol_usuario_id,B.institucion_id FROM `rol_usuario` A, `institucion_has_rol_usuario` B 
+WHERE A.id = B.rol_usuario_id
+AND A.id = nuevo_rol_id UNION SELECT null,null,A.id FROM (`institucion` A LEFT JOIN `institucion_has_rol_usuario` B ON A.id = B.institucion_id AND B.rol_usuario_id = nuevo_rol_id)
+WHERE B.institucion_id is NULL
+order by institucion_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_actualizar_dato_academico`(
+nuevo_id int,
+nuevo_universidad varchar(50),
+nuevo_carrera varchar(30),
+nuevo_ano_cursado int,
+nuevo_duracion_carrera int,
+nuevo_sede varchar(30),
+nuevo_direccion_sede varchar(30),
+nuevo_comuna_sede varchar(30),
+nuevo_ciudad_sede varchar(30),
+nuevo_usuario_id int
+)
+BEGIN	
+UPDATE dato_academico SET
+id = nuevo_id,
+universidad = nuevo_universidad,
+carrera = nuevo_carrera,
+ano_cursado = nuevo_ano_cursado,
+duracion_carrera = nuevo_duracion_carrera,
+sede = nuevo_sede,
+direccion_sede = nuevo_direccion_sede,
+comuna_sede = nuevo_comuna_sede,
+ciudad_sede = nuevo_ciudad_sede,
+usuario_id = nuevo_usuario_id
+where id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_actualizar_dato_laboral`(
+nuevo_id int,
+nuevo_nombre_empresa varchar(50),
+nuevo_ano_antiguedad varchar(30),
+nuevo_cargo varchar(30),
+nuevo_actividad varchar(30),
+nuevo_comuna_empresa varchar(30),
+nuevo_ciudad_empresa varchar(30),
+nuevo_telefono_empresa int,
+nuevo_celular_empresa int,
+nuevo_rut_numero int,
+nuevo_digito_verificador int,
+nuevo_usuario_id int
+)
+BEGIN	
+UPDATE dato_laboral set
+id = nuevo_id,
+nombre_empresa = nuevo_nombre_empresa,
+ano_antiguedad = nuevo_ano_antiguedad,
+cargo = nuevo_cargo,
+actividad = nuevo_actividad,
+comuna_empresa = nuevo_comuna_empresa,
+ciudad_empresa = nuevo_ciudad_empresa,
+telefono_empresa = nuevo_telefono_empresa,
+celular_empresa = nuevo_celular_empresa,
+rut_numero = nuevo_rut_numero,
+digito_verificador = nuevo_digito_verificador,
+usuario_id = nuevo_usuario_id
+where id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_actualizar_dato_login`(
+nuevo_id int,
+nuevo_pregunta_secreta_1 varchar(50),
+nuevo_pregunta_secreta_2 varchar(50),
+nuevo_respuesta_secreta_1 varchar(50),
+nuevo_respuesta_secreta_2 varchar(50),
+nuevo_usuario_id int
+)
+BEGIN
+UPDATE dato_login set
+id = nuevo_id,
+pregunta_secreta_1 = nuevo_pregunta_secreta_1,
+pregunta_secreta_2 = nuevo_pregunta_secreta_2,
+respuesta_secreta_1 = nuevo_respuesta_secreta_1,
+respuesta_secreta_2 = nuevo_respuesta_secreta_2,
+usuario_id = nuevo_usuario_id
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_actualizar_dato_personal`(
+nuevo_id int,
+nuevo_primer_nombre varchar(50),
+nuevo_segundo_nombre varchar(50),
+nuevo_apellido_paterno varchar(50),
+nuevo_apellido_materno varchar(50),
+nuevo_fecha_nacimiento datetime,
+nuevo_edad int,
+nuevo_rut int,
+nuevo_digito_verificador int,
+nuevo_direccion_personal varchar(50),
+nuevo_numero_casa int,
+nuevo_telefono_personal int,
+nuevo_celular_personal int,
+nuevo_comuna_personal varchar(50),
+nuevo_ciudad_personal varchar(50),
+nuevo_interes varchar(50),
+nuevo_estado_civil varchar (20),
+nuevo_idioma varchar(50),
+nuevo_nacionalidad varchar(50),
+nuevo_usuario_id int
+)
+BEGIN
+UPDATE dato_personal set
+id = nuevo_id,
+primer_nombre = nuevo_primer_nombre,
+segundo_nombre = nuevo_segundo_nombre,
+apellido_paterno = nuevo_apellido_paterno,
+apellido_materno = nuevo_apellido_materno,
+fecha_nacimiento = nuevo_fecha_nacimiento,
+edad = nuevo_edad,
+rut = nuevo_rut,
+digito_verificador = nuevo_digito_verificador,
+direccion_personal = nuevo_direccion_personal,
+numero_casa = nuevo_numero_casa,
+telefono_personal = nuevo_telefono_personal,
+celular_personal = nuevo_celular_personal,
+comuna_personal = nuevo_comuna_personal,
+ciudad_personal = nuevo_ciudad_personal,
+interes = nuevo_interes,
+estado_civil = nuevo_estado_civil,
+idioma = nuevo_idioma,
+nacionalidad = nuevo_nacionalidad,
+usuario_id = nuevo_usuario_id
+where id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_actualizar_logica_estado_usuario`(
+nuevo_id int,
+nuevo_estado varchar(50)
+)
+begin
+update logica_estado_usuario set
+id = nuevo_id,
+estado = nuevo_estado
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_actualizar_pais`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_codigo varchar(50)
+)
+BEGIN
+UPDATE pais set
+id = nuevo_id,
+nombre = nuevo_nombre,
+codigo = nuevo_codigo
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_actualizar_region`(
+nuevo_id int,
+nuevo_nombre varchar(50),
+nuevo_codigo varchar(50),
+nuevo_pais_id int
+)
+BEGIN
+UPDATE pais set
+id = nuevo_id,
+nombre = nuevo_nombre,
+codigo = nuevo_codigo,
+pais_id = nuevo_pais_id
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_actualizar_usuario`(
+nuevo_id int,
+nuevo_usuario varchar(50),
+nuevo_clave varchar(50),
+nuevo_fecha_modificacion datetime
+)
+BEGIN
+UPDATE usuario SET
+id = nuevo_id,
+usuario = nuevo_usuario,
+clave = nuevo_clave,
+fecha_modificacion = now()
+WHERE id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_agregar_dato_academico`(
+nuevo_universidad varchar(50),
+nuevo_carrera varchar(50),
+nuevo_ano_cursado int,
+nuevo_duracion_carrera int,
+nuevo_sede varchar(50),
+nuevo_direccion_sede varchar(50) ,
+nuevo_comuna_sede varchar(50),
+nuevo_ciudad_sede varchar(50),
+nuevo_usuario_id int,
+OUT llave_id int(11)
+)
+begin
+INSERT INTO dato_academico(
+universidad,
+carrera,
+ano_cursado,
+duracion_carrera,
+sede,
+direccion_sede,
+comuna_sede,
+ciudad_sede,
+usuario_id
+)
+
+VALUES(
+nuevo_universidad,
+nuevo_carrera,
+nuevo_ano_cursado,
+nuevo_duracion_carrera,
+nuevo_sede,
+nuevo_direccion_sede,
+nuevo_comuna_sede,
+nuevo_ciudad_sede,
+nuevo_usuario_id
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_agregar_dato_laboral`(
+nuevo_nombre_empresa varchar(50),
+nuevo_año_antiguedad int,
+nuevo_cargo varchar(50),
+nuevo_actividad varchar(200),
+nuevo_comuna_empresa varchar(50),
+nuevo_ciudad_empresa varchar(50),
+nuevo_telefono_empresa int,
+nuevo_celular_empresa int,
+nuevo_rut_numero int,
+nuevo_digito_verificador int,
+nuevo_usuario_id int,
+OUT llave_id int(11)
+)
+begin
+INSERT INTO dato_laboral(
+nombre_empresa,
+ano_antiguedad,
+cargo,
+actividad,
+comuna_empresa,
+ciudad_empresa,
+telefono_empresa,
+celular_empresa,
+rut_numero,
+digito_verificador,
+usuario_id
+)
+
+VALUES(
+nuevo_nombre_empresa,
+nuevo_año_antiguedad,
+nuevo_cargo,
+nuevo_actividad,
+nuevo_comuna_empresa,
+nuevo_ciudad_empresa,
+nuevo_telefono_empresa,
+nuevo_celular_empresa,
+nuevo_rut_numero,
+nuevo_digito_verificador,
+nuevo_usuario_id 
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_agregar_dato_login`(
+nuevo_pregunta_secreta1 varchar(50),
+nuevo_pregunta_secreta2 varchar(50),
+nuevo_respuesta_secreta1 varchar(50),
+nuevo_respuesta_secreta2 varchar(50),
+nuevo_usuario_id int,
+OUT llave_id int(11)
+)
+begin
+INSERT INTO dato_login(
+pregunta_secreta_1,
+pregunta_secreta_2,
+respuesta_secreta_1,
+respuesta_secreta_2,
+usuario_id
+)
+
+VALUES(
+nuevo_pregunta_secreta1,
+nuevo_pregunta_secreta2,
+nuevo_respuesta_secreta1,
+nuevo_respuesta_secreta2,
+nuevo_usuario_id
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_agregar_dato_personal`(
+nuevo_primer_nombre varchar(50),
+nuevo_segundo_nombre varchar(50),
+nuevo_apellido_paterno varchar(50),
+nuevo_apellido_materno varchar(50),
+nuevo_fecha_nacimiento datetime,
+nuevo_edad int,
+nuevo_rut int,
+nuevo_digito_verificador int,
+nuevo_direccion_personal varchar(50),
+nuevo_numero_casa int,
+nuevo_telefono_personal int,
+nuevo_celular_personal int,
+nuevo_comuna_personal varchar(50),
+nuevo_ciudad_personal varchar(50),
+nuevo_interes varchar(50),
+nuevo_estado_civil varchar (20),
+nuevo_idioma varchar(50),
+nuevo_nacionalidad varchar(50),
+nuevo_usuario_id int,
+OUT llave_id int(11)
+)
+begin
+INSERT INTO dato_personal(
+ primer_nombre,
+ segundo_nombre,
+ apellido_paterno,
+ apellido_materno,
+ fecha_nacimiento,
+ edad,
+ rut,
+ digito_verificador,
+ direccion_personal,
+ numero_casa,
+ telefono_personal,
+ celular_personal,
+ comuna_personal,
+ ciudad_personal,
+ interes,
+ estado_civil,
+ idioma,
+ nacionalidad,
+ usuario_id
+)
+
+VALUES (
+ nuevo_primer_nombre,
+ nuevo_segundo_nombre,
+ nuevo_apellido_paterno,
+ nuevo_apellido_materno,
+ nuevo_fecha_nacimiento,
+ nuevo_edad,
+ nuevo_rut,
+ nuevo_digito_verificador,
+ nuevo_direccion_personal ,
+ nuevo_numero_casa ,
+ nuevo_telefono_personal ,
+ nuevo_celular_personal ,
+ nuevo_comuna_personal ,
+ nuevo_ciudad_personal ,
+ nuevo_interes,
+ nuevo_estado_civil,
+ nuevo_idioma,
+ nuevo_nacionalidad,
+ nuevo_usuario_id 
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_agregar_logica_estado_usuario`(
+nuevo_estado varchar(50),
+OUT llave_id int(11)
+)
+begin
+insert into logica_estado_usuario(
+estado
+)
+values(
+nuevo_estado
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_agregar_pais`(
+nuevo_nombre varchar(50),
+nuevo_codigo varchar(50),
+OUT llave_id int(11)
+)
+begin
+INSERT INTO pais(
+nombre,
+codigo
+)
+
+VALUES(
+nuevo_nombre,
+nuevo_codigo
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_agregar_region`(
+nuevo_nombre varchar(50),
+nuevo_codigo varchar(50),
+nuevo_pais_id int,
+OUT llave_id int(11)
+)
+begin
+INSERT INTO region(
+nombre,
+codigo,
+pais_id
+)
+
+VALUES(
+nuevo_nombre,
+nuevo_codigo,
+nuevo_pais_id
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_agregar_usuario`(
+nuevo_usuario varchar(50),
+nuevo_clave varchar(50),
+nuevo_fecha_creacion datetime,
+OUT llave_id int(11)
+)
+begin
+INSERT INTO usuario(
+usuario,
+clave,
+fecha_creacion
+)
+VALUES(
+nuevo_usuario,
+nuevo_clave,
+now()
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_asigna_usuario_institucion`(lista_usuario_id varchar(255), lista_largo int, nuevo_institucion_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_usuario_id int default NULL;
+DECLARE usuario_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_usuario_id = getValueFromArray(lista_usuario_id, ',', x);	
+    SELECT usuario_id INTO usuario_id_tmp FROM usuario_has_institucion WHERE usuario_id = nuevo_usuario_id AND institucion_id = nuevo_institucion_id;
+    IF ( usuario_id_tmp IS NULL) THEN
+		INSERT INTO usuario_has_institucion (`usuario_id`,`institucion_id`) VALUES (nuevo_usuario_id,nuevo_institucion_id);
+	ELSE
+		SET usuario_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_usuario_id, usuario_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_desasigna_usuario_institucion`(lista_usuario_id varchar(255), lista_largo int, nuevo_institucion_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_usuario_id int default NULL;
+DECLARE usuario_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_usuario_id = getValueFromArray(lista_usuario_id, ',', x);	
+    SELECT usuario_id INTO usuario_id_tmp FROM usuario_has_institucion WHERE usuario_id = nuevo_usuario_id AND institucion_id = nuevo_institucion_id;
+    IF ( usuario_id_tmp IS NOT NULL) THEN
+		DELETE FROM usuario_has_institucion WHERE institucion_id = nuevo_institucion_id AND usuario_id = nuevo_usuario_id;
+	ELSE
+		SET usuario_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_usuario_id, usuario_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_lista_institucion_usuario`(nuevo_institucion_id int(11))
+BEGIN
+SELECT A.nombre,B.institucion_id, B.usuario_id FROM `institucion` A, `usuario_has_institucion` B 
+WHERE A.id = B.institucion_id
+AND A.id = nuevo_institucion_id UNION SELECT null,null,A.id FROM (`usuario` A LEFT JOIN `usuario_has_institucion` B ON A.id = B.usuario_id AND B.institucion_id = nuevo_institucion_id)
+WHERE B.usuario_id is NULL
+order by usuario_id;
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_escritorio_administrador_get_icono_permiso_usuario`(nuevo_usuario_id int)
 BEGIN
@@ -532,7 +1996,32 @@ AND P.name = nuevo_permiso_nombre
 AND C.nombre = nuevo_controlador_nombre
 AND PRIV.nombre = nuevo_privilegio_nombre$$
 
+--
+-- Funciones
+--
+CREATE DEFINER=`root`@`localhost` FUNCTION `getValueFromArray`(_array TEXT,_del VARCHAR(255),_value INT UNSIGNED) RETURNS varchar(255) CHARSET latin1
+    NO SQL
+    DETERMINISTIC
+BEGIN
+IF _array IS NULL || _array = '' || _del IS NULL || _del = '' || _value IS NULL /*|| _value > stringOccurrences(_array, _del)*/ THEN
+    RETURN '';
+ELSE
+    RETURN SUBSTRING_INDEX(SUBSTRING_INDEX(_array, _del, _value + 1), _del, -1);
+END IF;
+END$$
+
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `archivo_recurso`
+--
+
+CREATE TABLE IF NOT EXISTS `archivo_recurso` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -691,6 +2180,28 @@ INSERT INTO `authitem_permiso_usuario` (`name`, `type`, `description`, `bizrule`
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `autoevaluacion`
+--
+
+CREATE TABLE IF NOT EXISTS `autoevaluacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contenido_libre`
+--
+
+CREATE TABLE IF NOT EXISTS `contenido_libre` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `controlador_administrador`
 --
 
@@ -765,7 +2276,15 @@ CREATE TABLE IF NOT EXISTS `dato_academico` (
   `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_dato_academico_usuario1_idx` (`usuario_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `dato_academico`
+--
+
+INSERT INTO `dato_academico` (`id`, `universidad`, `carrera`, `ano_cursado`, `duracion_carrera`, `sede`, `direccion_sede`, `comuna_sede`, `ciudad_sede`, `usuario_id`) VALUES
+(1, 'ola ', 'lola', 12, 12, 'saldksj', 'jdklj', 'saljdklj', 'sajd', 1),
+(2, 'wuyeywueuiy', 'nmbcnxmnmcz', 45454, 0, 'sadsad', 'sadsad', 'sadsad', 'sdsdsda', 2);
 
 -- --------------------------------------------------------
 
@@ -788,7 +2307,15 @@ CREATE TABLE IF NOT EXISTS `dato_laboral` (
   `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_dato_laboral_usuario1_idx` (`usuario_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `dato_laboral`
+--
+
+INSERT INTO `dato_laboral` (`id`, `nombre_empresa`, `ano_antiguedad`, `cargo`, `actividad`, `comuna_empresa`, `ciudad_empresa`, `telefono_empresa`, `celular_empresa`, `rut_numero`, `digito_verificador`, `usuario_id`) VALUES
+(1, 'empresa', 7, 'skldjsakd', 'sakldjkl', 'saljdsakld', 'sajdkljsd', 45454, 5454, 545454, 5454, 1),
+(2, 'dvcvcvcxvcv', 12121, 'efefefef', 'saxsadsads', 'sakjhdsakjsk', 'sakhdskjhdsak', 212121, 212121, 21212, 21212, 2);
 
 -- --------------------------------------------------------
 
@@ -805,7 +2332,16 @@ CREATE TABLE IF NOT EXISTS `dato_login` (
   `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_dato_login_usuario1_idx` (`usuario_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `dato_login`
+--
+
+INSERT INTO `dato_login` (`id`, `pregunta_secreta_1`, `pregunta_secreta_2`, `respuesta_secreta_1`, `respuesta_secreta_2`, `usuario_id`) VALUES
+(1, 'pregunta secreta 1', 'wiqoueioue', 'iowueuo', 'wioueoie', 1),
+(2, 'kjshhajskh', 'kjahskjaskhj', 'aksjhh', 'kjashkjas', 1),
+(3, 'dxcxcxcxczxcz', 'wwerewrererw', 'oiuwioueo', 'iouwqoewiqe', 5);
 
 -- --------------------------------------------------------
 
@@ -827,7 +2363,6 @@ CREATE TABLE IF NOT EXISTS `dato_personal` (
   `numero_casa` int(11) DEFAULT NULL,
   `telefono_personal` int(11) DEFAULT NULL,
   `celular_personal` int(11) DEFAULT NULL,
-  `dato_personalcol` varchar(45) DEFAULT NULL,
   `comuna_personal` varchar(45) DEFAULT NULL,
   `ciudad_personal` varchar(45) DEFAULT NULL,
   `interes` varchar(45) DEFAULT NULL,
@@ -837,7 +2372,18 @@ CREATE TABLE IF NOT EXISTS `dato_personal` (
   `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_dato_personal_usuario1_idx` (`usuario_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `dato_personal`
+--
+
+INSERT INTO `dato_personal` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `fecha_nacimiento`, `edad`, `rut`, `digito_verificador`, `direccion_personal`, `numero_casa`, `telefono_personal`, `celular_personal`, `comuna_personal`, `ciudad_personal`, `interes`, `estado_civil`, `idioma`, `nacionalidad`, `usuario_id`) VALUES
+(1, 'juan', 'diego', 'kjhdkjskjd', 'sakjdsakj', '2015-08-10 16:55:05', 5454, 54545, 4545, 'asdkj', 454, 545, 545, 'akjsh', 'kjshakjsh', 'askljasklj', 'alsjj', 'alskjasklj', 'asjsajklsaj', 1),
+(2, 'kjhxjhzkj<xhKHZ<KJXH', 'askjhaskh', 'skjdhskjsdh', 'askjha', '2015-08-10 17:04:11', 2121, 2121, 2121, 'askjaks', 454, 5454, 545, 'ajhsajsajhsk', 'akjshajksh', 'akjshakjsh', 'kjahsakjhs', 'kajshkjasjh', 'kjhakjshaks', 1),
+(3, 'kjhxjhzkj<xhKHZ<KJXH', 'askjhaskh', 'skjdhskjsdh', 'askjha', '2015-08-10 17:04:11', 2121, 2121, 2121, 'askjaks', 454, 5454, 545, 'ajhsajsajhsk', 'akjshajksh', 'akjshakjsh', 'kjahsakjhs', 'kajshkjasjh', 'kjhakjshaks', 1),
+(4, 'kljsldkjsadjkl', 'slkjdksjd', 'skljdkljd', 'skldjsakd', '2015-08-11 15:25:14', 45445, 455454, 5454, 'asljajskl', 44, 5454, 5454, 'lksjakjs', 'lasjsj', 'alsjasklj', 'askljajsk', 'akjaskjl', 'asjasljl', 5),
+(5, 'klsklsjklsd', 'iowuerwuo', 'iowuoiwueqoi', 'wiqowioe', '2015-08-12 10:28:29', 55454, 54545, 54545, 'skjdwkjkjl', 54545, 545454, 545454, 'sklajdkjsdkl', 'slkjdklsjdkljs', 'sjdskljd', 'wsjdklsjdkl', 'wsajdkljwskld', 'wljewjqeklj', 4);
 
 -- --------------------------------------------------------
 
@@ -852,9 +2398,19 @@ CREATE TABLE IF NOT EXISTS `entidad` (
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `institucion_id` int(11) NOT NULL,
+  `entidad_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_entidad_institucion1_idx` (`institucion_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `fk_entidad_institucion1_idx` (`institucion_id`),
+  KEY `fk_entidad_entidad1_idx` (`entidad_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `entidad`
+--
+
+INSERT INTO `entidad` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `institucion_id`, `entidad_id`) VALUES
+(3, 'gfgfgfg', 'fgfgfdg', '2015-08-12 11:29:33', '2015-08-12 14:49:20', 2, 3),
+(5, 'nmxbzxnmbnmbzxcnmb', 'znmxcbznmxcbznmx', '2015-08-12 12:16:42', NULL, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -894,6 +2450,59 @@ CREATE TABLE IF NOT EXISTS `estado_usuario` (
   KEY `fk_estado_usuario_logica_estado_usuario1_idx` (`logica_estado_usuario_id`),
   KEY `fk_estado_usuario_usuario1_idx` (`usuario_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `evaluacion`
+--
+
+CREATE TABLE IF NOT EXISTS `evaluacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `foro`
+--
+
+CREATE TABLE IF NOT EXISTS `foro` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `glosario`
+--
+
+CREATE TABLE IF NOT EXISTS `glosario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `herramienta`
+--
+
+CREATE TABLE IF NOT EXISTS `herramienta` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `herramienta_id` int(11) DEFAULT NULL,
+  `tipo_herramienta_id` int(11) DEFAULT NULL,
+  `recurso_id` int(11) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_herramienta_herramienta1_idx` (`herramienta_id`),
+  KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -943,6 +2552,53 @@ CREATE TABLE IF NOT EXISTS `institucion` (
   `descripcion` varchar(45) DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `institucion`
+--
+
+INSERT INTO `institucion` (`id`, `nombre`, `vision`, `mision`, `acreditada`, `fecha_inicio_acreditacion`, `fecha_termino_acreditacion`, `descripcion`, `fecha_creacion`, `fecha_modificacion`) VALUES
+(1, 'utem', 'vision', 'mision', b'0', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 'ajhsjah', '2015-08-06 15:40:32', '2015-08-06 15:40:32'),
+(2, 'duoc', 'vision', 'mision', b'1', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 'kjahsa', '2015-08-06 15:40:32', '2015-08-06 15:40:32'),
+(3, 'usash', 'vision', 'mision', b'1', '2015-08-10 11:48:35', '2015-08-10 11:48:35', 'descripcion', NULL, NULL),
+(4, 'catolica', 'vision', 'sakjhdksj', b'1', '2015-08-10 12:11:56', '2015-08-10 12:11:56', 'sdsdsdasd', '2015-08-10 12:16:53', '2015-08-10 12:22:20'),
+(5, 'udp', 'kljsakdljsadl', 'olaolaolaolaola', b'1', '2015-08-12 10:28:29', '2015-08-12 10:28:29', 'kjsdjkjsahdkjsd', '2015-08-12 10:33:26', '2015-08-12 10:33:47');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `institucion_has_rol_usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `institucion_has_rol_usuario` (
+  `institucion_id` int(11) NOT NULL,
+  `rol_usuario_id` int(11) NOT NULL,
+  PRIMARY KEY (`institucion_id`,`rol_usuario_id`),
+  KEY `fk_institucion_has_rol_usuario_rol_usuario1_idx` (`rol_usuario_id`),
+  KEY `fk_institucion_has_rol_usuario_institucion1_idx` (`institucion_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `institucion_has_rol_usuario`
+--
+
+INSERT INTO `institucion_has_rol_usuario` (`institucion_id`, `rol_usuario_id`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `link_interes`
+--
+
+CREATE TABLE IF NOT EXISTS `link_interes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -996,7 +2652,20 @@ CREATE TABLE IF NOT EXISTS `modulo` (
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `modulo`
+--
+
+INSERT INTO `modulo` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`) VALUES
+(1, 'matematicas', 'des-matematicas', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
+(2, 'lenguaje', 'des-lenguaje', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
+(3, 'calculo', 'des-calculo', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
+(4, 'historia', 'des-historia', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
+(5, 'algebra', 'des-algebra', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
+(6, 'dibujo', 'des-dibujo', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
+(7, 'estadistica', 'des-estadistica', '2015-08-11 15:59:49', '2015-08-11 15:59:49');
 
 -- --------------------------------------------------------
 
@@ -1009,7 +2678,17 @@ CREATE TABLE IF NOT EXISTS `pais` (
   `nombre` varchar(45) DEFAULT NULL,
   `codigo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Volcado de datos para la tabla `pais`
+--
+
+INSERT INTO `pais` (`id`, `nombre`, `codigo`) VALUES
+(1, 'chile', 'chile02'),
+(2, 'brasil', 'ar34'),
+(3, 'dasdsadsad', 'sadsadsad'),
+(4, 'uiituiooru', 'oriuiorutre');
 
 -- --------------------------------------------------------
 
@@ -1215,7 +2894,17 @@ CREATE TABLE IF NOT EXISTS `programa_academico` (
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Volcado de datos para la tabla `programa_academico`
+--
+
+INSERT INTO `programa_academico` (`id`, `nombre`, `descripcion`, `version`, `fecha_creacion`, `fecha_modificacion`) VALUES
+(1, 'ingenieria en informatica', 'des-info', '1.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
+(2, 'diseño', 'des-diseño', '1.5', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
+(3, 'derecho', 'des-derecho', '2.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
+(4, 'juegos', 'des-juegos', '3.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49');
 
 -- --------------------------------------------------------
 
@@ -1231,6 +2920,41 @@ CREATE TABLE IF NOT EXISTS `programa_academico_has_modulo` (
   KEY `fk_programa_academico_has_modulo_programa_academico1_idx` (`programa_academico_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `programa_academico_has_modulo`
+--
+
+INSERT INTO `programa_academico_has_modulo` (`programa_academico_id`, `modulo_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `proyecto`
+--
+
+CREATE TABLE IF NOT EXISTS `proyecto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='			' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `recepcion_trabajo`
+--
+
+CREATE TABLE IF NOT EXISTS `recepcion_trabajo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='\n	\n	\n	\n	\n\n		\n	' AUTO_INCREMENT=1 ;
+
 -- --------------------------------------------------------
 
 --
@@ -1244,7 +2968,59 @@ CREATE TABLE IF NOT EXISTS `region` (
   `pais_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_region_pais1_idx` (`pais_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+--
+-- Volcado de datos para la tabla `region`
+--
+
+INSERT INTO `region` (`id`, `nombre`, `codigo`, `pais_id`) VALUES
+(2, 'santiago', 'san54', 1),
+(3, 'la plata', 'laplata23', 2),
+(4, 'kjjdkskdhsakj', 'kjsahdkjsahdak', 1),
+(5, 'sadsadad', 'sdsadsad', 2),
+(6, 'iowueuweqo', 'owiueiowuqe', 3),
+(7, 'akjssajh', 'kjahskjhsk', 2),
+(8, 'metropolitana', 'suecia', 1),
+(9, 'jhghjsgdsjd', 'jhsdjhhsdhsd', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `repositorio`
+--
+
+CREATE TABLE IF NOT EXISTS `repositorio` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `modelo_aprendizaje_id` int(11) DEFAULT NULL,
+  `tipo_repositorio_id` int(11) DEFAULT NULL,
+  `repositorio_id` int(11) DEFAULT NULL,
+  `repositorio_master_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_repositorio_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`),
+  KEY `fk_repositorio_tipo_repositorio1_idx` (`tipo_repositorio_id`),
+  KEY `fk_repositorio_repositorio1_idx` (`repositorio_id`),
+  KEY `fk_repositorio_repositorio_master1_idx` (`repositorio_master_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `repositorio_has_herramienta`
+--
+
+CREATE TABLE IF NOT EXISTS `repositorio_has_herramienta` (
+  `repositorio_id` int(11) NOT NULL,
+  `herramienta_id` int(11) NOT NULL,
+  PRIMARY KEY (`repositorio_id`,`herramienta_id`),
+  KEY `fk_repositorio_has_herramienta_herramienta1_idx` (`herramienta_id`),
+  KEY `fk_repositorio_has_herramienta_repositorio1_idx` (`repositorio_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1294,6 +3070,42 @@ CREATE TABLE IF NOT EXISTS `repositorio_local_app` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `repositorio_master`
+--
+
+CREATE TABLE IF NOT EXISTS `repositorio_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `repositorio_master_id` int(11) NOT NULL,
+  `modelo_aprendizaje_id` int(11) NOT NULL,
+  `tipo_repositorio_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_repositorio_master_repositorio_master1_idx` (`repositorio_master_id`),
+  KEY `fk_repositorio_master_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`),
+  KEY `fk_repositorio_master_tipo_repositorio1_idx` (`tipo_repositorio_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `repositorio_master_has_herramienta`
+--
+
+CREATE TABLE IF NOT EXISTS `repositorio_master_has_herramienta` (
+  `repositorio_master_id` int(11) NOT NULL,
+  `herramienta_id` int(11) NOT NULL,
+  PRIMARY KEY (`repositorio_master_id`,`herramienta_id`),
+  KEY `fk_repositorio_master_has_herramienta_herramienta1_idx` (`herramienta_id`),
+  KEY `fk_repositorio_master_has_herramienta_repositorio_master1_idx` (`repositorio_master_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `repositorio_troncal_admin`
 --
 
@@ -1307,7 +3119,7 @@ CREATE TABLE IF NOT EXISTS `repositorio_troncal_admin` (
   `modelo_aprendizaje_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_repositorio_troncal_admin_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `repositorio_troncal_admin`
@@ -1626,6 +3438,91 @@ CREATE TABLE IF NOT EXISTS `seccion` (
   `modulo_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_seccion_modulo1_idx` (`modulo_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Volcado de datos para la tabla `seccion`
+--
+
+INSERT INTO `seccion` (`id`, `nombre`, `jornada`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `modulo_id`) VALUES
+(6, 'mnbvbnmvc', 'nmcvbbnmvxc', 'cmnvbnmcbvx', '2015-08-12 11:38:53', '2015-08-12 11:39:57', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `secuencia`
+--
+
+CREATE TABLE IF NOT EXISTS `secuencia` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `herramienta_id1` int(11) DEFAULT NULL,
+  `herramienta_id2` int(11) DEFAULT NULL,
+  `repositorio_id` int(11) NOT NULL,
+  `repositorio_master_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_secuencia_repositorio1_idx` (`repositorio_id`),
+  KEY `fk_secuencia_repositorio_master1_idx` (`repositorio_master_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='\n' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_herramienta`
+--
+
+CREATE TABLE IF NOT EXISTS `tipo_herramienta` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+
+--
+-- Volcado de datos para la tabla `tipo_herramienta`
+--
+
+INSERT INTO `tipo_herramienta` (`id`, `descripcion`) VALUES
+(1, 'autoevaluacion'),
+(2, 'archivo_recurso'),
+(3, 'contenido_libre'),
+(4, 'evaluacion'),
+(5, 'foro'),
+(6, 'glosario'),
+(7, 'link_interes'),
+(8, 'proyecto'),
+(9, 'recepcion_trabajo'),
+(10, 'trabajo_grupal');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_repositorio`
+--
+
+CREATE TABLE IF NOT EXISTS `tipo_repositorio` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Volcado de datos para la tabla `tipo_repositorio`
+--
+
+INSERT INTO `tipo_repositorio` (`id`, `descripcion`) VALUES
+(1, 'troncal_admin'),
+(2, 'local_admin'),
+(3, 'troncal_app'),
+(4, 'local_app');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `trabajo_grupal`
+--
+
+CREATE TABLE IF NOT EXISTS `trabajo_grupal` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -1642,7 +3539,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=188 ;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -1653,7 +3550,9 @@ INSERT INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modifica
 (2, 'francisco', '123', NULL, NULL, NULL),
 (3, 'victor', '123', NULL, NULL, NULL),
 (4, 'marcelo', '123', NULL, NULL, NULL),
-(5, 'patricio', '123', NULL, NULL, NULL);
+(5, 'patricio', '123', NULL, NULL, NULL),
+(186, 'usuario viejo', 'viejo clave', NULL, '2015-08-10 16:09:43', '2015-08-10 16:09:16'),
+(187, 'nbnvmcvmc', 'nmcbvnmcxvnv', NULL, '2015-08-12 09:57:23', '2015-08-12 09:57:11');
 
 -- --------------------------------------------------------
 
@@ -1699,6 +3598,32 @@ CREATE TABLE IF NOT EXISTS `usuario_administrador_has_rol_administrador` (
 INSERT INTO `usuario_administrador_has_rol_administrador` (`usuario_administrador_id`, `rol_administrador_id`) VALUES
 (1, 1),
 (2, 6);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario_has_institucion`
+--
+
+CREATE TABLE IF NOT EXISTS `usuario_has_institucion` (
+  `usuario_id` int(11) DEFAULT NULL,
+  `institucion_id` int(11) DEFAULT NULL,
+  KEY `usuario_id` (`usuario_id`),
+  KEY `institucion_id` (`institucion_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuario_has_institucion`
+--
+
+INSERT INTO `usuario_has_institucion` (`usuario_id`, `institucion_id`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(1, 2),
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -1795,7 +3720,8 @@ ALTER TABLE `dato_personal`
 -- Filtros para la tabla `entidad`
 --
 ALTER TABLE `entidad`
-  ADD CONSTRAINT `fk_entidad_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_entidad_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_entidad_entidad1` FOREIGN KEY (`entidad_id`) REFERENCES `entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `escritorio_administrador`
@@ -1817,10 +3743,24 @@ ALTER TABLE `estado_usuario`
   ADD CONSTRAINT `fk_estado_usuario_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `herramienta`
+--
+ALTER TABLE `herramienta`
+  ADD CONSTRAINT `fk_herramienta_herramienta1` FOREIGN KEY (`herramienta_id`) REFERENCES `herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_herramienta_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `icono_aplicacion_administrador`
 --
 ALTER TABLE `icono_aplicacion_administrador`
   ADD CONSTRAINT `fk_icono_aplicacion_administrador_authitem_permiso_administra1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `institucion_has_rol_usuario`
+--
+ALTER TABLE `institucion_has_rol_usuario`
+  ADD CONSTRAINT `fk_institucion_has_rol_usuario_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_institucion_has_rol_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `pais_has_dato_academico`
@@ -1859,14 +3799,30 @@ ALTER TABLE `privilegio_usuario`
 -- Filtros para la tabla `programa_academico_has_modulo`
 --
 ALTER TABLE `programa_academico_has_modulo`
-  ADD CONSTRAINT `fk_programa_academico_has_modulo_programa_academico1` FOREIGN KEY (`programa_academico_id`) REFERENCES `programa_academico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_programa_academico_has_modulo_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_programa_academico_has_modulo_programa_academico1` FOREIGN KEY (`programa_academico_id`) REFERENCES `programa_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_programa_academico_has_modulo_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `region`
 --
 ALTER TABLE `region`
-  ADD CONSTRAINT `fk_region_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_region_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `repositorio`
+--
+ALTER TABLE `repositorio`
+  ADD CONSTRAINT `fk_repositorio_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_tipo_repositorio1` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `repositorio_has_herramienta`
+--
+ALTER TABLE `repositorio_has_herramienta`
+  ADD CONSTRAINT `fk_repositorio_has_herramienta_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_has_herramienta_herramienta1` FOREIGN KEY (`herramienta_id`) REFERENCES `herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `repositorio_local_admin`
@@ -1879,6 +3835,21 @@ ALTER TABLE `repositorio_local_admin`
 --
 ALTER TABLE `repositorio_local_app`
   ADD CONSTRAINT `fk_repositorio_local_app_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `repositorio_master`
+--
+ALTER TABLE `repositorio_master`
+  ADD CONSTRAINT `fk_repositorio_master_repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_master_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_master_tipo_repositorio1` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `repositorio_master_has_herramienta`
+--
+ALTER TABLE `repositorio_master_has_herramienta`
+  ADD CONSTRAINT `fk_repositorio_master_has_herramienta_repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_master_has_herramienta_herramienta1` FOREIGN KEY (`herramienta_id`) REFERENCES `herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `repositorio_troncal_admin`
@@ -1896,29 +3867,29 @@ ALTER TABLE `repositorio_troncal_app`
 -- Filtros para la tabla `rol_administrador_has_authitem_permiso_administrador`
 --
 ALTER TABLE `rol_administrador_has_authitem_permiso_administrador`
-  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_authi1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_rol_a1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_rol_a1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_authi1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_administrador_has_privilegio_administrador`
 --
 ALTER TABLE `rol_administrador_has_privilegio_administrador`
-  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_privilegio_1` FOREIGN KEY (`privilegio_administrador_id`) REFERENCES `privilegio_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_rol_adminis1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_rol_adminis1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_privilegio_1` FOREIGN KEY (`privilegio_administrador_id`) REFERENCES `privilegio_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_usuario_has_authitem_permiso_usuario`
 --
 ALTER TABLE `rol_usuario_has_authitem_permiso_usuario`
-  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_authitem_permiso_1` FOREIGN KEY (`authitem_permiso_usuario_name`) REFERENCES `authitem_permiso_usuario` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_authitem_permiso_1` FOREIGN KEY (`authitem_permiso_usuario_name`) REFERENCES `authitem_permiso_usuario` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_usuario_has_privilegio_usuario`
 --
 ALTER TABLE `rol_usuario_has_privilegio_usuario`
-  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_privilegio_usuario1` FOREIGN KEY (`privilegio_usuario_id`) REFERENCES `privilegio_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_privilegio_usuario1` FOREIGN KEY (`privilegio_usuario_id`) REFERENCES `privilegio_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `seccion`
@@ -1927,18 +3898,32 @@ ALTER TABLE `seccion`
   ADD CONSTRAINT `fk_seccion_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `secuencia`
+--
+ALTER TABLE `secuencia`
+  ADD CONSTRAINT `fk_secuencia_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_secuencia_repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `usuario_administrador_has_rol_administrador`
 --
 ALTER TABLE `usuario_administrador_has_rol_administrador`
-  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_rol_administra1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_usuario_admini1` FOREIGN KEY (`usuario_administrador_id`) REFERENCES `usuario_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_usuario_admini1` FOREIGN KEY (`usuario_administrador_id`) REFERENCES `usuario_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_rol_administra1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `usuario_has_institucion`
+--
+ALTER TABLE `usuario_has_institucion`
+  ADD CONSTRAINT `usuario_has_institucion_ibfk_2` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`),
+  ADD CONSTRAINT `usuario_has_institucion_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`);
 
 --
 -- Filtros para la tabla `usuario_has_rol_usuario`
 --
 ALTER TABLE `usuario_has_rol_usuario`
-  ADD CONSTRAINT `fk_usuario_has_rol_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_has_rol_usuario_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_has_rol_usuario_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_usuario_has_rol_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
