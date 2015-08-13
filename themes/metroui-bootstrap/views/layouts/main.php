@@ -71,9 +71,9 @@
                 <a class="place-left" href="#" title="">
                     <h1 class="tile-area-title">            
                         
-                        <a href="http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index" >
+                        <a href="<?php echo Yii::app()->theme->baseUrl; ?>/testrekoadministracion/escritorio_administrador/escritorioadministrador/index" >
                             <div class="mif-music  mif-ani-shuttle mif-ani-slow" style="color: transparent; width: 80px; height:80px; border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-image: url(<?php echo Yii::app()->theme->baseUrl; ?>/images/reko.png); background-size: cover; background-repeat: no-repeat;"></div>
-                            <a  href="http://localhost/testrekoadministracion/" title="">
+                            <a  href="<?php echo Yii::app()->theme->baseUrl; ?>/testrekoadministracion/" title="">
                                 <h1>REKO</h1>
                             </a>
                         </a>                        
@@ -83,7 +83,7 @@
 
             <div class="main-menu-wrapper">
                 <ul class="horizontal-menu" style="margin-left: -20px">
-                    <li><a href="#">Inicio</a></li>
+                    <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/../../../testrekoadministracion/escritorio_administrador/escritorioadministrador/index">Inicio</a></li>
                     <li><a href="#">Tutoriales</a></li>
                     <li><a href="#">Soporte Tecnico</a></li>
                     <li><a href="#">Novedades</a></li>
@@ -104,17 +104,17 @@
                     <li class="place-right">
                         <a href="#" class="dropdown-toggle">Administracion</a>
                         <ul class="d-menu place-right" data-role="dropdown">
-                            <li><a href="http://localhost/testrekoadministracion/admin_usuario_administrador">Admin Usuario Administrador</a></li>
-                            <li><a href="http://localhost/testrekoadministracion/admin_rol_administrador">Admin Rol Administrador</a></li>
-                            <li><a href="http://localhost/testrekoadministracion/admin_usuario">Admin Usuario</a></li>
-                            <li><a href="http://localhost/testrekoadministracion/admin_rol_usuario">Admin Rol Usuario</a></li>
-                            <li><a href="http://localhost/testrekoadministracion/admin_institucion">Admin Istitucion</a></li>
-                            <li><a href="http://localhost/testrekoadministracion/admin_curricular">Admin Curricular</a></li>
-                            <li><a href="http://localhost/testrekoadministracion/admin_aula">Admin Aula</a></li>
-                            <li><a href="http://localhost/testrekoadministracion/admin_repositorio">Admin Repositorio</a></li>
-                            <li><a href="http://localhost/testrekoadministracion/admin_repositorio">Admin Escritorio</a></li>
-                            <li><a href="http://localhost/testrekoadministracion/admin_repositorio">Admin Aplicaciones</a></li>
-                            <li><a href="http://localhost/testrekoadministracion/admin_error_log_mensaje">Admin Error Log Mensaje</a></li>
+                            <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/testrekoadministracion/admin_usuario_administrador">Admin Usuario Administrador</a></li>
+                            <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/testrekoadministracion/admin_rol_administrador">Admin Rol Administrador</a></li>
+                            <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/testrekoadministracion/admin_usuario">Admin Usuario</a></li>
+                            <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/testrekoadministracion/admin_rol_usuario">Admin Rol Usuario</a></li>
+                            <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/testrekoadministracion/admin_institucion">Admin Istitucion</a></li>
+                            <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/testrekoadministracion/admin_curricular">Admin Curricular</a></li>
+                            <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/testrekoadministracion/admin_aula">Admin Aula</a></li>
+                            <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/testrekoadministracion/admin_repositorio">Admin Repositorio</a></li>
+                            <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/testrekoadministracion/admin_repositorio">Admin Escritorio</a></li>
+                            <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/testrekoadministracion/admin_repositorio">Admin Aplicaciones</a></li>
+                            <li><a href="<?php echo Yii::app()->theme->baseUrl; ?>/testrekoadministracion/admin_error_log_mensaje">Admin Error Log Mensaje</a></li>
 
                         </ul>
                     </li>

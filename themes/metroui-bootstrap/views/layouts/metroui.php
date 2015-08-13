@@ -287,11 +287,11 @@
                               
                 <a class="place-left" href="#" title="">
                     <h1 class="tile-area-title">            
-                        <a href="http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/index" >
+                        <a href="<?php echo Yii::app()->theme->baseUrl; ?>/../../../testrekoadministracion/escritorio_administrador/escritorioadministrador/index" >
                             <div class="mif-music  mif-ani-shuttle mif-ani-slow" style="color: transparent; width: 80px; height:80px; border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-image: url(<?php echo Yii::app()->theme->baseUrl; ?>/images/reko.png); background-size: cover; background-repeat: no-repeat;"></div>
                         </a>
                         
-                        <a class="place-right" href="http://localhost/testrekoadministracion/" title="">
+                        <a class="place-right" href="<?php echo Yii::app()->theme->baseUrl; ?>/../../../testrekoadministracion/" title="">
                             <h1>&nbsp;&nbsp;REKO</h1>
                         </a>                        
                     </h1>
