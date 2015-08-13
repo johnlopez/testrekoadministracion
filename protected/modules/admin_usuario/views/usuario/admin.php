@@ -26,12 +26,46 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Usuarios</h1>
+<h1>Administracion de  Usuarios</h1>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
+<h4>Exportar usuarios</h4>
+<?php echo CHtml::link("Excel",array("admin","excel" =>1),array("class"=>"btn"));?><br>
+<?php echo CHtml::link("Csv",array("admin","csv" =>1),array("class"=>"btn"));?><br><br><br>
+
+<div class='form'>
+    <?php
+        $form = $this->beginWidget('CActiveForm', 
+          array(
+            'method' => 'POST',
+            'htmlOptions' => array(  
+                'enctype' => 'multipart/form-data',
+              ),
+            'enableClientValidation' => true,
+            'clientOptions' => array(
+                'validateOnSubmit' => true,
+            ),
+        ));
+    ?>
+ 
+    <fieldset>
+        <?php echo $form->errorSummary($model, 'Opps!!!', null, array('class'=>'alert alert-error span12')); ?>
+ 
+        <div class="control-group">     
+            <div class="span4">
+                <div class="control-group <?php if ($model->hasErrors('postcode')) echo "error"; ?>">
+                    <?php echo $form->labelEx($model,'file'); ?>
+                    <?php echo $form->fileField($model,'file'); ?>
+                    <?php echo $form->error($model,'file'); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <?php echo CHtml::submitButton("Importar", array('class' => 'btn btn-primary')); ?>
+        </div>
+    </fieldset>
+    <?php $this->endWidget(); ?>
+</div>
+<br><br><br>
 
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">

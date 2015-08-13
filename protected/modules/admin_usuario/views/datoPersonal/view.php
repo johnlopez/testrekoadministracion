@@ -34,7 +34,6 @@ $this->menu=array(
 		'numero_casa',
 		'telefono_personal',
 		'celular_personal',
-		'dato_personalcol',
 		'comuna_personal',
 		'ciudad_personal',
 		'interes',

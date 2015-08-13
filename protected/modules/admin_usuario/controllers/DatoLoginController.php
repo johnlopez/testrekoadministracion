@@ -28,7 +28,7 @@ class DatoLoginController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','admin'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -74,7 +74,8 @@ class DatoLoginController extends Controller
                                 $model->pregunta_secreta_1,
                                 $model->pregunta_secreta_2,
                                 $model->respuesta_secreta_1,
-                                $model->respuesta_secreta_2       
+                                $model->respuesta_secreta_2,
+                                $model->usuario_id
                             ))
 				
                         $this->redirect(array('view','id'=>$model->llaveIdLogin));
@@ -105,7 +106,8 @@ class DatoLoginController extends Controller
                                 $model->pregunta_secreta_1,
                                 $model->pregunta_secreta_2,
                                 $model->respuesta_secreta_1,
-                                $model->respuesta_secreta_2 
+                                $model->respuesta_secreta_2,
+                                $model->usuario_id
                             ))
 				
                         $this->redirect(array('view','id'=>$model->id));

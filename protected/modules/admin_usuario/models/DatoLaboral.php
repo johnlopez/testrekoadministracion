@@ -135,7 +135,7 @@ class DatoLaboral extends CActiveRecord
         public function agregarDatoLaboral($nombreEmpresa,$anoAntiguedad,$cargo,$actividad,$comunaEmpresa,$ciudadEmpresa,$telefonoEmpresa,$celularEmpresa, $rutNumero,$digitoVerificador,$usuarioId)
         {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_administracionusuario_agregar_dato_laboral(:nombre_empresa,:ano_antiguedad,:cargo,:actividad,:comuna_empresa,:ciudad_empresa,:telefono_empresa,:celular_empresa,:rut_numero,:digito_verificador,:usuario_id,@llave_id)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_agregar_dato_laboral(:nombre_empresa,:ano_antiguedad,:cargo,:actividad,:comuna_empresa,:ciudad_empresa,:telefono_empresa,:celular_empresa,:rut_numero,:digito_verificador,:usuario_id,@llave_id)");
             $comando->bindParam(':nombre_empresa', $nombreEmpresa);
             $comando->bindParam(':ano_antiguedad', $anoAntiguedad);
             $comando->bindParam(':cargo', $cargo);
@@ -156,7 +156,7 @@ class DatoLaboral extends CActiveRecord
         public function modificarDatoLaboral($id,$nombreEmpresa,$anoAntiguedad,$cargo,$actividad,$comunaEmpresa,$ciudadEmpresa,$telefonoEmpresa,$celularEmpresa, $rutNumero,$digitoVerificador,$usuarioId)
         {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_administracionusuario_actualizar_dato_laboral(:id,:nombre_empresa,:ano_antiguedad,:cargo,:actividad,:comuna_empresa,:ciudad_empresa,:telefono_empresa,:celular_empresa,:rut_numero,:digito_verificador,:usuario_id)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_actualizar_dato_laboral(:id,:nombre_empresa,:ano_antiguedad,:cargo,:actividad,:comuna_empresa,:ciudad_empresa,:telefono_empresa,:celular_empresa,:rut_numero,:digito_verificador,:usuario_id)");
             $comando->bindParam(':id', $id);
             $comando->bindParam(':nombre_empresa', $nombreEmpresa);
             $comando->bindParam(':ano_antiguedad', $anoAntiguedad);

@@ -52,11 +52,11 @@ class DatoPersonal extends CActiveRecord
 		return array(
 			array('usuario_id', 'required'),
 			array('edad, rut, digito_verificador, numero_casa, telefono_personal, celular_personal, usuario_id', 'numerical', 'integerOnly'=>true),
-			array('primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, direccion_personal, dato_personalcol, comuna_personal, ciudad_personal, interes, estado_civil, idioma, nacionalidad', 'length', 'max'=>45),
+			array('primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, direccion_personal, comuna_personal, ciudad_personal, interes, estado_civil, idioma, nacionalidad', 'length', 'max'=>45),
 			array('fecha_nacimiento', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, fecha_nacimiento, edad, rut, digito_verificador, direccion_personal, numero_casa, telefono_personal, celular_personal, dato_personalcol, comuna_personal, ciudad_personal, interes, estado_civil, idioma, nacionalidad, usuario_id', 'safe', 'on'=>'search'),
+			array('id, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, fecha_nacimiento, edad, rut, digito_verificador, direccion_personal, numero_casa, telefono_personal, celular_personal,comuna_personal, ciudad_personal, interes, estado_civil, idioma, nacionalidad, usuario_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -92,7 +92,6 @@ class DatoPersonal extends CActiveRecord
 			'numero_casa' => 'Numero Casa',
 			'telefono_personal' => 'Telefono Personal',
 			'celular_personal' => 'Celular Personal',
-			'dato_personalcol' => 'Dato Personalcol',
 			'comuna_personal' => 'Comuna Personal',
 			'ciudad_personal' => 'Ciudad Personal',
 			'interes' => 'Interes',
@@ -134,7 +133,6 @@ class DatoPersonal extends CActiveRecord
 		$criteria->compare('numero_casa',$this->numero_casa);
 		$criteria->compare('telefono_personal',$this->telefono_personal);
 		$criteria->compare('celular_personal',$this->celular_personal);
-		$criteria->compare('dato_personalcol',$this->dato_personalcol,true);
 		$criteria->compare('comuna_personal',$this->comuna_personal,true);
 		$criteria->compare('ciudad_personal',$this->ciudad_personal,true);
 		$criteria->compare('interes',$this->interes,true);
@@ -164,58 +162,59 @@ class DatoPersonal extends CActiveRecord
                 $ciudadPersonal, $interes, $estadoCivil, $idioma, $nacionalidad,$usuarioId)     
         {
         
-            $comando = Yii::app()->db->createCommand("CALL sp_administracionusuario_agregar_dato_personal(:primer_nombre,:segundo_nombre,:apellido_paterno,:apellido_materno,:fecha_nacimiento,:edad,:rut,:digito_verificador,:direccion_personal,:numero_casa,:telefono_personal,:celular_personal,:comuna_personal,:ciudad_personal,:interes,:estado_civil,:idioma,:nacionalidad,:usuario_id,@llave_id)");
-            $comando->bindParam(':primer_nombre', $primerNombre);
-            $comando->bindParam(':segundo_nombre', $segundoNombre);
-            $comando->bindParam(':apellido_paterno', $apellidoPaterno);
-            $comando->bindParam(':apellido_materno', $apellidoMaterno);
-            $comando->bindParam(':fecha_nacimiento', $fechaNacimiento);
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_agregar_dato_personal(:primerNombre,:segundoNombre,:apellidoPaterno,:apellidoMaterno,:fechaNacimiento,:edad,:rut,:digitoVerificador,:direccionPersonal,:numeroCasa,:telefonoPersonal,:celularPersonal,:comunaPersonal,:ciudadPersonal,:interes,:estadoCivil,:idioma,:nacionalidad,:usuarioId,@llave_id)");
+            $comando->bindParam(':primerNombre', $primerNombre);
+            $comando->bindParam(':segundoNombre', $segundoNombre);
+            $comando->bindParam(':apellidoPaterno', $apellidoPaterno);
+            $comando->bindParam(':apellidoMaterno', $apellidoMaterno);
+            $comando->bindParam(':fechaNacimiento', $fechaNacimiento);
             $comando->bindParam(':edad', $edad);
             $comando->bindParam(':rut', $rut);
-            $comando->bindParam(':digito_verificador', $digitoVerificador);
-            $comando->bindParam(':direccion_personal', $direccionPersonal);
-            $comando->bindParam(':numero_casa', $numeroCasa);
-            $comando->bindParam(':telefono_personal', $telefonoPersonal);
-            $comando->bindParam(':celular_personal', $celularPersonal);
-            $comando->bindParam(':comuna_personal', $comunaPersonal);
-            $comando->bindParam(':ciudad_personal', $ciudadPersonal);
+            $comando->bindParam(':digitoVerificador', $digitoVerificador);
+            $comando->bindParam(':direccionPersonal', $direccionPersonal);
+            $comando->bindParam(':numeroCasa', $numeroCasa);
+            $comando->bindParam(':telefonoPersonal', $telefonoPersonal);
+            $comando->bindParam(':celularPersonal', $celularPersonal);
+            $comando->bindParam(':comunaPersonal', $comunaPersonal);
+            $comando->bindParam(':ciudadPersonal', $ciudadPersonal);
             $comando->bindParam(':interes', $interes);
-            $comando->bindParam(':estado_civil', $estadoCivil);
+            $comando->bindParam(':estadoCivil', $estadoCivil);
             $comando->bindParam(':idioma', $idioma);
             $comando->bindParam(':nacionalidad', $nacionalidad);
-            $comando->bindParam(':usuario_id', $usuarioId);
+            $comando->bindParam(':usuarioId', $usuarioId);
             $comando->execute();
             $this->llaveIdPersonal = Yii::app()->db->createCommand("select @llave_id as result;")->queryScalar();
             return $comando;
         }
         
-        public function modificarDatoPersonal($id,$primerNombre,$segundoNombre,$apellidoPaterno,$apellidoMaterno,$fechaNacimiento,$edad,$rut,$digitoVerificador,
-                $direccionPersonal, $numeroCasa, $telefonoPersonal, $celularPersonal, $comunaPersonal, 
-                $ciudadPersonal, $interes, $estadoCivil, $idioma, $nacionalidad, $usuarioId)     
+         public function modificarDatoPersonal($id,$primerNombre,$segundoNombre,$apellidoPaterno,$apellidoMaterno,$fechaNacimiento,$edad,$rut,
+                $digitoVerificador,$direccionPersonal, $numeroCasa, $telefonoPersonal, $celularPersonal, $comunaPersonal, 
+                $ciudadPersonal, $interes, $estadoCivil, $idioma, $nacionalidad,$usuarioId)     
         {
         
-            $comando = Yii::app()->db->createCommand("CALL sp_administracionusuario_actualizar_dato_personal(:id,:primer_nombre,:segundo_nombre,:apellido_paterno,:apellido_materno,:fecha_nacimiento,:edad,:rut,:digito_verificador,:direccion_personal,:numero_casa,:telefono_personal,:celular_personal,:comuna_personal,:ciudad_personal,:interes,:estado_civil,:idioma,:nacionalidad,:usuario_id)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_actualizar_dato_personal(:id,:primerNombre,:segundoNombre,:apellidoPaterno,:apellidoMaterno,:fechaNacimiento,:edad,:rut,:digitoVerificador,:direccionPersonal,:numeroCasa,:telefonoPersonal,:celularPersonal,:comunaPersonal,:ciudadPersonal,:interes,:estadoCivil,:idioma,:nacionalidad,:usuarioId)");
             $comando->bindParam(':id', $id);
-            $comando->bindParam(':primer_nombre', $primerNombre);
-            $comando->bindParam(':segundo_nombre', $segundoNombre);
-            $comando->bindParam(':apellido_paterno', $apellidoPaterno);
-            $comando->bindParam(':apellido_materno', $apellidoMaterno);
-            $comando->bindParam(':fecha_nacimiento', $fechaNacimiento);
+            $comando->bindParam(':primerNombre', $primerNombre);
+            $comando->bindParam(':segundoNombre', $segundoNombre);
+            $comando->bindParam(':apellidoPaterno', $apellidoPaterno);
+            $comando->bindParam(':apellidoMaterno', $apellidoMaterno);
+            $comando->bindParam(':fechaNacimiento', $fechaNacimiento);
             $comando->bindParam(':edad', $edad);
             $comando->bindParam(':rut', $rut);
-            $comando->bindParam(':digito_verificador', $digitoVerificador);
-            $comando->bindParam(':direccion_personal', $direccionPersonal);
-            $comando->bindParam(':numero_casa', $numeroCasa);
-            $comando->bindParam(':telefono_personal', $telefonoPersonal);
-            $comando->bindParam(':celular_personal', $celularPersonal);
-            $comando->bindParam(':comuna_personal', $comunaPersonal);
-            $comando->bindParam(':ciudad_personal', $ciudadPersonal);
+            $comando->bindParam(':digitoVerificador', $digitoVerificador);
+            $comando->bindParam(':direccionPersonal', $direccionPersonal);
+            $comando->bindParam(':numeroCasa', $numeroCasa);
+            $comando->bindParam(':telefonoPersonal', $telefonoPersonal);
+            $comando->bindParam(':celularPersonal', $celularPersonal);
+            $comando->bindParam(':comunaPersonal', $comunaPersonal);
+            $comando->bindParam(':ciudadPersonal', $ciudadPersonal);
             $comando->bindParam(':interes', $interes);
-            $comando->bindParam(':estado_civil', $estadoCivil);
+            $comando->bindParam(':estadoCivil', $estadoCivil);
             $comando->bindParam(':idioma', $idioma);
             $comando->bindParam(':nacionalidad', $nacionalidad);
-            $comando->bindParam(':usuario_id', $usuarioId);
+            $comando->bindParam(':usuarioId', $usuarioId);
             $comando->execute();
+            $this->llaveIdPersonal = Yii::app()->db->createCommand("select @llave_id as result;")->queryScalar();
             return $comando;
         }
 }

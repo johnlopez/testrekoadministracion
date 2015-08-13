@@ -33,7 +33,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'pais_id'); ?>
-		<?php echo $form->textField($model,'pais_id'); ?>
+		<?php echo $form->dropDownList($model,'pais_id', CHtml::listData(Pais::model()->findAll(),'id' ,'nombre'),array('empty'=>'seleccionar pais')); ?>
 		<?php echo $form->error($model,'pais_id'); ?>
 	</div>
 

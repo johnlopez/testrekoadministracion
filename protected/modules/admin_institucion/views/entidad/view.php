@@ -27,5 +27,6 @@ $this->menu=array(
 		'fecha_creacion',
 		'fecha_modificacion',
 		'institucion_id',
+		'entidad_id',
 	),
 )); ?>

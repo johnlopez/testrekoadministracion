@@ -29,5 +29,9 @@
 	<?php echo CHtml::encode($data->institucion_id); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('entidad_id')); ?>:</b>
+	<?php echo CHtml::encode($data->entidad_id); ?>
+	<br />
+
 
 </div>

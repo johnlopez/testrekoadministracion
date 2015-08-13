@@ -77,11 +77,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'dato_personalcol'); ?>
-		<?php echo $form->textField($model,'dato_personalcol',array('size'=>45,'maxlength'=>45)); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'comuna_personal'); ?>
 		<?php echo $form->textField($model,'comuna_personal',array('size'=>45,'maxlength'=>45)); ?>
 	</div>

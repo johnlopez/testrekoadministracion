@@ -128,7 +128,7 @@ class DatoAcademico extends CActiveRecord
         
         public function agregarDatoAcademico($universidad,$carrera,$ano_cursado,$duracion_carrera,$sede,$direccion_sede,$comuna_sede,$ciudad_sede,$usuario_id) 
         {
-            $comando = Yii::app()->db->createCommand("CALL sp_administracionusuario_agregar_dato_academico(:universidad,:carrera,:ano_cursado,:duracion_carrera,:sede,:direccion_sede,:comuna_sede,:ciudad_sede,:usuario_id,@llave_id)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_agregar_dato_academico(:universidad,:carrera,:ano_cursado,:duracion_carrera,:sede,:direccion_sede,:comuna_sede,:ciudad_sede,:usuario_id,@llave_id)");
             $comando->bindParam(':universidad', $universidad);
             $comando->bindParam(':carrera', $carrera);
             $comando->bindParam(':ano_cursado', $ano_cursado);
@@ -145,7 +145,7 @@ class DatoAcademico extends CActiveRecord
         
         public function modificarDatoAcademico($id,$universidad,$carrera,$ano_cursado,$duracion_carrera,$sede,$direccion_sede,$comuna_sede,$ciudad_sede,$usuario_id) 
         {
-            $comando = Yii::app()->db->createCommand("CALL sp_administracionusuario_actualizar_dato_academico(:id,:universidad,:carrera,:ano_cursado,:duracion_carrera,:sede,:direccion_sede,:comuna_sede,:ciudad_sede,:usuario_id)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_actualizar_dato_academico(:id,:universidad,:carrera,:ano_cursado,:duracion_carrera,:sede,:direccion_sede,:comuna_sede,:ciudad_sede,:usuario_id)");
             $comando->bindParam(':id', $id);
             $comando->bindParam(':universidad', $universidad);
             $comando->bindParam(':carrera', $carrera);

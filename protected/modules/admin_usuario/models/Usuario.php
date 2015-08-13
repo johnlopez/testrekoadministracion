@@ -27,6 +27,7 @@ class Usuario extends CActiveRecord
 	 */
     
         public $llaveIdUsuario;
+        public $file;
         
 	public function tableName()
 	{
@@ -46,6 +47,12 @@ class Usuario extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, usuario, clave, fecha_acceso, fecha_modificacion, fecha_creacion', 'safe', 'on'=>'search'),
+                        array('file', 'file', 
+                                'types'=>'csv',
+                                'maxSize'=>1024 * 1024 * 10, // 10MB
+                                'tooLarge'=>'The file was larger than 10MB. Please upload a smaller file.',
+                                'allowEmpty' => false
+                        ),
 		);
 	}
 
@@ -79,6 +86,7 @@ class Usuario extends CActiveRecord
 			'fecha_acceso' => 'Fecha Acceso',
 			'fecha_modificacion' => 'Fecha Modificacion',
 			'fecha_creacion' => 'Fecha Creacion',
+                        'file' => 'Seleccionar Archivo',
 		);
 	}
 
@@ -125,10 +133,10 @@ class Usuario extends CActiveRecord
         
         public function agregarUsuario($usuario,$clave,$fechaCreacion) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_administracionusuario_agregar_usuario(:usuario,:clave,:fecha_creacion,@llave_id)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_agregar_usuario(:usuario,:clave,:fechaCreacion,@llave_id)");
             $comando->bindParam(':usuario', $usuario);
             $comando->bindParam(':clave', $clave);
-            $comando->bindParam(':fecha_creacion', $fechaCreacion);
+            $comando->bindParam(':fechaCreacion', $fechaCreacion);
             $comando->execute();
             $this->llaveIdUsuario = Yii::app()->db->createCommand("select @llave_id as result;")->queryScalar();
             return $comando;
@@ -136,13 +144,25 @@ class Usuario extends CActiveRecord
         
         public function modificarUsuario($id,$usuario,$clave,$fechaModificacion) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_administracionusuario_actualizar_usuario(:id,:usuario,:clave,:fecha_modificacion)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_actualizar_usuario(:id,:usuario,:clave,:fechaModificacion)");
             $comando->bindParam(':id', $id);
             $comando->bindParam(':usuario', $usuario);
             $comando->bindParam(':clave', $clave);
-            $comando->bindParam(':fecha_modificacion', $fechaModificacion);
+            $comando->bindParam(':fechaModificacion', $fechaModificacion);
             $comando->execute();
             return $comando;
-        }  
+        }
+        
+        public function cargarUsuarios($tempLoc) {
+            
+            $comando = Yii::app()->db->createCommand(
+                    "LOAD DATA LOCAL INFILE '".addslashes($tempLoc)."'
+                    INTO TABLE usuario
+                    FIELDS TERMINATED BY ','
+                    LINES TERMINATED BY '\r\n'  
+                    (usuario,clave)"); 
+            
+            $comando->execute();
+        }
        
 }

@@ -112,26 +112,28 @@ class DatoLogin extends CActiveRecord
 		return parent::model($className);
 	}
         
-        public function agregarDatoLogin($preguntaSecreta1,$preguntarSecreta2,$respuestaSecreta1,$respuestaSecreta2) {
+        public function agregarDatoLogin($preguntaSecreta1,$preguntarSecreta2,$respuestaSecreta1,$respuestaSecreta2,$usuarioId) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_administracionusuario_agregar_dato_login(:pregunta_secreta_1,:pregunta_secreta_2,:respuesta_secreta_1,:respuesta_secreta_2,@llave_id)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_agregar_dato_login(:pregunta_secreta_1,:pregunta_secreta_2,:respuesta_secreta_1,:respuesta_secreta_2,:usuario_id,@llave_id)");
             $comando->bindParam(':pregunta_secreta_1', $preguntaSecreta1);
             $comando->bindParam(':pregunta_secreta_2', $preguntarSecreta2);
             $comando->bindParam(':respuesta_secreta_1', $respuestaSecreta1);
             $comando->bindParam(':respuesta_secreta_2', $respuestaSecreta2);
+            $comando->bindParam('usuario_id', $usuarioId);
             $comando->execute();
             $this->llaveIdLogin = Yii::app()->db->createCommand("select @llave_id as result;")->queryScalar();
             return $comando;   
         }
         
-         public function modificarDatoLogin($id,$preguntaSecreta1,$preguntarSecreta2,$respuestaSecreta1,$respuestaSecreta2) {
+         public function modificarDatoLogin($id,$preguntaSecreta1,$preguntarSecreta2,$respuestaSecreta1,$respuestaSecreta2,$usuarioId) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_administracionusuario_agregar_dato_login(:id,:pregunta_secreta_1,:pregunta_secreta_2,:respuesta_secreta_1,:respuesta_secreta_2,@llave_id)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_actualizar_dato_login(:id,:pregunta_secreta_1,:pregunta_secreta_2,:respuesta_secreta_1,:respuesta_secreta_2,:usuario_id)");
             $comando->bindParam(':id', $id);
             $comando->bindParam(':pregunta_secreta_1', $preguntaSecreta1);
             $comando->bindParam(':pregunta_secreta_2', $preguntarSecreta2);
             $comando->bindParam(':respuesta_secreta_1', $respuestaSecreta1);
             $comando->bindParam(':respuesta_secreta_2', $respuestaSecreta2);
+            $comando->bindParam('usuario_id', $usuarioId);
             $comando->execute();
             return $comando;   
         }

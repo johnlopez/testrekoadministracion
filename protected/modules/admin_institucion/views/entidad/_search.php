@@ -41,6 +41,11 @@
 		<?php echo $form->textField($model,'institucion_id'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->label($model,'entidad_id'); ?>
+		<?php echo $form->textField($model,'entidad_id'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>

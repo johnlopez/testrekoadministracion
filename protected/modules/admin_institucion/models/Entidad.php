@@ -10,8 +10,11 @@
  * @property string $fecha_creacion
  * @property string $fecha_modificacion
  * @property integer $institucion_id
+ * @property integer $entidad_id
  *
  * The followings are the available model relations:
+ * @property Entidad $entidad
+ * @property Entidad[] $entidads
  * @property Institucion $institucion
  */
 class Entidad extends CActiveRecord
@@ -19,6 +22,10 @@ class Entidad extends CActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
+    
+        public $llaveIdEntidad;
+        
+        
 	public function tableName()
 	{
 		return 'entidad';
@@ -32,13 +39,13 @@ class Entidad extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('institucion_id', 'required'),
-			array('institucion_id', 'numerical', 'integerOnly'=>true),
+			array('institucion_id, entidad_id', 'required'),
+			array('institucion_id, entidad_id', 'numerical', 'integerOnly'=>true),
 			array('nombre, descripcion', 'length', 'max'=>45),
 			array('fecha_creacion, fecha_modificacion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre, descripcion, fecha_creacion, fecha_modificacion, institucion_id', 'safe', 'on'=>'search'),
+			array('id, nombre, descripcion, fecha_creacion, fecha_modificacion, institucion_id, entidad_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -50,6 +57,8 @@ class Entidad extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'entidad' => array(self::BELONGS_TO, 'Entidad', 'entidad_id'),
+			'entidads' => array(self::HAS_MANY, 'Entidad', 'entidad_id'),
 			'institucion' => array(self::BELONGS_TO, 'Institucion', 'institucion_id'),
 		);
 	}
@@ -66,6 +75,7 @@ class Entidad extends CActiveRecord
 			'fecha_creacion' => 'Fecha Creacion',
 			'fecha_modificacion' => 'Fecha Modificacion',
 			'institucion_id' => 'Institucion',
+			'entidad_id' => 'Entidad',
 		);
 	}
 
@@ -93,6 +103,7 @@ class Entidad extends CActiveRecord
 		$criteria->compare('fecha_creacion',$this->fecha_creacion,true);
 		$criteria->compare('fecha_modificacion',$this->fecha_modificacion,true);
 		$criteria->compare('institucion_id',$this->institucion_id);
+		$criteria->compare('entidad_id',$this->entidad_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -109,4 +120,31 @@ class Entidad extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        public function agregarEntidad($nombre,$descripcion,$fechaCreacion,$institucionId,$entidadId) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_institucion_agregar_entidad(:nombre,:descripcion,:fechaCreacion,:institucionId,:entidadId,@llave_id)");
+            $comando->bindParam(':nombre', $nombre);
+            $comando->bindParam(':descripcion', $descripcion);
+            $comando->bindParam(':fechaCreacion', $fechaCreacion);
+            $comando->bindParam(':institucionId', $institucionId);
+            $comando->bindParam(':entidadId', $entidadId);
+            $comando->execute();
+            $this->llaveIdEntidad = Yii::app()->db->createCommand("select @llave_id as result;")->queryScalar();
+            return $comando;
+        }
+        
+        public function modificarEntidad($id,$nombre,$descripcion,$fechaModificacion,$institucionId,$entidadId) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_institucion_actualizar_entidad(:id,:nombre,:descripcion,:fechaModificacion,:institucionId,:entidadId)");
+            $comando->bindParam(':id', $id);
+            $comando->bindParam(':nombre', $nombre);
+            $comando->bindParam(':descripcion', $descripcion);
+            $comando->bindParam(':fechaModificacion', $fechaModificacion);
+            $comando->bindParam(':institucionId', $institucionId);
+            $comando->bindParam(':entidadId', $entidadId);
+            $comando->execute();
+            return $comando;
+        }
+        
 }

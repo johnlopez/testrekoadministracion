@@ -32,21 +32,15 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'fecha_creacion'); ?>
-		<?php echo $form->textField($model,'fecha_creacion'); ?>
-		<?php echo $form->error($model,'fecha_creacion'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'fecha_modificacion'); ?>
-		<?php echo $form->textField($model,'fecha_modificacion'); ?>
-		<?php echo $form->error($model,'fecha_modificacion'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'institucion_id'); ?>
-		<?php echo $form->textField($model,'institucion_id'); ?>
+		<?php echo $form->dropDownList($model,'institucion_id', CHtml::listData(Institucion::model()->findAll(),'id' ,'nombre'),array('empty'=>'seleccionar institucion')); ?>
 		<?php echo $form->error($model,'institucion_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'entidad_id'); ?>
+		<?php echo $form->dropDownList($model,'entidad_id', CHtml::listData(Entidad::model()->findAll(),'id' ,'nombre'),array('empty'=>'seleccionar entidad')); ?>
+		<?php echo $form->error($model,'entidad_id'); ?>
 	</div>
 
 	<div class="row buttons">

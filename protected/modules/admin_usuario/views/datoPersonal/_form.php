@@ -92,12 +92,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'dato_personalcol'); ?>
-		<?php echo $form->textField($model,'dato_personalcol',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'dato_personalcol'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'comuna_personal'); ?>
 		<?php echo $form->textField($model,'comuna_personal',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'comuna_personal'); ?>
@@ -135,7 +129,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'usuario_id'); ?>
-		<?php echo $form->textField($model,'usuario_id'); ?>
+		<?php echo $form->dropDownList($model,'usuario_id', CHtml::listData(Usuario::model()->findAll(),'id' ,'usuario'),array('empty'=>'seleccionar usuario')); ?>
 		<?php echo $form->error($model,'usuario_id'); ?>
 	</div>
 

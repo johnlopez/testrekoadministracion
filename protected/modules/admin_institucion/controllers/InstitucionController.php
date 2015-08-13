@@ -70,8 +70,18 @@ class InstitucionController extends Controller
 		if(isset($_POST['Institucion']))
 		{
 			$model->attributes=$_POST['Institucion'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->agregarInstitucion(
+                                $model->nombre,
+                                $model->vision,
+                                $model->mision,
+                                $model->acreditada,
+                                $model->fecha_inicio_acreditacion,
+                                $model->fecha_termino_acreditacion,
+                                $model->descripcion,
+                                $model->fecha_creacion
+                        ))
+				
+                    $this->redirect(array('view','id'=>$model->llaveIdInstitucion));
 		}
 
 		$this->render('create',array(
@@ -94,8 +104,19 @@ class InstitucionController extends Controller
 		if(isset($_POST['Institucion']))
 		{
 			$model->attributes=$_POST['Institucion'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->modificarInstitucion(
+                                $model->id,
+                                $model->nombre,
+                                $model->vision,
+                                $model->mision,
+                                $model->acreditada,
+                                $model->fecha_inicio_acreditacion,
+                                $model->fecha_termino_acreditacion,
+                                $model->descripcion,
+                                $model->fecha_modificacion
+                        ))
+				
+                    $this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(
@@ -170,4 +191,5 @@ class InstitucionController extends Controller
 			Yii::app()->end();
 		}
 	}
+        
 }

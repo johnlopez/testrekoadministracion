@@ -45,7 +45,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'usuario_id'); ?>
-		<?php echo $form->textField($model,'usuario_id'); ?>
+		<?php echo $form->dropDownList($model,'usuario_id', CHtml::listData(Usuario::model()->findAll(),'id' ,'usuario'),array('empty'=>'seleccionar usuario')); ?>
 		<?php echo $form->error($model,'usuario_id'); ?>
 	</div>
 

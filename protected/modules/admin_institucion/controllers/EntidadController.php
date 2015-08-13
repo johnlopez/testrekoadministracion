@@ -28,7 +28,7 @@ class EntidadController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','admin'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -70,8 +70,15 @@ class EntidadController extends Controller
 		if(isset($_POST['Entidad']))
 		{
 			$model->attributes=$_POST['Entidad'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->agregarEntidad(
+                                $model->nombre,
+                                $model->descripcion,
+                                $model->fecha_creacion,
+                                $model->institucion_id,
+                                $model->entidad_id
+                        ))
+				
+                    $this->redirect(array('view','id'=>$model->llaveIdEntidad));
 		}
 
 		$this->render('create',array(
@@ -94,8 +101,17 @@ class EntidadController extends Controller
 		if(isset($_POST['Entidad']))
 		{
 			$model->attributes=$_POST['Entidad'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->modificarEntidad(
+                                $model->id,
+                                $model->nombre,
+                                $model->descripcion,
+                                $model->fecha_modificacion,
+                                $model->institucion_id,
+                                $model->entidad_id
+                                
+                        ))
+				
+                    $this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(

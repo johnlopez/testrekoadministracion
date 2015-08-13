@@ -99,7 +99,7 @@ class LogicaEstadoUsuario extends CActiveRecord
         
         public function agregarLogicaEstadoUsuario($estado) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_administracionusuario_agregar_logica_estado_usuario(:estado,@llave_id)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_agregar_logica_estado_usuario(:estado,@llave_id)");
             $comando->bindParam(':estado', $estado);
             $comando->execute();
             $this->llaveIdLogica = Yii::app()->db->createCommand("select @llave_id as result;")->queryScalar();
@@ -108,7 +108,7 @@ class LogicaEstadoUsuario extends CActiveRecord
         
         public function modificarLogicaEstadoUsuario($id,$estado) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_administracionusuario_agregar_logica_estado_usuario(:id,:estado)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_agregar_logica_estado_usuario(:id,:estado)");
             $comando->bindParam(':id', $id);
             $comando->bindParam(':estado', $estado);
             $comando->execute();

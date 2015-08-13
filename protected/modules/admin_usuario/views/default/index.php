@@ -1,17 +1,9 @@
-<?php
-/* @var $this DefaultController */
+<h3>Administración Usuarios</h3>
 
-$this->breadcrumbs=array(
-	$this->module->id,
-);
-?>
-<h1><?php echo $this->uniqueId . '/' . $this->action->id; ?></h1>
-
-<p>
-This is the view content for action "<?php echo $this->action->id; ?>".
-The action belongs to the controller "<?php echo get_class($this); ?>"
-in the "<?php echo $this->module->id; ?>" module.
-</p>
-<p>
-You may customize this page by editing <tt><?php echo __FILE__; ?></tt>
-</p>
+<?php echo CHtml::link('Dato Academico','admin_usuario/datoAcademico/admin')."<br>";?>
+<?php echo CHtml::link('Dato Laboral','admin_usuario/datoLaboral/admin')."<br>";?>
+<?php echo CHtml::link('Dato Login','admin_usuario/datoLogin/admin')."<br>";?>
+<?php echo CHtml::link('Dato Personal','admin_usuario/datoPersonal/admin')."<br>";?>
+<?php echo CHtml::link('Pais','admin_usuario/pais/admin')."<br>";?>
+<?php echo CHtml::link('Region','admin_usuario/region/admin')."<br>";?>
+<?php echo CHtml::link('Usuario','admin_usuario/usuario/admin');?>

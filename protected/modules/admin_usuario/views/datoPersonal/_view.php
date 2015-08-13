@@ -58,10 +58,6 @@
 	<?php echo CHtml::encode($data->celular_personal); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('dato_personalcol')); ?>:</b>
-	<?php echo CHtml::encode($data->dato_personalcol); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('comuna_personal')); ?>:</b>
 	<?php echo CHtml::encode($data->comuna_personal); ?>
 	<br />

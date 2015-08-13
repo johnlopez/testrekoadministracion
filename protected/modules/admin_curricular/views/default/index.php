@@ -1,17 +1,5 @@
-<?php
-/* @var $this DefaultController */
+<h3>Administración curricular</h3>
 
-$this->breadcrumbs=array(
-	$this->module->id,
-);
-?>
-<h1><?php echo $this->uniqueId . '/' . $this->action->id; ?></h1>
-
-<p>
-This is the view content for action "<?php echo $this->action->id; ?>".
-The action belongs to the controller "<?php echo get_class($this); ?>"
-in the "<?php echo $this->module->id; ?>" module.
-</p>
-<p>
-You may customize this page by editing <tt><?php echo __FILE__; ?></tt>
-</p>
+<?php echo CHtml::link('Programa academico', 'admin_curricular/programaAcademico/admin')."<br>";?>
+<?php echo CHtml::link('Modulo', 'admin_curricular/modulo/admin')."<br>";?>
+<?php echo CHtml::link('Sección', 'admin_curricular/seccion/admin');?>

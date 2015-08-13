@@ -28,7 +28,7 @@ class RegionController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','admin'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -76,7 +76,7 @@ class RegionController extends Controller
                                 $model->pais_id    
                             ))
 				
-                        $this->redirect(array('view','id' => $model->llaveIdRegion));
+                    $this->redirect(array('view','id' => $model->llaveIdRegion));
 		}
 
 		$this->render('create',array(
@@ -103,10 +103,10 @@ class RegionController extends Controller
                                 $model->id,
                                 $model->nombre,
                                 $model->codigo,
-                                $model->pais_id    
+                                $model->pais_id
                             ))
 				
-                        $this->redirect(array('view','id'=>$model->id));
+                    $this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(

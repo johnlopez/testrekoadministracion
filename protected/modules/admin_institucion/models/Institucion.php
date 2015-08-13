@@ -23,6 +23,9 @@ class Institucion extends CActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
+    
+        public $llaveIdInstitucion;
+        
 	public function tableName()
 	{
 		return 'institucion';
@@ -121,5 +124,36 @@ class Institucion extends CActiveRecord
 		return parent::model($className);
 	}
         
+        public function agregarInstitucion($nombre,$vision,$mision,$acreditada,$fechaInicioAcreditacion,$fechaTerminoAcreditacion,$descripcion,$fechaCreacion) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_institucion_agregar_institucion(:nuevo_nombre,:nuevo_vision,:nuevo_mision,:nuevo_acreditada,:nuevo_fecha_inicio_acreditacion,:nuevo_fecha_termino_acreditacion,:nuevo_descripcion,:nuevo_fecha_creacion,@llave_id)");
+            $comando->bindParam('nuevo_nombre', $nombre);
+            $comando->bindParam('nuevo_vision', $vision);
+            $comando->bindParam('nuevo_mision', $mision);
+            $comando->bindParam('nuevo_acreditada', $acreditada);
+            $comando->bindParam('nuevo_fecha_inicio_acreditacion', $fechaInicioAcreditacion);
+            $comando->bindParam('nuevo_fecha_termino_acreditacion', $fechaTerminoAcreditacion);
+            $comando->bindParam('nuevo_descripcion', $descripcion);
+            $comando->bindParam('nuevo_fecha_creacion', $fechaCreacion);
+            $comando->execute();
+            $this->llaveIdInstitucion = Yii::app()->db->createCommand("select @llave_id as result;")->queryScalar();
+            return $comando;
+        }
         
+        public function modificarInstitucion($id,$nombre,$vision,$mision,$acreditada,$fechaInicioAcreditacion,$fechaTerminoAcreditacion,$descripcion,$fechaModificacion) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_institucion_actualizar_institucion(:id,:nuevo_nombre,:nuevo_vision,:nuevo_mision,:nuevo_acreditada,:nuevo_fecha_inicio_acreditacion,:nuevo_fecha_termino_acreditacion,:nuevo_descripcion,:nuevo_fecha_modificacion)");
+            $comando->bindParam('id', $id);
+            $comando->bindParam('nuevo_nombre', $nombre);
+            $comando->bindParam('nuevo_vision', $vision);
+            $comando->bindParam('nuevo_mision', $mision);
+            $comando->bindParam('nuevo_acreditada', $acreditada);
+            $comando->bindParam('nuevo_fecha_inicio_acreditacion', $fechaInicioAcreditacion);
+            $comando->bindParam('nuevo_fecha_termino_acreditacion', $fechaTerminoAcreditacion);
+            $comando->bindParam('nuevo_descripcion', $descripcion);
+            $comando->bindParam('nuevo_fecha_modificacion', $fechaModificacion);
+            $comando->execute();
+            $this->llaveIdInstitucion = Yii::app()->db->createCommand("select @llave_id as result;")->queryScalar();
+            return $comando;
+        }        
 }

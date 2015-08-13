@@ -60,7 +60,7 @@ $('.search-form form').submit(function(){
                         'template' => '{asignar}{view}{delete}{update}',
                         'buttons' => array(
                                     'asignar' => array(
-                                            'label' => 'asignar',
+                                            'label' => 'asignar usuario',
                                             'imageUrl'=>Yii::app()->request->baseUrl.'/assets/9e5e8f07/gridview/asignar.png', //ruta icono para el botón
                                             'url'=>'Yii::app()->createUrl("admin_usuario/usuarioHasInstitucion/index",array("id" => $data->id) )', //url de la acción nueva
                                     ),

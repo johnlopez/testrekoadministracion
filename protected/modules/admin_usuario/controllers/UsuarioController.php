@@ -29,7 +29,7 @@ class UsuarioController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin'),
+				'actions'=>array('index','view','admin','importar'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -145,8 +145,32 @@ class UsuarioController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Usuario('search');
-		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET["excel"]))
+                {
+                    $model = Usuario::model()->findAll();
+                    $content = $this->renderPartial("excel",array("model"=>$model),true);
+                    Yii::app()->request->sendFile("test.xls",$content);
+                }
+                elseif (isset($_GET["csv"])) 
+                {
+                    $model = Usuario::model()->findAll();
+                    $content = $this->renderPartial("csv",array("model"=>$model),true);
+                    Yii::app()->request->sendFile("test.csv",$content);
+                }
+       
+                elseif(isset($_POST['Usuario'])){
+                    $model->attributes = $_POST['Usuario'];
+            
+                    if($model->validate()){
+                        $csvFile = CUploadedFile::getInstance($model,'file');  
+                        $tempLoc = $csvFile->getTempName(); 
+                        $model->cargarUsuarios(addslashes($tempLoc));
+                        $this->redirect(array("admin_usuario/admin"));
+                    }
+                }
+                        
+                $model = new Usuario('search');
+		$model->unsetAttributes();
 		if(isset($_GET['Usuario']))
 			$model->attributes=$_GET['Usuario'];
 
@@ -182,4 +206,25 @@ class UsuarioController extends Controller
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionImportar() {
+            
+//            $model = new Usuario();
+//        
+//            if(isset($_POST['Usuario'])){
+//                $model->attributes = $_POST['Usuario'];
+//            
+//                if($model->validate()){
+//                    $csvFile = CUploadedFile::getInstance($model,'file');  
+//                    $tempLoc = $csvFile->getTempName(); 
+//                    $model->cargarUsuarios(addslashes($tempLoc));
+//                    $this->redirect(array("../site/index"));
+//                    
+//                }
+//            }
+//        
+//        $this->render('importar',array('model' => $model));
+//    }
+        
+}
 }

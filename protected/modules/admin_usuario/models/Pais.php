@@ -108,7 +108,7 @@ class Pais extends CActiveRecord
         
         public function agregarPais($nombre,$codigo) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_administracionusuario_agregar_pais(:nombre,:codigo,@llave_id)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_agregar_pais(:nombre,:codigo,@llave_id)");
             $comando->bindParam(':nombre', $nombre);
             $comando->bindParam(':codigo', $codigo);
             $comando->execute();
@@ -118,7 +118,7 @@ class Pais extends CActiveRecord
         
         public function modificarPais($id,$nombre,$codigo) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_administracionusuario_actualizar_pais(:id,:nombre,:codigo)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_actualizar_pais(:id,:nombre,:codigo)");
             $comando->bindParam(':id', $id);
             $comando->bindParam(':nombre', $nombre);
             $comando->bindParam(':codigo', $codigo);
