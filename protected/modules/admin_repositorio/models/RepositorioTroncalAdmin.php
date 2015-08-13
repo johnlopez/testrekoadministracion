@@ -33,7 +33,6 @@ class RepositorioTroncalAdmin extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('modelo_aprendizaje_id', 'required'),
 			array('modelo_aprendizaje_id', 'numerical', 'integerOnly'=>true),
 			array('nombre, descripcion', 'length', 'max'=>45),
 			array('fecha_acceso, fecha_modificacion, fecha_creacion', 'safe'),
@@ -112,4 +111,12 @@ class RepositorioTroncalAdmin extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        public function asignarModeloAprendizajeRepositorioTroncalAdmin($nuevo_repositorio_id,$nuevo_modelo_id) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_repositorio_asignar_mod_aprendizaje_rep_troncal_admin(:nuevo_repositorio_id,:nuevo_modelo_id)");
+            $comando->bindParam(':nuevo_repositorio_id',$nuevo_repositorio_id);
+            $comando->bindParam(':nuevo_modelo_id',$nuevo_modelo_id );
+            $comando->execute();
+            return $comando;
+        }
 }

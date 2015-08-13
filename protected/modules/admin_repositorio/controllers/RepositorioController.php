@@ -1,6 +1,6 @@
 <?php
 
-class ModeloAprendizajeController extends Controller
+class RepositorioController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -24,16 +24,12 @@ class ModeloAprendizajeController extends Controller
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-//        public function accessRules()
-//	{
-//            return Yii::app()->Validar->validarAcceso();
-//	}
-        public function accessRules()
+	public function accessRules()
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','asignar'),
-				'users'=>array('@'),
+				'actions'=>array('index','view'),
+				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
@@ -41,7 +37,7 @@ class ModeloAprendizajeController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('@'),
+				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -66,14 +62,14 @@ class ModeloAprendizajeController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new ModeloAprendizaje;
+		$model=new Repositorio;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ModeloAprendizaje']))
+		if(isset($_POST['Repositorio']))
 		{
-			$model->attributes=$_POST['ModeloAprendizaje'];
+			$model->attributes=$_POST['Repositorio'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -95,9 +91,9 @@ class ModeloAprendizajeController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ModeloAprendizaje']))
+		if(isset($_POST['Repositorio']))
 		{
-			$model->attributes=$_POST['ModeloAprendizaje'];
+			$model->attributes=$_POST['Repositorio'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -126,7 +122,7 @@ class ModeloAprendizajeController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('ModeloAprendizaje');
+		$dataProvider=new CActiveDataProvider('Repositorio');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -137,10 +133,10 @@ class ModeloAprendizajeController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new ModeloAprendizaje('search');
+		$model=new Repositorio('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['ModeloAprendizaje']))
-			$model->attributes=$_GET['ModeloAprendizaje'];
+		if(isset($_GET['Repositorio']))
+			$model->attributes=$_GET['Repositorio'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -151,12 +147,12 @@ class ModeloAprendizajeController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return ModeloAprendizaje the loaded model
+	 * @return Repositorio the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=ModeloAprendizaje::model()->findByPk($id);
+		$model=Repositorio::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -164,11 +160,11 @@ class ModeloAprendizajeController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param ModeloAprendizaje $model the model to be validated
+	 * @param Repositorio $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='modelo-aprendizaje-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='repositorio-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

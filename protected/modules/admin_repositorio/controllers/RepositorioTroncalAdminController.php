@@ -24,12 +24,16 @@ class RepositorioTroncalAdminController extends Controller
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-	public function accessRules()
+//        public function accessRules()
+//	{
+//            return Yii::app()->Validar->validarAcceso();
+//	}
+        public function accessRules()
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
+				'actions'=>array('index','view','asignar','asignarmodeloaprendizaje'),
+				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
@@ -37,7 +41,7 @@ class RepositorioTroncalAdminController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -169,5 +173,35 @@ class RepositorioTroncalAdminController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+        
+        public function actionAsignarmodeloaprendizaje()
+	{  
+            $repositorio = new RepositorioTroncalAdmin();
+            $modeloaprendizaje = new ModeloAprendizaje();
+
+            $vmodeloaprendizaje = $modeloaprendizaje::model()->findAll();
+
+            if(isset($_GET['id'])) 
+            {                    
+                if(isset($_POST['ModeloAprendizaje']))
+                {
+                    $repositorio->asignarModeloAprendizajeRepositorioTroncalAdmin($_GET['id'], $_POST['ModeloAprendizaje']['id']);
+
+                    $model=new RepositorioTroncalAdmin('search');
+                    $model->unsetAttributes();  // clear any default values
+                    if(isset($_GET['RepositorioTroncalAdmin']))
+                            $model->attributes=$_GET['RepositorioTroncalAdmin'];
+
+                    $this->render('admin',array(
+                            'model'=>$model,
+                    ));
+                }
+                else
+                {                    
+                    $vrepositorio = $repositorio::model()->findByPk($_GET['id']);                    
+                    $this->render('asignarmodeloaprendizaje', array('vmodeloaprendizaje'=>$vmodeloaprendizaje,'modeloaprendizaje'=>$modeloaprendizaje,'vrepositorio'=>$vrepositorio));                    
+                }
+            }                
 	}
 }

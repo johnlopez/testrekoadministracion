@@ -32,7 +32,7 @@ class DefaultController extends Controller
 //	{
 //		return array(
 //			array('allow',  // allow all users to perform 'index' and 'view' actions
-//				'actions'=>array('view','asignar'),
+//				'actions'=>array('index','view','asignar'),
 //				'users'=>array('@'),
 //			),
 //			array('allow', // allow authenticated user to perform 'create' and 'update' actions

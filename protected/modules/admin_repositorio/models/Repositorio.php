@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "repositorio_local_admin".
+ * This is the model class for table "repositorio".
  *
- * The followings are the available columns in table 'repositorio_local_admin':
+ * The followings are the available columns in table 'repositorio':
  * @property integer $id
  * @property string $nombre
  * @property string $descripcion
@@ -11,18 +11,24 @@
  * @property string $fecha_modificacion
  * @property string $fecha_creacion
  * @property integer $modelo_aprendizaje_id
+ * @property integer $tipo_repositorio_id
+ * @property integer $repositorio_id
  *
  * The followings are the available model relations:
  * @property ModeloAprendizaje $modeloAprendizaje
+ * @property TipoRepositorio $tipoRepositorio
+ * @property Repositorio $repositorio
+ * @property Repositorio[] $repositorios
+ * @property Herramienta[] $herramientas
  */
-class RepositorioLocalAdmin extends CActiveRecord
+class Repositorio extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'repositorio_local_admin';
+		return 'repositorio';
 	}
 
 	/**
@@ -33,12 +39,12 @@ class RepositorioLocalAdmin extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('modelo_aprendizaje_id', 'numerical', 'integerOnly'=>true),
+			array('modelo_aprendizaje_id, tipo_repositorio_id, repositorio_id', 'numerical', 'integerOnly'=>true),
 			array('nombre, descripcion', 'length', 'max'=>45),
 			array('fecha_acceso, fecha_modificacion, fecha_creacion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre, descripcion, fecha_acceso, fecha_modificacion, fecha_creacion, modelo_aprendizaje_id', 'safe', 'on'=>'search'),
+			array('id, nombre, descripcion, fecha_acceso, fecha_modificacion, fecha_creacion, modelo_aprendizaje_id, tipo_repositorio_id, repositorio_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,6 +57,10 @@ class RepositorioLocalAdmin extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'modeloAprendizaje' => array(self::BELONGS_TO, 'ModeloAprendizaje', 'modelo_aprendizaje_id'),
+			'tipoRepositorio' => array(self::BELONGS_TO, 'TipoRepositorio', 'tipo_repositorio_id'),
+			'repositorio' => array(self::BELONGS_TO, 'Repositorio', 'repositorio_id'),
+			'repositorios' => array(self::HAS_MANY, 'Repositorio', 'repositorio_id'),
+			'herramientas' => array(self::MANY_MANY, 'Herramienta', 'repositorio_has_herramienta(repositorio_id, herramienta_id)'),
 		);
 	}
 
@@ -67,6 +77,8 @@ class RepositorioLocalAdmin extends CActiveRecord
 			'fecha_modificacion' => 'Fecha Modificacion',
 			'fecha_creacion' => 'Fecha Creacion',
 			'modelo_aprendizaje_id' => 'Modelo Aprendizaje',
+			'tipo_repositorio_id' => 'Tipo Repositorio',
+			'repositorio_id' => 'Repositorio',
 		);
 	}
 
@@ -95,6 +107,8 @@ class RepositorioLocalAdmin extends CActiveRecord
 		$criteria->compare('fecha_modificacion',$this->fecha_modificacion,true);
 		$criteria->compare('fecha_creacion',$this->fecha_creacion,true);
 		$criteria->compare('modelo_aprendizaje_id',$this->modelo_aprendizaje_id);
+		$criteria->compare('tipo_repositorio_id',$this->tipo_repositorio_id);
+		$criteria->compare('repositorio_id',$this->repositorio_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -105,19 +119,10 @@ class RepositorioLocalAdmin extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return RepositorioLocalAdmin the static model class
+	 * @return Repositorio the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
-        
-        public function asignarModeloAprendizajeRepositorioLocalAdmin($nuevo_repositorio_id,$nuevo_modelo_id) {
-            
-            $comando = Yii::app()->db->createCommand("CALL sp_admin_repositorio_asignar_mod_aprendizaje_rep_local_admin(:nuevo_repositorio_id,:nuevo_modelo_id)");
-            $comando->bindParam(':nuevo_repositorio_id',$nuevo_repositorio_id);
-            $comando->bindParam(':nuevo_modelo_id',$nuevo_modelo_id );
-            $comando->execute();
-            return $comando;
-        }
 }
