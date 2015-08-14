@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 3.4.10.1
 -- http://www.phpmyadmin.net
 --
@@ -6,7 +6,7 @@
 -- Tiempo de generación: 12-08-2015 a las 17:03:08
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
-
+SET foreign_key_checks = 0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 

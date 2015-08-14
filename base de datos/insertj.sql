@@ -6,7 +6,7 @@
 -- Tiempo de generación: 12-08-2015 a las 20:05:46
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
-
+SET foreign_key_checks = 0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- Volcado de datos para la tabla `authassignment_administrador`
 --
 
-INSERT INTO `authassignment_administrador` (`itemname`, `userid`, `bizrule`, `data`) VALUES
+INSERT IGNORE INTO `authassignment_administrador` (`itemname`, `userid`, `bizrule`, `data`) VALUES
 ('administracion_rol_administrador', '1', NULL, NULL),
 ('administracion_rol_usuario', '1', NULL, NULL),
 ('administracion_rol_usuario', '2', NULL, 'N;'),
@@ -38,7 +38,7 @@ INSERT INTO `authassignment_administrador` (`itemname`, `userid`, `bizrule`, `da
 -- Volcado de datos para la tabla `authassignment_usuario`
 --
 
-INSERT INTO `authassignment_usuario` (`itemname`, `userid`, `bizrule`, `data`) VALUES
+INSERT IGNORE INTO `authassignment_usuario` (`itemname`, `userid`, `bizrule`, `data`) VALUES
 ('aula', '1', NULL, NULL),
 ('aula', '2', NULL, NULL),
 ('aula', '3', NULL, NULL),
@@ -52,7 +52,7 @@ INSERT INTO `authassignment_usuario` (`itemname`, `userid`, `bizrule`, `data`) V
 -- Volcado de datos para la tabla `authitem_permiso_administrador`
 --
 
-INSERT INTO `authitem_permiso_administrador` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
+INSERT IGNORE INTO `authitem_permiso_administrador` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
 ('administracion_rol_administrador', 2, '', '', ''),
 ('administracion_rol_usuario', 2, NULL, NULL, NULL),
 ('administracion_usuario', 2, '', NULL, 'N;'),
@@ -73,7 +73,7 @@ INSERT INTO `authitem_permiso_administrador` (`name`, `type`, `description`, `bi
 -- Volcado de datos para la tabla `authitem_permiso_usuario`
 --
 
-INSERT INTO `authitem_permiso_usuario` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
+INSERT IGNORE INTO `authitem_permiso_usuario` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
 ('aula', 2, NULL, NULL, NULL),
 ('repositorio', 2, NULL, NULL, NULL);
 
@@ -81,7 +81,7 @@ INSERT INTO `authitem_permiso_usuario` (`name`, `type`, `description`, `bizrule`
 -- Volcado de datos para la tabla `controlador_administrador`
 --
 
-INSERT INTO `controlador_administrador` (`id`, `nombre`, `authitem_permiso_administrador_name`) VALUES
+INSERT IGNORE INTO `controlador_administrador` (`id`, `nombre`, `authitem_permiso_administrador_name`) VALUES
 (1, 'AuthitemPermisoAdministrador', 'admin_rol_administrador'),
 (2, 'ControladorAdministrador', 'admin_rol_administrador'),
 (3, 'Default', 'admin_rol_administrador'),
@@ -101,7 +101,7 @@ INSERT INTO `controlador_administrador` (`id`, `nombre`, `authitem_permiso_admin
 -- Volcado de datos para la tabla `controlador_usuario`
 --
 
-INSERT INTO `controlador_usuario` (`id`, `nombre`, `authitem_permiso_usuario_name`) VALUES
+INSERT IGNORE INTO `controlador_usuario` (`id`, `nombre`, `authitem_permiso_usuario_name`) VALUES
 (1, 'Aula', 'aula'),
 (2, 'Default', 'aula'),
 (3, 'Repositorio', 'repositorio'),
@@ -111,7 +111,7 @@ INSERT INTO `controlador_usuario` (`id`, `nombre`, `authitem_permiso_usuario_nam
 -- Volcado de datos para la tabla `icono_aplicacion_administrador`
 --
 
-INSERT INTO `icono_aplicacion_administrador` (`id`, `estilo`, `authitem_permiso_administrador_name`) VALUES
+INSERT IGNORE INTO `icono_aplicacion_administrador` (`id`, `estilo`, `authitem_permiso_administrador_name`) VALUES
 (1, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario_administrador";?>" >\n            <div class="tile-wide bg-teal fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-user"></span>\n                </div>\n                <span class="tile-label">\n                    <?php \n                        $pizza  = CHtml::encode(''administracion_usuario_administrador'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>\n                </span>\n            </div>\n        </a>', 'admin_usuario_administrador'),
 (2, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_rol_administrador";?>" >\n            <div class="tile bg-darkBlue fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-security"></span>\n                </div>\n                <span class="tile-label">            \n                    <?php \n                        $pizza  = CHtml::encode(''administracion_rol_administrador'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>                \n                </span>\n            </div>\n        </a>', 'admin_rol_administrador'),
 (3, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_rol_usuario";?>" >\n            <div class="tile bg-darkCyan fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-security"></span>\n                </div>\n                <span class="tile-label">            \n                    <?php \n                        $pizza  = CHtml::encode(''administracion_rol_usuario'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>                \n                </span>\n            </div>\n        </a>', 'admin_rol_usuario'),
@@ -128,7 +128,7 @@ INSERT INTO `icono_aplicacion_administrador` (`id`, `estilo`, `authitem_permiso_
 -- Volcado de datos para la tabla `modelo_aprendizaje`
 --
 
-INSERT INTO `modelo_aprendizaje` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`) VALUES
+INSERT IGNORE INTO `modelo_aprendizaje` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`) VALUES
 (1, 'autoaprendizaje', 'modelo de auto aprendizaje', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (2, 'e-learning', 'modelo de e-learning', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (3, 'aprendizaje grupal', 'descripcion aprendizaje grupal', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
@@ -137,7 +137,7 @@ INSERT INTO `modelo_aprendizaje` (`id`, `nombre`, `descripcion`, `fecha_acceso`,
 -- Volcado de datos para la tabla `privilegio_administrador`
 --
 
-INSERT INTO `privilegio_administrador` (`id`, `nombre`, `controlador_administrador_id`) VALUES
+INSERT IGNORE INTO `privilegio_administrador` (`id`, `nombre`, `controlador_administrador_id`) VALUES
 (1, 'index', 1),
 (2, 'view', 1),
 (3, 'admin', 1),
@@ -227,7 +227,7 @@ INSERT INTO `privilegio_administrador` (`id`, `nombre`, `controlador_administrad
 -- Volcado de datos para la tabla `privilegio_usuario`
 --
 
-INSERT INTO `privilegio_usuario` (`id`, `nombre`, `controlador_usuario_id`) VALUES
+INSERT IGNORE INTO `privilegio_usuario` (`id`, `nombre`, `controlador_usuario_id`) VALUES
 (1, 'index', 1),
 (2, 'view', 1),
 (3, 'admiin', 1),
@@ -257,7 +257,7 @@ INSERT INTO `privilegio_usuario` (`id`, `nombre`, `controlador_usuario_id`) VALU
 -- Volcado de datos para la tabla `repositorio_local_admin`
 --
 
-INSERT INTO `repositorio_local_admin` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `modelo_aprendizaje_id`) VALUES
+INSERT IGNORE INTO `repositorio_local_admin` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `modelo_aprendizaje_id`) VALUES
 (1, 'repositorio local francisco', 'descripcion repositorio local francisco', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3),
 (2, 'repositorio local marcelo', 'descripcion repositorio local marcelo', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
 (3, 'repositorio local patricio', 'descripcion repositorio local patricio', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2);
@@ -266,7 +266,7 @@ INSERT INTO `repositorio_local_admin` (`id`, `nombre`, `descripcion`, `fecha_acc
 -- Volcado de datos para la tabla `repositorio_troncal_admin`
 --
 
-INSERT INTO `repositorio_troncal_admin` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `modelo_aprendizaje_id`) VALUES
+INSERT IGNORE INTO `repositorio_troncal_admin` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `modelo_aprendizaje_id`) VALUES
 (1, 'repositorio diego', 'prueba repositorio diego', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2),
 (2, 'repositorio christian', 'prueba repositorio christian', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2);
 
@@ -274,7 +274,7 @@ INSERT INTO `repositorio_troncal_admin` (`id`, `nombre`, `descripcion`, `fecha_a
 -- Volcado de datos para la tabla `repositorio_troncal_app`
 --
 
-INSERT INTO `repositorio_troncal_app` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `modelo_aprendizaje_id`) VALUES
+INSERT IGNORE INTO `repositorio_troncal_app` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `modelo_aprendizaje_id`) VALUES
 (1, 'repositorio francisco', 'descripcion repositorio francisco', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3),
 (2, 'repositorio marcelo', 'descripcion repositorio marcelo', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
 (3, 'repositorio patricio', 'descripcion repositorio patricio', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2);
@@ -283,7 +283,7 @@ INSERT INTO `repositorio_troncal_app` (`id`, `nombre`, `descripcion`, `fecha_acc
 -- Volcado de datos para la tabla `rol_administrador`
 --
 
-INSERT INTO `rol_administrador` (`id`, `nombre`, `descripcion`) VALUES
+INSERT IGNORE INTO `rol_administrador` (`id`, `nombre`, `descripcion`) VALUES
 (1, 'superadministrador', NULL),
 (5, 'root', ''),
 (6, 'supervisor usuario', 'usuario y rol usuario');
@@ -292,7 +292,7 @@ INSERT INTO `rol_administrador` (`id`, `nombre`, `descripcion`) VALUES
 -- Volcado de datos para la tabla `rol_administrador_has_authitem_permiso_administrador`
 --
 
-INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_administrador_id`, `authitem_permiso_administrador_name`) VALUES
+INSERT IGNORE INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_administrador_id`, `authitem_permiso_administrador_name`) VALUES
 (1, 'administracion_rol_administrador'),
 (1, 'administracion_rol_usuario'),
 (1, 'administracion_usuario'),
@@ -316,7 +316,7 @@ INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_adminis
 -- Volcado de datos para la tabla `rol_administrador_has_privilegio_administrador`
 --
 
-INSERT INTO `rol_administrador_has_privilegio_administrador` (`rol_administrador_id`, `privilegio_administrador_id`) VALUES
+INSERT IGNORE INTO `rol_administrador_has_privilegio_administrador` (`rol_administrador_id`, `privilegio_administrador_id`) VALUES
 (1, 31),
 (1, 32),
 (1, 33),
@@ -447,7 +447,7 @@ INSERT INTO `rol_administrador_has_privilegio_administrador` (`rol_administrador
 -- Volcado de datos para la tabla `rol_usuario`
 --
 
-INSERT INTO `rol_usuario` (`id`, `nombre`, `descripcion`) VALUES
+INSERT IGNORE INTO `rol_usuario` (`id`, `nombre`, `descripcion`) VALUES
 (1, 'superusuario', 'rol superusuario'),
 (2, 'profesor', 'rol profesor'),
 (3, 'alumno', 'rol alumno');
@@ -456,7 +456,7 @@ INSERT INTO `rol_usuario` (`id`, `nombre`, `descripcion`) VALUES
 -- Volcado de datos para la tabla `rol_usuario_has_authitem_permiso_usuario`
 --
 
-INSERT INTO `rol_usuario_has_authitem_permiso_usuario` (`rol_usuario_id`, `authitem_permiso_usuario_name`) VALUES
+INSERT IGNORE INTO `rol_usuario_has_authitem_permiso_usuario` (`rol_usuario_id`, `authitem_permiso_usuario_name`) VALUES
 (1, 'aula'),
 (1, 'repositorio'),
 (2, 'aula'),
@@ -467,7 +467,7 @@ INSERT INTO `rol_usuario_has_authitem_permiso_usuario` (`rol_usuario_id`, `authi
 -- Volcado de datos para la tabla `tipo_herramienta`
 --
 
-INSERT INTO `tipo_herramienta` (`id`, `descripcion`) VALUES
+INSERT IGNORE INTO `tipo_herramienta` (`id`, `descripcion`) VALUES
 (1, 'autoevaluacion'),
 (2, 'archivo_recurso'),
 (3, 'contenido_libre'),
@@ -483,7 +483,7 @@ INSERT INTO `tipo_herramienta` (`id`, `descripcion`) VALUES
 -- Volcado de datos para la tabla `tipo_repositorio`
 --
 
-INSERT INTO `tipo_repositorio` (`id`, `descripcion`) VALUES
+INSERT IGNORE INTO `tipo_repositorio` (`id`, `descripcion`) VALUES
 (1, 'troncal_admin'),
 (2, 'local_admin'),
 (3, 'troncal_app'),
@@ -493,7 +493,7 @@ INSERT INTO `tipo_repositorio` (`id`, `descripcion`) VALUES
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`) VALUES
+INSERT IGNORE INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`) VALUES
 (1, 'creyes', '123', NULL, NULL, NULL),
 (2, 'francisco', '123', NULL, NULL, NULL),
 (3, 'victor', '123', NULL, NULL, NULL),
@@ -504,7 +504,7 @@ INSERT INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modifica
 -- Volcado de datos para la tabla `usuario_administrador`
 --
 
-INSERT INTO `usuario_administrador` (`id`, `usuario`, `clave`) VALUES
+INSERT IGNORE INTO `usuario_administrador` (`id`, `usuario`, `clave`) VALUES
 (1, 'creyes', '123'),
 (2, 'jlopez', '123'),
 (3, 'dmorales', '123');
@@ -513,7 +513,7 @@ INSERT INTO `usuario_administrador` (`id`, `usuario`, `clave`) VALUES
 -- Volcado de datos para la tabla `usuario_administrador_has_rol_administrador`
 --
 
-INSERT INTO `usuario_administrador_has_rol_administrador` (`usuario_administrador_id`, `rol_administrador_id`) VALUES
+INSERT IGNORE INTO `usuario_administrador_has_rol_administrador` (`usuario_administrador_id`, `rol_administrador_id`) VALUES
 (1, 1),
 (2, 6);
 
@@ -521,7 +521,7 @@ INSERT INTO `usuario_administrador_has_rol_administrador` (`usuario_administrado
 -- Volcado de datos para la tabla `usuario_has_rol_usuario`
 --
 
-INSERT INTO `usuario_has_rol_usuario` (`usuario_id`, `rol_usuario_id`) VALUES
+INSERT IGNORE INTO `usuario_has_rol_usuario` (`usuario_id`, `rol_usuario_id`) VALUES
 (1, 1),
 (4, 2),
 (5, 2),
