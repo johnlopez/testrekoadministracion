@@ -63,20 +63,24 @@ class EntidadController extends Controller
 	public function actionCreate()
 	{
 		$model=new Entidad;
+                $valorEntidad;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Entidad']))
 		{
+                        print_r($_POST['Entidad']);
+  
 			$model->attributes=$_POST['Entidad'];
 			if($model->agregarEntidad(
                                 $model->nombre,
                                 $model->descripcion,
                                 $model->fecha_creacion,
                                 $model->institucion_id,
-                                $model->entidad_id
+                                $model->entidad_id = $model->entidad_id ? $model->entidad_id : null
                         ))
+                           
 				
                     $this->redirect(array('view','id'=>$model->llaveIdEntidad));
 		}
@@ -107,7 +111,7 @@ class EntidadController extends Controller
                                 $model->descripcion,
                                 $model->fecha_modificacion,
                                 $model->institucion_id,
-                                $model->entidad_id
+                                $model->entidad_id = $model->entidad_id ? $model->entidad_id : null
                                 
                         ))
 				
