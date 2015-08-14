@@ -9,6 +9,6 @@ $this->breadcrumbs=array(
 
 <?php $this->widget('zii.widgets.CMenu',array(
         'items'=>array(
-                array('label'=>'usuario_administrador', 'url'=>array('/administracion_usuario_administrador/usuarioadministrador/index')),		
+                array('label'=>'usuario_administrador', 'url'=>array('/admin_usuario_administrador/usuarioadministrador/index')),		
         ),
 )); ?>

@@ -31570,3 +31570,29 @@ Stack trace:
 #3 {main}
 REQUEST_URI=/testrekoadministracion/themes/metroui-bootstrap/favicon.ico
 ---
+2015/08/14 17:34:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/
+---
+2015/08/14 17:35:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion/escritorio_administrador/escritorioadministrador/localhost/localhost/localhost/localhost/localhost/testreko".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/localhost/localhost/localhost/localhost/localhost/testreko
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/localhost/localhost/localhost/localhost/testreko
+---
+2015/08/14 17:51:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/
+---
