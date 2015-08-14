@@ -160,7 +160,7 @@ class Usuario extends CActiveRecord
                     INTO TABLE usuario
                     FIELDS TERMINATED BY ','
                     LINES TERMINATED BY '\r\n'  
-                    (usuario,clave)"); 
+                    (usuario,clave,fecha_acceso,fecha_modificacion,fecha_creacion)"); 
             
             $comando->execute();
         }

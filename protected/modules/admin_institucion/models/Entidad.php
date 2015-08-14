@@ -39,13 +39,14 @@ class Entidad extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('institucion_id, entidad_id', 'required'),
+			array('institucion_id', 'required'),
 			array('institucion_id, entidad_id', 'numerical', 'integerOnly'=>true),
 			array('nombre, descripcion', 'length', 'max'=>45),
 			array('fecha_creacion, fecha_modificacion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, nombre, descripcion, fecha_creacion, fecha_modificacion, institucion_id, entidad_id', 'safe', 'on'=>'search'),
+                        array('entidad_id','default','setOnEmpty' => true, 'value' => NULL),
 		);
 	}
 

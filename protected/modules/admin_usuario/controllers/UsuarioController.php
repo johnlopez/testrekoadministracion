@@ -157,22 +157,23 @@ class UsuarioController extends Controller
                     $content = $this->renderPartial("csv",array("model"=>$model),true);
                     Yii::app()->request->sendFile("test.csv",$content);
                 }
-       
-                elseif(isset($_POST['Usuario'])){
+                     
+                $model = new Usuario('search');
+		$model->unsetAttributes();
+		if(isset($_GET['Usuario']))
+			$model->attributes=$_GET['Usuario'];
+                
+                
+                  elseif(isset($_POST['Usuario'])){
                     $model->attributes = $_POST['Usuario'];
             
                     if($model->validate()){
                         $csvFile = CUploadedFile::getInstance($model,'file');  
                         $tempLoc = $csvFile->getTempName(); 
                         $model->cargarUsuarios(addslashes($tempLoc));
-                        $this->redirect(array("admin_usuario/admin"));
+                        $this->redirect(array("admin"));
                     }
                 }
-                        
-                $model = new Usuario('search');
-		$model->unsetAttributes();
-		if(isset($_GET['Usuario']))
-			$model->attributes=$_GET['Usuario'];
 
 		$this->render('admin',array(
 			'model'=>$model,
