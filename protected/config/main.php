@@ -1,4 +1,4 @@
-<?php
+ <?php
  Yii::setPathOfAlias('bootstrap',dirname(__FILE__).'/../extensions/bootstrap');
 
 // uncomment the following to define a path alias
