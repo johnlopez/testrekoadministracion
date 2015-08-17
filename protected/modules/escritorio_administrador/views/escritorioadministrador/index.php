@@ -11,15 +11,15 @@
     <span class="tile-group-title">Usuarios y Roles</span>
     <div class="tile-container">
         <?php foreach ($vpermiso as $p): ?>
-            <?php if( $p['name'] == 'admin_usuario_administrador') :?>
-                <a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario_administrador";?>" >
-                    <div class="tile-wide bg-teal fg-white" data-role="tile">
+            <?php if( $p['name'] == 'admin_usuario') :?>
+                <a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario";?>" >
+                    <div class="tile-wide bg-darkGreen fg-white" data-role="tile">
                         <div class="tile-content iconic">
-                            <span class="icon mif-user"></span>
+                            <span class="icon mif-users"></span>
                         </div>
                         <span class="tile-label">
                             <?php 
-                                $pizza  = CHtml::encode('administracion_usuario_administrador');
+                                $pizza  = CHtml::encode('administracion_usuario');
                                 $porciones = explode("_", $pizza);
                                 foreach ($porciones as $p)
                                 echo $p." "; // porción
@@ -68,15 +68,15 @@
             <?php endif;?>
         <?php endforeach; ?>
         <?php foreach ($vpermiso as $p): ?>
-            <?php if( $p['name'] == 'admin_usuario') :?>
-                <a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario";?>" >
-                    <div class="tile-wide bg-darkGreen fg-white" data-role="tile">
+            <?php if( $p['name'] == 'admin_usuario_administrador') :?>
+                <a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario_administrador";?>" >
+                    <div class="tile-wide bg-teal fg-white" data-role="tile">
                         <div class="tile-content iconic">
-                            <span class="icon mif-users"></span>
+                            <span class="icon mif-user"></span>
                         </div>
                         <span class="tile-label">
                             <?php 
-                                $pizza  = CHtml::encode('administracion_usuario');
+                                $pizza  = CHtml::encode('administracion_usuario_administrador');
                                 $porciones = explode("_", $pizza);
                                 foreach ($porciones as $p)
                                 echo $p." "; // porción
@@ -86,6 +86,7 @@
                 </a>
             <?php endif;?>
         <?php endforeach; ?>
+        
     </div>
 </div>
 <?php endif;?>

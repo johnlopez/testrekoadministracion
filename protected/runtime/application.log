@@ -32256,3 +32256,129 @@ Stack trace:
 #3 {main}
 REQUEST_URI=/testrekoadministracion/
 ---
+2015/08/14 19:50:46 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`testreko`.`repositorio_troncal_admin`, CONSTRAINT `fk_repositorio_troncal_admin_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ). The SQL statement executed was: CALL sp_admin_repositorio_asignar_mod_aprendizaje_rep_troncal_admin(:nuevo_repositorio_id,:nuevo_modelo_id).
+in C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\models\RepositorioTroncalAdmin.php (119)
+in C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriotroncaladminController.php (189)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/08/14 19:50:46 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`testreko`.`repositorio_troncal_admin`, CONSTRAINT `fk_repositorio_troncal_admin_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ). The SQL statement executed was: CALL sp_admin_repositorio_asignar_mod_aprendizaje_rep_troncal_admin(:nuevo_repositorio_id,:nuevo_modelo_id)' in C:\wamp\www\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\models\RepositorioTroncalAdmin.php(119): CDbCommand->execute()
+#1 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriotroncaladminController.php(189): RepositorioTroncalAdmin->asignarModeloAprendizajeRepositorioTroncalAdmin('1', '')
+#2 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RepositorioTroncalAdminController->actionAsignarmodeloaprendizaje()
+#3 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignarmodeloap...')
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#13 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#14 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriotroncaladmin/asignarmodeloaprendizaje/id/1
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriotroncaladmin/asignarmodeloaprendizaje/id/1
+---
+2015/08/14 19:51:10 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`testreko`.`repositorio_troncal_admin`, CONSTRAINT `fk_repositorio_troncal_admin_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ). The SQL statement executed was: CALL sp_admin_repositorio_asignar_mod_aprendizaje_rep_troncal_admin(:nuevo_repositorio_id,:nuevo_modelo_id).
+in C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\models\RepositorioTroncalAdmin.php (119)
+in C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriotroncaladminController.php (189)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/08/14 19:51:10 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`testreko`.`repositorio_troncal_admin`, CONSTRAINT `fk_repositorio_troncal_admin_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ). The SQL statement executed was: CALL sp_admin_repositorio_asignar_mod_aprendizaje_rep_troncal_admin(:nuevo_repositorio_id,:nuevo_modelo_id)' in C:\wamp\www\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\models\RepositorioTroncalAdmin.php(119): CDbCommand->execute()
+#1 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriotroncaladminController.php(189): RepositorioTroncalAdmin->asignarModeloAprendizajeRepositorioTroncalAdmin('1', '')
+#2 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RepositorioTroncalAdminController->actionAsignarmodeloaprendizaje()
+#3 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignarmodeloap...')
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#13 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#14 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriotroncaladmin/asignarmodeloaprendizaje/id/1
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriotroncaladmin/asignarmodeloaprendizaje/id/1
+---
+2015/08/17 16:00:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui-bootstrap/favicon.ico".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui-...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui-bootstrap/favicon.ico
+---
+2015/08/17 18:10:25 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_rol_admin...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/admin_rol_administrador/controladoradministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_rol_administrador
+---
+2015/08/17 18:10:40 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_rol_admin...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/admin_rol_administrador/authitempermisoadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_rol_administrador
+---
+2015/08/17 18:13:33 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_rol_admin...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/admin_rol_administrador/authitempermisoadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_rol_administrador
+---
+2015/08/17 18:17:36 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_rol_usuar...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/admin_rol_usuario/authitempermisousuario/index
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_rol_usuario
+---

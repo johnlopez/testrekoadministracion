@@ -132,18 +132,7 @@
                             <div class="brand padding10">
                                 <h3 class="fg-white">Adverts</h3>
                                 <!-- Google adsense block -->
-                                <div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1632668592742327" data-ad-slot="8347181909" data-ad-format="auto"></ins></div>
-                                <script>
-                                    (adsbygoogle = window.adsbygoogle || []).push({});
-                                </script>
-                                <!-- End of gad block -->
-                                <!-- Google adsense block -->
-                                <br />
-                                <br />
-                                <div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1632668592742327" data-ad-slot="8347181909" data-ad-format="auto"></ins></div>
-                                <script>
-                                    (adsbygoogle = window.adsbygoogle || []).push({});
-                                </script>
+                                
                                 <!-- End of gad block -->
                             </div>
                         </div>
