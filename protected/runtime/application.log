@@ -32230,6 +32230,7 @@ Stack trace:
 REQUEST_URI=/testrekoadministracion/themes/metroui-bootstrap/favicon.ico
 >>>>>>> 746ae4135e01fed285d7cad779edc870e0a8488d
 ---
+<<<<<<< HEAD
 2015/08/14 16:21:09 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`testreko`.`entidad`, CONSTRAINT `fk_entidad_entidad1` FOREIGN KEY (`entidad_id`) REFERENCES `entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION). The SQL statement executed was: CALL sp_admin_institucion_agregar_entidad(:nombre,:descripcion,:fechaCreacion,:institucionId,:entidadId,@llave_id).
 in C:\wamp\www\testrekoadministracion\protected\modules\admin_institucion\models\Entidad.php (133)
 in C:\wamp\www\testrekoadministracion\protected\modules\admin_institucion\controllers\EntidadController.php (79)
@@ -32239,6 +32240,43 @@ Stack trace:
 #0 C:\wamp\www\testrekoadministracion\protected\modules\admin_institucion\models\Entidad.php(133): CDbCommand->execute()
 #1 C:\wamp\www\testrekoadministracion\protected\modules\admin_institucion\controllers\EntidadController.php(79): Entidad->agregarEntidad('XCKLXJKLJ', 'XKLJCSLKJD', NULL, '1', '')
 #2 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): EntidadController->actionCreate()
+=======
+2015/08/14 17:34:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion/escritorio_administrador/escritorioadministrador/index".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/
+---
+2015/08/14 17:35:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion/escritorio_administrador/escritorioadministrador/localhost/localhost/localhost/localhost/localhost/testreko".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion/...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/escritorio_administrador/escritorioadministrador/localhost/localhost/localhost/localhost/localhost/testreko
+HTTP_REFERER=http://localhost/testrekoadministracion/escritorio_administrador/escritorioadministrador/localhost/localhost/localhost/localhost/testreko
+---
+2015/08/14 17:51:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "administracion".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('administracion')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/
+---
+2015/08/14 19:50:46 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`testreko`.`repositorio_troncal_admin`, CONSTRAINT `fk_repositorio_troncal_admin_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ). The SQL statement executed was: CALL sp_admin_repositorio_asignar_mod_aprendizaje_rep_troncal_admin(:nuevo_repositorio_id,:nuevo_modelo_id).
+in C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\models\RepositorioTroncalAdmin.php (119)
+in C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriotroncaladminController.php (189)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/08/14 19:50:46 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`testreko`.`repositorio_troncal_admin`, CONSTRAINT `fk_repositorio_troncal_admin_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ). The SQL statement executed was: CALL sp_admin_repositorio_asignar_mod_aprendizaje_rep_troncal_admin(:nuevo_repositorio_id,:nuevo_modelo_id)' in C:\wamp\www\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\models\RepositorioTroncalAdmin.php(119): CDbCommand->execute()
+#1 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriotroncaladminController.php(189): RepositorioTroncalAdmin->asignarModeloAprendizajeRepositorioTroncalAdmin('1', '')
+#2 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RepositorioTroncalAdminController->actionAsignarmodeloaprendizaje()
+>>>>>>> 3860e8c3ba7825acf3a21b5317dc0ebb1ad6318f
 #3 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
 #4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
 #5 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
@@ -32247,6 +32285,7 @@ Stack trace:
 #8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
 #9 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
 #10 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+<<<<<<< HEAD
 #11 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('create')
 #12 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_instituci...')
 #13 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
@@ -32284,6 +32323,25 @@ Stack trace:
 #0 C:\wamp\www\testrekoadministracion\protected\modules\admin_institucion\models\Entidad.php(133): CDbCommand->execute()
 #1 C:\wamp\www\testrekoadministracion\protected\modules\admin_institucion\controllers\EntidadController.php(86): Entidad->agregarEntidad('dfdfdfdsf', 'sdfdfdsfdsf', NULL, '1', '')
 #2 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): EntidadController->actionCreate()
+=======
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignarmodeloap...')
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#13 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#14 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriotroncaladmin/asignarmodeloaprendizaje/id/1
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriotroncaladmin/asignarmodeloaprendizaje/id/1
+---
+2015/08/14 19:51:10 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`testreko`.`repositorio_troncal_admin`, CONSTRAINT `fk_repositorio_troncal_admin_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ). The SQL statement executed was: CALL sp_admin_repositorio_asignar_mod_aprendizaje_rep_troncal_admin(:nuevo_repositorio_id,:nuevo_modelo_id).
+in C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\models\RepositorioTroncalAdmin.php (119)
+in C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriotroncaladminController.php (189)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/08/14 19:51:10 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`testreko`.`repositorio_troncal_admin`, CONSTRAINT `fk_repositorio_troncal_admin_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ). The SQL statement executed was: CALL sp_admin_repositorio_asignar_mod_aprendizaje_rep_troncal_admin(:nuevo_repositorio_id,:nuevo_modelo_id)' in C:\wamp\www\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\models\RepositorioTroncalAdmin.php(119): CDbCommand->execute()
+#1 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriotroncaladminController.php(189): RepositorioTroncalAdmin->asignarModeloAprendizajeRepositorioTroncalAdmin('1', '')
+#2 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RepositorioTroncalAdminController->actionAsignarmodeloaprendizaje()
+>>>>>>> 3860e8c3ba7825acf3a21b5317dc0ebb1ad6318f
 #3 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
 #4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
 #5 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
@@ -32292,6 +32350,7 @@ Stack trace:
 #8 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
 #9 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
 #10 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+<<<<<<< HEAD
 #11 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('create')
 #12 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_instituci...')
 #13 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
@@ -32387,15 +32446,31 @@ REQUEST_URI=/testrekoadministracion/admin_institucion/entidad/update/id/4
 HTTP_REFERER=http://localhost/testrekoadministracion/admin_institucion/entidad/update/id/4
 ---
 2015/08/17 11:16:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui-bootstrap/favicon.ico".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+=======
+#11 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignarmodeloap...')
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#13 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#14 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriotroncaladmin/asignarmodeloaprendizaje/id/1
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriotroncaladmin/asignarmodeloaprendizaje/id/1
+---
+2015/08/17 16:00:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui-bootstrap/favicon.ico".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+>>>>>>> 3860e8c3ba7825acf3a21b5317dc0ebb1ad6318f
 Stack trace:
 #0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui-...')
 #1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
 #2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
 #3 {main}
 REQUEST_URI=/testrekoadministracion/themes/metroui-bootstrap/favicon.ico
+<<<<<<< HEAD
 HTTP_REFERER=http://localhost/testrekoadministracion/
 ---
 2015/08/17 11:28:50 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+=======
+---
+2015/08/17 18:10:25 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+>>>>>>> 3860e8c3ba7825acf3a21b5317dc0ebb1ad6318f
 Stack trace:
 #0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
 #1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
@@ -32404,6 +32479,7 @@ Stack trace:
 #4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
 #5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
 #6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+<<<<<<< HEAD
 #7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('delete')
 #8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_instituci...')
 #9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
@@ -32413,6 +32489,17 @@ REQUEST_URI=/testrekoadministracion/admin_institucion/entidad/delete/id/2
 HTTP_REFERER=http://localhost/testrekoadministracion/admin_institucion/entidad/admin
 ---
 2015/08/17 11:42:39 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+=======
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_rol_admin...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/admin_rol_administrador/controladoradministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_rol_administrador
+---
+2015/08/17 18:10:40 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+>>>>>>> 3860e8c3ba7825acf3a21b5317dc0ebb1ad6318f
 Stack trace:
 #0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
 #1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
@@ -32421,6 +32508,7 @@ Stack trace:
 #4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
 #5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
 #6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+<<<<<<< HEAD
 #7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('admin')
 #8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_usuario/l...')
 #9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
@@ -32448,6 +32536,17 @@ REQUEST_URI=/testrekoadministracion/admin_usuario/logicaestadousuario/delete/id/
 HTTP_REFERER=http://localhost/testrekoadministracion/admin_usuario/logicaestadousuario/admin
 ---
 2015/08/17 11:45:52 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+=======
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_rol_admin...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/admin_rol_administrador/authitempermisoadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_rol_administrador
+---
+2015/08/17 18:13:33 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+>>>>>>> 3860e8c3ba7825acf3a21b5317dc0ebb1ad6318f
 Stack trace:
 #0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
 #1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
@@ -32456,6 +32555,7 @@ Stack trace:
 #4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
 #5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
 #6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+<<<<<<< HEAD
 #7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('delete')
 #8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_usuario/l...')
 #9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
@@ -32465,6 +32565,17 @@ REQUEST_URI=/testrekoadministracion/admin_usuario/logicaestadousuario/delete/id/
 HTTP_REFERER=http://localhost/testrekoadministracion/admin_usuario/logicaestadousuario/admin
 ---
 2015/08/17 11:47:35 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+=======
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_rol_admin...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/admin_rol_administrador/authitempermisoadministrador/index
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_rol_administrador
+---
+2015/08/17 18:17:36 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+>>>>>>> 3860e8c3ba7825acf3a21b5317dc0ebb1ad6318f
 Stack trace:
 #0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
 #1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
@@ -32473,6 +32584,7 @@ Stack trace:
 #4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
 #5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
 #6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+<<<<<<< HEAD
 #7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('delete')
 #8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_usuario/l...')
 #9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
@@ -32571,6 +32683,26 @@ HTTP_REFERER=http://localhost/testrekoadministracion/admin_usuario/usuario/admin
 in C:\wamp\www\testrekoadministracion\protected\modules\admin_usuario\controllers\UsuarioController.php (73)
 in C:\wamp\www\testrekoadministracion\index.php (13)
 2015/08/17 16:35:30 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+=======
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_rol_usuar...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/admin_rol_usuario/authitempermisousuario/index
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_rol_usuario
+---
+2015/08/18 15:52:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin_repositorio/repositoriomaster/create".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriomaster/create
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriomaster
+---
+2015/08/18 18:28:41 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+>>>>>>> 3860e8c3ba7825acf3a21b5317dc0ebb1ad6318f
 Stack trace:
 #0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
 #1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
@@ -32579,6 +32711,7 @@ Stack trace:
 #4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
 #5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
 #6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+<<<<<<< HEAD
 #7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('delete')
 #8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_usuario/u...')
 #9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
@@ -34398,3 +34531,381 @@ Stack trace:
 REQUEST_URI=/testrekoadministracion/admin_usuario/estadousuario/index2/id/1
 in C:\wamp\www\testrekoadministracion\protected\modules\admin_usuario\controllers\EstadousuarioController.php (90)
 in C:\wamp\www\testrekoadministracion\index.php (13)
+=======
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/tiporepositoriomaster/admin
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/tiporepositoriomaster/index
+---
+2015/08/18 18:29:24 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\wamp\www\yii\framework\web\CController.php:1118
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterPostOnly(Object(CFilterChain))
+#1 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('delete')
+#9 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#10 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#11 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/tiporepositoriomaster/delete/id/3
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/tiporepositoriomaster/admin
+---
+2015/08/18 18:29:36 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\wamp\www\yii\framework\web\CController.php:1118
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterPostOnly(Object(CFilterChain))
+#1 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('delete')
+#9 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#10 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#11 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/tiporepositoriomaster/delete/id/3
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/tiporepositoriomaster/admin
+---
+2015/08/18 18:29:47 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\wamp\www\yii\framework\web\CController.php:1118
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterPostOnly(Object(CFilterChain))
+#1 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('delete')
+#9 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#10 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#11 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/tiporepositoriomaster/delete/id/3
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/tiporepositoriomaster/admin
+---
+2015/08/18 18:29:58 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\wamp\www\yii\framework\web\CController.php:1118
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterPostOnly(Object(CFilterChain))
+#1 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('delete')
+#9 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#10 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#11 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/tiporepositoriomaster/delete/id/4
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/tiporepositoriomaster/admin
+---
+2015/08/18 18:30:20 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\wamp\www\yii\framework\web\CController.php:1118
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterPostOnly(Object(CFilterChain))
+#1 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('delete')
+#9 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#10 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#11 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/tiporepositoriomaster/delete/id/3
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/tiporepositoriomaster/admin?TipoRepositorioMaster%5Bid%5D=3&TipoRepositorioMaster%5Bdescripcion%5D=&yt0=Search
+---
+2015/08/18 18:38:28 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriomaster/admin
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriomaster/create
+---
+2015/08/18 18:44:54 [error] [exception.CException] exception 'CException' with message 'Property "RepositorioMaster.1" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('1')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('1')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2451): CHtml::resolveValue(Object(RepositorioMaster), 1)
+#3 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1788): CHtml::activeInputField('hidden', Object(RepositorioMaster), 1, Array)
+#4 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(823): CHtml::activeHiddenField(Object(RepositorioMaster), 1, Array)
+#5 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\views\repositoriomaster\_form.php(72): CActiveForm->hiddenField(Object(RepositorioMaster), 1, Array)
+#6 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#8 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#9 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\views\repositoriomaster\create.php(18): CController->renderPartial('_form', Array)
+#10 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#12 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('create', Array, true)
+#14 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriomasterController.php(79): CController->render('create', Array)
+#15 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RepositoriomasterController->actionCreate()
+#16 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#17 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#18 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#19 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#20 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#21 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#22 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#23 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('create')
+#25 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#26 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#27 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#28 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriomaster/create
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriomaster/admin
+---
+2015/08/18 18:44:55 [error] [exception.CException] exception 'CException' with message 'Property "RepositorioMaster.1" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('1')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('1')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2451): CHtml::resolveValue(Object(RepositorioMaster), 1)
+#3 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1788): CHtml::activeInputField('hidden', Object(RepositorioMaster), 1, Array)
+#4 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(823): CHtml::activeHiddenField(Object(RepositorioMaster), 1, Array)
+#5 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\views\repositoriomaster\_form.php(72): CActiveForm->hiddenField(Object(RepositorioMaster), 1, Array)
+#6 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#8 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#9 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\views\repositoriomaster\create.php(18): CController->renderPartial('_form', Array)
+#10 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#12 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('create', Array, true)
+#14 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriomasterController.php(79): CController->render('create', Array)
+#15 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RepositoriomasterController->actionCreate()
+#16 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#17 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#18 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#19 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#20 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#21 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#22 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#23 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('create')
+#25 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#26 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#27 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#28 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriomaster/create
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriomaster/admin
+---
+2015/08/18 18:45:03 [error] [exception.CException] exception 'CException' with message 'Property "RepositorioMaster.1" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('1')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('1')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2451): CHtml::resolveValue(Object(RepositorioMaster), 1)
+#3 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1788): CHtml::activeInputField('hidden', Object(RepositorioMaster), 1, Array)
+#4 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(823): CHtml::activeHiddenField(Object(RepositorioMaster), 1, Array)
+#5 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\views\repositoriomaster\_form.php(72): CActiveForm->hiddenField(Object(RepositorioMaster), 1, Array)
+#6 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#8 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#9 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\views\repositoriomaster\create.php(18): CController->renderPartial('_form', Array)
+#10 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#12 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('create', Array, true)
+#14 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriomasterController.php(79): CController->render('create', Array)
+#15 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RepositoriomasterController->actionCreate()
+#16 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#17 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#18 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#19 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#20 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#21 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#22 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#23 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('create')
+#25 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#26 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#27 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#28 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriomaster/create
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriomaster
+---
+2015/08/18 18:45:07 [error] [exception.CException] exception 'CException' with message 'Property "RepositorioMaster.1" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('1')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('1')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2451): CHtml::resolveValue(Object(RepositorioMaster), 1)
+#3 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1788): CHtml::activeInputField('hidden', Object(RepositorioMaster), 1, Array)
+#4 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(823): CHtml::activeHiddenField(Object(RepositorioMaster), 1, Array)
+#5 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\views\repositoriomaster\_form.php(72): CActiveForm->hiddenField(Object(RepositorioMaster), 1, Array)
+#6 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#8 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#9 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\views\repositoriomaster\create.php(18): CController->renderPartial('_form', Array)
+#10 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#12 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('create', Array, true)
+#14 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriomasterController.php(79): CController->render('create', Array)
+#15 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RepositoriomasterController->actionCreate()
+#16 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#17 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#18 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#19 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#20 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#21 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#22 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#23 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('create')
+#25 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#26 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#27 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#28 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriomaster/create
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriomaster
+---
+2015/08/18 18:45:15 [error] [exception.CException] exception 'CException' with message 'Property "RepositorioMaster.1" is not defined.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('1')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('1')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2451): CHtml::resolveValue(Object(RepositorioMaster), 1)
+#3 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1788): CHtml::activeInputField('hidden', Object(RepositorioMaster), 1, Array)
+#4 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(823): CHtml::activeHiddenField(Object(RepositorioMaster), 1, Array)
+#5 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\views\repositoriomaster\_form.php(72): CActiveForm->hiddenField(Object(RepositorioMaster), 1, Array)
+#6 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#8 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#9 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\views\repositoriomaster\create.php(18): CController->renderPartial('_form', Array)
+#10 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\tes...')
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\tes...', Array, true)
+#12 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\tes...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('create', Array, true)
+#14 C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriomasterController.php(79): CController->render('create', Array)
+#15 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): RepositoriomasterController->actionCreate()
+#16 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#17 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#18 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#19 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#20 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#21 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#22 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#23 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('create')
+#25 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#26 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#27 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#28 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriomaster/create
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriomaster
+---
+2015/08/18 18:48:41 [warning] [application] Failed to set unsafe attribute "codDepartamento" of "RepositorioMaster".
+in C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriomasterController.php (72)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/08/18 19:06:35 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\wamp\www\yii\framework\web\CController.php:1118
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterPostOnly(Object(CFilterChain))
+#1 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('delete')
+#9 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#10 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#11 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriomaster/delete/id/2
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriomaster/admin
+---
+2015/08/18 19:26:29 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\wamp\www\yii\framework\web\CController.php:1118
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterPostOnly(Object(CFilterChain))
+#1 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('delete')
+#9 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#10 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#11 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriomaster/delete/id/1
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriomaster/admin
+---
+2015/08/18 19:35:04 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/modeloaprendizajemaster/admin
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/modeloaprendizajemaster/view/id/1
+---
+2015/08/18 19:54:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "repositorio/repositoriotroncalapp/asignarmodeloaprendizaje/id/1".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('repositorio/rep...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/repositorio/repositoriotroncalapp/asignarmodeloaprendizaje/id/1
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriomaster/admin
+---
+2015/08/18 19:55:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "repositorio/repositoriomaster/asignarmodeloaprendizajemaster/id/1".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('repositorio/rep...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/repositorio/repositoriomaster/asignarmodeloaprendizajemaster/id/1
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriomaster/admin
+---
+2015/08/18 19:56:23 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('asignarmodeloap...')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin_repositor...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriomaster/asignarmodeloaprendizajemaster/id/1
+HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriomaster/admin
+---
+>>>>>>> 3860e8c3ba7825acf3a21b5317dc0ebb1ad6318f

@@ -1,4 +1,46 @@
-<h3>Administración instituciones</h3>
+<?php
+/* @var $this DefaultController */
 
-<?php echo CHtml::link('Institucion', 'admin_institucion/institucion/admin')."<br>";?>
-<?php echo CHtml::link('Entidad', 'admin_institucion/entidad/admin')."<br>";?>
+$this->breadcrumbs=array(
+	$this->module->id,
+);
+?>
+<h1>Administración Institución</h1>
+
+<div class="main-content clear-float">
+    <div class="tile-area no-padding">
+        <div class="tile-group no-margin no-padding" style="width: 100%">
+            
+            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_institucion/institucion/admin";?>" >
+                <div class="tile-wide bg-darkPink fg-white" data-role="tile">
+                    <div class="tile-content iconic">
+                        <span class="icon mif-library"></span>
+                    </div>
+                    <span class="tile-label">            
+                        <?php 
+                            $pizza  = CHtml::encode('institucion');
+                            $porciones = explode("_", $pizza);
+                            foreach ($porciones as $p)
+                            echo $p." "; // porciÃ³n
+                        ?>                
+                    </span>
+                </div>  
+            </a>  
+            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_institucion/entidad/admin";?>" >
+                <div class="tile-wide bg-darkPink fg-white" data-role="tile">
+                    <div class="tile-content iconic">
+                        <span class="icon mif-location"></span>
+                    </div>
+                    <span class="tile-label">            
+                        <?php 
+                            $pizza  = CHtml::encode('entidad');
+                            $porciones = explode("_", $pizza);
+                            foreach ($porciones as $p)
+                            echo $p." "; // porciÃ³n
+                        ?>                
+                    </span>
+                </div>  
+            </a>  
+    </div>
+</div> <!-- End of tiles -->
+

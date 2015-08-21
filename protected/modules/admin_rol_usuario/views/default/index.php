@@ -1,33 +1,74 @@
 <?php
 /* @var $this DefaultController */
-
 $this->breadcrumbs=array(
 	$this->module->id,
 );
 ?>
-<h1><?php echo $this->uniqueId . '/' . $this->action->id; ?></h1>
+<h1>Administración Rol Usuario</h1>
 
-<?php $this->widget('zii.widgets.CMenu',array(
-        'items'=>array(
-                array('label'=>'rol_usuario', 'url'=>array('/admin_rol_usuario/rolusuario/index'),"<br>"),
-        ),
-)); ?>
-
-
-<?php $this->widget('zii.widgets.CMenu',array(
-        'items'=>array(
-                array('label'=>'authitem_permiso_usuario', 'url'=>array('/admin_rol_usuario/authitempermisousuario/index'),"<br>"),
-        ),
-)); ?>
-
-<?php $this->widget('zii.widgets.CMenu',array(
-        'items'=>array(
-                array('label'=>'controlador_usuario', 'url'=>array('/admin_rol_usuario/controladorusuario/index'),"<br>"),
-        ),
-)); ?>
-
-<?php $this->widget('zii.widgets.CMenu',array(
-        'items'=>array(
-                array('label'=>'privilegio_usuario', 'url'=>array('/admin_rol_usuario/privilegiousuario/index'),"<br>"),
-        ),
-)); ?>
+<div class="main-content clear-float">
+    <div class="tile-area no-padding">
+        <div class="tile-group no-margin no-padding" style="width: 100%">
+            
+            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_rol_usuario/rolusuario/index";?>" >
+                <div class="tile-wide bg-darkCyan fg-white" data-role="tile">
+                    <div class="tile-content iconic">
+                        <span class="icon mif-security"></span>
+                    </div>
+                    <span class="tile-label">            
+                        <?php 
+                            $pizza  = CHtml::encode('rol_usuario');
+                            $porciones = explode("_", $pizza);
+                            foreach ($porciones as $p)
+                            echo $p." "; // porciÃ³n
+                        ?>                
+                    </span>
+                </div>  
+            </a> 
+            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_rol_usuario/authitempermisousuario/index";?>" >
+                <div class="tile-wide bg-darkCyan fg-white" data-role="tile">
+                    <div class="tile-content iconic">
+                        <span class="icon mif-key"></span>
+                    </div>
+                    <span class="tile-label">            
+                        <?php 
+                            $pizza  = CHtml::encode('authitem_permiso_usuario');
+                            $porciones = explode("_", $pizza);
+                            foreach ($porciones as $p)
+                            echo $p." "; // porciÃ³n
+                        ?>                
+                    </span>
+                </div>  
+            </a> 
+            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_rol_usuario/controladorusuario/index";?>" >
+                <div class="tile-wide bg-darkCyan fg-white" data-role="tile">
+                    <div class="tile-content iconic">
+                        <span class="icon mif-cog"></span>
+                    </div>
+                    <span class="tile-label">            
+                        <?php 
+                            $pizza  = CHtml::encode('controlador_usuario');
+                            $porciones = explode("_", $pizza);
+                            foreach ($porciones as $p)
+                            echo $p." "; // porciÃ³n
+                        ?>                
+                    </span>
+                </div>  
+            </a> 
+            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_rol_usuario/privilegiousuario/index";?>" >
+                <div class="tile-wide bg-darkCyan fg-white" data-role="tile">
+                    <div class="tile-content iconic">
+                        <span class="icon mif-cogs"></span>
+                    </div>
+                    <span class="tile-label">            
+                        <?php 
+                            $pizza  = CHtml::encode('privilegio_usuario');
+                            $porciones = explode("_", $pizza);
+                            foreach ($porciones as $p)
+                            echo $p." "; // porciÃ³n
+                        ?>                
+                    </span>
+                </div>  
+            </a>
+    </div>
+</div> <!-- End of tiles -->
