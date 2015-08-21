@@ -49,6 +49,15 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'estado',
 		array(
 			'class'=>'CButtonColumn',
+                        'template' => '{asignar}{view}{delete}{update}',
+                        'buttons' => array(
+                                    'asignar' => array(
+                                            'label' => 'asignar usuario',
+                                            'imageUrl'=>Yii::app()->request->baseUrl.'/assets/9e5e8f07/gridview/asignar.png', //ruta icono para el botón
+                                            'url'=>'Yii::app()->createUrl("admin_usuario/estadousuario/index",array("id" => $data->id) )', //url de la acción nueva
+                                    ),
+
+                        ),
 		),
 	),
 )); ?>

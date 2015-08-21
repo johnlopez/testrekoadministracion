@@ -164,5 +164,9 @@ class Usuario extends CActiveRecord
             
             $comando->execute();
         }
+        
+        public function eliminarUsuarioLogico() {
+            
+        }
        
 }
