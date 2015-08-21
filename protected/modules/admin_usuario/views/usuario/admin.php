@@ -85,8 +85,18 @@ $('.search-form form').submit(function(){
 		'fecha_acceso',
 		'fecha_modificacion',
 		'fecha_creacion',
-		array(
+		
+                array(
 			'class'=>'CButtonColumn',
+                        'template' => '{asignar}{view}{delete}{update}',
+                        'buttons' => array(
+                                    'asignar' => array(
+                                            'label' => 'asignar usuario',
+                                            'imageUrl'=>Yii::app()->request->baseUrl.'/assets/9e5e8f07/gridview/asignar.png', //ruta icono para el botón
+                                            'url'=>'Yii::app()->createUrl("admin_usuario/estadousuario/index2",array("id" => $data->id) )', //url de la acción nueva
+                                    ),
+
+                        ),
 		),
 	),
 )); ?>

@@ -13,10 +13,6 @@
  */
 class UsuarioHasInstitucionController extends Controller {
     
-    
-   
-    
-    
     public function actionIndex()
     {
         Yii::import('application.modules.admin_institucion.models.Institucion');

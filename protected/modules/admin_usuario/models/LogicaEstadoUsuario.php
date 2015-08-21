@@ -108,11 +108,17 @@ class LogicaEstadoUsuario extends CActiveRecord
         
         public function modificarLogicaEstadoUsuario($id,$estado) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_agregar_logica_estado_usuario(:id,:estado)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_actualizar_logica_estado_usuario(:id,:estado)");
             $comando->bindParam(':id', $id);
             $comando->bindParam(':estado', $estado);
             $comando->execute();
             return $comando;
+        }
+        
+         public function listarEstadosUsuario() {
+            
+            $comando = Yii::app()->db->createCommand("CALL listar_estados_usuario");
+            return $comando->queryAll();
         }
         
         

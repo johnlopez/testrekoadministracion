@@ -30,7 +30,8 @@
 		<?php echo $form->textField($model,'clave',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'clave'); ?>
 	</div>
-
+         
+        
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

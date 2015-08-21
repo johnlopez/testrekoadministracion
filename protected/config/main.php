@@ -83,6 +83,7 @@ return array(
 		// uncomment the following to enable URLs in path-format
 		
 		'urlManager'=>array(
+                        'caseSensitive' => false,
                         'showScriptName'=>false,
 			'urlFormat'=>'path',
 			'rules'=>array(
