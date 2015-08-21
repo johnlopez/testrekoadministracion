@@ -32776,3 +32776,51 @@ Stack trace:
 REQUEST_URI=/testrekoadministracion/admin_repositorio/repositoriomaster/asignarmodeloaprendizajemaster/id/1
 HTTP_REFERER=http://localhost/testrekoadministracion/admin_repositorio/repositoriomaster/admin
 ---
+2015/08/19 13:51:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui-bootstrap/favicon.ico".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui-...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui-bootstrap/favicon.ico
+---
+2015/08/21 13:40:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/metroui-bootstrap/favicon.ico".' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/metroui-...')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\wamp\www\testrekoadministracion\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/testrekoadministracion/themes/metroui-bootstrap/favicon.ico
+---
+2015/08/21 19:12:10 [error] [php] Undefined variable: idInstitucion (C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriomasterhasinstitucionController.php:89)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RepositoriomasterhasinstitucionController->runAction()
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RepositoriomasterhasinstitucionController->filterAccessControl()
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): RepositoriomasterhasinstitucionController->runActionWithFilters()
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RepositoriomasterhasinstitucionController->run()
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/admin_repositorio/Repositoriomasterhasinstitucion
+in C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriomasterhasinstitucionController.php (89)
+in C:\wamp\www\testrekoadministracion\index.php (13)
+2015/08/21 19:14:52 [error] [php] Undefined variable: idInstitucion (C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriomasterhasinstitucionController.php:89)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RepositoriomasterhasinstitucionController->runAction()
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RepositoriomasterhasinstitucionController->filterAccessControl()
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): RepositoriomasterhasinstitucionController->runActionWithFilters()
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RepositoriomasterhasinstitucionController->run()
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 C:\wamp\www\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\wamp\www\testrekoadministracion\index.php(13): CWebApplication->run()
+REQUEST_URI=/testrekoadministracion/admin_repositorio/Repositoriomasterhasinstitucion
+in C:\wamp\www\testrekoadministracion\protected\modules\admin_repositorio\controllers\RepositoriomasterhasinstitucionController.php (89)
+in C:\wamp\www\testrekoadministracion\index.php (13)

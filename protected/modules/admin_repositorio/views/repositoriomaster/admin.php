@@ -59,12 +59,32 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		
 		array(
 			'class'=>'CButtonColumn',
-                        'template' => '{view}{update}{delete}{asignar}',
+                        'template' => '{view}{update}{delete}',
                         'buttons' => array(
                                     'asignar' => array(
                                             'label' => 'asignar modelo de aprendizaje',
                                             'imageUrl'=>Yii::app()->request->baseUrl.'/assets/9e5e8f07/gridview/asignar.png', //ruta icono para el botón
                                             'url'=>'Yii::app()->createUrl("admin_repositorio/repositoriomaster/asignarmodeloaprendizajemaster",array("id"=>$data->id) )', //url de la acción nueva
+                                    ),
+                        ),
+		),
+                array(
+			'class'=>'CButtonColumn',
+                        'template' => '{asignar}',
+                        'buttons' => array(
+                                    'asignar' => array(
+                                            'label' => 'asignar modelo de aprendizaje',
+                                            'url'=>'Yii::app()->createUrl("admin_repositorio/repositoriomaster/asignarmodeloaprendizajemaster",array("id"=>$data->id) )', //url de la acción nueva
+                                    ),
+                        ),
+		),
+                array(
+			'class'=>'CButtonColumn',
+                        'template' => '{asignar}',
+                        'buttons' => array(
+                                    'asignar' => array(
+                                            'label' => 'asignar institucion',
+                                            'url'=>'Yii::app()->createUrl("admin_repositorio/repositoriomaster/asignarinstitucion",array("id"=>$data->id) )', //url de la acción nueva
                                     ),
                         ),
 		),
