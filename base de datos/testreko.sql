@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-08-2015 a las 16:11:07
+-- Tiempo de generación: 21-08-2015 a las 19:49:11
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -1333,6 +1333,13 @@ select * from pais;
 select * from region;
 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_asignar_mod_aprendizaje_master_rep_master`(nuevo_repositorio_id int , nuevo_modelo_id int)
+BEGIN
+UPDATE repositorio_master SET modelo_aprendizaje_master_id =  nuevo_modelo_id
+WHERE id = nuevo_repositorio_id;
+
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_asignar_mod_aprendizaje_rep_local_admin`(nuevo_repositorio_id int , nuevo_modelo_id int)
 begin
 UPDATE repositorio_local_admin SET modelo_aprendizaje_id =  nuevo_modelo_id
@@ -1346,6 +1353,66 @@ UPDATE repositorio_troncal_admin SET modelo_aprendizaje_id =  nuevo_modelo_id
 WHERE id = nuevo_repositorio_id;
 
 end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_asigna_repositorio_master_institucion`(lista_repositorio_id varchar(255), lista_largo int, nuevo_institucion_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_repositorio_id int default NULL;
+DECLARE repositorio_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_repositorio_id = getValueFromArray(lista_repositorio_id, ',', x);	
+    SELECT repositorio_master_id INTO repositorio_id_tmp FROM repositorio_master_has_institucion WHERE repositorio_master_id = nuevo_repositorio_id AND institucion_id = nuevo_institucion_id;
+    IF ( repositorio_id_tmp IS NULL) THEN
+		INSERT INTO repositorio_master_has_institucion (`repositorio_master_id`,`institucion_id`) VALUES (nuevo_repositorio_id,nuevo_institucion_id);
+	ELSE
+		SET repositorio_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_repositorio_id, repositorio_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_desasigna_repositorio_master_institucion`(lista_repositorio_id varchar(255), lista_largo int, nuevo_institucion_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_repositorio_id int default NULL;
+DECLARE repositorio_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_repositorio_id = getValueFromArray(lista_repositorio_id, ',', x);	
+    SELECT repositorio_id INTO repositorio_id_tmp FROM repositorio_master_has_institucion WHERE repositorio_id = nuevo_repositorio_id AND institucion_id = nuevo_institucion_id;
+    IF ( repositorio_id_tmp IS NOT NULL) THEN
+		DELETE FROM repositorio_master_has_institucion WHERE institucion_id = nuevo_institucion_id AND repositorio_id = nuevo_repositorio_id;
+	ELSE
+		SET repositorio_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_repositorio_id, repositorio_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_lista_institucion_repositorio_master`(nuevo_institucion_id int(11))
+BEGIN
+SELECT A.nombre,B.institucion_id, B.repositorio_master_id 
+FROM 
+		`institucion` A, 
+        `repositorio_master_has_institucion` B
+        
+WHERE A.id = B.institucion_id
+AND A.id = nuevo_institucion_id 
+
+UNION 
+
+SELECT null,null,A.id 
+FROM (`repositorio_master` A LEFT JOIN `repositorio_master_has_institucion` B ON A.id = B.repositorio_master_id AND B.institucion_id = nuevo_institucion_id)
+WHERE B.repositorio_master_id is NULL
+order by repositorio_master_id;
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_asigna_rol_institucion`(lista_institucion_id varchar(255), lista_largo int, nuevo_rol_id int)
 BEGIN
@@ -2026,6 +2093,17 @@ CREATE TABLE IF NOT EXISTS `archivo_recurso` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `archivo_recurso_master`
+--
+
+CREATE TABLE IF NOT EXISTS `archivo_recurso_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `aula`
 --
 
@@ -2191,10 +2269,32 @@ CREATE TABLE IF NOT EXISTS `autoevaluacion` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `autoevaluacion_master`
+--
+
+CREATE TABLE IF NOT EXISTS `autoevaluacion_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `contenido_libre`
 --
 
 CREATE TABLE IF NOT EXISTS `contenido_libre` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contenido_libre_master`
+--
+
+CREATE TABLE IF NOT EXISTS `contenido_libre_master` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -2465,10 +2565,32 @@ CREATE TABLE IF NOT EXISTS `evaluacion` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `evaluacion_master`
+--
+
+CREATE TABLE IF NOT EXISTS `evaluacion_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `foro`
 --
 
 CREATE TABLE IF NOT EXISTS `foro` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `foro_master`
+--
+
+CREATE TABLE IF NOT EXISTS `foro_master` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -2487,21 +2609,60 @@ CREATE TABLE IF NOT EXISTS `glosario` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `glosario_master`
+--
+
+CREATE TABLE IF NOT EXISTS `glosario_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `herramienta`
 --
 
 CREATE TABLE IF NOT EXISTS `herramienta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `herramienta_id` int(11) DEFAULT NULL,
-  `tipo_herramienta_id` int(11) DEFAULT NULL,
-  `recurso_id` int(11) DEFAULT NULL,
+  `nombre` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
   `fecha_acceso` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
+  `recurso_id` int(11) DEFAULT NULL,
+  `repositorio_id` int(11) DEFAULT NULL,
+  `tipo_herramienta_id` int(11) DEFAULT NULL,
+  `herramienta_id` int(11) DEFAULT NULL,
+  `herramienta_master_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `fk_herramienta_repositorio1_idx` (`repositorio_id`),
+  KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`),
   KEY `fk_herramienta_herramienta1_idx` (`herramienta_id`),
-  KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`)
+  KEY `fk_herramienta_herramienta_master1_idx` (`herramienta_master_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='	' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `herramienta_master`
+--
+
+CREATE TABLE IF NOT EXISTS `herramienta_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `recurso_id` int(11) DEFAULT NULL,
+  `repositorio_master_id` int(11) DEFAULT NULL,
+  `tipo_herramienta_master_id` int(11) DEFAULT NULL,
+  `herramienta_master_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk__herramienta_master__repositorio_master1_idx` (`repositorio_master_id`),
+  KEY `fk__herramienta_master__tipo_herramienta_master1_idx` (`tipo_herramienta_master_id`),
+  KEY `fk__herramienta_master__herramienta_master1_idx` (`herramienta_master_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -2605,6 +2766,17 @@ CREATE TABLE IF NOT EXISTS `link_interes` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `link_interes_master`
+--
+
+CREATE TABLE IF NOT EXISTS `link_interes_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `logica_estado_usuario`
 --
 
@@ -2627,17 +2799,34 @@ CREATE TABLE IF NOT EXISTS `modelo_aprendizaje` (
   `fecha_acceso` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
+  `modelo_aprendizaje_master_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_modelo_aprendizaje_modelo_aprendizaje_master1_idx` (`modelo_aprendizaje_master_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `modelo_aprendizaje_master`
+--
+
+CREATE TABLE IF NOT EXISTS `modelo_aprendizaje_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Volcado de datos para la tabla `modelo_aprendizaje`
+-- Volcado de datos para la tabla `modelo_aprendizaje_master`
 --
 
-INSERT INTO `modelo_aprendizaje` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`) VALUES
-(1, 'autoaprendizaje', 'modelo de auto aprendizaje', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 'e-learning', 'modelo de e-learning', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 'aprendizaje grupal', 'descripcion aprendizaje grupal', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `modelo_aprendizaje_master` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`) VALUES
+(1, 'modelo aprendizaje master 1', 'descripcion modelo aprendizaje master 1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'modelo aprendizaje master 2', 'descripcion modelo aprendizaje master 2', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -2947,6 +3136,17 @@ CREATE TABLE IF NOT EXISTS `proyecto` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `proyecto_master`
+--
+
+CREATE TABLE IF NOT EXISTS `proyecto_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `recepcion_trabajo`
 --
 
@@ -2954,6 +3154,17 @@ CREATE TABLE IF NOT EXISTS `recepcion_trabajo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='\n	\n	\n	\n	\n\n		\n	' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `recepcion_trabajo_master`
+--
+
+CREATE TABLE IF NOT EXISTS `recepcion_trabajo_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2998,29 +3209,17 @@ CREATE TABLE IF NOT EXISTS `repositorio` (
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
   `modelo_aprendizaje_id` int(11) DEFAULT NULL,
+  `secuencia_id` int(11) DEFAULT NULL,
   `tipo_repositorio_id` int(11) DEFAULT NULL,
   `repositorio_id` int(11) DEFAULT NULL,
-  `repositorio_master_id` int(11) NOT NULL,
+  `repositorio_master_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_repositorio_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`),
+  KEY `fk_repositorio_secuencia1_idx` (`secuencia_id`),
   KEY `fk_repositorio_tipo_repositorio1_idx` (`tipo_repositorio_id`),
   KEY `fk_repositorio_repositorio1_idx` (`repositorio_id`),
   KEY `fk_repositorio_repositorio_master1_idx` (`repositorio_master_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `repositorio_has_herramienta`
---
-
-CREATE TABLE IF NOT EXISTS `repositorio_has_herramienta` (
-  `repositorio_id` int(11) NOT NULL,
-  `herramienta_id` int(11) NOT NULL,
-  PRIMARY KEY (`repositorio_id`,`herramienta_id`),
-  KEY `fk_repositorio_has_herramienta_herramienta1_idx` (`herramienta_id`),
-  KEY `fk_repositorio_has_herramienta_repositorio1_idx` (`repositorio_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -3038,16 +3237,7 @@ CREATE TABLE IF NOT EXISTS `repositorio_local_admin` (
   `modelo_aprendizaje_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_repositorio_local_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Volcado de datos para la tabla `repositorio_local_admin`
---
-
-INSERT INTO `repositorio_local_admin` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `modelo_aprendizaje_id`) VALUES
-(1, 'repositorio local francisco', 'descripcion repositorio local francisco', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3),
-(2, 'repositorio local marcelo', 'descripcion repositorio local marcelo', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
-(3, 'repositorio local patricio', 'descripcion repositorio local patricio', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -3080,27 +3270,37 @@ CREATE TABLE IF NOT EXISTS `repositorio_master` (
   `fecha_acceso` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
-  `repositorio_master_id` int(11) NOT NULL,
-  `modelo_aprendizaje_id` int(11) NOT NULL,
-  `tipo_repositorio_id` int(11) NOT NULL,
+  `modelo_aprendizaje_master_id` int(11) DEFAULT NULL,
+  `secuencia_master_id` int(11) DEFAULT NULL,
+  `repositorio_master_id` int(11) DEFAULT NULL,
+  `tipo_repositorio_master_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_repositorio_master_repositorio_master1_idx` (`repositorio_master_id`),
-  KEY `fk_repositorio_master_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`),
-  KEY `fk_repositorio_master_tipo_repositorio1_idx` (`tipo_repositorio_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `fk__repositorio_master__modelo_aprendizaje_master1_idx` (`modelo_aprendizaje_master_id`),
+  KEY `fk__repositorio_master__secuencia_master1_idx` (`secuencia_master_id`),
+  KEY `fk__repositorio_master__repositorio_master1_idx` (`repositorio_master_id`),
+  KEY `fk_repositorio_master_tipo_repositorio_master1_idx` (`tipo_repositorio_master_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `repositorio_master`
+--
+
+INSERT INTO `repositorio_master` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `modelo_aprendizaje_master_id`, `secuencia_master_id`, `repositorio_master_id`, `tipo_repositorio_master_id`) VALUES
+(1, 'repositorio troncal admin', 'descripcion respositorio troncal admin', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, NULL, NULL, 1),
+(3, 'repositorio troncal admin master 2', 'descripcion repositorio troncal master 2', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `repositorio_master_has_herramienta`
+-- Estructura de tabla para la tabla `repositorio_master_has_institucion`
 --
 
-CREATE TABLE IF NOT EXISTS `repositorio_master_has_herramienta` (
+CREATE TABLE IF NOT EXISTS `repositorio_master_has_institucion` (
   `repositorio_master_id` int(11) NOT NULL,
-  `herramienta_id` int(11) NOT NULL,
-  PRIMARY KEY (`repositorio_master_id`,`herramienta_id`),
-  KEY `fk_repositorio_master_has_herramienta_herramienta1_idx` (`herramienta_id`),
-  KEY `fk_repositorio_master_has_herramienta_repositorio_master1_idx` (`repositorio_master_id`)
+  `institucion_id` int(11) NOT NULL,
+  PRIMARY KEY (`repositorio_master_id`,`institucion_id`),
+  KEY `fk_repositorio_master_has_institucion_institucion1_idx` (`institucion_id`),
+  KEY `fk_repositorio_master_has_institucion_repositorio_master1_idx` (`repositorio_master_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -3119,15 +3319,7 @@ CREATE TABLE IF NOT EXISTS `repositorio_troncal_admin` (
   `modelo_aprendizaje_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_repositorio_troncal_admin_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
---
--- Volcado de datos para la tabla `repositorio_troncal_admin`
---
-
-INSERT INTO `repositorio_troncal_admin` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `modelo_aprendizaje_id`) VALUES
-(1, 'repositorio diego', 'prueba repositorio diego', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2),
-(2, 'repositorio christian', 'prueba repositorio christian', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -3145,16 +3337,7 @@ CREATE TABLE IF NOT EXISTS `repositorio_troncal_app` (
   `modelo_aprendizaje_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_repositorio_troncal_app_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Volcado de datos para la tabla `repositorio_troncal_app`
---
-
-INSERT INTO `repositorio_troncal_app` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `modelo_aprendizaje_id`) VALUES
-(1, 'repositorio francisco', 'descripcion repositorio francisco', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3),
-(2, 'repositorio marcelo', 'descripcion repositorio marcelo', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
-(3, 'repositorio patricio', 'descripcion repositorio patricio', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -3457,12 +3640,23 @@ CREATE TABLE IF NOT EXISTS `secuencia` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `herramienta_id1` int(11) DEFAULT NULL,
   `herramienta_id2` int(11) DEFAULT NULL,
-  `repositorio_id` int(11) NOT NULL,
-  `repositorio_master_id` int(11) NOT NULL,
+  `secuencia_master_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_secuencia_repositorio1_idx` (`repositorio_id`),
-  KEY `fk_secuencia_repositorio_master1_idx` (`repositorio_master_id`)
+  KEY `fk_secuencia_secuencia_master1_idx` (`secuencia_master_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='\n' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `secuencia_master`
+--
+
+CREATE TABLE IF NOT EXISTS `secuencia_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `herramienta_id1` int(11) DEFAULT NULL,
+  `herramienta_id2` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -3473,24 +3667,22 @@ CREATE TABLE IF NOT EXISTS `secuencia` (
 CREATE TABLE IF NOT EXISTS `tipo_herramienta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) DEFAULT NULL,
+  `tipo_herramienta_master_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tipo_herramienta_tipo_herramienta_master1_idx` (`tipo_herramienta_master_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_herramienta_master`
+--
+
+CREATE TABLE IF NOT EXISTS `tipo_herramienta_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
-
---
--- Volcado de datos para la tabla `tipo_herramienta`
---
-
-INSERT INTO `tipo_herramienta` (`id`, `descripcion`) VALUES
-(1, 'autoevaluacion'),
-(2, 'archivo_recurso'),
-(3, 'contenido_libre'),
-(4, 'evaluacion'),
-(5, 'foro'),
-(6, 'glosario'),
-(7, 'link_interes'),
-(8, 'proyecto'),
-(9, 'recepcion_trabajo'),
-(10, 'trabajo_grupal');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -3501,18 +3693,32 @@ INSERT INTO `tipo_herramienta` (`id`, `descripcion`) VALUES
 CREATE TABLE IF NOT EXISTS `tipo_repositorio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) DEFAULT NULL,
+  `tipo_repositorio_master_int` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tipo_repositorio_tipo_repositorio_master1_idx` (`tipo_repositorio_master_int`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_repositorio_master`
+--
+
+CREATE TABLE IF NOT EXISTS `tipo_repositorio_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
--- Volcado de datos para la tabla `tipo_repositorio`
+-- Volcado de datos para la tabla `tipo_repositorio_master`
 --
 
-INSERT INTO `tipo_repositorio` (`id`, `descripcion`) VALUES
-(1, 'troncal_admin'),
-(2, 'local_admin'),
-(3, 'troncal_app'),
-(4, 'local_app');
+INSERT INTO `tipo_repositorio_master` (`id`, `descripcion`) VALUES
+(1, 'repositorio troncal admin'),
+(2, 'repositorio local admin'),
+(3, 'repositorio troncal app'),
+(4, 'repositorio local app');
 
 -- --------------------------------------------------------
 
@@ -3521,6 +3727,17 @@ INSERT INTO `tipo_repositorio` (`id`, `descripcion`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `trabajo_grupal` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `trabajo_grupal_master`
+--
+
+CREATE TABLE IF NOT EXISTS `trabajo_grupal_master` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -3617,6 +3834,13 @@ CREATE TABLE IF NOT EXISTS `usuario_has_institucion` (
 --
 
 INSERT INTO `usuario_has_institucion` (`usuario_id`, `institucion_id`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(1, 2),
+(2, 2),
 (1, 1),
 (2, 1),
 (3, 1),
@@ -3746,8 +3970,18 @@ ALTER TABLE `estado_usuario`
 -- Filtros para la tabla `herramienta`
 --
 ALTER TABLE `herramienta`
+  ADD CONSTRAINT `fk_herramienta_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_herramienta_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_herramienta_herramienta1` FOREIGN KEY (`herramienta_id`) REFERENCES `herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_herramienta_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_herramienta_herramienta_master1` FOREIGN KEY (`herramienta_master_id`) REFERENCES `herramienta_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `herramienta_master`
+--
+ALTER TABLE `herramienta_master`
+  ADD CONSTRAINT `fk__herramienta_master__repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk__herramienta_master__tipo_herramienta_master1` FOREIGN KEY (`tipo_herramienta_master_id`) REFERENCES `tipo_herramienta_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk__herramienta_master__herramienta_master1` FOREIGN KEY (`herramienta_master_id`) REFERENCES `herramienta_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `icono_aplicacion_administrador`
@@ -3761,6 +3995,12 @@ ALTER TABLE `icono_aplicacion_administrador`
 ALTER TABLE `institucion_has_rol_usuario`
   ADD CONSTRAINT `fk_institucion_has_rol_usuario_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_institucion_has_rol_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `modelo_aprendizaje`
+--
+ALTER TABLE `modelo_aprendizaje`
+  ADD CONSTRAINT `fk_modelo_aprendizaje_modelo_aprendizaje_master1` FOREIGN KEY (`modelo_aprendizaje_master_id`) REFERENCES `modelo_aprendizaje_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `pais_has_dato_academico`
@@ -3813,16 +4053,10 @@ ALTER TABLE `region`
 --
 ALTER TABLE `repositorio`
   ADD CONSTRAINT `fk_repositorio_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_secuencia1` FOREIGN KEY (`secuencia_id`) REFERENCES `secuencia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_repositorio_tipo_repositorio1` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_repositorio_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_repositorio_repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `repositorio_has_herramienta`
---
-ALTER TABLE `repositorio_has_herramienta`
-  ADD CONSTRAINT `fk_repositorio_has_herramienta_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_has_herramienta_herramienta1` FOREIGN KEY (`herramienta_id`) REFERENCES `herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `repositorio_local_admin`
@@ -3840,16 +4074,17 @@ ALTER TABLE `repositorio_local_app`
 -- Filtros para la tabla `repositorio_master`
 --
 ALTER TABLE `repositorio_master`
-  ADD CONSTRAINT `fk_repositorio_master_repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_master_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_master_tipo_repositorio1` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk__repositorio_master__modelo_aprendizaje_master1` FOREIGN KEY (`modelo_aprendizaje_master_id`) REFERENCES `modelo_aprendizaje_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk__repositorio_master__secuencia_master1` FOREIGN KEY (`secuencia_master_id`) REFERENCES `secuencia_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk__repositorio_master__repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_master_tipo_repositorio_master1` FOREIGN KEY (`tipo_repositorio_master_id`) REFERENCES `tipo_repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `repositorio_master_has_herramienta`
+-- Filtros para la tabla `repositorio_master_has_institucion`
 --
-ALTER TABLE `repositorio_master_has_herramienta`
-  ADD CONSTRAINT `fk_repositorio_master_has_herramienta_repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_master_has_herramienta_herramienta1` FOREIGN KEY (`herramienta_id`) REFERENCES `herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `repositorio_master_has_institucion`
+  ADD CONSTRAINT `fk_repositorio_master_has_institucion_repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_master_has_institucion_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `repositorio_troncal_admin`
@@ -3901,8 +4136,19 @@ ALTER TABLE `seccion`
 -- Filtros para la tabla `secuencia`
 --
 ALTER TABLE `secuencia`
-  ADD CONSTRAINT `fk_secuencia_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_secuencia_repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_secuencia_secuencia_master1` FOREIGN KEY (`secuencia_master_id`) REFERENCES `secuencia_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `tipo_herramienta`
+--
+ALTER TABLE `tipo_herramienta`
+  ADD CONSTRAINT `fk_tipo_herramienta_tipo_herramienta_master1` FOREIGN KEY (`tipo_herramienta_master_id`) REFERENCES `tipo_herramienta_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `tipo_repositorio`
+--
+ALTER TABLE `tipo_repositorio`
+  ADD CONSTRAINT `fk_tipo_repositorio_tipo_repositorio_master1` FOREIGN KEY (`tipo_repositorio_master_int`) REFERENCES `tipo_repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario_administrador_has_rol_administrador`
