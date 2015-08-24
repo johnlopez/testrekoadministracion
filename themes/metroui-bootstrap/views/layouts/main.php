@@ -19,6 +19,19 @@
     <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/metro.js"></script>
     <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/ga.js"></script>
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    <!-- TABLAS -->
+    <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/docs.js"></script>
+    <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/tables/dataTables.bootstrap.js"></script>
+    <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/tables/dataTables.bootstrap.min.js"></script>
+    <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/tables/dataTables.foundation.js"></script>
+    <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/tables/dataTables.foundation.min.js"></script>
+    <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/tables/dataTables.jqueryui.js"></script>
+    <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/tables/dataTables.jqueryui.min.js"></script>
+    <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/tables/jquery.dataTables.js"></script>
+    <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/tables/jquery.dataTables.min.js"></script>
+
+
 
 </head>
 <body>
