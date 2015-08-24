@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 21-08-2015 a las 19:49:11
+-- Tiempo de generación: 21-08-2015 a las 17:27:11
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -225,6 +225,11 @@ FROM
       
 WHERE P.name = C.authitem_permiso_administrador_name
 AND P.name = nuevo_permiso;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_estados_usuario`()
+begin
+select estado from logica_estado_usuario;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_permiso`()
@@ -1896,6 +1901,27 @@ now()
 SELECT LAST_INSERT_ID () into llave_id;
 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_asigna_estado_usuario`(lista_usuario_id varchar(255), lista_largo int, nuevo_estado_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_usuario_id int default NULL;
+DECLARE usuario_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_usuario_id = getValueFromArray(lista_usuario_id, ',', x);	
+    SELECT usuario_id INTO usuario_id_tmp FROM estado_usuario WHERE usuario_id = nuevo_usuario_id AND logica_estado_usuario_id = nuevo_estado_id;
+    IF (usuario_id_tmp IS NULL) THEN
+		INSERT INTO estado_usuario (`usuario_id`,`logica_estado_usuario_id`) VALUES (nuevo_usuario_id,nuevo_estado_id);
+	ELSE
+		SET usuario_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_usuario_id, usuario_id_tmp;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_asigna_usuario_institucion`(lista_usuario_id varchar(255), lista_largo int, nuevo_institucion_id int)
 BEGIN
 DECLARE x int DEFAULT 0;
@@ -1907,6 +1933,27 @@ WHILE x < lista_largo DO
     SELECT usuario_id INTO usuario_id_tmp FROM usuario_has_institucion WHERE usuario_id = nuevo_usuario_id AND institucion_id = nuevo_institucion_id;
     IF ( usuario_id_tmp IS NULL) THEN
 		INSERT INTO usuario_has_institucion (`usuario_id`,`institucion_id`) VALUES (nuevo_usuario_id,nuevo_institucion_id);
+	ELSE
+		SET usuario_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_usuario_id, usuario_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_desasigna_estado_usuario`(lista_usuario_id varchar(255), lista_largo int, nuevo_estado_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_usuario_id int default NULL;
+DECLARE usuario_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_usuario_id = getValueFromArray(lista_usuario_id, ',', x);	
+    SELECT usuario_id INTO usuario_id_tmp FROM estado_usuario WHERE usuario_id = nuevo_usuario_id AND logica_estado_usuario_id = nuevo_estado_id;
+    IF (usuario_id_tmp IS NOT NULL) THEN
+		DELETE FROM estado_usuario WHERE logica_estado_usuario_id = nuevo_estado_id AND usuario_id = nuevo_usuario_id;
 	ELSE
 		SET usuario_id_tmp = NULL;
     END IF;    
@@ -1938,6 +1985,11 @@ SELECT resultado, nuevo_usuario_id, usuario_id_tmp;
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_estado_usuario`(nuevo_id_usuario varchar(50))
+BEGIN	
+	SELECT * FROM (logica_estado_usuario A LEFT JOIN estado_usuario B ON A.id =  B.logica_estado_usuario_id AND B.usuario_id = nuevo_id_usuario);
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_lista_institucion_usuario`(nuevo_institucion_id int(11))
 BEGIN
 SELECT A.nombre,B.institucion_id, B.usuario_id FROM `institucion` A, `usuario_has_institucion` B 
@@ -1945,6 +1997,15 @@ WHERE A.id = B.institucion_id
 AND A.id = nuevo_institucion_id UNION SELECT null,null,A.id FROM (`usuario` A LEFT JOIN `usuario_has_institucion` B ON A.id = B.usuario_id AND B.institucion_id = nuevo_institucion_id)
 WHERE B.usuario_id is NULL
 order by usuario_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_lista_usuario_estado`(nuevo_usuario_id int(11))
+BEGIN
+SELECT A.usuario,B.usuario_id, B.logica_estado_usuario_id FROM `usuario` A, `estado_usuario` B 
+WHERE A.id = B.usuario_id
+AND A.id = nuevo_usuario_id UNION SELECT null,null,A.id FROM (`logica_estado_usuario` A LEFT JOIN `estado_usuario` B ON A.id = B.logica_estado_usuario_id)
+WHERE B.logica_estado_usuario_id is NULL
+order by logica_estado_usuario_id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_escritorio_administrador_get_icono_permiso_usuario`(nuevo_usuario_id int)
@@ -3944,8 +4005,8 @@ ALTER TABLE `dato_personal`
 -- Filtros para la tabla `entidad`
 --
 ALTER TABLE `entidad`
-  ADD CONSTRAINT `fk_entidad_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_entidad_entidad1` FOREIGN KEY (`entidad_id`) REFERENCES `entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_entidad_entidad1` FOREIGN KEY (`entidad_id`) REFERENCES `entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_entidad_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `escritorio_administrador`
@@ -3970,18 +4031,18 @@ ALTER TABLE `estado_usuario`
 -- Filtros para la tabla `herramienta`
 --
 ALTER TABLE `herramienta`
-  ADD CONSTRAINT `fk_herramienta_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_herramienta_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_herramienta_herramienta1` FOREIGN KEY (`herramienta_id`) REFERENCES `herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_herramienta_herramienta_master1` FOREIGN KEY (`herramienta_master_id`) REFERENCES `herramienta_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_herramienta_herramienta_master1` FOREIGN KEY (`herramienta_master_id`) REFERENCES `herramienta_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_herramienta_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_herramienta_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `herramienta_master`
 --
 ALTER TABLE `herramienta_master`
+  ADD CONSTRAINT `fk__herramienta_master__herramienta_master1` FOREIGN KEY (`herramienta_master_id`) REFERENCES `herramienta_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk__herramienta_master__repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk__herramienta_master__tipo_herramienta_master1` FOREIGN KEY (`tipo_herramienta_master_id`) REFERENCES `tipo_herramienta_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk__herramienta_master__herramienta_master1` FOREIGN KEY (`herramienta_master_id`) REFERENCES `herramienta_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk__herramienta_master__tipo_herramienta_master1` FOREIGN KEY (`tipo_herramienta_master_id`) REFERENCES `tipo_herramienta_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `icono_aplicacion_administrador`
@@ -4006,22 +4067,22 @@ ALTER TABLE `modelo_aprendizaje`
 -- Filtros para la tabla `pais_has_dato_academico`
 --
 ALTER TABLE `pais_has_dato_academico`
-  ADD CONSTRAINT `fk_pais_has_dato_academico_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_pais_has_dato_academico_dato_academico1` FOREIGN KEY (`dato_academico_id`) REFERENCES `dato_academico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_pais_has_dato_academico_dato_academico1` FOREIGN KEY (`dato_academico_id`) REFERENCES `dato_academico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pais_has_dato_academico_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pais_has_dato_laboral`
 --
 ALTER TABLE `pais_has_dato_laboral`
-  ADD CONSTRAINT `fk_pais_has_dato_laboral_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_pais_has_dato_laboral_dato_laboral1` FOREIGN KEY (`dato_laboral_id`) REFERENCES `dato_laboral` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_pais_has_dato_laboral_dato_laboral1` FOREIGN KEY (`dato_laboral_id`) REFERENCES `dato_laboral` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pais_has_dato_laboral_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pais_has_dato_personal`
 --
 ALTER TABLE `pais_has_dato_personal`
-  ADD CONSTRAINT `fk_pais_has_dato_personal_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_pais_has_dato_personal_dato_personal1` FOREIGN KEY (`dato_personal_id`) REFERENCES `dato_personal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_pais_has_dato_personal_dato_personal1` FOREIGN KEY (`dato_personal_id`) REFERENCES `dato_personal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pais_has_dato_personal_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `privilegio_administrador`
@@ -4039,8 +4100,8 @@ ALTER TABLE `privilegio_usuario`
 -- Filtros para la tabla `programa_academico_has_modulo`
 --
 ALTER TABLE `programa_academico_has_modulo`
-  ADD CONSTRAINT `fk_programa_academico_has_modulo_programa_academico1` FOREIGN KEY (`programa_academico_id`) REFERENCES `programa_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_programa_academico_has_modulo_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_programa_academico_has_modulo_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_programa_academico_has_modulo_programa_academico1` FOREIGN KEY (`programa_academico_id`) REFERENCES `programa_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `region`
@@ -4053,10 +4114,10 @@ ALTER TABLE `region`
 --
 ALTER TABLE `repositorio`
   ADD CONSTRAINT `fk_repositorio_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_secuencia1` FOREIGN KEY (`secuencia_id`) REFERENCES `secuencia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_tipo_repositorio1` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_repositorio_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_repositorio_repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_secuencia1` FOREIGN KEY (`secuencia_id`) REFERENCES `secuencia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_tipo_repositorio1` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `repositorio_local_admin`
@@ -4074,17 +4135,17 @@ ALTER TABLE `repositorio_local_app`
 -- Filtros para la tabla `repositorio_master`
 --
 ALTER TABLE `repositorio_master`
+  ADD CONSTRAINT `fk_repositorio_master_tipo_repositorio_master1` FOREIGN KEY (`tipo_repositorio_master_id`) REFERENCES `tipo_repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk__repositorio_master__modelo_aprendizaje_master1` FOREIGN KEY (`modelo_aprendizaje_master_id`) REFERENCES `modelo_aprendizaje_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk__repositorio_master__secuencia_master1` FOREIGN KEY (`secuencia_master_id`) REFERENCES `secuencia_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk__repositorio_master__repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_master_tipo_repositorio_master1` FOREIGN KEY (`tipo_repositorio_master_id`) REFERENCES `tipo_repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk__repositorio_master__secuencia_master1` FOREIGN KEY (`secuencia_master_id`) REFERENCES `secuencia_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `repositorio_master_has_institucion`
 --
 ALTER TABLE `repositorio_master_has_institucion`
-  ADD CONSTRAINT `fk_repositorio_master_has_institucion_repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_master_has_institucion_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_repositorio_master_has_institucion_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_master_has_institucion_repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `repositorio_troncal_admin`
@@ -4102,29 +4163,29 @@ ALTER TABLE `repositorio_troncal_app`
 -- Filtros para la tabla `rol_administrador_has_authitem_permiso_administrador`
 --
 ALTER TABLE `rol_administrador_has_authitem_permiso_administrador`
-  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_rol_a1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_authi1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_authi1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_rol_a1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_administrador_has_privilegio_administrador`
 --
 ALTER TABLE `rol_administrador_has_privilegio_administrador`
-  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_rol_adminis1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_privilegio_1` FOREIGN KEY (`privilegio_administrador_id`) REFERENCES `privilegio_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_privilegio_1` FOREIGN KEY (`privilegio_administrador_id`) REFERENCES `privilegio_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_rol_adminis1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_usuario_has_authitem_permiso_usuario`
 --
 ALTER TABLE `rol_usuario_has_authitem_permiso_usuario`
-  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_authitem_permiso_1` FOREIGN KEY (`authitem_permiso_usuario_name`) REFERENCES `authitem_permiso_usuario` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_authitem_permiso_1` FOREIGN KEY (`authitem_permiso_usuario_name`) REFERENCES `authitem_permiso_usuario` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_usuario_has_privilegio_usuario`
 --
 ALTER TABLE `rol_usuario_has_privilegio_usuario`
-  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_privilegio_usuario1` FOREIGN KEY (`privilegio_usuario_id`) REFERENCES `privilegio_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_privilegio_usuario1` FOREIGN KEY (`privilegio_usuario_id`) REFERENCES `privilegio_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `seccion`
@@ -4154,22 +4215,22 @@ ALTER TABLE `tipo_repositorio`
 -- Filtros para la tabla `usuario_administrador_has_rol_administrador`
 --
 ALTER TABLE `usuario_administrador_has_rol_administrador`
-  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_usuario_admini1` FOREIGN KEY (`usuario_administrador_id`) REFERENCES `usuario_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_rol_administra1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_rol_administra1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_usuario_admini1` FOREIGN KEY (`usuario_administrador_id`) REFERENCES `usuario_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario_has_institucion`
 --
 ALTER TABLE `usuario_has_institucion`
-  ADD CONSTRAINT `usuario_has_institucion_ibfk_2` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`),
-  ADD CONSTRAINT `usuario_has_institucion_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `usuario_has_institucion_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`),
+  ADD CONSTRAINT `usuario_has_institucion_ibfk_2` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`);
 
 --
 -- Filtros para la tabla `usuario_has_rol_usuario`
 --
 ALTER TABLE `usuario_has_rol_usuario`
-  ADD CONSTRAINT `fk_usuario_has_rol_usuario_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_has_rol_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_has_rol_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_usuario_has_rol_usuario_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
