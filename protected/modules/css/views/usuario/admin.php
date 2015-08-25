@@ -7,10 +7,10 @@ $this->breadcrumbs=array(
 	'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List Usuario', 'url'=>array('index')),
-	array('label'=>'Create Usuario', 'url'=>array('create')),
-);
+//$this->menu=array(
+//	array('label'=>'List Usuario', 'url'=>array('index')),
+//	array('label'=>'Create Usuario', 'url'=>array('create')),
+//);
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -25,8 +25,25 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
+<div class="place-right padding20 no-padding-top no-padding-right">
+    <h4>Opciones</h4>        
+        <form class="place-left padding20 no-padding-left no-padding-bottom no-padding-top" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/index" >
+            <button class="button primary" type="submit">
+                    Listar Usuario
+            </button>
+        </form>    
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/create" >
+            <button class="button primary" type="submit">
+                    Crear Usuario
+            </button>
+        </form>          
+</div>
 
-<h1>Usuarios</h1>
+<div class="place-left padding20 no-padding-bottom no-padding-left">
+    <h1>Usuarios</h1>
+</div>
+
+<div class="progress small" data-value="100" data-color="bg-grayLight" data-role="progressBar"><div class="bar bg-red" style="width: 85%;"></div></div>
 
 <p>
 
@@ -44,95 +61,124 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php 
-$this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'usuario-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'id',
-		'usuario',
-		'clave',
-		'fecha_acceso',
-		'fecha_modificacion',
-		'fecha_creacion',
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); 
+//$this->widget('zii.widgets.grid.CGridView', array(
+//	'id'=>'usuario-grid',
+//	'dataProvider'=>$model->search(),
+//	'filter'=>$model,
+//	'columns'=>array(
+//		'id',
+//		'usuario',
+//		'clave',
+//		'fecha_acceso',
+//		'fecha_modificacion',
+//		'fecha_creacion',
+//		array(
+//			'class'=>'CButtonColumn',
+//		),
+//	),
+//)); 
 ?>
 <script type="text/javascript" language="javascript" class="init">
 $(document).ready(function() {
-	$('#example').DataTable();
+	$('#main_table_demo').DataTable();
 } );
 </script>
+<div class="padding20 bg-grayLighter">
+    <div class="inline-block" id="main_table_demo_keys">
+        <label class="input-control checkbox small-check no-margin">
+            <input type="checkbox" onchange="$('#main_table_demo').toggleClass('striped')">
+            <span class="check"></span>
+            <span class="caption">striped</span>
+        </label>
+        <label class="input-control checkbox small-check no-margin">
+            <input type="checkbox" onchange="$('#main_table_demo').toggleClass('hovered')">
+            <span class="check"></span>
+            <span class="caption">hovered</span>
+        </label>
+        <label class="input-control checkbox small-check no-margin">
+            <input type="checkbox" onchange="$('#main_table_demo').toggleClass('cell-hovered')">
+            <span class="check"></span>
+            <span class="caption">cell-hovered</span>
+        </label>
+        <label class="input-control checkbox small-check no-margin">
+            <input type="checkbox" onchange="$('#main_table_demo').toggleClass('border')">
+            <span class="check"></span>
+            <span class="caption">border</span>
+        </label>
+        <label class="input-control checkbox small-check no-margin">
+            <input type="checkbox" onchange="$('#main_table_demo').toggleClass('bordered')">
+            <span class="check"></span>
+            <span class="caption">bordered</span>
+        </label>
+    </div>
+</div>
 
 <div class="container">
-        <section>
-                <table id="example" class="display" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Usuario</th>
-                                <th>Clave</th>
-                                <th>Fecha_Creacion</th>
-                                <th>Opciones</th>
-                            </tr>
-                        </thead>
+    <section>
+        <table id="main_table_demo" class="display cell-hovered hovered striped" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Usuario</th>
+                    <th>Clave</th>
+                    <th>Fecha_Creacion</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Id</th>
+                    <th>Usuario</th>
+                    <th>Clave</th>
+                    <th>Fecha_Creacion</th> 
+                    <th>Opciones</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                <?php foreach ($usuario as $m):?>                                                     
+                    <tr>
+                        <td><?php echo $m->id; ?></td>
+                        <td><?php echo $m->usuario; ?></td>
+                        <td><?php echo $m->clave; ?></td>
+                        <td><?php echo $m->fecha_creacion; ?></td> 
+                        <td>                                        
+                            <?php 
+                            // http://www.v09studio.com/websystems/materials/forms.html
+                            // pagina html post url form button
+                            ?>                                        
+                            <div id="button-group-1">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/view" method="get">
+                                    <input type="hidden" name="id" value="<?php echo $m->id?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-search">
 
-                        <tfoot>
-                            <tr>
-                                <th>Id</th>
-                                <th>Usuario</th>
-                                <th>Clave</th>
-                                <th>Fecha_Creacion</th> 
-                                <th>Opciones</th>
+                                        </span>
+                                    </button>
+                                </form>
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/update" method="get">
+                                    <input type="hidden" name="id" value="<?php echo $m->id?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-pencil">
 
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                            <?php foreach ($usuario as $m):?>                                                     
-                                <tr>
-                                    <td><?php echo $m->id; ?></td>
-                                    <td><?php echo $m->usuario; ?></td>
-                                    <td><?php echo $m->clave; ?></td>
-                                    <td><?php echo $m->fecha_creacion; ?></td> 
-                                    <td> 
-                                        <a>
-                                        <?php                                           
-                                            echo CHtml::beginForm();
-                                            echo CHtml::hiddenField('id',$m->id);
-                                            echo CHtml::hiddenField('usuario',$m->usuario);
-                                            echo CHtml::linkButton('Ver', array('submit' => $this->createUrl('roladministrador/asignarprivilegio')));
-                                            echo CHtml::endForm();         
-                                        ?>
-                                        </a>
-                                        <?php 
-                                        // http://www.v09studio.com/websystems/materials/forms.html
-                                        // pagina html post url form button
-                                        ?>
-                                        <form action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/view" method="post">
-                                            <input type="hidden" name="id" value="<?php $m->id?>" />
-                                            <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
-                                                <span class="icon mif-search">
-                                                    ....
-                                                </span>
-                                            </button>
-                                        </form>
-                                        
-                                        <button class="toolbar-button bg-white bg-active-grayLighter fg-black" value="MOTHER FUCKER">
-                                            <span class="icon mif-search">                                                
-                                            </span>                                            
-                                        </button>                                                 
-                                        <button class="toolbar-button bg-white bg-active-grayLighter fg-black"><span class="icon mif-pencil"></span></button>
-                                        <button class="toolbar-button bg-white bg-active-grayLighter fg-black"><span class="icon mif-cancel"></span></button>
-                                    </td>
-                                </tr>
-                            <?php endforeach;?>                                
-                        </tbody>
-                </table>
-                <ul class="tabs">
-                        <li class="active"></li>                        
-                </ul>               
-        </section>
+                                        </span>
+                                    </button>
+                                </form>
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/delete" method="post">
+                                    <input type="hidden" name="id" value="<?php echo $m->id?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-cancel">
+
+                                        </span>
+                                    </button>
+                                </form> 
+                            </div>                                        
+                        </td>
+                    </tr>
+                <?php endforeach;?>                                
+            </tbody>
+        </table>
+        <ul class="tabs">
+                <li class="active"></li>                        
+        </ul>               
+    </section>
 </div>

@@ -49,16 +49,12 @@ class UsuarioController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id)
-	{
-                if(isset($_POST['id']))
-                {
-                    echo "AJAKJDLFKAJSFLKJSAFKLJSAJFEEHEEEEEEEECON";
-                }    
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
+        public function actionView($id)
+        {
+                $this->render('view',array(
+                        'model'=>$this->loadModel($id),
+                ));
+        }
 
 	/**
 	 * Creates a new model.
@@ -89,36 +85,40 @@ class UsuarioController extends Controller
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
+        {
+                $model=$this->loadModel($id);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+                // Uncomment the following line if AJAX validation is needed
+                // $this->performAjaxValidation($model);
 
-		if(isset($_POST['Usuario']))
-		{
-			$model->attributes=$_POST['Usuario'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
+                if(isset($_POST['Usuario']))
+                {
+                        $model->attributes=$_POST['Usuario'];
+                        if($model->save())
+                                $this->redirect(array('view','id'=>$model->id));
+                }
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
+                $this->render('update',array(
+                        'model'=>$model,
+                ));
+        }
 
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionDelete($id)
+	public function actionDelete()
 	{
-		$this->loadModel($id)->delete();
+            if(isset($_POST['id']))
+            {
+                $id = $_POST['id'];
+                $this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+            }                
 	}
 
 	/**

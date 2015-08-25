@@ -44,9 +44,14 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'fecha_creacion'); ?>
-		<?php echo $form->textField($model,'fecha_creacion'); ?>
-		<?php echo $form->error($model,'fecha_creacion'); ?>
+		
+                <?php echo $form->labelEx($model,'fecha_creacion'); ?>
+		
+            <div class="input-control text" data-role="input">
+                <?php echo $form->textField($model,'fecha_creacion'); ?>
+            </div>
+                
+                <?php echo $form->error($model,'fecha_creacion'); ?>
 	</div>
 
 	<div class="row buttons">
@@ -56,3 +61,17 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+
+<div class="input-control text" data-role="input">
+    <input type="text" data-validate-func="required" placeholder="not empty" data-validate-hint="This field can not be empty" style="padding-right: 5px;">
+    <span class="input-state-error mif-warning" style="right: 8px;"></span>
+    <span class="input-state-success mif-checkmark" style="right: 8px;"></span>
+</div>
+
+<div class="input-control modern text iconic">
+    <input type="text">
+    <span class="informer">Please enter you login or email</span>
+    <span class="placeholder">Input login</span>
+    <span class="icon mif-user"></span>
+</div>
