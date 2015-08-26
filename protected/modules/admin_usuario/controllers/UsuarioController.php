@@ -145,7 +145,9 @@ class UsuarioController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		if(isset($_GET["excel"]))
+                
+                $logica = new LogicaEstadoUsuario();
+    		if(isset($_GET["excel"]))
                 {
                     $model = Usuario::model()->findAll();
                     $content = $this->renderPartial("excel",array("model"=>$model),true);
@@ -174,10 +176,15 @@ class UsuarioController extends Controller
                         $this->redirect(array("admin"));
                     }
                 }
+                
+                $this->listaUsuarioPorEstado();
 
 		$this->render('admin',array(
 			'model'=>$model,
+                        'logica'=>$logica,
 		));
+                
+                
 	}
 
 	/**
@@ -207,25 +214,23 @@ class UsuarioController extends Controller
 			Yii::app()->end();
 		}
 	}
-        
-        public function actionImportar() {
+       
+        public function listaUsuarioPorEstado() {
             
-//            $model = new Usuario();
-//        
-//            if(isset($_POST['Usuario'])){
-//                $model->attributes = $_POST['Usuario'];
-//            
-//                if($model->validate()){
-//                    $csvFile = CUploadedFile::getInstance($model,'file');  
-//                    $tempLoc = $csvFile->getTempName(); 
-//                    $model->cargarUsuarios(addslashes($tempLoc));
-//                    $this->redirect(array("../site/index"));
-//                    
-//                }
-//            }
-//        
-//        $this->render('importar',array('model' => $model));
-//    }
-        
+            if(Yii::app()->request->isAjaxRequest){
+                $estado = Yii::app()->request->getParam('estado');
+                $logica = new LogicaEstadoUsuario();
+                $listadoPorEstado = $logica->listarUsuarioPorEstado('estado');
+                $this->renderPartial('_admin', array('listadoPorEstado'=>$listadoPorEstado));
+            }
+            
+            else{
+                $logica = new LogicaEstadoUsuario();
+                $model = new Usuario();
+                $listadoPorEstado = $logica->listarUsuarioPorEstado('');
+                $listarEstados = $logica->listarEstadosUsuario();
+                $this->render('admin',array('listadoPorEstado'=>$listadoPorEstado,'listarEstados'=>$listarEstados,'model'=>$model,'logica'=>$logica));
+            }    
+        }
 }
-}
+
