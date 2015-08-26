@@ -1,6 +1,6 @@
 <?php
-/* @var $this DatoAcademicoController */
-/* @var $model DatoAcademico */
+/* @var $this DatoLoginController */
+/* @var $model DatoLogin */
 /* @var $form CActiveForm */
 ?>
 
@@ -24,50 +24,50 @@
 		<?php echo $form->textField($model,'universidad',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'universidad'); ?>
 	</div>
-
-	<div class="row">
+        
+        <div class="row">
 		<?php echo $form->labelEx($model,'carrera'); ?>
 		<?php echo $form->textField($model,'carrera',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'carrera'); ?>
 	</div>
-
-	<div class="row">
+        
+        <div class="row">
 		<?php echo $form->labelEx($model,'ano_cursado'); ?>
-		<?php echo $form->textField($model,'ano_cursado'); ?>
+		<?php echo $form->textField($model,'ano_cursado',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'ano_cursado'); ?>
 	</div>
-
-	<div class="row">
+        
+        <div class="row">
 		<?php echo $form->labelEx($model,'duracion_carrera'); ?>
-		<?php echo $form->textField($model,'duracion_carrera'); ?>
+		<?php echo $form->textField($model,'duracion_carrera',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'duracion_carrera'); ?>
 	</div>
-
-	<div class="row">
+        
+        <div class="row">
 		<?php echo $form->labelEx($model,'sede'); ?>
 		<?php echo $form->textField($model,'sede',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'sede'); ?>
 	</div>
-
-	<div class="row">
+        
+        <div class="row">
 		<?php echo $form->labelEx($model,'direccion_sede'); ?>
 		<?php echo $form->textField($model,'direccion_sede',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'direccion_sede'); ?>
 	</div>
-
-	<div class="row">
+        
+        <div class="row">
 		<?php echo $form->labelEx($model,'comuna_sede'); ?>
 		<?php echo $form->textField($model,'comuna_sede',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'comuna_sede'); ?>
 	</div>
-
-	<div class="row">
+        
+        <div class="row">
 		<?php echo $form->labelEx($model,'ciudad_sede'); ?>
 		<?php echo $form->textField($model,'ciudad_sede',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'ciudad_sede'); ?>
 	</div>
-
-	<div class="row">
+        
+        <div class="row">
 		<?php echo $form->labelEx($model,'usuario_id'); ?>
 		<?php echo $form->dropDownList($model,'usuario_id', CHtml::listData(Usuario::model()->findAll(),'id' ,'usuario'),array('empty'=>'seleccionar usuario')); ?>
 		<?php echo $form->error($model,'usuario_id'); ?>

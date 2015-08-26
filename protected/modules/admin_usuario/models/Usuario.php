@@ -163,10 +163,7 @@ class Usuario extends CActiveRecord
                     (usuario,clave,fecha_acceso,fecha_modificacion,fecha_creacion)"); 
             
             $comando->execute();
-        }
+        }       
+
         
-        public function eliminarUsuarioLogico() {
-            
         }
-       
-}
