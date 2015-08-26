@@ -54,6 +54,8 @@ return array(
             'admin_rol_usuario',
             'admin_usuario',
             'admin_usuario_administrador',
+            'css',
+
 
 
 		
