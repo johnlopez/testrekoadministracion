@@ -3,10 +3,13 @@
 /* @var $data Usuario */
 ?>
 
+
 <div class="view">
-        <div class="tile-wide bg-grayLight fg-white" data-role="tile">       
+    <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/view" method="get">
+        <input type="hidden" name="id" value="<?php echo $data->id?>" />
+        <button class="tile-wide bg-grayLight fg-white" data-role="tile" type="submit">
             <b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-            <?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+            <?php echo CHtml::encode($data->id); ?>
             <br />
 
             <b><?php echo CHtml::encode($data->getAttributeLabel('usuario')); ?>:</b>
@@ -28,6 +31,7 @@
             <b><?php echo CHtml::encode($data->getAttributeLabel('fecha_creacion')); ?>:</b>
             <?php echo CHtml::encode($data->fecha_creacion); ?>
             <br />
-        </div>
-
+        </button>
+    </form> 
 </div>
+
