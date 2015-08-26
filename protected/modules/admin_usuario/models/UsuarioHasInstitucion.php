@@ -98,8 +98,8 @@ class UsuarioHasInstitucion extends CActiveRecord
 	}
         
         public function listaInstitucionUsuario($idInstitucion) {        
-            $command = Yii::app()->db->createCommand("CALL sp_admin_usuario_lista_institucion_usuario(:nuevo_institucion_id)");
-            $command->bindParam(':nuevo_institucion_id',$idInstitucion);	
+            $command = Yii::app()->db->createCommand("CALL sp_admin_usuario_lista_institucion_usuario(:nuevoInstitucionId)");
+            $command->bindParam(':nuevoInstitucionId',$idInstitucion);	
             $resultado = $command->queryAll();        
             return $resultado;       
         }
@@ -109,10 +109,10 @@ class UsuarioHasInstitucion extends CActiveRecord
             var_dump($lista);
             $listaLen = count($listaInstitucionUsuario);        
 
-            $command = Yii::app()->db->createCommand("CALL sp_admin_usuario_asigna_usuario_institucion(:lista_usuario_id,:lista_largo,:nuevo_institucion_id)");
-            $command->bindParam(':lista_usuario_id',$lista);
-            $command->bindParam(':lista_largo',$listaLen);
-            $command->bindParam(':nuevo_institucion_id',$institucionId);
+            $command = Yii::app()->db->createCommand("CALL sp_admin_usuario_asigna_usuario_institucion(:listaUsuarioId,:listaLargo,:nuevoInstitucionId)");
+            $command->bindParam(':listaUsuarioId',$lista);
+            $command->bindParam(':listaLargo',$listaLen);
+            $command->bindParam(':nuevoInstitucionId',$institucionId);
             $resultado = $command->execute();        
             return $resultado;
         }
@@ -122,10 +122,10 @@ class UsuarioHasInstitucion extends CActiveRecord
             var_dump($lista);
             $listaLen = count($listaInstitucionUsuario);        
 
-            $command = Yii::app()->db->createCommand("CALL sp_admin_usuario_desasigna_usuario_institucion(:lista_usuario_id,:lista_largo,:nuevo_institucion_id)");
-            $command->bindParam(':lista_usuario_id',$lista);
-            $command->bindParam(':lista_largo',$listaLen);
-            $command->bindParam(':nuevo_institucion_id',$institucionId);
+            $command = Yii::app()->db->createCommand("CALL sp_admin_usuario_desasigna_usuario_institucion(:listaUsuarioId,:listaLargo,:nuevoInstitucionId)");
+            $command->bindParam(':listaUsuarioId',$lista);
+            $command->bindParam(':listaLargo',$listaLen);
+            $command->bindParam(':nuevoInstitucionId',$institucionId);
             $resultado = $command->execute();        
             return $resultado;
         }

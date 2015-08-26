@@ -22,10 +22,7 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'pregunta_secreta_1',
-		'pregunta_secreta_2',
-		'respuesta_secreta_1',
-		'respuesta_secreta_2',
 		'usuario_id',
+		'codigo_seguridad_id',
 	),
 )); ?>

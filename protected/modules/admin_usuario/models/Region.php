@@ -108,10 +108,10 @@ class Region extends CActiveRecord
         
         public function agregarRegion($nombre,$codigo,$paisId) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_agregar_region(:nombre,:codigo,:pais_id,@llave_id)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_agregar_region(:nombre,:codigo,:paisId,@llave_id)");
             $comando->bindParam(':nombre', $nombre);
             $comando->bindParam(':codigo', $codigo);
-            $comando->bindParam(':pais_id', $paisId);
+            $comando->bindParam(':paisId', $paisId);
             $comando->execute(); 
             $this->llaveIdRegion = Yii::app()->db->createCommand("select @llave_id as result;")->queryScalar();
             return $comando;
@@ -119,11 +119,11 @@ class Region extends CActiveRecord
         
         public function modificarRegion($id,$nombre,$codigo,$paisId) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_actualizar_region(:id,:nombre,:codigo,:pais_id)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_actualizar_region(:id,:nombre,:codigo,:paisId)");
             $comando->bindParam(':id', $id);
             $comando->bindParam(':nombre', $nombre);
             $comando->bindParam(':codigo', $codigo);
-            $comando->bindParam(':pais_id', $paisId);
+            $comando->bindParam(':paisId', $paisId);
             $comando->execute();
             return $comando;
         }

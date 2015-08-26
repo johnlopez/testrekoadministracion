@@ -110,10 +110,10 @@ class EstadoUsuario extends CActiveRecord
             var_dump($lista);
             $listaLen = count($listaEstadoUsuario);        
 
-            $command = Yii::app()->db->createCommand("CALL sp_admin_usuario_asigna_estado_usuario(:lista_usuario_id,:lista_largo,:nuevo_estado_id)");
-            $command->bindParam(':lista_usuario_id',$lista);
-            $command->bindParam(':lista_largo',$listaLen);
-            $command->bindParam(':nuevo_estado_id',$estadoId);
+            $command = Yii::app()->db->createCommand("CALL sp_admin_usuario_asigna_estado_usuario(:listaUsuarioId,:listaLargo,:nuevoEstadoId)");
+            $command->bindParam(':listaUsuarioId',$lista);
+            $command->bindParam(':listaLargo',$listaLen);
+            $command->bindParam(':nuevoEstadoId',$estadoId);
             $resultado = $command->execute();        
             return $resultado;
         }
@@ -123,10 +123,10 @@ class EstadoUsuario extends CActiveRecord
             var_dump($lista);
             $listaLen = count($listaEstadoUsuario);        
 
-            $command = Yii::app()->db->createCommand("CALL sp_admin_usuario_desasigna_estado_usuario(:lista_usuario_id,:lista_largo,:nuevo_estado_id)");
-            $command->bindParam(':lista_usuario_id',$lista);
-            $command->bindParam(':lista_largo',$listaLen);
-            $command->bindParam(':nuevo_estado_id',$estadoId);
+            $command = Yii::app()->db->createCommand("CALL sp_admin_usuario_desasigna_estado_usuario(:listaUsuarioId,:listaLargo,:nuevoEstadoId)");
+            $command->bindParam(':listaUsuarioId',$lista);
+            $command->bindParam(':listaLargo',$listaLen);
+            $command->bindParam(':nuevoEstadoId',$estadoId);
             $resultado = $command->execute();        
             return $resultado;
         }

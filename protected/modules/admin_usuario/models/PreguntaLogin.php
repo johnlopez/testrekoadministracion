@@ -1,27 +1,26 @@
 <?php
 
 /**
- * This is the model class for table "dato_login".
+ * This is the model class for table "pregunta_login".
  *
- * The followings are the available columns in table 'dato_login':
+ * The followings are the available columns in table 'pregunta_login':
  * @property integer $id
- * @property integer $usuario_id
- * @property integer $codigo_seguridad_id
+ * @property string $pregunta
  *
  * The followings are the available model relations:
- * @property CodigoSeguridad $codigoSeguridad
- * @property Usuario $usuario
- * @property PreguntaLogin[] $preguntaLogins
- * @property RespuestaLogin[] $respuestaLogins
+ * @property DatoLogin[] $datoLogins
  */
-class DatoLogin extends CActiveRecord
+class PreguntaLogin extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
+    
+        public $llaveIdPregunta;
+        
 	public function tableName()
 	{
-		return 'dato_login';
+		return 'pregunta_login';
 	}
 
 	/**
@@ -32,11 +31,10 @@ class DatoLogin extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('usuario_id, codigo_seguridad_id', 'required'),
-			array('usuario_id, codigo_seguridad_id', 'numerical', 'integerOnly'=>true),
+			array('pregunta', 'length', 'max'=>250),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, usuario_id, codigo_seguridad_id', 'safe', 'on'=>'search'),
+			array('id, pregunta', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -48,10 +46,7 @@ class DatoLogin extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'codigoSeguridad' => array(self::BELONGS_TO, 'CodigoSeguridad', 'codigo_seguridad_id'),
-			'usuario' => array(self::BELONGS_TO, 'Usuario', 'usuario_id'),
-			'preguntaLogins' => array(self::MANY_MANY, 'PreguntaLogin', 'dato_login_has_pregunta_login(dato_login_id, pregunta_login_id)'),
-			'respuestaLogins' => array(self::MANY_MANY, 'RespuestaLogin', 'dato_login_has_respuesta_login(dato_login_id, respuesta_login_id)'),
+			'datoLogins' => array(self::MANY_MANY, 'DatoLogin', 'dato_login_has_pregunta_login(pregunta_login_id, dato_login_id)'),
 		);
 	}
 
@@ -62,8 +57,7 @@ class DatoLogin extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'usuario_id' => 'Usuario',
-			'codigo_seguridad_id' => 'Codigo Seguridad',
+			'pregunta' => 'Pregunta',
 		);
 	}
 
@@ -86,8 +80,7 @@ class DatoLogin extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('usuario_id',$this->usuario_id);
-		$criteria->compare('codigo_seguridad_id',$this->codigo_seguridad_id);
+		$criteria->compare('pregunta',$this->pregunta,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -98,10 +91,28 @@ class DatoLogin extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return DatoLogin the static model class
+	 * @return PreguntaLogin the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
+        
+        public function agregarPregunta($pregunta) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_agregar_pregunta_login(:pregunta,@llave_id)");
+            $comando->bindParam(':pregunta', $pregunta);
+            $comando->execute();
+            $this->llaveIdPregunta = Yii::app()->db->createCommand("select @llave_id as result;")->queryScalar();
+            return $comando;
+        }
+        
+        public function modificarPregunta($id,$pregunta) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_actualizar_pregunta_login(:id,:pregunta)");
+            $comando->bindParam('id', $id);
+            $comando->bindParam('pregunta', $pregunta);
+            $comando->execute();
+            return $comando;
+        }
 }

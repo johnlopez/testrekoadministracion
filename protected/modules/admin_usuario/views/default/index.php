@@ -116,16 +116,38 @@ $this->breadcrumbs=array(
                 </div>  
             </a>
             
+            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario/preguntaLogin/admin";?>" >
+                <div class="tile-wide bg-darkGreen fg-white" data-role="tile">
+                    <div class="tile-content iconic">
+                        <span class="icon mif-location-city"></span>
+                    </div>
+                    <span class="tile-label">            
+                        <?php 
+                            $pizza  = CHtml::encode('preguntaLogin');
+                            $porciones = explode("_", $pizza);
+                            foreach ($porciones as $p)
+                            echo $p." "; // porciÃ³n
+                        ?>                
+                    </span>
+                </div>  
+            </a>
+            
+             <a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario/estadoCodigoSeguridad/admin";?>" >
+                <div class="tile-wide bg-darkGreen fg-white" data-role="tile">
+                    <div class="tile-content iconic">
+                        <span class="icon mif-location-city"></span>
+                    </div>
+                    <span class="tile-label">            
+                        <?php 
+                            $pizza  = CHtml::encode('estadoCodigoSeguridad');
+                            $porciones = explode("_", $pizza);
+                            foreach ($porciones as $p)
+                            echo $p." "; // porciÃ³n
+                        ?>                
+                    </span>
+                </div>  
+            </a>   
     </div>
 </div> <!-- End of tiles -->
 
-
-<?php echo CHtml::link('Dato Academico','admin_usuario/datoacademico/admin')."<br>";?>
-<?php echo CHtml::link('Dato Laboral','admin_usuario/datolaboral/admin')."<br>";?>
-<?php echo CHtml::link('Dato Login','admin_usuario/datologin/admin')."<br>";?>
-<?php echo CHtml::link('Dato Personal','admin_usuario/datopersonal/admin')."<br>";?>
-<?php echo CHtml::link('Pais','admin_usuario/pais/admin')."<br>";?>
-<?php echo CHtml::link('Region','admin_usuario/region/admin')."<br>";?>
-<?php echo CHtml::link('Usuario','admin_usuario/usuario/admin')."<br>";?>
-<?php echo CHtml::link('Logica estado usuario','admin_usuario/logicaestadousuario/admin');?>
 
