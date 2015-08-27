@@ -3,6 +3,11 @@
 /* @var $model Usuario */
 /* @var $form CActiveForm */
 ?>
+<script type="text/javascript" language="javascript" class="init">
+$(document).ready(function() {
+	$('#main_table_demo').DataTable();
+} );
+</script>
 
 <div class="form">
 
@@ -19,59 +24,56 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'usuario'); ?>
-		<?php echo $form->textField($model,'usuario',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'usuario'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'clave'); ?>
-		<?php echo $form->textField($model,'clave',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'clave'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'fecha_acceso'); ?>
-		<?php echo $form->textField($model,'fecha_acceso'); ?>
-		<?php echo $form->error($model,'fecha_acceso'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'fecha_modificacion'); ?>
-		<?php echo $form->textField($model,'fecha_modificacion'); ?>
-		<?php echo $form->error($model,'fecha_modificacion'); ?>
-	</div>
-
-	<div class="row">
-		
-                <?php echo $form->labelEx($model,'fecha_creacion'); ?>
-		
-            <div class="input-control text" data-role="input">
-                <?php echo $form->textField($model,'fecha_creacion'); ?>
-            </div>
-                
-                <?php echo $form->error($model,'fecha_creacion'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
+        <div class="container">
+            <section>
+                <table id="main_table_demo" class="display striped" cellspacing="0" width="100%">
+                    <tbody>
+                            <tr>
+                                <td><?php echo $form->labelEx($model,'usuario'); ?></td>
+                                <td><?php echo $form->textField($model,'usuario',array('size'=>45,'maxlength'=>45)); ?></td>
+                                <td><?php echo $form->error($model,'usuario'); ?></td>
+                                <td></td> 
+                            </tr>
+                            <tr>
+                                <td><?php echo $form->labelEx($model,'clave'); ?></td>
+                                <td><?php echo $form->textField($model,'clave',array('size'=>45,'maxlength'=>45)); ?></td> 
+                                <td><?php echo $form->error($model,'clave'); ?></td>
+                                <td></td> 
+                            </tr>
+                            <tr>
+                                <td><?php echo $form->labelEx($model,'fecha_acceso'); ?></td>
+                                <td><?php echo $form->textField($model,'fecha_acceso'); ?></td> 
+                                <td><?php echo $form->error($model,'fecha_acceso'); ?></td> 
+                                <td></td> 
+                            </tr>
+                            <tr>
+                                <td><?php echo $form->labelEx($model,'fecha_modificacion'); ?></td>
+                                <td><?php echo $form->textField($model,'fecha_modificacion'); ?></td> 
+                                <td><?php echo $form->error($model,'fecha_modificacion'); ?></td> 
+                                <td></td> 
+                            </tr>
+                            <tr>
+                                <td><?php echo $form->labelEx($model,'fecha_creacion'); ?></td>
+                                <td><?php echo $form->textField($model,'fecha_creacion'); ?></td> 
+                                <td><?php echo $form->error($model,'fecha_creacion'); ?></td> 
+                                <td></td> 
+                            </tr>
+                            <tr>
+                                <td>	
+                                    <div class="row buttons">
+                                            <?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
+                                    </div>
+                                </td>                                
+                            </tr>
+                    </tbody>
+                </table>
+           
+            </section>
+        </div>
 
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
 
 
-<div class="input-control text" data-role="input">
-    <input type="text" data-validate-func="required" placeholder="not empty" data-validate-hint="This field can not be empty" style="padding-right: 5px;">
-    <span class="input-state-error mif-warning" style="right: 8px;"></span>
-    <span class="input-state-success mif-checkmark" style="right: 8px;"></span>
-</div>
 
-<div class="input-control modern text iconic">
-    <input type="text">
-    <span class="informer">Please enter you login or email</span>
-    <span class="placeholder">Input login</span>
-    <span class="icon mif-user"></span>
-</div>

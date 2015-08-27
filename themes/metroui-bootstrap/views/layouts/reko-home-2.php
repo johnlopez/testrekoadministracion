@@ -2,127 +2,50 @@
 <!-- saved from url=(0025)http://metroui.org.ua/v2/ -->
 <html>
     <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Metro, a sleek, intuitive, and powerful framework for faster and easier web development for Windows Metro Style.">
-    <meta name="keywords" content="HTML, CSS, JS, JavaScript, framework, metro, front-end, frontend, web development">
-    <meta name="author" content="Sergey Pimenov and Metro UI CSS contributors">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="product" content="Metro UI CSS Framework">
+        <meta name="description" content="Simple responsive css framework">
+        <meta name="author" content="Sergey S. Pimenov, Ukraine, Kiev">
+        <meta name="keywords" content="js, css, metro, framework, windows 8, metro ui">
 
-    <link rel='shortcut icon' type='image/x-icon' href='<?php echo Yii::app()->theme->baseUrl; ?>/favicon.ico' />
+        <link href="http://metroui.org.ua/v2/css/metro-bootstrap.css" rel="stylesheet">
+        <link href="http://metroui.org.ua/v2/css/metro-bootstrap-responsive.css" rel="stylesheet">
+        <link href="http://metroui.org.ua/v2/css/iconFont.css" rel="stylesheet">
+        <link href="http://metroui.org.ua/v2/css/docs.css" rel="stylesheet">
+        <link href="http://metroui.org.ua/v2/js/prettify/prettify.css" rel="stylesheet">
 
-    <title>News portal :: Metro UI CSS - The front-end framework for developing projects on the web in Windows Metro Style</title>
+        <!-- Load JavaScript Libraries -->
+        <script async="" src="./Metro UI CSS   Simple responsive css framework_files/analytics.js"></script><script src="./Metro UI CSS   Simple responsive css framework_files/jquery.min.js"></script>
+        <script src="./Metro UI CSS   Simple responsive css framework_files/jquery.widget.min.js"></script>
+        <script src="./Metro UI CSS   Simple responsive css framework_files/jquery.mousewheel.js"></script>
+        <script src="./Metro UI CSS   Simple responsive css framework_files/prettify.js"></script>
 
-    <link href="<?php echo Yii::app()->theme->baseUrl; ?>/css/metro.css" rel="stylesheet">
-    <link href="<?php echo Yii::app()->theme->baseUrl; ?>/css/metro-icons.css" rel="stylesheet">
+        <!-- Metro UI CSS JavaScript plugins -->
+        <script src="./Metro UI CSS   Simple responsive css framework_files/load-metro.js"></script>
 
-    <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/jquery-2.1.3.min.js"></script>
-    <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/metro.js"></script>
-    <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/ga.js"></script>
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- Local JavaScript -->
+        <script src="./Metro UI CSS   Simple responsive css framework_files/docs.js"></script>
+        <script src="./Metro UI CSS   Simple responsive css framework_files/github.info.js"></script>
+        <script src="./Metro UI CSS   Simple responsive css framework_files/ga.js"></script>
+
+        <title>Metro UI CSS : Simple responsive css framework</title>
+
+        <style>
+        </style>
+        <script src="./Metro UI CSS   Simple responsive css framework_files/metro.min.js"></script>
+        <style type="text/css">            
+        </style>
     </head>
     <body class="metro" style="background-color: rgb(239, 234, 227);">        
         <div class="">
             <div style="background: url(<?php echo Yii::app()->theme->baseUrl; ?>/images/header.png) top left no-repeat; background-size: cover; height: 300px;">
                 <div class="container" style="padding: 50px 20px">
-                    <div class="clear-float">
-                <div class="place-right">
-                    <form>
-                        <div class="input-control text margin20" style="width: 300px">
-                            <input type="text" name="q" placeholder="Search...">
-                            <button class="button"><span class="mif-search"></span></button>
-                        </div>
-                    </form>
-                    <div class="place-right">
-                    <div class="tile-area-controls">            
-                        <button class="image-button bg-transparent fg-white bg-hover-dark no-border">
-                            <span class="sub-header fg-black no-margin text-light">           
-                                <?php                     
-                                    echo !Yii::app()->user->isGuest
-                                    ? ''
-                                    : CHtml::link("Login", array('/site/login'), array()); 
-                                ?>
-                                <?php
-                                    echo Yii::app()->user->isGuest
-                                    ? ''
-                                    : CHtml::link("Logout", array('/site/logout'), array()); 
-                                ?>
-                           </span> 
-                        </button>
-
-                        <button class="image-button icon-right bg-transparent fg-white bg-hover-dark no-border">
-                            <span class="sub-header no-margin text-light">
-                                <?php
-                                echo Yii::app()->user->isGuest
-                                ? ''
-                                : CHtml::link(Yii::app()->user->name);                    
-                                ?>
-                            </span> 
-
-                            <span class="icon mif-user">                    
-                            </span>
-                        </button>            
-                        <button class="square-button bg-transparent fg-white bg-hover-dark no-border" onclick="showSearch()"><span class="mif-search"></span></button>
-                        
-                    </div>
-                </div>
-                </div>
-                
-                
-                <a class="place-left" title="">
-                    <h1 class="tile-area-title">            
-                        
-                        <a href="<?php echo Yii::app()->getBaseUrl(); ?>/escritorio_administrador/escritorioadministrador/index" >
-                            <div class="mif-music  mif-ani-shuttle mif-ani-slow" style="color: transparent; width: 80px; height:80px; border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-image: url(<?php echo Yii::app()->theme->baseUrl; ?>/images/reko.png); background-size: cover; background-repeat: no-repeat;"></div>
-                            <a  href="<?php echo Yii::app()->getBaseUrl(); ?>" title="">
-                                <h1 class="fg-white">ReKo</h1>
-                            </a>
-                        </a>                        
-                    </h1>
-                </a>
-                
-            </div>
-
-            <div class="main-menu-wrapper">
-                <ul class="horizontal-menu" style="margin-left: -20px">
-                    <li><a href="<?php echo Yii::app()->getBaseUrl(); ?>/escritorio_administrador/escritorioadministrador/index">Inicio</a></li>
-                    <li><a href="#">Tutoriales</a></li>
-                    <li><a href="#">Soporte Tecnico</a></li>
-                    <li><a href="#">Novedades</a></li>
-                    <li><a href="#">Contacto</a></li>
-                    <li class="place-right">
-                        <a href="#" class="dropdown-toggle">Menu</a>
-                        <ul class="d-menu place-right" data-role="dropdown">
-                            <li><a href="#">Inicio</a></li>
-                            <li><a href="#">Reko</a></li>
-                            <li><a href="#">Tutoriales</a></li>
-                            <li><a href="#">Experiencia de Uso</a></li>
-                            <li><a href="#">Soporte Técnico</a></li>
-                            <li><a href="#">Novedades</a></li>
-                            <li><a href="#">Contacto</a></li>
-                        </ul>
-                    </li>
-                    <?php if(!Yii::app()->user->isGuest):?>
-                    <li class="place-right">
-                        <a href="#" class="dropdown-toggle">Administracion</a>
-                        <ul class="d-menu place-right" data-role="dropdown">
-                            <li><a href="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario_administrador">Admin Usuario Administrador</a></li>
-                            <li><a href="<?php echo Yii::app()->getBaseUrl(); ?>/admin_rol_administrador">Admin Rol Administrador</a></li>
-                            <li><a href="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario">Admin Usuario</a></li>
-                            <li><a href="<?php echo Yii::app()->getBaseUrl(); ?>/admin_rol_usuario">Admin Rol Usuario</a></li>
-                            <li><a href="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion">Admin Istitucion</a></li>
-                            <li><a href="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular">Admin Curricular</a></li>
-                            <li><a href="<?php echo Yii::app()->getBaseUrl(); ?>/admin_aula">Admin Aula</a></li>
-                            <li><a href="<?php echo Yii::app()->getBaseUrl(); ?>/admin_repositorio">Admin Repositorio</a></li>
-                            <li><a href="<?php echo Yii::app()->getBaseUrl(); ?>/admin_repositorio">Admin Escritorio</a></li>
-                            <li><a href="<?php echo Yii::app()->getBaseUrl(); ?>/admin_repositorio">Admin Aplicaciones</a></li>
-                            <li><a href="<?php echo Yii::app()->getBaseUrl(); ?>/admin_error_log_mensaje">Admin Error Log Mensaje</a></li>
-
-                        </ul>
-                    </li>
-                    <?php endif;?>
-                </ul>
-            </div>                
+                    <h1 class="fg-white">Metro UI CSS 2.0</h1>
+                    <h2 class="fg-white">
+                        Metro UI CSS a set of styles to create a site<br> with an interface similar to Windows 8.
+                    </h2>
                 </div>
             </div>
 

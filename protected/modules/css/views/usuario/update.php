@@ -16,7 +16,6 @@ $this->breadcrumbs=array(
 //);
 ?>
 <div class="place-right padding20 no-padding-top no-padding-right">
-    <h4 class=" padding1 ">Opciones</h4>        
         <form class="place-left padding20 no-padding-left no-padding-bottom no-padding-top" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/index" >
             <button class="button primary" type="submit">
                     Listar Usuario
