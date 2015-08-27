@@ -121,5 +121,12 @@ class LogicaEstadoUsuario extends CActiveRecord
             return $comando->queryAll();
         }
         
+        public function listarUsuarioPorEstado($estado) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_listar_por_estado(:estado)");
+            $comando->bindParam(':estado', $estado);
+            return $comando->queryAll();
+        }
+        
         
 }

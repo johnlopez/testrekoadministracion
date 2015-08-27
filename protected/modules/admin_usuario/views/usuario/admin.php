@@ -67,6 +67,20 @@ $('.search-form form').submit(function(){
 </div>
 <br><br><br>
 
+<div id="combo">
+<?php
+    $select = array('' =>'seleccione estado');
+    $options = CHtml::listData(LogicaEstadoUsuario::model()->listarEstadosUsuario(), 'estado', 'estado');
+    echo CHtml::activeDropDownList($logica,'estado', array_merge($select, $options),
+        array(
+            'ajax' => array('type'=>'POST',
+            'url'=> CController::createUrl('Usuario/admin'),
+            'update'=>'#table', 
+            'data'=>array('estado' => 'js:this.value'),
+        )));
+?>
+</div>
+
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
