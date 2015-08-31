@@ -32,7 +32,6 @@ $this->breadcrumbs=array(
 //)); 
 ?>
 <div class="place-right padding20 no-padding-top no-padding-right">
-    <h4 class=" padding1 ">Opciones</h4>        
         <form class="place-left padding20 no-padding-left no-padding-bottom no-padding-top" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/index" >
             <button class="button primary" type="submit">
                     Listar Usuario
@@ -91,4 +90,3 @@ $this->breadcrumbs=array(
         </tr>        
     </tbody>
 </table>
-<div class="progress small" data-value="100" data-color="bg-grayLight" data-role="progressBar"><div class="bar bg-red" style="width: 85%;"></div></div>

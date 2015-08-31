@@ -7,7 +7,7 @@
 <div class="view">
     <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/view" method="get">
         <input type="hidden" name="id" value="<?php echo $data->id?>" />
-        <button class="tile-wide bg-grayLight fg-white" data-role="tile" type="submit">
+        <button class="tile-wide bg-darkCyan fg-white" data-role="tile" type="submit">
             <b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
             <?php echo CHtml::encode($data->id); ?>
             <br />
