@@ -64,3 +64,18 @@ $(document).ready(function() {
     </section>
 </div>
 
+
+            
+<div id="combo">
+<?php
+    $select = array('' =>'seleccione estado');
+    $options = CHtml::listData(LogicaEstadoUsuario::model()->listarEstadosUsuario(), 'estado', 'estado');
+    echo CHtml::activeDropDownList($logica,'estado', array_merge($select, $options),
+        array(
+            'ajax' => array('type'=>'POST',
+            'url'=> CController::createUrl('Usuario/admin'),
+            'update'=>'#main_table_demo',
+            'data'=>array('estado' => 'js:this.value'),
+        )));
+?>
+</div>

@@ -28,9 +28,94 @@ $('.search-form form').submit(function(){
 
 <h1>Administracion de  Usuarios</h1>
 
-<h4>Exportar usuarios</h4>
 <?php echo CHtml::link("Excel",array("admin","excel" =>1),array("class"=>"btn"));?><br>
 <?php echo CHtml::link("Csv",array("admin","csv" =>1),array("class"=>"btn"));?><br><br><br>
+
+
+
+
+<script type="text/javascript" language="javascript" class="init">
+$(document).ready(function() {
+	$('#main_table_demo').DataTable();
+} );
+</script>
+<div class="container">
+    <section>
+        <table id="main_table_demo" class="display cell-hovered hovered striped" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>USUARIO</th>
+                    <th>CLAVE</th>
+                    <th>ESTADO</th>
+                    <th>OPCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($listadoUsuarioEstado as $m):?>                                                     
+                    <tr>
+                        <td><?php echo $m['id'] ?></td>
+                        <td><?php echo $m['usuario'] ?></td>
+                        <td><?php echo $m['clave']?></td>
+                        <td><?php echo $m['estado']?></td>
+                        <td>                                        
+                            <?php 
+                            // http://www.v09studio.com/websystems/materials/forms.html
+                            // pagina html post url form button
+                            ?>                                        
+                            <div id="button-group-1">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/view" method="get">
+                                    <input type="hidden" name="id" value="<?php echo $m['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-search">
+
+                                        </span>
+                                    </button>
+                                </form>
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/update" method="get">
+                                    <input type="hidden" name="id" value="<?php echo $m['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-pencil">
+
+                                        </span>
+                                    </button>
+                                </form>
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/delete" method="post">
+                                    <input type="hidden" name="id" value="<?php echo $m['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-cancel">
+
+                                        </span>
+                                    </button>
+                                </form> 
+                            </div>                                        
+                        </td>
+                    </tr>
+                <?php endforeach;?>                                
+            </tbody>
+        </table>
+        <ul class="tabs">
+                <li class="active"></li>                        
+        </ul>               
+    </section>
+</div>
+
+
+
+<div id="combo">
+<?php
+    $select = array('' =>'seleccione estado');
+    $options = CHtml::listData(LogicaEstadoUsuario::model()->listarEstadosUsuario(), 'estado', 'estado');
+    echo CHtml::activeDropDownList($logica,'estado', array_merge($select, $options),
+        array(
+            'ajax' => array('type'=>'POST',
+            'url'=> CController::createUrl('Usuario/admin'),
+            'update'=>'#main_table_demo',
+            'data'=>array('estado' => 'js:this.value'),
+        )));
+?>
+</div>
+<br><br><br>
 
 <div class='form'>
     <?php
@@ -46,8 +131,8 @@ $('.search-form form').submit(function(){
             ),
         ));
     ?>
- 
-    <fieldset>
+
+     <fieldset>
         <?php echo $form->errorSummary($model, 'Opps!!!', null, array('class'=>'alert alert-error span12')); ?>
  
         <div class="control-group">     
@@ -63,54 +148,5 @@ $('.search-form form').submit(function(){
             <?php echo CHtml::submitButton("Importar", array('class' => 'btn btn-primary')); ?>
         </div>
     </fieldset>
-    <?php $this->endWidget(); ?>
+     <?php $this->endWidget(); ?>
 </div>
-<br><br><br>
-
-<div id="combo">
-<?php
-    $select = array('' =>'seleccione estado');
-    $options = CHtml::listData(LogicaEstadoUsuario::model()->listarEstadosUsuario(), 'estado', 'estado');
-    echo CHtml::activeDropDownList($logica,'estado', array_merge($select, $options),
-        array(
-            'ajax' => array('type'=>'POST',
-            'url'=> CController::createUrl('Usuario/admin'),
-            'update'=>'#table', 
-            'data'=>array('estado' => 'js:this.value'),
-        )));
-?>
-</div>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
-
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'usuario-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'id',
-		'usuario',
-		'clave',
-		'fecha_acceso',
-		'fecha_modificacion',
-		'fecha_creacion',
-		
-                array(
-			'class'=>'CButtonColumn',
-                        'template' => '{asignar}{view}{delete}{update}',
-                        'buttons' => array(
-                                    'asignar' => array(
-                                            'label' => 'asignar usuario',
-                                            'imageUrl'=>Yii::app()->request->baseUrl.'/assets/9e5e8f07/gridview/asignar.png', //ruta icono para el botón
-                                            'url'=>'Yii::app()->createUrl("admin_usuario/estadousuario/index2",array("id" => $data->id) )', //url de la acción nueva
-                                    ),
-
-                        ),
-		),
-	),
-)); ?>

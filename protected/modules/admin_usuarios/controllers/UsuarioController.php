@@ -1,6 +1,5 @@
 <?php
 
-
 class UsuarioController extends Controller
 {
 	/**
@@ -29,7 +28,7 @@ class UsuarioController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin','importar'),
+				'actions'=>array('index','view','admin'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -63,7 +62,7 @@ class UsuarioController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model = new Usuario;
+		$model=new Usuario;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -71,13 +70,8 @@ class UsuarioController extends Controller
 		if(isset($_POST['Usuario']))
 		{
 			$model->attributes=$_POST['Usuario'];
-			if($model->agregarUsuario(
-                                $model->usuario,
-                                $model->clave,
-                                $model->fecha_creacion
-                            ))
-                                
-                        $this->redirect(array('view','id' => $model->llaveIdUsuario));
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
@@ -100,14 +94,8 @@ class UsuarioController extends Controller
 		if(isset($_POST['Usuario']))
 		{
 			$model->attributes=$_POST['Usuario'];
-			if($model->modificarUsuario(
-                                $model->id,
-                                $model->usuario,
-                                $model->clave,
-                                $model->fecha_modificacion
-                            ))
-				
-                        $this->redirect(array('view','id'=>$model->id));
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(
@@ -144,76 +132,33 @@ class UsuarioController extends Controller
 	 * Manages all models.
 	 */
         
-        public function exportarExcel() {
-                
-            if(isset($_GET["excel"]))
-                {
-                    $model = Usuario::model()->findAll();
-                    $content = $this->renderPartial("excel",array("model"=>$model),true);
-                    Yii::app()->request->sendFile("test.xls",$content);
-                }
-        }
-        
-        public function exportarCsv() {
-             
-            if (isset($_GET["csv"])) 
-                {
-                    $model = Usuario::model()->findAll();
-                    $content = $this->renderPartial("csv",array("model"=>$model),true);
-                    Yii::app()->request->sendFile("test.csv",$content);
-                }
-        }
-        
-        public function importarUsuarios() {
+        public function buscarPorEstado() {
             
-            $model = new Usuario();
-            if(isset($_POST['Usuario'])){
-                    $model->attributes = $_POST['Usuario']; 
-                
-                    if($model->validate()){
-                        $csvFile = CUploadedFile::getInstance($model,'file');  
-                        $tempLoc = $csvFile->getTempName(); 
-                        $model->cargarUsuarios(addslashes($tempLoc));
-                        $this->redirect(array("admin"));
-                    }
-                }
-        }
-        
-        public function listPorEstado() {
-            
-            $model = new Usuario();
             if(Yii::app()->request->isAjaxRequest){       
-                    $estado = Yii::app()->request->getParam('estado');
-                    $myHtml = CHtml::encode('Estado seleccionado...'. $estado);
-                    echo $myHtml;
-                    $logica = new LogicaEstadoUsuario();  
-                    $listadoUsuarioEstado = $logica->listarUsuarioPorEstado($estado);
-                    $this->renderPartial('_admin', array('listadoUsuarioEstado' => $listadoUsuarioEstado));       
-                }
+                $estado = Yii::app()->request->getParam('estado');
+                $myHtml = CHtml::encode('Estado seleccionado...'. $estado);
+                echo $myHtml;
+                $logica = new LogicaEstadoUsuario();  
+                $listadoUsuarioEstado = $logica->listarUsuarioPorEstado($estado);
+                $this->renderPartial('_admin', array('listadoUsuarioEstado' => $listadoUsuarioEstado));       
+            }
         
-                else{
-                    $logica = new LogicaEstadoUsuario();  
-                    $listadoUsuarioEstado = $logica->listarUsuarioPorEstado('');
-                    $listarEstados = $logica->listarEstadosUsuario();
-                    $this->render('admin', array('listadoUsuarioEstado' => $listadoUsuarioEstado,'logica' => $logica,'model'=>$model));        
-                }
+            else{
+                $logica = new LogicaEstadoUsuario();  
+                $listadoUsuarioEstado = $logica->listarUsuarioPorEstado('');
+                $listarEstados = $logica->listarEstadosUsuario();
+                $this->render('admin', array('listadoUsuarioEstado' => $listadoUsuarioEstado,'logica' => $logica));        
+            }
         }
-        
 	public function actionAdmin()
-	{
-                 
-                $model = new Usuario('search');
-		$model->unsetAttributes();
-		if(isset($_GET['Usuario']))
-			$model->attributes=$_GET['Usuario'];
-                
-                $this->listPorEstado();
-                $this->exportarExcel();
-                $this->exportarCsv();
-                $this->importarUsuarios();               
-        }
-        
-                
+        {
+            $model=new Usuario('search');
+            $model->unsetAttributes();  // clear any default values
+            if(isset($_GET['Usuario']))
+                $model->attributes=$_GET['Usuario'];
+            
+            $this->buscarPorEstado();
+	}
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
@@ -242,7 +187,4 @@ class UsuarioController extends Controller
 			Yii::app()->end();
 		}
 	}
-       
-       
 }
-

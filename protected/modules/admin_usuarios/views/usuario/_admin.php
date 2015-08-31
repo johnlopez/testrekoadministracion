@@ -12,7 +12,7 @@ $(document).ready(function() {
                     <th>USUARIO</th>
                     <th>CLAVE</th>
                     <th>ESTADO</th>
-                    <th>OPCIONES</th>
+                    <th>Opciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,4 +63,3 @@ $(document).ready(function() {
         </ul>               
     </section>
 </div>
-

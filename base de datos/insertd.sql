@@ -1,12 +1,12 @@
-﻿-- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 3.4.10.1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-08-2015 a las 17:03:08
+-- Tiempo de generación: 31-08-2015 a las 16:54:01
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
-SET foreign_key_checks = 0;
+
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -127,10 +127,10 @@ INSERT INTO `dato_laboral` (`id`, `nombre_empresa`, `ano_antiguedad`, `cargo`, `
 -- Volcado de datos para la tabla `dato_login`
 --
 
-INSERT INTO `dato_login` (`id`, `pregunta_secreta_1`, `pregunta_secreta_2`, `respuesta_secreta_1`, `respuesta_secreta_2`, `usuario_id`) VALUES
-(1, 'pregunta secreta 1', 'wiqoueioue', 'iowueuo', 'wioueoie', 1),
-(2, 'kjshhajskh', 'kjahskjaskhj', 'aksjhh', 'kjashkjas', 1),
-(3, 'dxcxcxcxczxcz', 'wwerewrererw', 'oiuwioueo', 'iouwqoewiqe', 5);
+INSERT INTO `dato_login` (`id`, `usuario_id`, `codigo_seguridad_id`) VALUES
+(1, 1, 0),
+(2, 1, 0),
+(3, 5, 0);
 
 --
 -- Volcado de datos para la tabla `dato_personal`
@@ -150,6 +150,24 @@ INSERT INTO `dato_personal` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_
 INSERT INTO `entidad` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `institucion_id`, `entidad_id`) VALUES
 (3, 'gfgfgfg', 'fgfgfdg', '2015-08-12 11:29:33', '2015-08-12 14:49:20', 2, 3),
 (5, 'nmxbzxnmbnmbzxcnmb', 'znmxcbznmxcbznmx', '2015-08-12 12:16:42', NULL, 1, 3);
+
+--
+-- Volcado de datos para la tabla `estado_codigo_seguridad`
+--
+
+INSERT INTO `estado_codigo_seguridad` (`id`, `estado`, `codigo_seguridad_id`) VALUES
+(1, 'bloqueadostodos', 0);
+
+--
+-- Volcado de datos para la tabla `estado_usuario`
+--
+
+INSERT INTO `estado_usuario` (`logica_estado_usuario_id`, `usuario_id`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(1, 186),
+(1, 187);
 
 --
 -- Volcado de datos para la tabla `icono_aplicacion_administrador`
@@ -191,6 +209,23 @@ INSERT INTO `institucion_has_rol_usuario` (`institucion_id`, `rol_usuario_id`) V
 (5, 1);
 
 --
+-- Volcado de datos para la tabla `logica_estado_usuario`
+--
+
+INSERT INTO `logica_estado_usuario` (`id`, `estado`) VALUES
+(1, 'disponible'),
+(2, 'en espera'),
+(3, 'eliminado');
+
+--
+-- Volcado de datos para la tabla `modelo_aprendizaje_master`
+--
+
+INSERT INTO `modelo_aprendizaje_master` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`) VALUES
+(1, 'modelo aprendizaje master 1', 'descripcion modelo aprendizaje master 1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'modelo aprendizaje master 2', 'descripcion modelo aprendizaje master 2', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+--
 -- Volcado de datos para la tabla `modulo`
 --
 
@@ -212,6 +247,18 @@ INSERT INTO `pais` (`id`, `nombre`, `codigo`) VALUES
 (2, 'brasil', 'ar34'),
 (3, 'dasdsadsad', 'sadsadsad'),
 (4, 'uiituiooru', 'oriuiorutre');
+
+--
+-- Volcado de datos para la tabla `pregunta_login`
+--
+
+INSERT INTO `pregunta_login` (`id`, `pregunta`) VALUES
+(1, 'donde naciste'),
+(2, 'nombre de tu mama'),
+(3, 'nombre de tu perro'),
+(4, 'mejor amigo '),
+(5, 'interes'),
+(6, 'ola que haces');
 
 --
 -- Volcado de datos para la tabla `privilegio_administrador`
@@ -369,6 +416,14 @@ INSERT INTO `region` (`id`, `nombre`, `codigo`, `pais_id`) VALUES
 (7, 'akjssajh', 'kjahskjhsk', 2),
 (8, 'metropolitana', 'suecia', 1),
 (9, 'jhghjsgdsjd', 'jhsdjhhsdhsd', 1);
+
+--
+-- Volcado de datos para la tabla `repositorio_master`
+--
+
+INSERT INTO `repositorio_master` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `modelo_aprendizaje_master_id`, `secuencia_master_id`, `repositorio_master_id`, `tipo_repositorio_master_id`) VALUES
+(1, 'repositorio troncal admin', 'descripcion respositorio troncal admin', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, NULL, NULL, 1),
+(3, 'repositorio troncal admin master 2', 'descripcion repositorio troncal master 2', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, NULL, NULL, 1);
 
 --
 -- Volcado de datos para la tabla `rol_administrador`
@@ -562,6 +617,16 @@ INSERT INTO `seccion` (`id`, `nombre`, `jornada`, `descripcion`, `fecha_creacion
 (6, 'mnbvbnmvc', 'nmcvbbnmvxc', 'cmnvbnmcbvx', '2015-08-12 11:38:53', '2015-08-12 11:39:57', 1);
 
 --
+-- Volcado de datos para la tabla `tipo_repositorio_master`
+--
+
+INSERT INTO `tipo_repositorio_master` (`id`, `descripcion`) VALUES
+(1, 'repositorio troncal admin'),
+(2, 'repositorio local admin'),
+(3, 'repositorio troncal app'),
+(4, 'repositorio local app');
+
+--
 -- Volcado de datos para la tabla `usuario`
 --
 
@@ -572,7 +637,22 @@ INSERT INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modifica
 (4, 'marcelo', '123', NULL, NULL, NULL),
 (5, 'patricio', '123', NULL, NULL, NULL),
 (186, 'usuario viejo', 'viejo clave', NULL, '2015-08-10 16:09:43', '2015-08-10 16:09:16'),
-(187, 'nbnvmcvmc', 'nmcbvnmcxvnv', NULL, '2015-08-12 09:57:23', '2015-08-12 09:57:11');
+(187, 'nbnvmcvmc', 'nmcbvnmcxvnv', NULL, '2015-08-12 09:57:23', '2015-08-12 09:57:11'),
+(189, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(190, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(191, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(192, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(193, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(194, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(195, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(196, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(197, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(198, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(199, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(200, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(201, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(202, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(203, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41');
 
 --
 -- Volcado de datos para la tabla `usuario_administrador`
@@ -596,6 +676,13 @@ INSERT INTO `usuario_administrador_has_rol_administrador` (`usuario_administrado
 --
 
 INSERT INTO `usuario_has_institucion` (`usuario_id`, `institucion_id`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(1, 2),
+(2, 2),
 (1, 1),
 (2, 1),
 (3, 1),

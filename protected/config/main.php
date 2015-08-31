@@ -55,6 +55,7 @@ return array(
             'admin_usuario',
             'admin_usuario_administrador',
             'css',
+            'admin_usuarios',
 
 
 
