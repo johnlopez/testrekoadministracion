@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 21-08-2015 a las 17:27:11
+-- Tiempo de generación: 31-08-2015 a las 20:21:07
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -1594,6 +1594,18 @@ usuario_id = nuevo_usuario_id
 where id = nuevo_id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_actualizar_estado_codigo_seguridad`(
+nuevo_id int,
+nuevo_estado varchar(50)
+)
+begin
+update estado_codigo_seguridad
+set 
+id = nuevo_id,
+estado = nuevo_estado
+where id = nuevo_id;
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_actualizar_logica_estado_usuario`(
 nuevo_id int,
 nuevo_estado varchar(50)
@@ -1615,6 +1627,17 @@ UPDATE pais set
 id = nuevo_id,
 nombre = nuevo_nombre,
 codigo = nuevo_codigo
+where id = nuevo_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_actualizar_pregunta_login`(
+nuevo_id int,
+nueva_pregunta varchar(50)
+)
+begin
+update pregunta_login set
+id = nuevo_id,
+pregunta = nueva_pregunta
 where id = nuevo_id;
 end$$
 
@@ -1828,6 +1851,20 @@ VALUES (
 SELECT LAST_INSERT_ID () into llave_id;
 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_agregar_estado_codigo_seguridad`(
+nuevo_estado varchar(50),
+OUT llave_id int(11)
+)
+begin
+insert into estado_codigo_seguridad(
+estado
+)
+values(
+nuevo_estado
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_agregar_logica_estado_usuario`(
 nuevo_estado varchar(50),
 OUT llave_id int(11)
@@ -1856,6 +1893,20 @@ codigo
 VALUES(
 nuevo_nombre,
 nuevo_codigo
+);
+SELECT LAST_INSERT_ID () into llave_id;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_agregar_pregunta_login`(
+nueva_pregunta varchar(50),
+OUT llave_id int(11)
+)
+begin
+insert into pregunta_login(
+pregunta
+)
+values(
+nueva_pregunta
 );
 SELECT LAST_INSERT_ID () into llave_id;
 end$$
@@ -1988,6 +2039,15 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_estado_usuario`(nuevo_id_usuario varchar(50))
 BEGIN	
 	SELECT * FROM (logica_estado_usuario A LEFT JOIN estado_usuario B ON A.id =  B.logica_estado_usuario_id AND B.usuario_id = nuevo_id_usuario);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_por_estado`(nuevo_estado varchar(50))
+BEGIN
+SELECT usu.id,usu.usuario, usu.clave, lo.estado 
+FROM usuario usu, logica_estado_usuario lo, estado_usuario ea
+WHERE usu.id = ea.usuario_id
+AND lo.id = ea.logica_estado_usuario_id
+AND lo.estado = nuevo_estado;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_lista_institucion_usuario`(nuevo_institucion_id int(11))
@@ -2139,28 +2199,6 @@ END IF;
 END$$
 
 DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `archivo_recurso`
---
-
-CREATE TABLE IF NOT EXISTS `archivo_recurso` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `archivo_recurso_master`
---
-
-CREATE TABLE IF NOT EXISTS `archivo_recurso_master` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2319,46 +2357,14 @@ INSERT INTO `authitem_permiso_usuario` (`name`, `type`, `description`, `bizrule`
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `autoevaluacion`
+-- Estructura de tabla para la tabla `codigo_seguridad`
 --
 
-CREATE TABLE IF NOT EXISTS `autoevaluacion` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `codigo_seguridad` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(6) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `autoevaluacion_master`
---
-
-CREATE TABLE IF NOT EXISTS `autoevaluacion_master` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `contenido_libre`
---
-
-CREATE TABLE IF NOT EXISTS `contenido_libre` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `contenido_libre_master`
---
-
-CREATE TABLE IF NOT EXISTS `contenido_libre_master` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2486,23 +2492,49 @@ INSERT INTO `dato_laboral` (`id`, `nombre_empresa`, `ano_antiguedad`, `cargo`, `
 
 CREATE TABLE IF NOT EXISTS `dato_login` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pregunta_secreta_1` varchar(45) DEFAULT NULL,
-  `pregunta_secreta_2` varchar(45) DEFAULT NULL,
-  `respuesta_secreta_1` varchar(45) DEFAULT NULL,
-  `respuesta_secreta_2` varchar(45) DEFAULT NULL,
   `usuario_id` int(11) NOT NULL,
+  `codigo_seguridad_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_dato_login_usuario1_idx` (`usuario_id`)
+  KEY `fk_dato_login_usuario1_idx` (`usuario_id`),
+  KEY `fk_dato_login_codigo_seguridad1_idx` (`codigo_seguridad_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `dato_login`
 --
 
-INSERT INTO `dato_login` (`id`, `pregunta_secreta_1`, `pregunta_secreta_2`, `respuesta_secreta_1`, `respuesta_secreta_2`, `usuario_id`) VALUES
-(1, 'pregunta secreta 1', 'wiqoueioue', 'iowueuo', 'wioueoie', 1),
-(2, 'kjshhajskh', 'kjahskjaskhj', 'aksjhh', 'kjashkjas', 1),
-(3, 'dxcxcxcxczxcz', 'wwerewrererw', 'oiuwioueo', 'iouwqoewiqe', 5);
+INSERT INTO `dato_login` (`id`, `usuario_id`, `codigo_seguridad_id`) VALUES
+(1, 1, 0),
+(2, 1, 0),
+(3, 5, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dato_login_has_pregunta_login`
+--
+
+CREATE TABLE IF NOT EXISTS `dato_login_has_pregunta_login` (
+  `dato_login_id` int(11) NOT NULL,
+  `pregunta_login_id` int(11) NOT NULL,
+  PRIMARY KEY (`dato_login_id`,`pregunta_login_id`),
+  KEY `fk_dato_login_has_pregunta_login_pregunta_login1_idx` (`pregunta_login_id`),
+  KEY `fk_dato_login_has_pregunta_login_dato_login1_idx` (`dato_login_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dato_login_has_respuesta_login`
+--
+
+CREATE TABLE IF NOT EXISTS `dato_login_has_respuesta_login` (
+  `dato_login_id` int(11) NOT NULL,
+  `respuesta_login_id` int(11) NOT NULL,
+  PRIMARY KEY (`dato_login_id`,`respuesta_login_id`),
+  KEY `fk_dato_login_has_respuesta_login_respuesta_login1_idx` (`respuesta_login_id`),
+  KEY `fk_dato_login_has_respuesta_login_dato_login1_idx` (`dato_login_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2602,6 +2634,27 @@ CREATE TABLE IF NOT EXISTS `escritorio_usuario` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `estado_codigo_seguridad`
+--
+
+CREATE TABLE IF NOT EXISTS `estado_codigo_seguridad` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(45) DEFAULT NULL,
+  `codigo_seguridad_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_estado_codigo_seguridad_codigo_seguridad1_idx` (`codigo_seguridad_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `estado_codigo_seguridad`
+--
+
+INSERT INTO `estado_codigo_seguridad` (`id`, `estado`, `codigo_seguridad_id`) VALUES
+(1, 'bloqueadostodos', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `estado_usuario`
 --
 
@@ -2612,119 +2665,31 @@ CREATE TABLE IF NOT EXISTS `estado_usuario` (
   KEY `fk_estado_usuario_usuario1_idx` (`usuario_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Estructura de tabla para la tabla `evaluacion`
+-- Volcado de datos para la tabla `estado_usuario`
 --
 
-CREATE TABLE IF NOT EXISTS `evaluacion` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `evaluacion_master`
---
-
-CREATE TABLE IF NOT EXISTS `evaluacion_master` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `foro`
---
-
-CREATE TABLE IF NOT EXISTS `foro` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `foro_master`
---
-
-CREATE TABLE IF NOT EXISTS `foro_master` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `glosario`
---
-
-CREATE TABLE IF NOT EXISTS `glosario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `glosario_master`
---
-
-CREATE TABLE IF NOT EXISTS `glosario_master` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `herramienta`
---
-
-CREATE TABLE IF NOT EXISTS `herramienta` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `fecha_acceso` datetime DEFAULT NULL,
-  `fecha_modificacion` datetime DEFAULT NULL,
-  `fecha_creacion` datetime DEFAULT NULL,
-  `recurso_id` int(11) DEFAULT NULL,
-  `repositorio_id` int(11) DEFAULT NULL,
-  `tipo_herramienta_id` int(11) DEFAULT NULL,
-  `herramienta_id` int(11) DEFAULT NULL,
-  `herramienta_master_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_herramienta_repositorio1_idx` (`repositorio_id`),
-  KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`),
-  KEY `fk_herramienta_herramienta1_idx` (`herramienta_id`),
-  KEY `fk_herramienta_herramienta_master1_idx` (`herramienta_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='	' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `herramienta_master`
---
-
-CREATE TABLE IF NOT EXISTS `herramienta_master` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `fecha_acceso` datetime DEFAULT NULL,
-  `fecha_modificacion` datetime DEFAULT NULL,
-  `fecha_creacion` datetime DEFAULT NULL,
-  `recurso_id` int(11) DEFAULT NULL,
-  `repositorio_master_id` int(11) DEFAULT NULL,
-  `tipo_herramienta_master_id` int(11) DEFAULT NULL,
-  `herramienta_master_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk__herramienta_master__repositorio_master1_idx` (`repositorio_master_id`),
-  KEY `fk__herramienta_master__tipo_herramienta_master1_idx` (`tipo_herramienta_master_id`),
-  KEY `fk__herramienta_master__herramienta_master1_idx` (`herramienta_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+INSERT INTO `estado_usuario` (`logica_estado_usuario_id`, `usuario_id`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(1, 186),
+(1, 187),
+(1, 1),
+(2, 2),
+(3, 3),
+(1, 186),
+(1, 187),
+(1, 1),
+(2, 2),
+(3, 3),
+(1, 186),
+(1, 187),
+(1, 1),
+(2, 2),
+(3, 3),
+(1, 186),
+(1, 187);
 
 -- --------------------------------------------------------
 
@@ -2816,28 +2781,6 @@ INSERT INTO `institucion_has_rol_usuario` (`institucion_id`, `rol_usuario_id`) V
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `link_interes`
---
-
-CREATE TABLE IF NOT EXISTS `link_interes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `link_interes_master`
---
-
-CREATE TABLE IF NOT EXISTS `link_interes_master` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `logica_estado_usuario`
 --
 
@@ -2845,49 +2788,16 @@ CREATE TABLE IF NOT EXISTS `logica_estado_usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `estado` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Estructura de tabla para la tabla `modelo_aprendizaje`
+-- Volcado de datos para la tabla `logica_estado_usuario`
 --
 
-CREATE TABLE IF NOT EXISTS `modelo_aprendizaje` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `fecha_acceso` datetime DEFAULT NULL,
-  `fecha_modificacion` datetime DEFAULT NULL,
-  `fecha_creacion` datetime DEFAULT NULL,
-  `modelo_aprendizaje_master_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_modelo_aprendizaje_modelo_aprendizaje_master1_idx` (`modelo_aprendizaje_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `modelo_aprendizaje_master`
---
-
-CREATE TABLE IF NOT EXISTS `modelo_aprendizaje_master` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `fecha_acceso` datetime DEFAULT NULL,
-  `fecha_modificacion` datetime DEFAULT NULL,
-  `fecha_creacion` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
---
--- Volcado de datos para la tabla `modelo_aprendizaje_master`
---
-
-INSERT INTO `modelo_aprendizaje_master` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`) VALUES
-(1, 'modelo aprendizaje master 1', 'descripcion modelo aprendizaje master 1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 'modelo aprendizaje master 2', 'descripcion modelo aprendizaje master 2', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `logica_estado_usuario` (`id`, `estado`) VALUES
+(1, 'disponible'),
+(2, 'en espera'),
+(3, 'eliminado');
 
 -- --------------------------------------------------------
 
@@ -2981,6 +2891,30 @@ CREATE TABLE IF NOT EXISTS `pais_has_dato_personal` (
   KEY `fk_pais_has_dato_personal_dato_personal1_idx` (`dato_personal_id`),
   KEY `fk_pais_has_dato_personal_pais1_idx` (`pais_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pregunta_login`
+--
+
+CREATE TABLE IF NOT EXISTS `pregunta_login` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pregunta` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Volcado de datos para la tabla `pregunta_login`
+--
+
+INSERT INTO `pregunta_login` (`id`, `pregunta`) VALUES
+(1, 'donde naciste'),
+(2, 'nombre de tu mama'),
+(3, 'nombre de tu perro'),
+(4, 'mejor amigo '),
+(5, 'interes'),
+(6, 'ola que haces');
 
 -- --------------------------------------------------------
 
@@ -3259,146 +3193,14 @@ INSERT INTO `region` (`id`, `nombre`, `codigo`, `pais_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `repositorio`
+-- Estructura de tabla para la tabla `respuesta_login`
 --
 
-CREATE TABLE IF NOT EXISTS `repositorio` (
+CREATE TABLE IF NOT EXISTS `respuesta_login` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `fecha_acceso` datetime DEFAULT NULL,
-  `fecha_modificacion` datetime DEFAULT NULL,
-  `fecha_creacion` datetime DEFAULT NULL,
-  `modelo_aprendizaje_id` int(11) DEFAULT NULL,
-  `secuencia_id` int(11) DEFAULT NULL,
-  `tipo_repositorio_id` int(11) DEFAULT NULL,
-  `repositorio_id` int(11) DEFAULT NULL,
-  `repositorio_master_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_repositorio_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`),
-  KEY `fk_repositorio_secuencia1_idx` (`secuencia_id`),
-  KEY `fk_repositorio_tipo_repositorio1_idx` (`tipo_repositorio_id`),
-  KEY `fk_repositorio_repositorio1_idx` (`repositorio_id`),
-  KEY `fk_repositorio_repositorio_master1_idx` (`repositorio_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `repositorio_local_admin`
---
-
-CREATE TABLE IF NOT EXISTS `repositorio_local_admin` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `fecha_acceso` datetime DEFAULT NULL,
-  `fecha_modificacion` datetime DEFAULT NULL,
-  `fecha_creacion` datetime DEFAULT NULL,
-  `modelo_aprendizaje_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_repositorio_local_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `repositorio_local_app`
---
-
-CREATE TABLE IF NOT EXISTS `repositorio_local_app` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `fecha_acceso` datetime DEFAULT NULL,
-  `fecha_modificacion` datetime DEFAULT NULL,
-  `fecha_creacion` datetime DEFAULT NULL,
-  `modelo_aprendizaje_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_repositorio_local_app_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `repositorio_master`
---
-
-CREATE TABLE IF NOT EXISTS `repositorio_master` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `fecha_acceso` datetime DEFAULT NULL,
-  `fecha_modificacion` datetime DEFAULT NULL,
-  `fecha_creacion` datetime DEFAULT NULL,
-  `modelo_aprendizaje_master_id` int(11) DEFAULT NULL,
-  `secuencia_master_id` int(11) DEFAULT NULL,
-  `repositorio_master_id` int(11) DEFAULT NULL,
-  `tipo_repositorio_master_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk__repositorio_master__modelo_aprendizaje_master1_idx` (`modelo_aprendizaje_master_id`),
-  KEY `fk__repositorio_master__secuencia_master1_idx` (`secuencia_master_id`),
-  KEY `fk__repositorio_master__repositorio_master1_idx` (`repositorio_master_id`),
-  KEY `fk_repositorio_master_tipo_repositorio_master1_idx` (`tipo_repositorio_master_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Volcado de datos para la tabla `repositorio_master`
---
-
-INSERT INTO `repositorio_master` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `modelo_aprendizaje_master_id`, `secuencia_master_id`, `repositorio_master_id`, `tipo_repositorio_master_id`) VALUES
-(1, 'repositorio troncal admin', 'descripcion respositorio troncal admin', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, NULL, NULL, 1),
-(3, 'repositorio troncal admin master 2', 'descripcion repositorio troncal master 2', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, NULL, NULL, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `repositorio_master_has_institucion`
---
-
-CREATE TABLE IF NOT EXISTS `repositorio_master_has_institucion` (
-  `repositorio_master_id` int(11) NOT NULL,
-  `institucion_id` int(11) NOT NULL,
-  PRIMARY KEY (`repositorio_master_id`,`institucion_id`),
-  KEY `fk_repositorio_master_has_institucion_institucion1_idx` (`institucion_id`),
-  KEY `fk_repositorio_master_has_institucion_repositorio_master1_idx` (`repositorio_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `repositorio_troncal_admin`
---
-
-CREATE TABLE IF NOT EXISTS `repositorio_troncal_admin` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `fecha_acceso` datetime DEFAULT NULL,
-  `fecha_modificacion` datetime DEFAULT NULL,
-  `fecha_creacion` datetime DEFAULT NULL,
-  `modelo_aprendizaje_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_repositorio_troncal_admin_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `repositorio_troncal_app`
---
-
-CREATE TABLE IF NOT EXISTS `repositorio_troncal_app` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `fecha_acceso` datetime DEFAULT NULL,
-  `fecha_modificacion` datetime DEFAULT NULL,
-  `fecha_creacion` datetime DEFAULT NULL,
-  `modelo_aprendizaje_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_repositorio_troncal_app_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `respuesta` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -3411,7 +3213,7 @@ CREATE TABLE IF NOT EXISTS `rol_administrador` (
   `nombre` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Volcado de datos para la tabla `rol_administrador`
@@ -3420,7 +3222,9 @@ CREATE TABLE IF NOT EXISTS `rol_administrador` (
 INSERT INTO `rol_administrador` (`id`, `nombre`, `descripcion`) VALUES
 (1, 'superadministrador', NULL),
 (5, 'root', ''),
-(6, 'supervisor usuario', 'usuario y rol usuario');
+(6, 'supervisor usuario', 'usuario y rol usuario'),
+(7, 'mantenedor', 'descripcion mantenedor'),
+(8, '', '');
 
 -- --------------------------------------------------------
 
@@ -3694,118 +3498,6 @@ INSERT INTO `seccion` (`id`, `nombre`, `jornada`, `descripcion`, `fecha_creacion
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `secuencia`
---
-
-CREATE TABLE IF NOT EXISTS `secuencia` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `herramienta_id1` int(11) DEFAULT NULL,
-  `herramienta_id2` int(11) DEFAULT NULL,
-  `secuencia_master_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_secuencia_secuencia_master1_idx` (`secuencia_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='\n' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `secuencia_master`
---
-
-CREATE TABLE IF NOT EXISTS `secuencia_master` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `herramienta_id1` int(11) DEFAULT NULL,
-  `herramienta_id2` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tipo_herramienta`
---
-
-CREATE TABLE IF NOT EXISTS `tipo_herramienta` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `tipo_herramienta_master_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_tipo_herramienta_tipo_herramienta_master1_idx` (`tipo_herramienta_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tipo_herramienta_master`
---
-
-CREATE TABLE IF NOT EXISTS `tipo_herramienta_master` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tipo_repositorio`
---
-
-CREATE TABLE IF NOT EXISTS `tipo_repositorio` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `tipo_repositorio_master_int` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_tipo_repositorio_tipo_repositorio_master1_idx` (`tipo_repositorio_master_int`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tipo_repositorio_master`
---
-
-CREATE TABLE IF NOT EXISTS `tipo_repositorio_master` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
-
---
--- Volcado de datos para la tabla `tipo_repositorio_master`
---
-
-INSERT INTO `tipo_repositorio_master` (`id`, `descripcion`) VALUES
-(1, 'repositorio troncal admin'),
-(2, 'repositorio local admin'),
-(3, 'repositorio troncal app'),
-(4, 'repositorio local app');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `trabajo_grupal`
---
-
-CREATE TABLE IF NOT EXISTS `trabajo_grupal` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `trabajo_grupal_master`
---
-
-CREATE TABLE IF NOT EXISTS `trabajo_grupal_master` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -3817,7 +3509,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=188 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=204 ;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -3829,8 +3521,33 @@ INSERT INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modifica
 (3, 'victor', '123', NULL, NULL, NULL),
 (4, 'marcelo', '123', NULL, NULL, NULL),
 (5, 'patricio', '123', NULL, NULL, NULL),
+(6, 'bruno', '123', '0000-00-00 00:00:00', '2015-08-10 16:09:43', '2015-08-10 16:09:16'),
+(7, 'cristobal', '123', NULL, '2015-08-25 10:21:14', '2015-08-12 09:57:11'),
+(8, 'camilo', '123', NULL, NULL, '2015-08-25 10:16:05'),
+(9, 'manuel', '123', NULL, NULL, '2015-08-25 10:16:14'),
+(10, 'andres', '123', NULL, NULL, '2015-08-25 10:16:24'),
+(11, 'carlos', '123', NULL, NULL, '2015-08-25 10:16:31'),
+(12, 'ricardo', '123', NULL, NULL, '2015-08-25 10:16:41'),
+(13, 'rodrigo', '123', NULL, NULL, '2015-08-25 10:16:52'),
+(14, 'daniel', '123', NULL, NULL, '2015-08-25 10:17:00'),
+(15, 'matias', '123', NULL, NULL, '2015-08-25 10:19:12'),
 (186, 'usuario viejo', 'viejo clave', NULL, '2015-08-10 16:09:43', '2015-08-10 16:09:16'),
-(187, 'nbnvmcvmc', 'nmcbvnmcxvnv', NULL, '2015-08-12 09:57:23', '2015-08-12 09:57:11');
+(187, 'nbnvmcvmc', 'nmcbvnmcxvnv', NULL, '2015-08-12 09:57:23', '2015-08-12 09:57:11'),
+(189, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(190, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(191, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(192, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(193, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(194, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(195, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(196, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(197, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(198, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(199, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(200, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(201, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(202, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
+(203, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41');
 
 -- --------------------------------------------------------
 
@@ -3895,6 +3612,20 @@ CREATE TABLE IF NOT EXISTS `usuario_has_institucion` (
 --
 
 INSERT INTO `usuario_has_institucion` (`usuario_id`, `institucion_id`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(1, 2),
+(2, 2),
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(1, 2),
+(2, 2),
 (1, 1),
 (2, 1),
 (3, 1),
@@ -3993,7 +3724,22 @@ ALTER TABLE `dato_laboral`
 -- Filtros para la tabla `dato_login`
 --
 ALTER TABLE `dato_login`
-  ADD CONSTRAINT `fk_dato_login_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_dato_login_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_dato_login_codigo_seguridad1` FOREIGN KEY (`codigo_seguridad_id`) REFERENCES `codigo_seguridad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `dato_login_has_pregunta_login`
+--
+ALTER TABLE `dato_login_has_pregunta_login`
+  ADD CONSTRAINT `fk_dato_login_has_pregunta_login_dato_login1` FOREIGN KEY (`dato_login_id`) REFERENCES `dato_login` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_dato_login_has_pregunta_login_pregunta_login1` FOREIGN KEY (`pregunta_login_id`) REFERENCES `pregunta_login` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `dato_login_has_respuesta_login`
+--
+ALTER TABLE `dato_login_has_respuesta_login`
+  ADD CONSTRAINT `fk_dato_login_has_respuesta_login_dato_login1` FOREIGN KEY (`dato_login_id`) REFERENCES `dato_login` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_dato_login_has_respuesta_login_respuesta_login1` FOREIGN KEY (`respuesta_login_id`) REFERENCES `respuesta_login` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `dato_personal`
@@ -4005,8 +3751,8 @@ ALTER TABLE `dato_personal`
 -- Filtros para la tabla `entidad`
 --
 ALTER TABLE `entidad`
-  ADD CONSTRAINT `fk_entidad_entidad1` FOREIGN KEY (`entidad_id`) REFERENCES `entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_entidad_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_entidad_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_entidad_entidad1` FOREIGN KEY (`entidad_id`) REFERENCES `entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `escritorio_administrador`
@@ -4028,23 +3774,6 @@ ALTER TABLE `estado_usuario`
   ADD CONSTRAINT `fk_estado_usuario_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `herramienta`
---
-ALTER TABLE `herramienta`
-  ADD CONSTRAINT `fk_herramienta_herramienta1` FOREIGN KEY (`herramienta_id`) REFERENCES `herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_herramienta_herramienta_master1` FOREIGN KEY (`herramienta_master_id`) REFERENCES `herramienta_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_herramienta_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_herramienta_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `herramienta_master`
---
-ALTER TABLE `herramienta_master`
-  ADD CONSTRAINT `fk__herramienta_master__herramienta_master1` FOREIGN KEY (`herramienta_master_id`) REFERENCES `herramienta_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk__herramienta_master__repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk__herramienta_master__tipo_herramienta_master1` FOREIGN KEY (`tipo_herramienta_master_id`) REFERENCES `tipo_herramienta_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Filtros para la tabla `icono_aplicacion_administrador`
 --
 ALTER TABLE `icono_aplicacion_administrador`
@@ -4058,31 +3787,25 @@ ALTER TABLE `institucion_has_rol_usuario`
   ADD CONSTRAINT `fk_institucion_has_rol_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `modelo_aprendizaje`
---
-ALTER TABLE `modelo_aprendizaje`
-  ADD CONSTRAINT `fk_modelo_aprendizaje_modelo_aprendizaje_master1` FOREIGN KEY (`modelo_aprendizaje_master_id`) REFERENCES `modelo_aprendizaje_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Filtros para la tabla `pais_has_dato_academico`
 --
 ALTER TABLE `pais_has_dato_academico`
-  ADD CONSTRAINT `fk_pais_has_dato_academico_dato_academico1` FOREIGN KEY (`dato_academico_id`) REFERENCES `dato_academico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_pais_has_dato_academico_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_pais_has_dato_academico_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pais_has_dato_academico_dato_academico1` FOREIGN KEY (`dato_academico_id`) REFERENCES `dato_academico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pais_has_dato_laboral`
 --
 ALTER TABLE `pais_has_dato_laboral`
-  ADD CONSTRAINT `fk_pais_has_dato_laboral_dato_laboral1` FOREIGN KEY (`dato_laboral_id`) REFERENCES `dato_laboral` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_pais_has_dato_laboral_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_pais_has_dato_laboral_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pais_has_dato_laboral_dato_laboral1` FOREIGN KEY (`dato_laboral_id`) REFERENCES `dato_laboral` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pais_has_dato_personal`
 --
 ALTER TABLE `pais_has_dato_personal`
-  ADD CONSTRAINT `fk_pais_has_dato_personal_dato_personal1` FOREIGN KEY (`dato_personal_id`) REFERENCES `dato_personal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_pais_has_dato_personal_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_pais_has_dato_personal_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pais_has_dato_personal_dato_personal1` FOREIGN KEY (`dato_personal_id`) REFERENCES `dato_personal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `privilegio_administrador`
@@ -4100,8 +3823,8 @@ ALTER TABLE `privilegio_usuario`
 -- Filtros para la tabla `programa_academico_has_modulo`
 --
 ALTER TABLE `programa_academico_has_modulo`
-  ADD CONSTRAINT `fk_programa_academico_has_modulo_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_programa_academico_has_modulo_programa_academico1` FOREIGN KEY (`programa_academico_id`) REFERENCES `programa_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_programa_academico_has_modulo_programa_academico1` FOREIGN KEY (`programa_academico_id`) REFERENCES `programa_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_programa_academico_has_modulo_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `region`
@@ -4110,82 +3833,32 @@ ALTER TABLE `region`
   ADD CONSTRAINT `fk_region_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `repositorio`
---
-ALTER TABLE `repositorio`
-  ADD CONSTRAINT `fk_repositorio_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_secuencia1` FOREIGN KEY (`secuencia_id`) REFERENCES `secuencia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_tipo_repositorio1` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `repositorio_local_admin`
---
-ALTER TABLE `repositorio_local_admin`
-  ADD CONSTRAINT `fk_repositorio_local_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `repositorio_local_app`
---
-ALTER TABLE `repositorio_local_app`
-  ADD CONSTRAINT `fk_repositorio_local_app_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `repositorio_master`
---
-ALTER TABLE `repositorio_master`
-  ADD CONSTRAINT `fk_repositorio_master_tipo_repositorio_master1` FOREIGN KEY (`tipo_repositorio_master_id`) REFERENCES `tipo_repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk__repositorio_master__modelo_aprendizaje_master1` FOREIGN KEY (`modelo_aprendizaje_master_id`) REFERENCES `modelo_aprendizaje_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk__repositorio_master__repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk__repositorio_master__secuencia_master1` FOREIGN KEY (`secuencia_master_id`) REFERENCES `secuencia_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `repositorio_master_has_institucion`
---
-ALTER TABLE `repositorio_master_has_institucion`
-  ADD CONSTRAINT `fk_repositorio_master_has_institucion_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_master_has_institucion_repositorio_master1` FOREIGN KEY (`repositorio_master_id`) REFERENCES `repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `repositorio_troncal_admin`
---
-ALTER TABLE `repositorio_troncal_admin`
-  ADD CONSTRAINT `fk_repositorio_troncal_admin_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `repositorio_troncal_app`
---
-ALTER TABLE `repositorio_troncal_app`
-  ADD CONSTRAINT `fk_repositorio_troncal_app_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Filtros para la tabla `rol_administrador_has_authitem_permiso_administrador`
 --
 ALTER TABLE `rol_administrador_has_authitem_permiso_administrador`
-  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_authi1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_rol_a1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_rol_a1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_authi1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_administrador_has_privilegio_administrador`
 --
 ALTER TABLE `rol_administrador_has_privilegio_administrador`
-  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_privilegio_1` FOREIGN KEY (`privilegio_administrador_id`) REFERENCES `privilegio_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_rol_adminis1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_rol_adminis1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_privilegio_1` FOREIGN KEY (`privilegio_administrador_id`) REFERENCES `privilegio_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_usuario_has_authitem_permiso_usuario`
 --
 ALTER TABLE `rol_usuario_has_authitem_permiso_usuario`
-  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_authitem_permiso_1` FOREIGN KEY (`authitem_permiso_usuario_name`) REFERENCES `authitem_permiso_usuario` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_authitem_permiso_1` FOREIGN KEY (`authitem_permiso_usuario_name`) REFERENCES `authitem_permiso_usuario` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_usuario_has_privilegio_usuario`
 --
 ALTER TABLE `rol_usuario_has_privilegio_usuario`
-  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_privilegio_usuario1` FOREIGN KEY (`privilegio_usuario_id`) REFERENCES `privilegio_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_privilegio_usuario1` FOREIGN KEY (`privilegio_usuario_id`) REFERENCES `privilegio_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `seccion`
@@ -4194,43 +3867,25 @@ ALTER TABLE `seccion`
   ADD CONSTRAINT `fk_seccion_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `secuencia`
---
-ALTER TABLE `secuencia`
-  ADD CONSTRAINT `fk_secuencia_secuencia_master1` FOREIGN KEY (`secuencia_master_id`) REFERENCES `secuencia_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `tipo_herramienta`
---
-ALTER TABLE `tipo_herramienta`
-  ADD CONSTRAINT `fk_tipo_herramienta_tipo_herramienta_master1` FOREIGN KEY (`tipo_herramienta_master_id`) REFERENCES `tipo_herramienta_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `tipo_repositorio`
---
-ALTER TABLE `tipo_repositorio`
-  ADD CONSTRAINT `fk_tipo_repositorio_tipo_repositorio_master1` FOREIGN KEY (`tipo_repositorio_master_int`) REFERENCES `tipo_repositorio_master` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Filtros para la tabla `usuario_administrador_has_rol_administrador`
 --
 ALTER TABLE `usuario_administrador_has_rol_administrador`
-  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_rol_administra1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_usuario_admini1` FOREIGN KEY (`usuario_administrador_id`) REFERENCES `usuario_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_usuario_admini1` FOREIGN KEY (`usuario_administrador_id`) REFERENCES `usuario_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_rol_administra1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario_has_institucion`
 --
 ALTER TABLE `usuario_has_institucion`
-  ADD CONSTRAINT `usuario_has_institucion_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`),
-  ADD CONSTRAINT `usuario_has_institucion_ibfk_2` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`);
+  ADD CONSTRAINT `usuario_has_institucion_ibfk_2` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`),
+  ADD CONSTRAINT `usuario_has_institucion_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`);
 
 --
 -- Filtros para la tabla `usuario_has_rol_usuario`
 --
 ALTER TABLE `usuario_has_rol_usuario`
-  ADD CONSTRAINT `fk_usuario_has_rol_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_has_rol_usuario_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_has_rol_usuario_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_usuario_has_rol_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
