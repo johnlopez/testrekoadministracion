@@ -42,18 +42,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'modelo_aprendizaje_id'); ?>
-		<?php echo $form->textField($model,'modelo_aprendizaje_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'tipo_repositorio_id'); ?>
 		<?php echo $form->textField($model,'tipo_repositorio_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'repositorio_id'); ?>
-		<?php echo $form->textField($model,'repositorio_id'); ?>
 	</div>
 
 	<div class="row buttons">

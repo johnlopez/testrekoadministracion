@@ -29,19 +29,9 @@
 	<?php echo CHtml::encode($data->fecha_creacion); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('modelo_aprendizaje_id')); ?>:</b>
-	<?php echo CHtml::encode($data->modelo_aprendizaje_id); ?>
-	<br />
-
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('tipo_repositorio_id')); ?>:</b>
 	<?php echo CHtml::encode($data->tipo_repositorio_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('repositorio_id')); ?>:</b>
-	<?php echo CHtml::encode($data->repositorio_id); ?>
-	<br />
-
-	*/ ?>
 
 </div>

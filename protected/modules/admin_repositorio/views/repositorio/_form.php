@@ -50,21 +50,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'modelo_aprendizaje_id'); ?>
-		<?php echo $form->textField($model,'modelo_aprendizaje_id'); ?>
-		<?php echo $form->error($model,'modelo_aprendizaje_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'tipo_repositorio_id'); ?>
 		<?php echo $form->textField($model,'tipo_repositorio_id'); ?>
 		<?php echo $form->error($model,'tipo_repositorio_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'repositorio_id'); ?>
-		<?php echo $form->textField($model,'repositorio_id'); ?>
-		<?php echo $form->error($model,'repositorio_id'); ?>
 	</div>
 
 	<div class="row buttons">

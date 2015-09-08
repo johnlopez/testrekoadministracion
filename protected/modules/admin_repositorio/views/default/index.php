@@ -11,14 +11,14 @@ $this->breadcrumbs=array(
     <div class="tile-area no-padding">
         <div class="tile-group no-margin no-padding" style="width: 100%">
             
-            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_repositorio/repositoriomaster/index";?>" >
+            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_repositorio/repositorio/";?>" >
                 <div class="tile-wide bg-brown fg-white" data-role="tile">
                     <div class="tile-content iconic">
                         <span class="icon mif-cabinet"></span>
                     </div>
                     <span class="tile-label">            
                         <?php 
-                            $pizza  = CHtml::encode('repositorio_troncal_master');
+                            $pizza  = CHtml::encode('repositorio');
                             $porciones = explode("_", $pizza);
                             foreach ($porciones as $p)
                             echo $p." "; // porción
@@ -26,14 +26,14 @@ $this->breadcrumbs=array(
                     </span>
                 </div>  
             </a>
-            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_repositorio/modeloaprendizajemaster";?>" >
+            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_repositorio/institucion";?>" >
                 <div class="tile-wide bg-brown fg-white" data-role="tile">
                     <div class="tile-content iconic">
                         <span class="icon mif-spell-check"></span>
                     </div>
                     <span class="tile-label">            
                         <?php 
-                            $pizza  = CHtml::encode('modelo_aprendizaje_master');
+                            $pizza  = CHtml::encode('Institucion');
                             $porciones = explode("_", $pizza);
                             foreach ($porciones as $p)
                             echo $p." "; // porción

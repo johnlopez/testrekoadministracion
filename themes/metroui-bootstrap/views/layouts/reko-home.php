@@ -84,7 +84,35 @@
             </div>
 
             <div class="main-menu-wrapper">
+                
                 <ul class="horizontal-menu" style="margin-left: -20px">
+            <ul class="f-menu block-shadow-impact">
+                <li><a href="#">Home</a></li>
+                <li class="">
+                    <a href="#" class="dropdown-toggle">More...</a>
+                    <ul class="d-menu" data-role="dropdown" style="display: none;">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li>
+                            <a href="#" class="dropdown-toggle">More...</a>
+                            <ul class="d-menu" data-role="dropdown">
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Partners</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#">File</a></li>
+                <li><a href="#">Products</a></li>
+                <li class="">
+                    <a href="#" class="dropdown-toggle">More...</a>
+                    <ul class="d-menu" data-role="dropdown" style="display: none;">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Partners</a></li>
+                    </ul>
+                </li>
+            </ul>
+                    
                     <li><a href="<?php echo Yii::app()->getBaseUrl(); ?>/escritorio_administrador/escritorioadministrador/index">Inicio</a></li>
                     <li><a href="#">Tutoriales</a></li>
                     <li><a href="#">Soporte Tecnico</a></li>
@@ -127,24 +155,22 @@
             </div>
 
             <div class="container">
-                <div>
-                    <script async="" src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!-- Metro UI - Responsive 1 -->
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1632668592742327" data-ad-slot="8347181909" data-ad-format="auto"></ins>
-                    <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>
-                <div class="grid fluid">
-                    <div class="row">
-                        <div class="span4 bg-amber padding20 text-center">
-                            <h2 class="fg-white">easy to use</h2>
-                        </div>
-                        <div class="span4 bg-green padding20 text-center">
-                            <h2 class="fg-white">less source</h2>
-                        </div>
-                        <div class="span4 bg-red padding20 text-center">
-                            <h2 class="fg-white">mit license</h2>
+                <div class="grid">
+                    <div class="row cells3">
+                        <div class="tile-big tile-wide-y ol-transparent" data-role="tile">
+                            <div class="tile-content">
+                                <div class="carousel" data-role="carousel" data-height="100%" data-width="100%" data-controls="false">
+                                    <div class="slide">
+                                        <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/imagen_destacada.jpg" data-role="fitImage" data-format="fill">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/logo-utem.jpg"  data-role="fitImage" data-format="fill">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/clouds2.png"  data-role="fitImage" data-format="fill">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -178,33 +204,30 @@
             <div class="bg-steel no-tablet-portrait no-phone">
                 <div class="container padding20 fg-white">
                     <div class="carousel bg-transparent no-overflow" id="carousel2" style="width: 100%; height: 210px;">
-                        <div class="slide" style="display: none; left: 0px;">
-                            <div class="place-right">
-                                <img src="./Metro UI CSS   Simple responsive css framework_files/css-logo.png" alt="" class="span3">
-                            </div>
-                            <h2 class="fg-white ntm">Developed with advice</h2>
-                            <p class="fg-white">Metro UI CSS developed with the advice of Microsoft to build the user interface and include: general styles, grid, layouts, typography, 20+ components, 300+ built-in icons.</p>
-                            <p class="fg-white">Metro UI CSS build with {LESS}. Metro UI CSS is open source and has MIT licensing model.</p>
-                        </div>
-
-                        <div class="slide" style="left: 0px; display: block;">
-                            <div class="place-right padding20 ntp nrp nbp">
-                                <img src="./Metro UI CSS   Simple responsive css framework_files/bizspark_b_2.png" alt="" class="span3">
-                            </div>
-                            <h2 class="fg-white ntm">BizSpark Startup</h2>
-                            <p class="fg-white">Metro UI CSS is a BizSpark Startup. Microsoft BizSpark is a global program that helps software startups succeed by giving them access to software development tools, connecting them with key industry players, and providing marketing visibility.</p>
-                            <p class="fg-white">BizSpark provides free software, support, and visibility to help startups succeed. Join BizSpark and become part of a global community that has over 50,000 members in 100+ countries.</p>
-                            <a class="button small1 inverse" href="http://bizspark.com/">Join the BizSpark Program now</a>
-                        </div>
-
-                        <div class="slide" style="left: 0px; display: none;">
-                            <div class="place-right">
-                                <img src="./Metro UI CSS   Simple responsive css framework_files/phpstorm_7_eap.png" alt="" class="span3">
-                            </div>
-                            <h2 class="fg-white ntm">Thanks to JetBrains</h2>
-                            <p class="fg-white">Thanks to the company JetBrains for supporting the project in the form of a license for a great product PhpStorm.</p>
-                            <a class="button small1 inverse" href="http://www.jetbrains.com/phpstorm/">Get PhpStorm now!</a>
-                        </div>
+                       
+            <div class="presenter" data-role="presenter" data-height="220" data-easing="swing" style="height: 220px; width: 100%;">
+                <div class="scene">
+                    <div class="act bg-pink fg-white" style="display: block;">
+                        <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/css-logo.png" class="actor" data-position="10,10" style="height: 200px; opacity: 1; position: absolute; display: block; left: 10px; top: 10px;">
+                        <h1 class="actor" data-position="10,250" style="opacity: 1; position: absolute; display: block; top: 10px; left: 250px;">Developed with advice</h1>
+                        <p class="actor" data-position="70,250" style="opacity: 1; position: absolute; display: block; top: 70px; left: 250px;">Metro UI CSS developed with the advice of Microsoft to build the user interface and include: general styles, grid, layouts, typography, 20+ components, 300+ built-in icons.</p>
+                        <p class="actor" data-position="130,250" style="opacity: 1; position: absolute; display: block; left: 250px; top: 130px;">Metro UI CSS build with {LESS}. Metro UI CSS is open source and has MIT licensing model.</p>
+                    </div>
+                    <div class="act bg-steel fg-white" style="display: none;">
+                        <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/bizspark_b_2.png" class="actor" data-position="10,10" style="height: 200px; opacity: 1; position: absolute; display: block; left: 10px; top: 10px;">
+                        <h1 class="actor" data-position="10,270" style="opacity: 1; position: absolute; display: block; top: 10px; left: 270px;">BizSpark Startup</h1>
+                        <p class="actor" data-position="60,270" style="opacity: 1; position: absolute; display: block; left: 270px; top: 60px;">Metro UI CSS is a BizSpark Startup. Microsoft BizSpark is a global program that helps software startups succeed by giving them access to software development tools, connecting them with key industry players, and providing marketing visibility.</p>
+                        <p class="actor" data-position="120,270" style="opacity: 1; position: absolute; display: block; top: 120px; left: 270px;">BizSpark provides free software, support, and visibility to help startups succeed. Join BizSpark and become part of a global community that has over 50,000 members in 100+ countries.</p>
+                        <a class="actor button primary" data-position="170,270" href="http://bizspark.com" style="opacity: 1; position: absolute; display: block; left: 270px; top: 170px;">Join the BizSpark Program now</a>
+                    </div>
+                    <div class="act bg-darkCyan fg-white" style="display: none;">
+                        <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/phpstorm_7_eap.png" class="actor" data-position="10,10" style="height: 200px; opacity: 1; position: absolute; display: block; top: 10px; left: 10px;">
+                        <h1 class="actor" data-position="10,300" style="opacity: 1; position: absolute; display: block; left: 300px; top: 10px;">Thanks to JetBrains</h1>
+                        <p class="actor" data-position="60,300" style="opacity: 1; position: absolute; display: block; top: 60px; left: 300px;">Thanks to the company JetBrains for supporting the project in the form of a license for a great product PhpStorm.</p>
+                        <a class="actor button success" data-position="130,300" href="http://www.jetbrains.com/phpstorm/" style="opacity: 1; position: absolute; display: block; top: 130px; left: 300px;">Get PhpStorm now!</a>
+                    </div>
+                </div>
+            </div>
                     </div>
                     <script>
                         $(function(){
