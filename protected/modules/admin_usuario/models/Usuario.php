@@ -165,5 +165,19 @@ class Usuario extends CActiveRecord
                     (usuario,clave,fecha_acceso,fecha_modificacion,fecha_creacion)"); 
             
             $comando->execute();
-        }               
+        }
+        
+        public function eliminarLogico($idUsuario) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_eliminado_logico_usuario(:idUsuario)");
+            $comando->bindParam(':idUsuario', $idUsuario);
+            $comando->execute();
+            return $comando;
+        }
+        
+        public function listarPorEstado() {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_listar_usuarios_por_estado()");
+            return $comando->queryAll();
+        }
 }

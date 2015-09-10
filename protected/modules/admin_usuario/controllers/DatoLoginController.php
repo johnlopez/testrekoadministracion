@@ -134,12 +134,14 @@ class DatoLoginController extends Controller
 	public function actionAdmin()
 	{
 		$model=new DatoLogin('search');
+                $listadoDatoLogin = DatoLogin::model()->findAll();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['DatoLogin']))
 			$model->attributes=$_GET['DatoLogin'];
 
 		$this->render('admin',array(
 			'model'=>$model,
+                        'listadoDatoLogin' => $listadoDatoLogin,
 		));
 	}
 

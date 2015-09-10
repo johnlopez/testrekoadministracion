@@ -173,4 +173,20 @@ class DatoLaboral extends CActiveRecord
             return $comando;
             
         }
+        
+        public function eliminarFisicoDatoLaboral($idDatoLaboral) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_eliminado_fisico_dato_academico(:idDatoLaboral)");
+            $comando->bindParam(':idDatoLaboral', $idDatoLaboral);
+            $comando->execute();
+            return $comando;
+        }
+        
+        public function listarPorEstado() {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_listar_datos_laborales_por_estado()");
+            return $comando->queryAll();
+        }
+        
+        
 }

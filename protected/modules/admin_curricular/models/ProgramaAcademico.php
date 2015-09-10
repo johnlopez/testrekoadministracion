@@ -134,4 +134,70 @@ class ProgramaAcademico extends CActiveRecord
             return $comando;
         }
         
+        public function listaEntidadProgrma($idEntidad) {        
+            $command = Yii::app()->db->createCommand("CALL sp_admin_curricular_lista_entidad_programa(:nuevo_entidad_id)");
+            $command->bindParam(':nuevo_entidad_id',$idEntidad);	
+            $resultado = $command->queryAll();        
+            return $resultado;       
+        }
+        
+        public function asignaProgramaEntidad($listaEntidadPrograma,$entidadId) {
+            $lista = implode(',', $listaEntidadPrograma);
+            var_dump($lista);
+            $listaLen = count($listaEntidadPrograma);        
+
+            $command = Yii::app()->db->createCommand("CALL sp_admin_curricular_asigna_programa_entidad(:lista_programa_id,:lista_largo,:nuevo_entidad_id)");
+            $command->bindParam(':lista_programa_id',$lista);
+            $command->bindParam(':lista_largo',$listaLen);
+            $command->bindParam(':nuevo_entidad_id',$entidadId);
+            $resultado = $command->execute();        
+            return $resultado;
+        }
+        
+        public function desasignaProgramaEntidad($listaEntidadPrograma,$entidadId) {
+            $lista = implode(',', $listaEntidadPrograma);
+            var_dump($lista);
+            $listaLen = count($listaEntidadPrograma);        
+
+            $command = Yii::app()->db->createCommand("CALL sp_admin_curricular_desasigna_programa_entidad(:lista_programa_id,:lista_largo,:nuevo_entidad_id)");
+            $command->bindParam(':lista_programa_id',$lista);
+            $command->bindParam(':lista_largo',$listaLen);
+            $command->bindParam(':nuevo_entidad_id',$entidadId);
+            $resultado = $command->execute();        
+            return $resultado;
+        }
+        
+        public function listaInstitucionProgrma($idInstitucion) {        
+            $command = Yii::app()->db->createCommand("CALL sp_admin_curricular_lista_institucion_programa(:nuevo_institucion_id)");
+            $command->bindParam(':nuevo_institucion_id',$idInstitucion);	
+            $resultado = $command->queryAll();        
+            return $resultado;       
+        }
+        
+        public function asignaProgramaInstitucion($listaInstitucionPrograma,$institucionId) {
+            $lista = implode(',', $listaInstitucionPrograma);
+            var_dump($lista);
+            $listaLen = count($listaInstitucionPrograma);        
+
+            $command = Yii::app()->db->createCommand("CALL sp_admin_curricular_asigna_programa_institucion(:lista_programa_id,:lista_largo,:nuevo_institucion_id)");
+            $command->bindParam(':lista_programa_id',$lista);
+            $command->bindParam(':lista_largo',$listaLen);
+            $command->bindParam(':nuevo_institucion_id',$institucionId);
+            $resultado = $command->execute();        
+            return $resultado;
+        }
+        
+        public function desasignaProgramaInstitucion($listaInstitucionPrograma,$institucionId) {
+            $lista = implode(',', $listaInstitucionPrograma);
+            var_dump($lista);
+            $listaLen = count($listaInstitucionPrograma);        
+
+            $command = Yii::app()->db->createCommand("CALL sp_admin_curricular_desasigna_programa_institucion(:lista_programa_id,:lista_largo,:nuevo_institucion_id)");
+            $command->bindParam(':lista_programa_id',$lista);
+            $command->bindParam(':lista_largo',$listaLen);
+            $command->bindParam(':nuevo_institucion_id',$institucionId);
+            $resultado = $command->execute();        
+            return $resultado;
+        }
+        
 }

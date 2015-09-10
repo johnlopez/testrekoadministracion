@@ -150,12 +150,14 @@ class SeccionController extends Controller
 	public function actionAdmin()
 	{
 		$model=new Seccion('search');
+                $listadoSeccion = Seccion::model()->findAll();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Seccion']))
 			$model->attributes=$_GET['Seccion'];
 
 		$this->render('admin',array(
 			'model'=>$model,
+                        'listadoSeccion' => $listadoSeccion,
 		));
 	}
 

@@ -154,12 +154,14 @@ class EntidadController extends Controller
 	public function actionAdmin()
 	{
 		$model=new Entidad('search');
+                $listadoEntidades = Entidad::model()->findAll();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Entidad']))
 			$model->attributes=$_GET['Entidad'];
 
 		$this->render('admin',array(
 			'model'=>$model,
+                        'listadoEntidades' => $listadoEntidades,
 		));
 	}
 

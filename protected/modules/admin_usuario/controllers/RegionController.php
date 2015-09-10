@@ -145,12 +145,14 @@ class RegionController extends Controller
 	public function actionAdmin()
 	{
 		$model=new Region('search');
+                $listadoRegion = Region::model()->findAll();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Region']))
 			$model->attributes=$_GET['Region'];
 
 		$this->render('admin',array(
 			'model'=>$model,
+                        'listadoRegion' => $listadoRegion,
 		));
 	}
 

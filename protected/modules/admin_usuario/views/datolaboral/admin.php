@@ -26,41 +26,87 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Dato Laborals</h1>
+<h2>Administración datos laborales</h2><br><br>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+<script type="text/javascript" language="javascript" class="init">
+$(document).ready(function() {
+	$('#main_table_demo').DataTable();
+} );
+</script>
+<div class="container">
+    <section>
+        <table id="main_table_demo" class="display cell-hovered hovered striped" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE EMPRESA</th>
+                    <th>AÑOS ANTIGUEDAD</th>
+                    <th>CARGO</th>
+                    <th>ACTIVIDAD</th>
+                    <th>COMUNA</th>
+                    <th>CIUDAD</th>
+                    <th>TELEFONO</th>
+                    <th>CELULAR</th>
+                    <th>RUT</th>
+                    <th>DIGITO VERIFICADOR</th>
+                    <th>USUARIO</th>
+                    <th>OPCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($listadoDatoLaboral as $datoLaboral):?>                                                     
+                    <tr>
+                        <td><?php echo $datoLaboral['id'] ?></td>
+                        <td><?php echo $datoLaboral['nombre_empresa'] ?></td>
+                        <td><?php echo $datoLaboral['ano_antiguedad']?></td>
+                        <td><?php echo $datoLaboral['cargo']?></td>
+                        <td><?php echo $datoLaboral['actividad']?></td>
+                        <td><?php echo $datoLaboral['comuna_empresa']?></td>
+                        <td><?php echo $datoLaboral['ciudad_empresa']?></td>
+                        <td><?php echo $datoLaboral['telefono_empresa']?></td>
+                        <td><?php echo $datoLaboral['celular_empresa']?></td>
+                        <td><?php echo $datoLaboral['rut_numero']?></td>
+                        <td><?php echo $datoLaboral['digito_verificador']?></td>
+                        <td><?php echo $datoLaboral['usuario_id']?></td>
+                        <td>                                        
+                            <?php 
+                            // http://www.v09studio.com/websystems/materials/forms.html
+                            // pagina html post url form button
+                            ?>                                        
+                            <div id="button-group-1">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/datoLaboral/view" method="get">
+                                    <input type="hidden" name="id" value="<?php echo $datoLaboral['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-search">
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'dato-laboral-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'id',
-		'nombre_empresa',
-		'ano_antiguedad',
-		'cargo',
-		'actividad',
-		'comuna_empresa',
-		/*
-		'ciudad_empresa',
-		'telefono_empresa',
-		'celular_empresa',
-		'rut_numero',
-		'digito_verificador',
-		'usuario_id',
-		*/
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+                                        </span>
+                                    </button>
+                                </form>
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/datoLaboral/update" method="get">
+                                    <input type="hidden" name="id" value="<?php echo $datoLaboral['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-pencil">
+
+                                        </span>
+                                    </button>
+                                </form>
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/datoLaboral/borradoFisicoDatoLaboral" method="post">
+                                    <input type="hidden" name="id" value="<?php echo $datoLaboral['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-cancel">
+
+                                        </span>
+                                    </button>
+                                </form> 
+                            </div>                                        
+                        </td>
+                    </tr>
+                <?php endforeach;?>                                
+            </tbody>
+        </table>
+        <ul class="tabs">
+                <li class="active"></li>                        
+        </ul>               
+    </section>
+</div>

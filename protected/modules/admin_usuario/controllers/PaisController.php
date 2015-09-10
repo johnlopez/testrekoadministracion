@@ -143,12 +143,14 @@ class PaisController extends Controller
 	public function actionAdmin()
 	{
 		$model=new Pais('search');
+                $listadoPais = Pais::model()->findAll();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Pais']))
 			$model->attributes=$_GET['Pais'];
 
 		$this->render('admin',array(
 			'model'=>$model,
+                        'listadoPais' => $listadoPais
 		));
 	}
 

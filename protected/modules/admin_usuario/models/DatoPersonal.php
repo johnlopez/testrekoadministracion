@@ -217,4 +217,18 @@ class DatoPersonal extends CActiveRecord
             $this->llaveIdPersonal = Yii::app()->db->createCommand("select @llave_id as result;")->queryScalar();
             return $comando;
         }
+        
+        public function eliminadoFisicoDatoPersonal($idDatoPersonal) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_eliminado_fisico_dato_personal(:idPersonal)");
+            $comando->bindParam(':idPersonal', $idDatoPersonal);
+            $comando->execute();
+            return $comando;
+        }
+        
+        public function listarPorEstado() {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_listar_datos_personales_por_estado()");
+            return $comando->queryAll();
+        }
 }

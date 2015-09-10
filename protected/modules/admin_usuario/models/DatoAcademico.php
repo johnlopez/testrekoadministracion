@@ -159,4 +159,18 @@ class DatoAcademico extends CActiveRecord
             $comando->execute();
             return $comando;
         }
+        
+        public function eliminadoFisicoDatoAcademico($idDatoAcademico) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_eliminado_fisico_dato_academico(:idDatoAcademico)");
+            $comando->bindParam(':idDatoAcademico', $idDatoAcademico);
+            $comando->execute();
+            return $comando;
+        }
+        
+        public function listarPorEstado() {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_listar_datos_academicos_por_estado()");
+            return $comando->queryAll();
+        }
 }
