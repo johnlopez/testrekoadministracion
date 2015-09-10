@@ -26,46 +26,77 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Administración Institucion</h1>
+<h2>Administración Institucion</h2><br><br>
 
 
+<script type="text/javascript" language="javascript" class="init">
+$(document).ready(function() {
+	$('#main_table_demo').DataTable();
+} );
+</script>
+<div class="container">
+    <section>
+        <table id="main_table_demo" class="display cell-hovered hovered striped" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>VISION</th>
+                    <th>MISION</th>
+                    <th>ACREDITADA</th>
+                    <th>FECHA INICIO ACRED</th>
+                    <th>OPCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($listadoInstitucion as $institucion):?>                                                     
+                    <tr>
+                        <td><?php echo $institucion['id'] ?></td>
+                        <td><?php echo $institucion['nombre'] ?></td>
+                        <td><?php echo $institucion['vision']?></td>
+                        <td><?php echo $institucion['mision']?></td>
+                        <td><?php echo $institucion['acreditada']?></td>
+                        <td><?php echo $institucion['fecha_inicio_acreditacion']?></td>
+                        <td>                                        
+                            <?php 
+                            // http://www.v09studio.com/websystems/materials/forms.html
+                            // pagina html post url form button
+                            ?>                                        
+                            <div id="button-group-1">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/institucion/view" method="get">
+                                    <input type="hidden" name="id" value="<?php echo $institucion['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-search">
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+                                        </span>
+                                    </button>
+                                </form>
+                                
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/institucion/update" method="get">
+                                    <input type="hidden" name="id" value="<?php echo $institucion['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-pencil">
 
+                                        </span>
+                                    </button>
+                                </form>
+                                
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/institucion/view" method="get">
+                                    <input type="hidden" name="id" value="<?php echo $institucion['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-cancel">
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'institucion-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'id',
-		'nombre',
-		'vision',
-		'mision',
-		'acreditada',
-		'fecha_inicio_acreditacion',
-		/*
-		'fecha_termino_acreditacion',
-		'descripcion',
-		'fecha_creacion',
-		'fecha_modificacion',
-		*/
-		array(
-			'class'=>'CButtonColumn',
-                        'template' => '{asignar}{view}{delete}{update}',
-                        'buttons' => array(
-                                    'asignar' => array(
-                                            'label' => 'asignar usuario',
-                                            'imageUrl'=>Yii::app()->request->baseUrl.'/assets/9e5e8f07/gridview/asignar.png', //ruta icono para el botón
-                                            'url'=>'Yii::app()->createUrl("admin_usuario/usuarioHasInstitucion/index",array("id" => $data->id) )', //url de la acción nueva
-                                    ),
-
-                        ),
-		),
-	),
-)); ?>
+                                        </span>
+                                    </button>
+                                </form>
+                            </div>                                        
+                        </td>
+                    </tr>
+                <?php endforeach;?>                                
+            </tbody>
+        </table>
+        <ul class="tabs">
+                <li class="active"></li>                        
+        </ul>               
+    </section>
+</div>

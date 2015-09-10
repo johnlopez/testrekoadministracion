@@ -28,7 +28,7 @@ class DatoPersonalController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin'),
+				'actions'=>array('index','view','admin','borradoFisicoDatoPersonal'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -147,20 +147,6 @@ class DatoPersonalController extends Controller
 	}
 
 	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-	}
-
-	/**
 	 * Lists all models.
 	 */
 	public function actionIndex()
@@ -177,12 +163,15 @@ class DatoPersonalController extends Controller
 	public function actionAdmin()
 	{
 		$model=new DatoPersonal('search');
+                //$listadoDatoPersonal = DatoPersonal::model()->findAll();
+                $listadoDatoPersonal = $model->listarPorEstado();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['DatoPersonal']))
 			$model->attributes=$_GET['DatoPersonal'];
 
 		$this->render('admin',array(
 			'model'=>$model,
+                        'listadoDatoPersonal' => $listadoDatoPersonal,
 		));
 	}
 
@@ -213,4 +202,15 @@ class DatoPersonalController extends Controller
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionBorradoFisicoDatoPersonal() {
+            
+                if(isset($_POST['id'])){
+                    $idDatoPersonal = $_POST['id'];
+                }
+                
+                $datoPersonal = new DatoPersonal();
+                $datoPersonal->eliminadoFisicoDatoPersonal($idDatoPersonal);
+                $this->redirect('admin');
+        }
 }

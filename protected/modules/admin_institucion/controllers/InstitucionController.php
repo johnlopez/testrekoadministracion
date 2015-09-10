@@ -155,12 +155,14 @@ class InstitucionController extends Controller
 	public function actionAdmin()
 	{
 		$model=new Institucion('search');
+                $listadoInstitucion = Institucion::model()->findAll();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Institucion']))
 			$model->attributes=$_GET['Institucion'];
 
 		$this->render('admin',array(
 			'model'=>$model,
+                        'listadoInstitucion' => $listadoInstitucion,
 		));
 	}
 

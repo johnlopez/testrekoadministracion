@@ -26,39 +26,84 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Dato Academicos</h1>
+<h2>Administración datos academicos</h2><br><br>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'dato-academico-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'id',
-		'universidad',
-		'carrera',
-		'ano_cursado',
-		'duracion_carrera',
-		'sede',
-		/*
-		'direccion_sede',
-		'comuna_sede',
-		'ciudad_sede',
-		'usuario_id',
-		*/
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+<script type="text/javascript" language="javascript" class="init">
+$(document).ready(function() {
+	$('#main_table_demo').DataTable();
+} );
+</script>
+<div class="container">
+    <section>
+        <table id="main_table_demo" class="display cell-hovered hovered striped" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>UNIVERSIDAD</th>
+                    <th>CARRERA</th>
+                    <th>AÑO CURSADO</th>
+                    <th>DURACION CARRERA</th>
+                    <th>SEDE</th>
+                    <th>DIRECCION SEDE</th>
+                    <th>COMUNA SEDE</th>
+                    <th>CIUDAD SEDE</th>
+                    <th>USUARIO</th>
+                    <th>OPCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($listadoDatoAcademico as $datoAcademico):?>                                                     
+                    <tr>
+                        <td><?php echo $datoAcademico['id'] ?></td>
+                        <td><?php echo $datoAcademico['universidad'] ?></td>
+                        <td><?php echo $datoAcademico['carrera']?></td>
+                        <td><?php echo $datoAcademico['ano_cursado']?></td>
+                        <td><?php echo $datoAcademico['duracion_carrera']?></td>
+                        <td><?php echo $datoAcademico['sede']?></td>
+                        <td><?php echo $datoAcademico['direccion_sede']?></td>
+                        <td><?php echo $datoAcademico['comuna_sede']?></td>
+                        <td><?php echo $datoAcademico['ciudad_sede']?></td>
+                        <td><?php echo $datoAcademico['usuario_id']?></td>
+                        <td>                                        
+                            <?php 
+                            // http://www.v09studio.com/websystems/materials/forms.html
+                            // pagina html post url form button
+                            ?>                                        
+                            <div id="button-group-1">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/datoacademico/view" method="get">
+                                    <input type="hidden" name="id" value="<?php echo $datoAcademico['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-search">
+
+                                        </span>
+                                    </button>
+                                </form>
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/datoacademico/update" method="get">
+                                    <input type="hidden" name="id" value="<?php echo $datoAcademico['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-pencil">
+
+                                        </span>
+                                    </button>
+                                </form>
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/datoacademico/borradoFisicoDatoAcademico" method="post">
+                                    <input type="hidden" name="id" value="<?php echo $datoAcademico['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-cancel">
+
+                                        </span>
+                                    </button>
+                                </form> 
+                            </div>                                        
+                        </td>
+                    </tr>
+                <?php endforeach;?>                                
+            </tbody>
+        </table>
+        <ul class="tabs">
+                <li class="active"></li>                        
+        </ul>               
+    </section>
+</div>

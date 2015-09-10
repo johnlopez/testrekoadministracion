@@ -28,7 +28,7 @@ class ProgramaAcademicoController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin'),
+				'actions'=>array('index','view','admin','indexInstitucion','indexEntidad','AsignarProgramaInstitucion','AsignarProgramaEntidad'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -147,12 +147,14 @@ class ProgramaAcademicoController extends Controller
 	public function actionAdmin()
 	{
 		$model=new ProgramaAcademico('search');
+                $listadoPrograma = ProgramaAcademico::model()->findAll();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['ProgramaAcademico']))
 			$model->attributes=$_GET['ProgramaAcademico'];
 
 		$this->render('admin',array(
 			'model'=>$model,
+                        'listadoPrograma' => $listadoPrograma
 		));
 	}
 
@@ -183,4 +185,150 @@ class ProgramaAcademicoController extends Controller
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionIndexEntidad()
+        {   
+            $objetoEntidadArray = Array();
+            $preSelectedCategories = Array();
+            $modelo = new ProgramaAcademico();
+
+            if(isset($_GET['id'])){
+                $idEntidad = $_GET['id'];
+            }
+
+            $listado = $modelo->listaEntidadProgrma($idEntidad);
+
+
+            foreach($listado as $item) {                   
+                $tmpObj = new ProgramaAcademico('myscenario');
+                if((int) $item['entidad_id'] != 0 ){
+                    $preSelectedCategories[] =  (int) $item['id'];
+                }
+                else{ 
+                    $preSelectedCategories[] =  0;                             
+                }
+
+                $tmpObj->id = (int)$item['id'];
+                $tmpObj->entidad_id = (int)$item['entidad_id'];                              
+                $objetoEntidadArray[] = $tmpObj;
+            }
+
+
+            $this->render('indexEntidad',array('model'=>$modelo,'objeto'=>$objetoEntidadArray,'seleccionados'=>$preSelectedCategories,'idEntidad'=>$idEntidad));
+        }
+    
+        public function actionAsignarProgramaEntidad() {                     
+            
+            $programaEntidad = new ProgramaAcademico();
+            $listadoAsignarPrograma = Array();
+            $listadoDesAsignarPrograma = Array();
+
+
+            $listadoTotal = unserialize($_POST['datos-id-list']);
+            foreach(unserialize($_POST['datos-id-select']) as $programa) {   
+                $listadoOriginal[] = $programa;
+            }
+
+            $entidadId = $_POST['datos-entidad-id'];    
+            var_dump($entidadId);
+            $programaId = Array(); 
+
+            if(isset($_POST['id'])) {    
+                $programaId = $_POST['id'];                
+                for( $i=0; $i < count($listadoOriginal); $i++) {
+                    if( in_array( $listadoOriginal[$i],$programaId ) ) {
+                            $listadoAsignarPrograma[] = $listadoOriginal[$i];
+                        }
+                    else {
+                            $listadoDesAsignarPrograma[] = $listadoOriginal[$i];
+                        }
+                }
+
+                if( count($listadoAsignarPrograma) )
+                    $programaEntidad->asignaProgramaEntidad($listadoAsignarPrograma, $entidadId);
+
+                if( count($listadoDesAsignarPrograma) )
+                    $programaEntidad->desasignaProgramaEntidad($listadoDesAsignarPrograma, $entidadId);       
+            }
+            else{
+                $programaEntidad->desasignaProgramaEntidad($listadoOriginal, $entidadId);                   
+            }
+
+
+            $this->redirect(array("indexEntidad",'id'=>$entidadId));
+
+        }
+        
+        public function actionIndexInstitucion()
+        {
+            $objetoInstitucionArray = Array();
+            $preSelectedCategories = Array();
+            $modelo = new ProgramaAcademico();
+
+            if(isset($_GET['id'])){
+                $idInstitucion = $_GET['id'];
+            }
+
+            $listado = $modelo->listaInstitucionProgrma($idInstitucion);
+
+
+            foreach($listado as $item) {                   
+                $tmpObj = new ProgramaAcademico('myscenario');
+                if((int) $item['institucion_id'] != 0 ){
+                    $preSelectedCategories[] =  (int) $item['id'];
+                }
+                else{ 
+                    $preSelectedCategories[] =  0;                             
+                }
+
+                $tmpObj->id = (int)$item['id'];
+                $tmpObj->institucion_id = (int)$item['institucion_id'];                              
+                $objetoInstitucionArray[] = $tmpObj;
+            }
+
+
+            $this->render('indexInstitucion',array('model'=>$modelo,'objeto'=>$objetoInstitucionArray,'seleccionados'=>$preSelectedCategories,'idInstitucion'=>$idInstitucion));
+        }
+    
+        public function actionAsignarProgramaInstitucion() {                     
+            
+            $programaInstitucion = new ProgramaAcademico();
+            $listadoAsignarPrograma = Array();
+            $listadoDesAsignarPrograma = Array();
+
+
+            $listadoTotal = unserialize($_POST['datos-id-list']);
+            foreach(unserialize($_POST['datos-id-select']) as $programa) {   
+                $listadoOriginal[] = $programa;
+            }
+
+            $institucionId = $_POST['datos-institucion-id'];    
+            var_dump($institucionId);
+            $programaId = Array(); 
+
+            if(isset($_POST['id'])) {    
+                $programaId = $_POST['id'];                
+                for( $i=0; $i < count($listadoOriginal); $i++) {
+                    if( in_array( $listadoOriginal[$i],$programaId ) ) {
+                            $listadoAsignarPrograma[] = $listadoOriginal[$i];
+                        }
+                    else {
+                            $listadoDesAsignarPrograma[] = $listadoOriginal[$i];
+                        }
+                }
+
+                if( count($listadoAsignarPrograma) )
+                    $programaInstitucion->asignaProgramaInstitucion($listadoAsignarPrograma, $institucionId);
+
+                if( count($listadoDesAsignarPrograma) )
+                    $programaInstitucion->desasignaProgramaInstitucion ($listadoDesAsignarPrograma, $institucionId);       
+            }
+            else{
+                $programaInstitucion->desasignaProgramaInstitucion ($listadoOriginal, $institucionId);                 
+            }
+
+
+            $this->redirect(array("indexInstitucion",'id'=>$institucionId));
+
+        }
 }

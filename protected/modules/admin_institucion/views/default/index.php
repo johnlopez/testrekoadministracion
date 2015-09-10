@@ -5,7 +5,7 @@ $this->breadcrumbs=array(
 	$this->module->id,
 );
 ?>
-<h1>Administración Institución</h1>
+<h2>Administración Institución</h2><br><br>
 
 <div class="main-content clear-float">
     <div class="tile-area no-padding">
@@ -18,7 +18,7 @@ $this->breadcrumbs=array(
                     </div>
                     <span class="tile-label">            
                         <?php 
-                            $pizza  = CHtml::encode('institucion');
+                            $pizza  = CHtml::encode('Institucion');
                             $porciones = explode("_", $pizza);
                             foreach ($porciones as $p)
                             echo $p." "; // porciÃ³n
@@ -33,7 +33,7 @@ $this->breadcrumbs=array(
                     </div>
                     <span class="tile-label">            
                         <?php 
-                            $pizza  = CHtml::encode('entidad');
+                            $pizza  = CHtml::encode('Entidad');
                             $porciones = explode("_", $pizza);
                             foreach ($porciones as $p)
                             echo $p." "; // porciÃ³n

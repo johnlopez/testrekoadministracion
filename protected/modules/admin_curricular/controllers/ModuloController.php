@@ -145,12 +145,14 @@ class ModuloController extends Controller
 	public function actionAdmin()
 	{
 		$model=new Modulo('search');
+                $listadoModulos = Modulo::model()->findAll();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Modulo']))
 			$model->attributes=$_GET['Modulo'];
 
 		$this->render('admin',array(
 			'model'=>$model,
+                        'listadoModulos' => $listadoModulos
 		));
 	}
 

@@ -13,7 +13,7 @@
  */
 class UsuarioHasInstitucionController extends Controller {
     
-    public function actionIndex()
+    public function actionAsignar()
     {
         Yii::import('application.modules.admin_institucion.models.Institucion');
         $objetoInstitucionArray = Array();
@@ -42,7 +42,7 @@ class UsuarioHasInstitucionController extends Controller {
         }
             
             
-        $this->render('index',array('model'=>$modelo,'objeto'=>$objetoInstitucionArray,'seleccionados'=>$preSelectedCategories,'idInstitucion'=>$idInstitucion));
+        $this->render('asignar',array('model'=>$modelo,'objeto'=>$objetoInstitucionArray,'seleccionados'=>$preSelectedCategories,'idInstitucion'=>$idInstitucion));
     }
     
     public function actionAsignarUsuarios() {                     

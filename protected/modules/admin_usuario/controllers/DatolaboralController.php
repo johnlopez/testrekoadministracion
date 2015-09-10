@@ -132,20 +132,6 @@ class DatoLaboralController extends Controller
 	}
 
 	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-	}
-
-	/**
 	 * Lists all models.
 	 */
 	public function actionIndex()
@@ -162,12 +148,15 @@ class DatoLaboralController extends Controller
 	public function actionAdmin()
 	{
 		$model=new DatoLaboral('search');
+                //$listadoDatoLaboral = DatoLaboral::model()->findAll();
+                $listadoDatoLaboral = $model->listarPorEstado();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['DatoLaboral']))
 			$model->attributes=$_GET['DatoLaboral'];
 
 		$this->render('admin',array(
 			'model'=>$model,
+                        'listadoDatoLaboral' =>$listadoDatoLaboral,
 		));
 	}
 
@@ -198,4 +187,15 @@ class DatoLaboralController extends Controller
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionBorradoFisicoDatoLaboral() {
+            
+            if(isset($_POST['id'])){
+                    $idDatoLaboral = $_POST['id'];
+                }
+                
+                $datoLaboral = new DatoLaboral();
+                $datoLaboral->eliminarFisicoDatoLaboral($idDatoLaboral);
+                $this->redirect('admin');
+        }
 }

@@ -28,7 +28,7 @@ class DatoAcademicoController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin'),
+				'actions'=>array('index','view','admin','borradoFisicoDatoAcademico'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -127,20 +127,6 @@ class DatoAcademicoController extends Controller
 	}
 
 	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-	}
-
-	/**
 	 * Lists all models.
 	 */
 	public function actionIndex()
@@ -157,12 +143,15 @@ class DatoAcademicoController extends Controller
 	public function actionAdmin()
 	{
 		$model=new DatoAcademico('search');
+                //$listadoDatoAcademico = DatoAcademico::model()->findAll();
+                $listadoDatoAcademico = $model->listarPorEstado();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['DatoAcademico']))
 			$model->attributes=$_GET['DatoAcademico'];
 
 		$this->render('admin',array(
 			'model'=>$model,
+                        'listadoDatoAcademico' => $listadoDatoAcademico,
 		));
 	}
 
@@ -193,4 +182,15 @@ class DatoAcademicoController extends Controller
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionBorradoFisicoDatoAcademico() {
+            
+                if(isset($_POST['id'])){
+                    $idDatoAcademico = $_POST['id'];
+                }
+                
+                $datoAcademico = new DatoAcademico();
+                $datoAcademico->eliminadoFisicoDatoAcademico($idDatoAcademico);
+                $this->redirect('admin');
+        }
 }

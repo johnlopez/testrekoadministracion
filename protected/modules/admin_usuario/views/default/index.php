@@ -147,6 +147,22 @@ $this->breadcrumbs=array(
                     </span>
                 </div>  
             </a>   
+            
+            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario/logicaestadousuario/admin";?>" >
+                <div class="tile-wide bg-darkGreen fg-white" data-role="tile">
+                    <div class="tile-content iconic">
+                        <span class="icon mif-location-city"></span>
+                    </div>
+                    <span class="tile-label">            
+                        <?php 
+                            $pizza  = CHtml::encode('logicaestadousuario');
+                            $porciones = explode("_", $pizza);
+                            foreach ($porciones as $p)
+                            echo $p." "; // porciÃ³n
+                        ?>                
+                    </span>
+                </div>  
+            </a> 
     </div>
 </div> <!-- End of tiles -->
 

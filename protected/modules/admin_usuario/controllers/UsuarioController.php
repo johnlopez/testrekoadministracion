@@ -29,7 +29,7 @@ class UsuarioController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin','importar'),
+				'actions'=>array('index','view','admin','importar','delete','borrar'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -116,20 +116,6 @@ class UsuarioController extends Controller
 	}
 
 	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-	}
-
-	/**
 	 * Lists all models.
 	 */
 	public function actionIndex()
@@ -179,25 +165,25 @@ class UsuarioController extends Controller
                 }
         }
         
-        public function listPorEstado() {
-            
-            $model = new Usuario();
-            if(Yii::app()->request->isAjaxRequest){       
-                    $estado = Yii::app()->request->getParam('estado');
-                    $myHtml = CHtml::encode('Estado seleccionado...'. $estado);
-                    echo $myHtml;
-                    $logica = new LogicaEstadoUsuario();  
-                    $listadoUsuarioEstado = $logica->listarUsuarioPorEstado($estado);
-                    $this->renderPartial('_admin', array('listadoUsuarioEstado' => $listadoUsuarioEstado));       
-                }
-        
-                else{
-                    $logica = new LogicaEstadoUsuario();  
-                    $listadoUsuarioEstado = $logica->listarUsuarioPorEstado('');
-                    $listarEstados = $logica->listarEstadosUsuario();
-                    $this->render('admin', array('listadoUsuarioEstado' => $listadoUsuarioEstado,'logica' => $logica,'model'=>$model));        
-                }
-        }
+//        public function listPorEstado() {
+//            
+//            $model = new Usuario();
+//            if(Yii::app()->request->isAjaxRequest){       
+//                    $estado = Yii::app()->request->getParam('estado');
+//                    $myHtml = CHtml::encode('Estado seleccionado...'. $estado);
+//                    echo $myHtml;
+//                    $logica = new LogicaEstadoUsuario();  
+//                    $listadoUsuarioEstado = $logica->listarUsuarioPorEstado($estado);
+//                    $this->renderPartial('_admin', array('listadoUsuarioEstado' => $listadoUsuarioEstado));       
+//                }
+//        
+//                else{
+//                    $logica = new LogicaEstadoUsuario();  
+//                    $listadoUsuarioEstado = $logica->listarUsuarioPorEstado('');
+//                    $listarEstados = $logica->listarEstadosUsuario();
+//                    $this->render('admin', array('listadoUsuarioEstado' => $listadoUsuarioEstado,'logica' => $logica,'model'=>$model));        
+//                }
+//        }
         
 	public function actionAdmin()
 	{
@@ -207,10 +193,13 @@ class UsuarioController extends Controller
 		if(isset($_GET['Usuario']))
 			$model->attributes=$_GET['Usuario'];
                 
-                $this->listPorEstado();
+                //$listadoUsuarios = Usuario::model()->findAll();
+                $listadoUsuarios = $model->listarPorEstado();
+                //$this->listPorEstado();
                 $this->exportarExcel();
                 $this->exportarCsv();
-                $this->importarUsuarios();               
+                $this->importarUsuarios();   
+                $this->render('admin',array('listadoUsuarios' => $listadoUsuarios,'model'=>$model));
         }
         
                 
@@ -242,6 +231,17 @@ class UsuarioController extends Controller
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionBorrar() {
+            
+            if(isset($_POST['id'])){
+                    $idUsuario = $_POST['id'];
+                }
+                
+                $usuario = new Usuario();
+                $usuario->eliminarLogico($idUsuario);
+                $this->redirect('admin');
+        }
        
        
 }
