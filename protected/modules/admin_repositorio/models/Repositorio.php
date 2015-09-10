@@ -10,16 +10,11 @@
  * @property string $fecha_acceso
  * @property string $fecha_modificacion
  * @property string $fecha_creacion
- * @property integer $modelo_aprendizaje_id
  * @property integer $tipo_repositorio_id
- * @property integer $repositorio_id
  *
  * The followings are the available model relations:
- * @property ModeloAprendizaje $modeloAprendizaje
+ * @property Institucion[] $institucions
  * @property TipoRepositorio $tipoRepositorio
- * @property Repositorio $repositorio
- * @property Repositorio[] $repositorios
- * @property Herramienta[] $herramientas
  */
 class Repositorio extends CActiveRecord
 {
@@ -39,12 +34,13 @@ class Repositorio extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('modelo_aprendizaje_id, tipo_repositorio_id, repositorio_id', 'numerical', 'integerOnly'=>true),
+			array('tipo_repositorio_id', 'safe'),
+			array('tipo_repositorio_id', 'numerical', 'integerOnly'=>true),
 			array('nombre, descripcion', 'length', 'max'=>45),
 			array('fecha_acceso, fecha_modificacion, fecha_creacion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre, descripcion, fecha_acceso, fecha_modificacion, fecha_creacion, modelo_aprendizaje_id, tipo_repositorio_id, repositorio_id', 'safe', 'on'=>'search'),
+			array('id, nombre, descripcion, fecha_acceso, fecha_modificacion, fecha_creacion, tipo_repositorio_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,11 +52,8 @@ class Repositorio extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'modeloAprendizaje' => array(self::BELONGS_TO, 'ModeloAprendizaje', 'modelo_aprendizaje_id'),
+			'institucions' => array(self::MANY_MANY, 'Institucion', 'institucion_has_repositorio(repositorio_id, institucion_id)'),
 			'tipoRepositorio' => array(self::BELONGS_TO, 'TipoRepositorio', 'tipo_repositorio_id'),
-			'repositorio' => array(self::BELONGS_TO, 'Repositorio', 'repositorio_id'),
-			'repositorios' => array(self::HAS_MANY, 'Repositorio', 'repositorio_id'),
-			'herramientas' => array(self::MANY_MANY, 'Herramienta', 'repositorio_has_herramienta(repositorio_id, herramienta_id)'),
 		);
 	}
 
@@ -76,9 +69,7 @@ class Repositorio extends CActiveRecord
 			'fecha_acceso' => 'Fecha Acceso',
 			'fecha_modificacion' => 'Fecha Modificacion',
 			'fecha_creacion' => 'Fecha Creacion',
-			'modelo_aprendizaje_id' => 'Modelo Aprendizaje',
 			'tipo_repositorio_id' => 'Tipo Repositorio',
-			'repositorio_id' => 'Repositorio',
 		);
 	}
 
@@ -106,9 +97,7 @@ class Repositorio extends CActiveRecord
 		$criteria->compare('fecha_acceso',$this->fecha_acceso,true);
 		$criteria->compare('fecha_modificacion',$this->fecha_modificacion,true);
 		$criteria->compare('fecha_creacion',$this->fecha_creacion,true);
-		$criteria->compare('modelo_aprendizaje_id',$this->modelo_aprendizaje_id);
 		$criteria->compare('tipo_repositorio_id',$this->tipo_repositorio_id);
-		$criteria->compare('repositorio_id',$this->repositorio_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

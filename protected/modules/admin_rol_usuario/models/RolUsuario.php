@@ -7,8 +7,13 @@
  * @property integer $id
  * @property string $nombre
  * @property string $descripcion
+ * @property string $fecha_creacion
+ * @property string $fecha_eliminacion
+ * @property string $fecha_acceso
+ * @property string $fecha_modificacion
  *
  * The followings are the available model relations:
+ * @property Institucion[] $institucions
  * @property AuthitemPermisoUsuario[] $authitemPermisoUsuarios
  * @property PrivilegioUsuario[] $privilegioUsuarios
  * @property Usuario[] $usuarios
@@ -32,9 +37,10 @@ class RolUsuario extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nombre, descripcion', 'length', 'max'=>45),
+			array('fecha_creacion, fecha_eliminacion, fecha_acceso, fecha_modificacion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre, descripcion', 'safe', 'on'=>'search'),
+			array('id, nombre, descripcion, fecha_creacion, fecha_eliminacion, fecha_acceso, fecha_modificacion', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,6 +52,7 @@ class RolUsuario extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'institucions' => array(self::MANY_MANY, 'Institucion', 'institucion_has_rol_usuario(rol_usuario_id, institucion_id)'),
 			'authitemPermisoUsuarios' => array(self::MANY_MANY, 'AuthitemPermisoUsuario', 'rol_usuario_has_authitem_permiso_usuario(rol_usuario_id, authitem_permiso_usuario_name)'),
 			'privilegioUsuarios' => array(self::MANY_MANY, 'PrivilegioUsuario', 'rol_usuario_has_privilegio_usuario(rol_usuario_id, privilegio_usuario_id)'),
 			'usuarios' => array(self::MANY_MANY, 'Usuario', 'usuario_has_rol_usuario(rol_usuario_id, usuario_id)'),
@@ -61,6 +68,10 @@ class RolUsuario extends CActiveRecord
 			'id' => 'ID',
 			'nombre' => 'Nombre',
 			'descripcion' => 'Descripcion',
+			'fecha_creacion' => 'Fecha Creacion',
+			'fecha_eliminacion' => 'Fecha Eliminacion',
+			'fecha_acceso' => 'Fecha Acceso',
+			'fecha_modificacion' => 'Fecha Modificacion',
 		);
 	}
 
@@ -85,6 +96,10 @@ class RolUsuario extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('descripcion',$this->descripcion,true);
+		$criteria->compare('fecha_creacion',$this->fecha_creacion,true);
+		$criteria->compare('fecha_eliminacion',$this->fecha_eliminacion,true);
+		$criteria->compare('fecha_acceso',$this->fecha_acceso,true);
+		$criteria->compare('fecha_modificacion',$this->fecha_modificacion,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

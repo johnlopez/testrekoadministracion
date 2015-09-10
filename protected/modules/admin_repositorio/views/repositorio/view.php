@@ -27,8 +27,6 @@ $this->menu=array(
 		'fecha_acceso',
 		'fecha_modificacion',
 		'fecha_creacion',
-		'modelo_aprendizaje_id',
 		'tipo_repositorio_id',
-		'repositorio_id',
 	),
 )); ?>
