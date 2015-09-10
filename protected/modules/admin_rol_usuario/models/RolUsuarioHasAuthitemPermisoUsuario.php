@@ -108,20 +108,20 @@ class RolUsuarioHasAuthitemPermisoUsuario extends CActiveRecord
             $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_asigna_permiso_rol(:listaPermisoName,:listaLargo,:nuevoRolId)");
             $command->bindParam(':listaPermisoName',$lista);
             $command->bindParam(':listaLargo',$listaLen);
-            $command->bindParam(':nuevoRolId',$institucionId);
+            $command->bindParam(':nuevoRolId',$rolId);
             $resultado = $command->execute();        
             return $resultado;
         }
         
-        public function desasignaInstitucionUsuario($listaInstitucionUsuario,$institucionId) {
-            $lista = implode(',', $listaInstitucionUsuario);
+        public function desasignaRolPermiso($listaRolPermiso,$rolId) {
+            $lista = implode(',', $listaRolPermiso);
             var_dump($lista);
-            $listaLen = count($listaInstitucionUsuario);        
+            $listaLen = count($listaRolPermiso);        
 
-            $command = Yii::app()->db->createCommand("CALL sp_admin_usuario_desasigna_usuario_institucion(:listaUsuarioId,:listaLargo,:nuevoInstitucionId)");
-            $command->bindParam(':listaUsuarioId',$lista);
+            $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_desasigna_permiso_rol(:listaPermisoName,:listaLargo,:nuevoRolId)");
+            $command->bindParam(':listaPermisoName',$lista);
             $command->bindParam(':listaLargo',$listaLen);
-            $command->bindParam(':nuevoInstitucionId',$institucionId);
+            $command->bindParam(':nuevoRolId',$rolId);
             $resultado = $command->execute();        
             return $resultado;
         }
