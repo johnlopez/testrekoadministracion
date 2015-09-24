@@ -26,6 +26,14 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
+<div class="place-right padding20 no-padding-top no-padding-right">
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_rol_usuario/institucionhasrolusuario/listainstitucion" >
+            <button class="button primary" type="submit">
+                    Asignar Rol a Institucion
+            </button>
+        </form>           
+</div>
+
 <h1>Manage Rol Usuarios</h1>
 
 <p>

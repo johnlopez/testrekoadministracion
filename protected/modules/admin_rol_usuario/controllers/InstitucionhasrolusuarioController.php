@@ -76,4 +76,22 @@ class InstitucionHasRolUsuarioController extends Controller {
 
     }
     
+    public function actionListaInstitucion()
+    {
+        Yii::import('application.modules.admin_institucion.models.Institucion');
+        
+        $model = New Institucion();
+        //var_dump($institucion->findByPk(1)) ;
+        
+        $institucion = $model->findAll();
+        
+        $this->render('listainstitucion',array(            
+            'institucion'=>$institucion,            
+        ));
+    }
+    
+    public function actionAsignarRolInstitucion()
+    {
+        $this->render('asignarrolinstitucion');
+    }
 }
