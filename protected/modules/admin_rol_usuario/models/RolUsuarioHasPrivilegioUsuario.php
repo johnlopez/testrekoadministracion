@@ -90,4 +90,44 @@ class RolUsuarioHasPrivilegioUsuario extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        public function listaRolPrivilegio($idRol) {        
+            $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_lista_rol_privilegio(:nuevoRolId)");
+            $command->bindParam(':nuevoRolId',$idRol);	
+            $resultado = $command->queryAll();        
+            return $resultado;       
+        }
+        public function listaRolPermisoPrivilegio($idRol,$namePermiso) {        
+            $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_lista_rol_permiso_privilegio(:nuevoRolId,:nuevoPermisoName)");
+            $command->bindParam(':nuevoRolId',$idRol);	
+            $command->bindParam(':nuevoPermisoName',$namePermiso);	
+            $resultado = $command->queryAll();        
+            return $resultado;       
+        }
+        
+        public function asignaRolPrivilegio($listaRolPrivilegio,$rolId) {
+            $lista = implode(',', $listaRolPrivilegio);
+            var_dump($lista);
+            $listaLen = count($listaRolPrivilegio);        
+
+            $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_asigna_privilegio_rol(:listaPrivilegioId,:listaLargo,:nuevoRolId)");
+            $command->bindParam(':listaPrivilegioId',$lista);
+            $command->bindParam(':listaLargo',$listaLen);
+            $command->bindParam(':nuevoRolId',$rolId);
+            $resultado = $command->execute();        
+            return $resultado;
+        }
+        
+        public function desasignaRolPrivilegio($listaRolPrivilegio,$rolId) {
+            $lista = implode(',', $listaRolPrivilegio);
+            var_dump($lista);
+            $listaLen = count($listaRolPrivilegio);        
+
+            $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_desasigna_privilegio_rol(:listaPrivilegioId,:listaLargo,:nuevoRolId)");
+            $command->bindParam(':listaPrivilegioId',$lista);
+            $command->bindParam(':listaLargo',$listaLen);
+            $command->bindParam(':nuevoRolId',$rolId);
+            $resultado = $command->execute();        
+            return $resultado;
+        }
 }

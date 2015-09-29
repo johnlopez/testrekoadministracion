@@ -71,7 +71,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
                         'buttons' => array(                                   
                                     'asignarpermiso' => array(
                                             'label' => 'asignar permiso',
-                                            'url'=>'Yii::app()->createUrl("admin_rol_usuario/Rolusuariohasauthitempermisousuario/index",array("id" => $data->id) )', //url de la acción nueva
+                                            'url'=>'Yii::app()->createUrl("admin_rol_usuario/Rolusuariohasauthitempermisousuario/asignarpermisorol",array("id" => $data->id) )', //url de la acción nueva
                                     ),
                         ),                       
 		),

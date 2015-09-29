@@ -2,14 +2,19 @@
 
 class RolusuariohasauthitempermisousuarioController extends Controller
 {
-    public function actionIndex()
+    public function actionAsignarpermisorol()
     {
+        Yii::import('application.modules.admin_rol_usuario.models.RolUsuario');
+        
+        $modelo_rol_usuario = new RolUsuario();
+
         $objetoRolArray = Array();
         $preSelectedCategories = Array();
         $modelo = new RolUsuarioHasAuthitemPermisoUsuario();
         
         if(isset($_GET['id'])){
             $idRol = $_GET['id'];
+            $rol_usuario = $modelo_rol_usuario->findByPk((int)$idRol);                     
         }
         
         $listado = $modelo->listaRolPermiso($idRol);
@@ -27,10 +32,9 @@ class RolusuariohasauthitempermisousuarioController extends Controller
             $tmpObj->authitem_permiso_usuario_name = (string)$item['authitem_permiso_usuario_name'];
             $tmpObj->rol_usuario_id = (int)$item['rol_usuario_id'];                              
             $objetoRolArray[] = $tmpObj;
-        }
+        }        
             
-            
-        $this->render('index',array('model'=>$modelo,'objeto'=>$objetoRolArray,'seleccionados'=>$preSelectedCategories,'idRol'=>$idRol));
+        $this->render('asignarpermisorol',array('model'=>$modelo,'objeto'=>$objetoRolArray,'seleccionados'=>$preSelectedCategories,'idRol'=>$idRol,'rol_usuario'=>$rol_usuario));
     }
     
     public function actionAsignarPermisos() {                     
@@ -69,6 +73,6 @@ class RolusuariohasauthitempermisousuarioController extends Controller
         else{
             $permiso_rol->desasignaRolPermiso($listadoOriginal,$rolId);                
         }       
-        $this->redirect(array("index",'id'=>$rolId));
+        $this->redirect(array("asignarpermisorol",'id'=>$rolId));
     }
 }
