@@ -130,43 +130,26 @@ $(document).ready(function() {
                 </tr>
             </tfoot>
             <tbody>
-                <?php foreach ($institucion as $m):?>                                                     
+                <?php foreach ($institucion as $inst):?>                                                     
                     <tr>
-                        <td><?php echo $m->id; ?></td>
-                        <td><?php echo $m->nombre; ?></td>
-                        <td><?php echo $m->vision; ?></td>
-                        <td><?php echo $m->mision; ?></td> 
-                        <td><?php echo $m->acreditada; ?></td> 
+                        <td><?php echo $inst->id; ?></td>
+                        <td><?php echo $inst->nombre; ?></td>
+                        <td><?php echo $inst->vision; ?></td>
+                        <td><?php echo $inst->mision; ?></td> 
+                        <td><?php echo $inst->acreditada; ?></td> 
                         <td>                                        
                             <?php 
                             // http://www.v09studio.com/websystems/materials/forms.html
                             // pagina html post url form button
                             ?>                                        
-                            <div id="button-group-1">
-                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/view" method="get">
-                                    <input type="hidden" name="id" value="<?php echo $m->id?>" />
-                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
-                                        <span class="icon mif-search">
-
-                                        </span>
-                                    </button>
-                                </form>
+                            <div id="button-group-1">                                
                                 <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_rol_usuario/institucionhasrolusuario/asignarrolinstitucion" method="get">
-                                    <input type="hidden" name="id" value="<?php echo $m->id?>" />
+                                    <input type="hidden" name="institucion_id" value="<?php echo $inst->id?>" />
+                                    <input type="hidden" name="institucion_nombre" value="<?php echo $inst->nombre?>" />
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
-                                        <span class="icon mif-pencil">
                                                Asignar Roles
-                                        </span>
                                     </button>
-                                </form>
-                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/delete" method="post">
-                                    <input type="hidden" name="id" value="<?php echo $m->id?>" />
-                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
-                                        <span class="icon mif-cancel">
-
-                                        </span>
-                                    </button>
-                                </form> 
+                                </form>                                
                             </div>                                        
                         </td>
                     </tr>

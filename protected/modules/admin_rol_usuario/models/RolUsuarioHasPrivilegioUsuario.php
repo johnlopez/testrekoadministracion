@@ -1,4 +1,5 @@
 <?php
+require 'InterfaceRolUsuarioHasPrivilegioUsuario.php';
 
 /**
  * This is the model class for table "rol_usuario_has_privilegio_usuario".
@@ -7,8 +8,48 @@
  * @property integer $rol_usuario_id
  * @property integer $privilegio_usuario_id
  */
-class RolUsuarioHasPrivilegioUsuario extends CActiveRecord
+class RolUsuarioHasPrivilegioUsuario extends CActiveRecord implements InterfaceRolUsuarioHasPrivilegioUsuario
 {
+        private $controladorusuarionombre;    
+        private $privilegiousuarionombre;
+   
+        public function setControladorUsuarioNombre($data){
+           $this->controladorusuarionombre = $data;
+        }
+        public function getControladorUsuarioNombre() {
+           return $this->controladorusuarionombre;
+        }
+        public function setPrivilegioUsuarioNombre($data){
+           $this->privilegiousuarionombre = $data;
+        }
+        public function getPrivilegioUsuarioNombre() {
+           return $this->privilegiousuarionombre;
+        }
+        
+        public function setAttributes($values, $safeOnly = true) {
+        if (!is_array($values))
+                return;
+            $attributes = array_flip($safeOnly ? $this->getSafeAttributeNames() : $this->attributeNames());      
+            foreach ($values as $name => $value) {
+                $nameRest = substr($name, 1);
+                $func = 'set' . strtoupper($name[0]) . $nameRest;            
+                if (method_exists($this, $func)) {
+                    $this->$func($value);                
+                } else if (isset($attributes[$name])) {
+                    $this->$name = $value;                
+                }
+                else if ($safeOnly) {                
+                    $this->onUnsafeAttribute($name, $value);
+                }
+            }
+        }
+        
+        public function attributeNames() {
+            $attributes = parent::attributeNames();
+            $newAttributes = Array('controladorusuarionombre','privilegiousuarionombre');        
+            return array_merge($attributes, $newAttributes);      
+        }    
+
 	/**
 	 * @return string the associated database table name
 	 */

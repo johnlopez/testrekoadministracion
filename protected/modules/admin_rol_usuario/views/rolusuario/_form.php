@@ -30,6 +30,11 @@
 		<?php echo $form->textField($model,'descripcion',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'descripcion'); ?>
 	</div>
+        
+        <div class="row">
+		<?php echo $form->hiddenField($model,'tipo',array('value'=>'rol_usuario_general','size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->error($model,'tipo'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'fecha_creacion'); ?>

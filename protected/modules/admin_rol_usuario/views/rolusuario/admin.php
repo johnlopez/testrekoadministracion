@@ -56,6 +56,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id',
 		'nombre',
 		'descripcion',
+                'tipo',
 		'fecha_creacion',
 		'fecha_eliminacion',
 		'fecha_acceso',

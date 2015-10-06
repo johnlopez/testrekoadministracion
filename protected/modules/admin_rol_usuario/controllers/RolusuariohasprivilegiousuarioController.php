@@ -22,8 +22,8 @@ class RolusuariohasprivilegiousuarioController extends Controller
 //            $listado = $modelo->listaRolPrivilegio($idRol);
             $listado = $modelo->listaRolPermisoPrivilegio($idRol,$authitem_permiso_usuario_name);
 
-
-            foreach($listado as $item) {                   
+            foreach($listado as $item) { 
+                
                 $tmpObj = new RolUsuarioHasPrivilegioUsuario('myscenario');
                 if((int) $item['rol_usuario_id'] != 0 ){
                     $preSelectedCategories[] =  (string) $item['privilegio_usuario_id'];
@@ -33,13 +33,18 @@ class RolusuariohasprivilegiousuarioController extends Controller
                 }
 
                 $tmpObj->privilegio_usuario_id = (string)$item['privilegio_usuario_id'];
-                $tmpObj->rol_usuario_id = (int)$item['rol_usuario_id'];                              
+                $tmpObj->rol_usuario_id = (int)$item['rol_usuario_id'];
+                $tmpObj->setAttributes(Array('controladorusuarionombre'=>((string)$item['controlador_usuario_nombre'])),false);                
+                $tmpObj->setAttributes(Array('privilegiousuarionombre'=>((string)$item['privilegio_usuario_nombre'])),false);                
+//                $tmpObj->setAttributes(Array('controladorusuarionombre'=>'Diego'),false);                
+
                 $objetoRolArray[] = $tmpObj;
             }        
 
             $this->render('asignarprivilegiorol',
                     array(
-                            'model'=>$modelo,'objeto'=>$objetoRolArray,
+                            'model'=>$modelo,
+                            'objeto'=>$objetoRolArray,
                             'seleccionados'=>$preSelectedCategories,
                             'idRol'=>$idRol,
                         

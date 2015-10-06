@@ -1,5 +1,4 @@
 <h1> Rol : <?php echo $rol_usuario->nombre;?></h1>
-<h1> Rol : <?php echo $idRol;?></h1>
 <div class="progress small" data-value="100" data-color="bg-grayLight" data-role="progressBar"><div class="bar bg-red" style="width: 85%;"></div></div>
 <h1>Permisos por Asignar</h1>
 <div class="progress small" data-value="100" data-color="bg-grayLight" data-role="progressBar"><div class="bar bg-red" style="width: 85%;"></div></div>
@@ -18,6 +17,13 @@
     <div class="container">
         <section>
             <table id="main_table_demo" class="display  striped" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>|</th>
+                        <th>Nombre</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
                 <tbody>                
                     <?php foreach($objeto as $obje):?>
                         <?php

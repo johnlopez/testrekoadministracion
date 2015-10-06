@@ -16,6 +16,10 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('descripcion')); ?>:</b>
 	<?php echo CHtml::encode($data->descripcion); ?>
 	<br />
+        
+        <b><?php echo CHtml::encode($data->getAttributeLabel('tipo')); ?>:</b>
+	<?php echo CHtml::encode($data->descripcion); ?>
+	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('fecha_creacion')); ?>:</b>
 	<?php echo CHtml::encode($data->fecha_creacion); ?>

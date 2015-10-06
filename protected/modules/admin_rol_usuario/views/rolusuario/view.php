@@ -24,6 +24,7 @@ $this->menu=array(
 		'id',
 		'nombre',
 		'descripcion',
+                'tipo',
 		'fecha_creacion',
 		'fecha_eliminacion',
 		'fecha_acceso',
