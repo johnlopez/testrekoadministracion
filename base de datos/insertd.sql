@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 10-09-2015 a las 16:30:34
+-- Tiempo de generación: 13-10-2015 a las 10:27:02
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -108,6 +108,13 @@ INSERT INTO `controlador_usuario` (`id`, `nombre`, `authitem_permiso_usuario_nam
 (4, 'Default', 'repositorio');
 
 --
+-- Volcado de datos para la tabla `dato_academico`
+--
+
+INSERT INTO `dato_academico` (`id`, `universidad`, `carrera`, `ano_cursado`, `duracion_carrera`, `sede`, `direccion_sede`, `comuna_sede`, `ciudad_sede`, `usuario_id`) VALUES
+(1, 'akjassa', 'askjak', 5, 5, 'skldj', 'sakjhd', 'sakjdhd', 'sakjdh', 9);
+
+--
 -- Volcado de datos para la tabla `dato_laboral`
 --
 
@@ -138,11 +145,16 @@ INSERT INTO `dato_personal` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_
 -- Volcado de datos para la tabla `entidad`
 --
 
-INSERT INTO `entidad` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `institucion_id`, `entidad_id`) VALUES
-(1, 'centro de alumnos', 'centro-descripcion', '2015-09-04 16:40:13', '2015-09-04 16:40:13', 1, NULL),
-(2, 'sede', 'sede-descr', '2015-09-04 16:40:13', '2015-09-04 16:40:13', 1, 1),
-(3, 'campus', 'campus-des', '2015-09-04 16:40:13', '2015-09-04 16:40:13', 1, 1),
-(4, 'facultad', 'facul-des', '2015-09-04 16:40:13', '2015-09-04 16:40:13', 2, 1);
+INSERT INTO `entidad` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `institucion_id`, `entidad_id`, `estado_entidad_id`) VALUES
+(1, 'centro de alumnos', 'centro-descripcion', '2015-09-04 16:40:13', '2015-09-04 16:40:13', 1, 9, 1),
+(2, 'sede', 'sede-descr', '2015-09-04 16:40:13', '2015-09-04 16:40:13', 1, 1, 1),
+(3, 'campus', 'campus-des', '2015-09-04 16:40:13', '2015-09-04 16:40:13', 1, 1, NULL),
+(4, 'facultad', 'facul-des', '2015-09-04 16:40:13', '2015-09-04 16:40:13', 2, 1, 1),
+(5, 'prueba1', 'des1', '2015-09-23 15:05:57', '2015-09-23 15:05:57', 1, 4, 2),
+(6, 'prueba2', 'des2', '2015-09-23 15:05:57', '2015-09-23 15:05:57', 1, 4, 2),
+(7, 'prueba3', 'des3', '2015-09-23 15:05:57', '2015-09-23 15:05:57', 1, 4, 2),
+(8, 'prueba4', 'des4', '2015-09-23 15:05:57', '2015-09-23 15:05:57', 1, 1, 2),
+(9, 'prueba5', 'des5', '2015-09-23 15:05:57', '2015-09-23 15:05:57', 1, 1, 2);
 
 --
 -- Volcado de datos para la tabla `estado_codigo_seguridad`
@@ -150,6 +162,46 @@ INSERT INTO `entidad` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_m
 
 INSERT INTO `estado_codigo_seguridad` (`id`, `estado`, `codigo_seguridad_id`) VALUES
 (1, 'bloqueadostodos', 0);
+
+--
+-- Volcado de datos para la tabla `estado_entidad`
+--
+
+INSERT INTO `estado_entidad` (`id`, `estado`) VALUES
+(1, 'eliminado'),
+(2, 'prueba');
+
+--
+-- Volcado de datos para la tabla `estado_institucion`
+--
+
+INSERT INTO `estado_institucion` (`id`, `estado`) VALUES
+(1, 'eliminado'),
+(2, 'prueba');
+
+--
+-- Volcado de datos para la tabla `estado_modulo`
+--
+
+INSERT INTO `estado_modulo` (`id`, `estado`) VALUES
+(1, 'eliminado'),
+(2, 'prueba');
+
+--
+-- Volcado de datos para la tabla `estado_programa_academico`
+--
+
+INSERT INTO `estado_programa_academico` (`id`, `estado`) VALUES
+(1, 'eliminado'),
+(2, 'prueba');
+
+--
+-- Volcado de datos para la tabla `estado_seccion`
+--
+
+INSERT INTO `estado_seccion` (`id`, `estado`) VALUES
+(1, 'eliminado'),
+(2, 'prueba');
 
 --
 -- Volcado de datos para la tabla `estado_usuario`
@@ -181,12 +233,13 @@ INSERT INTO `icono_aplicacion_administrador` (`id`, `estilo`, `authitem_permiso_
 -- Volcado de datos para la tabla `institucion`
 --
 
-INSERT INTO `institucion` (`id`, `nombre`, `vision`, `mision`, `acreditada`, `fecha_inicio_acreditacion`, `fecha_termino_acreditacion`, `descripcion`, `fecha_creacion`, `fecha_modificacion`) VALUES
-(1, 'utem', 'vision', 'mision', b'0', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 'ajhsjah', '2015-08-06 15:40:32', '2015-08-06 15:40:32'),
-(2, 'duoc', 'vision', 'mision', b'1', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 'kjahsa', '2015-08-06 15:40:32', '2015-08-06 15:40:32'),
-(3, 'usash', 'vision', 'mision', b'1', '2015-08-10 11:48:35', '2015-08-10 11:48:35', 'descripcion', NULL, NULL),
-(4, 'catolica', 'vision', 'sakjhdksj', b'1', '2015-08-10 12:11:56', '2015-08-10 12:11:56', 'sdsdsdasd', '2015-08-10 12:16:53', '2015-08-10 12:22:20'),
-(5, 'udp', 'kljsakdljsadl', 'olaolaolaolaola', b'1', '2015-08-12 10:28:29', '2015-08-12 10:28:29', 'kjsdjkjsahdkjsd', '2015-08-12 10:33:26', '2015-08-12 10:33:47');
+INSERT INTO `institucion` (`id`, `nombre`, `vision`, `mision`, `acreditada`, `fecha_inicio_acreditacion`, `fecha_termino_acreditacion`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_institucion_id`) VALUES
+(1, 'utem', 'vision', 'mision', b'0', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 'ajhsjah', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 2),
+(2, 'duoc', 'vision', 'mision', b'1', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 'kjahsa', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 1),
+(3, 'usash', 'vision', 'mision', b'1', '2015-08-10 11:48:35', '2015-08-10 11:48:35', 'descripcion', NULL, NULL, 1),
+(4, 'catolica', 'vision', 'sakjhdksj', b'1', '2015-08-10 12:11:56', '2015-08-10 12:11:56', 'sdsdsdasd', '2015-08-10 12:16:53', '2015-08-10 12:22:20', NULL),
+(5, 'udp', 'kljsakdljsadl', 'olaolaolaolaola', b'1', '2015-08-12 10:28:29', '2015-08-12 10:28:29', 'kjsdjkjsahdkjsd', '2015-08-12 10:33:26', '2015-08-12 10:33:47', NULL),
+(6, 'kjksjaklsadklj', 'salkjdskljd', 'djlskdj', b'1', NULL, NULL, 'sdsadsadasd', '2015-09-21 16:11:06', NULL, NULL);
 
 --
 -- Volcado de datos para la tabla `institucion_has_rol_usuario`
@@ -210,14 +263,14 @@ INSERT INTO `modelo_aprendizaje_master` (`id`, `nombre`, `descripcion`, `fecha_a
 -- Volcado de datos para la tabla `modulo`
 --
 
-INSERT INTO `modulo` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`) VALUES
-(1, 'matematicas', 'des-matematicas', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
-(2, 'lenguaje', 'des-lenguaje', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
-(3, 'calculo', 'des-calculo', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
-(4, 'historia', 'des-historia', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
-(5, 'algebra', 'des-algebra', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
-(6, 'dibujo', 'des-dibujo', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
-(7, 'estadistica', 'des-estadistica', '2015-08-11 15:59:49', '2015-08-11 15:59:49');
+INSERT INTO `modulo` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_modulo_id`) VALUES
+(1, 'matematicas', 'des-matematicas', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL),
+(2, 'lenguaje', 'des-lenguaje', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL),
+(3, 'calculo', 'des-calculo', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL),
+(4, 'historia', 'des-historia', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL),
+(5, 'algebra', 'des-algebra', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL),
+(6, 'dibujo', 'des-dibujo', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL),
+(7, 'estadistica', 'des-estadistica', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL);
 
 --
 -- Volcado de datos para la tabla `pais`
@@ -366,11 +419,12 @@ INSERT INTO `privilegio_usuario` (`id`, `nombre`, `controlador_usuario_id`) VALU
 -- Volcado de datos para la tabla `programa_academico`
 --
 
-INSERT INTO `programa_academico` (`id`, `nombre`, `descripcion`, `version`, `fecha_creacion`, `fecha_modificacion`, `entidad_id`, `institucion_id`) VALUES
-(1, 'ingenieria en informatica', 'des-info', '1.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49', 1, NULL),
-(2, 'diseño', 'des-diseño', '1.5', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, NULL),
-(3, 'derecho', 'des-derecho', '2.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, NULL),
-(4, 'juegos', 'des-juegos', '3.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, 5);
+INSERT INTO `programa_academico` (`id`, `nombre`, `descripcion`, `version`, `fecha_creacion`, `fecha_modificacion`, `entidad_id`, `institucion_id`, `estado_programa_academico_id`) VALUES
+(1, 'ingenieria en informatica', 'des-info', '1.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49', 1, NULL, NULL),
+(2, 'diseño', 'des-diseño', '1.5', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, 2, NULL),
+(3, 'derecho', 'des-derecho', '2.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49', 2, NULL, NULL),
+(4, 'juegos', 'des-juegos', '3.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, 5, NULL),
+(5, 'redes', 'des-redes', '4.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, 2, NULL);
 
 --
 -- Volcado de datos para la tabla `region`
@@ -583,23 +637,23 @@ INSERT INTO `rol_usuario_has_authitem_permiso_usuario` (`rol_usuario_id`, `authi
 -- Volcado de datos para la tabla `seccion`
 --
 
-INSERT INTO `seccion` (`id`, `nombre`, `jornada`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `modulo_id`) VALUES
-(6, 'mnbvbnmvc', 'nmcvbbnmvxc', 'cmnvbnmcbvx', '2015-08-12 11:38:53', '2015-08-12 11:39:57', 1);
+INSERT INTO `seccion` (`id`, `nombre`, `jornada`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `modulo_id`, `estado_seccion_id`) VALUES
+(6, 'mnbvbnmvc', 'nmcvbbnmvxc', 'cmnvbnmcbvx', '2015-08-12 11:38:53', '2015-08-12 11:39:57', 1, NULL);
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`) VALUES
-(1, 'creyes', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17'),
-(2, 'francisco', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17'),
-(3, 'victor', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17'),
-(4, 'marcelo', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17'),
-(5, 'patricio', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17'),
-(6, 'usuario6', 'clave6', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17'),
-(7, 'usuario7', 'clave7', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17'),
-(8, 'usuario8', 'clave8', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17'),
-(9, 'usuario9', 'clave9', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17');
+INSERT INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `estado_usuario_id`) VALUES
+(1, 'creyes', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 1),
+(2, 'francisco', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 1),
+(3, 'victor', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
+(4, 'marcelo', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
+(5, 'patricio', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
+(6, 'usuario6', 'clave6', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
+(7, 'usuario7', 'clave7', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
+(8, 'usuario8', 'clave8', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
+(9, 'usuario9', 'clave9', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3);
 
 --
 -- Volcado de datos para la tabla `usuario_administrador`
@@ -632,7 +686,11 @@ INSERT INTO `usuario_has_institucion` (`usuario_id`, `institucion_id`) VALUES
 (2, 1),
 (3, 1),
 (4, 1),
-(5, 1);
+(5, 1),
+(6, 1),
+(7, 1),
+(8, 1),
+(9, 1);
 
 --
 -- Volcado de datos para la tabla `usuario_has_rol_usuario`
