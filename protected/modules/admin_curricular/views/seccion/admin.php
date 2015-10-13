@@ -64,7 +64,7 @@ $(document).ready(function() {
                             // pagina html post url form button
                             ?>                                        
                             <div id="button-group-1">
-                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/modulo/view" method="get">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/seccion/view" method="get">
                                     <input type="hidden" name="id" value="<?php echo $seccion['id']?>" />
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
                                         <span class="icon mif-search">
@@ -72,7 +72,7 @@ $(document).ready(function() {
                                         </span>
                                     </button>
                                 </form>
-                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/modulo/update" method="get">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/seccion/update" method="get">
                                     <input type="hidden" name="id" value="<?php echo $seccion['id']?>" />
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
                                         <span class="icon mif-pencil">
@@ -80,7 +80,7 @@ $(document).ready(function() {
                                         </span>
                                     </button>
                                 </form>
-                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/modulo/delete" method="post">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/seccion/borrar" method="post">
                                     <input type="hidden" name="id" value="<?php echo $seccion['id']?>" />
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
                                         <span class="icon mif-cancel">
@@ -88,6 +88,15 @@ $(document).ready(function() {
                                         </span>
                                     </button>
                                 </form> 
+                                
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/programaacademicohasmodulo/index" method="get">
+                                    <input type="hidden" name="id" value="<?php echo $seccion['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-pin">
+
+                                        </span>
+                                    </button>
+                                </form>
                             </div>                                        
                         </td>
                     </tr>

@@ -45,13 +45,36 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'fecha_inicio_acreditacion'); ?>
-		<?php echo $form->textField($model,'fecha_inicio_acreditacion'); ?>
+		<?php
+                    $this->widget('zii.widgets.jui.CJuiDatePicker',array(
+                        'name'=>'datepicker-showButtonPanel',
+                        'value'=>date('Y-m-d'),    
+                        'options'=>array(
+                            'showAnim'=>'slide',//'slide','fold','slideDown','fadeIn','blind','bounce','clip','drop'
+                            'showButtonPanel'=>true,
+                        ),
+                        'htmlOptions'=>array(
+                            'style'=>''
+                        ),
+                    ));
+                ?>
 		<?php echo $form->error($model,'fecha_inicio_acreditacion'); ?>
+                
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'fecha_termino_acreditacion'); ?>
-		<?php echo $form->textField($model,'fecha_termino_acreditacion'); ?>
+		<?php
+                     $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                    'model' => $model,
+                    'value'=>date('Y-m-d'),  
+                    'language' => 'es',
+                    'attribute' => 'fecha_termino_acreditacion',
+                    'options' => array(
+                        'showAnim' => 'fold',
+                    ),
+                    ));
+                ?>
 		<?php echo $form->error($model,'fecha_termino_acreditacion'); ?>
 	</div>
 

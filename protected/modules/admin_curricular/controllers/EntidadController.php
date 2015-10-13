@@ -133,4 +133,6 @@ class EntidadController extends Controller
 		));
         }
         
+        
+        
 }

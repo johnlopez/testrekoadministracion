@@ -76,7 +76,7 @@ $(document).ready(function() {
                                         </span>
                                     </button>
                                 </form>
-                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/modulo/delete" method="post">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/modulo/borrar" method="post">
                                     <input type="hidden" name="id" value="<?php echo $modulo['id']?>" />
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
                                         <span class="icon mif-cancel">
@@ -84,6 +84,15 @@ $(document).ready(function() {
                                         </span>
                                     </button>
                                 </form> 
+                                
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/programaacademicohasmodulo/index" method="get">
+                                    <input type="hidden" name="id" value="<?php echo $modulo['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-pin">
+
+                                        </span>
+                                    </button>
+                                </form>
                             </div>                                        
                         </td>
                     </tr>

@@ -71,7 +71,7 @@ $(document).ready(function() {
                                     </button>
                                 </form>
                                 
-                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/programaacademico/indexEntidad" method="get">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/entidad/indexEntidad" method="get">
                                     <input type="hidden" name="id" value="<?php echo $entidad['id']?>" />
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
                                         <span class="icon mif-pin">
@@ -80,10 +80,19 @@ $(document).ready(function() {
                                     </button>
                                 </form>
                                 
-                                 <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/entidad/xi" method="get">
+                                 <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/entidad/" method="get">
                                     <input type="hidden" name="id" value="<?php echo $entidad['id']?>" />
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
                                         <span class="icon mif-eye">
+
+                                        </span>
+                                    </button>
+                                </form>
+                                
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/entidad/borrar" method="post">
+                                    <input type="hidden" name="id" value="<?php echo $entidad['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-cancel">
 
                                         </span>
                                     </button>

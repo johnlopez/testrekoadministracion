@@ -28,7 +28,7 @@ class InstitucionController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin'),
+				'actions'=>array('index','view','admin','borrar'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -125,20 +125,6 @@ class InstitucionController extends Controller
 	}
 
 	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-	}
-
-	/**
 	 * Lists all models.
 	 */
 	public function actionIndex()
@@ -154,8 +140,9 @@ class InstitucionController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Institucion('search');
-                $listadoInstitucion = Institucion::model()->findAll();
+		$model = new Institucion('search');
+                //$listadoInstitucion = Institucion::model()->findAll();
+                $listadoInstitucion = $model->listarInstitucionPorEstado();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Institucion']))
 			$model->attributes=$_GET['Institucion'];
@@ -193,5 +180,16 @@ class InstitucionController extends Controller
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionBorrar() {
+            
+                if(isset($_POST['id'])){
+                    $idInstitucion = $_POST['id'];
+                }
+                
+                $institucion = new Institucion();
+                $institucion->eliminarLogicoInstitucion($idInstitucion);
+                $this->redirect('admin');
+        }
         
 }

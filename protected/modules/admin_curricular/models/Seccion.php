@@ -141,4 +141,12 @@ class Seccion extends CActiveRecord
             $comando->execute();
             return $comando;
         }
+        
+        public function eliminarLogicoSeccion($idSeccion) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_curricular_eliminado_logico_seccion(:idSeccion)");
+            $comando->bindParam(':idSeccion', $idSeccion);
+            $comando->execute();
+            return $comando;
+        }
 }

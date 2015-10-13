@@ -200,4 +200,12 @@ class ProgramaAcademico extends CActiveRecord
             return $resultado;
         }
         
+        public function eliminarLogicoProgramaAcademico($idPrograma) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_curricular_eliminado_logico_programa_academico(:idPrograma)");
+            $comando->bindParam(':idPrograma', $idPrograma);
+            $comando->execute();
+            return $comando;
+        }
+        
 }

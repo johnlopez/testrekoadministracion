@@ -147,4 +147,51 @@ class Entidad extends CActiveRecord
             return $comando;
         }
         
+        public function eliminarLogicoEntidad($idEntidad) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_institucion_eliminado_logico_entidad(:idEntidad)");
+            $comando->bindParam(':idEntidad', $idEntidad);
+            $comando->execute();
+            return $comando;
+        }
+        
+        public function listarEntidadPorEstado() {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_institucion_listar_entidad_por_estado()");
+            return $comando->queryAll();
+        }
+        
+        public function listaEntidadEntidad($idEntidad) {
+            
+            $command = Yii::app()->db->createCommand("CALL sp_admin_institucion_listar_entidad_entidad(:entidadId)");
+            $command->bindParam(':entidadId',$idEntidad);	
+            $resultado = $command->queryAll();        
+            return $resultado;
+        }
+        
+        public function asignaEntidadEntidad($listaEntidadEntidad,$entidadId) {
+            $lista = implode(',', $listaEntidadEntidad);
+            var_dump($lista);
+            $listaLen = count($listaEntidadEntidad);        
+
+            $command = Yii::app()->db->createCommand("CALL sp_admin_institucion_asigna_entidad_entidad(:lista_programa_id,:lista_largo,:nuevo_entidad2_id)");
+            $command->bindParam(':lista_programa_id',$lista);
+            $command->bindParam(':lista_largo',$listaLen);
+            $command->bindParam(':nuevo_entidad2_id',$entidadId);
+            $resultado = $command->execute();        
+            return $resultado;
+        }
+        
+        public function desasignaProgramaEntidad($listaEntidadEntidad,$entidadId) {
+            $lista = implode(',', $listaEntidadEntidad);
+            var_dump($lista);
+            $listaLen = count($listaEntidadEntidad);        
+
+            $command = Yii::app()->db->createCommand("CALL sp_admin_institucion_desasigna_entidad_entidad(:lista_programa_id,:lista_largo,:nuevo_entidad2_id)");
+            $command->bindParam(':lista_programa_id',$lista);
+            $command->bindParam(':lista_largo',$listaLen);
+            $command->bindParam(':nuevo_entidad2_id',$entidadId);
+            $resultado = $command->execute();        
+            return $resultado;
+        }
 }

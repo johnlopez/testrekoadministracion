@@ -28,7 +28,7 @@ class EntidadController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin'),
+				'actions'=>array('index','view','admin','AsignarEntidadEntidad','IndexEntidad','borrar'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -124,20 +124,6 @@ class EntidadController extends Controller
 	}
 
 	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-	}
-
-	/**
 	 * Lists all models.
 	 */
 	public function actionIndex()
@@ -154,7 +140,7 @@ class EntidadController extends Controller
 	public function actionAdmin()
 	{
 		$model=new Entidad('search');
-                $listadoEntidades = Entidad::model()->findAll();
+                $listadoEntidades = $model->listarEntidadPorEstado();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Entidad']))
 			$model->attributes=$_GET['Entidad'];
@@ -192,4 +178,90 @@ class EntidadController extends Controller
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionIndexEntidad()
+        {   
+            $objetoEntidadArray = Array();
+            $preSelectedCategories = Array();
+            $modelo = new Entidad();
+
+            if(isset($_GET['id'])){
+                $idEntidad = $_GET['id'];
+            }
+
+            $listado = $modelo->listaEntidadEntidad($idEntidad);
+
+
+            foreach($listado as $item) {                   
+                $tmpObj = new Entidad('myscenario');
+                if((int) $item['entidad_id'] != 0 ){
+                    $preSelectedCategories[] =  (int) $item['id'];
+                }
+                else{ 
+                    $preSelectedCategories[] =  0;                             
+                }
+
+                $tmpObj->id = (int)$item['id'];
+                $tmpObj->entidad_id = (int)$item['entidad_id']; 
+                $tmpObj->nombre = $item['nombre'];
+                $objetoEntidadArray[] = $tmpObj;
+            }
+
+
+            $this->render('indexEntidad',array('model'=>$modelo,'objeto'=>$objetoEntidadArray,'seleccionados'=>$preSelectedCategories,'idEntidad'=>$idEntidad));
+        }
+    
+        public function actionAsignarEntidadEntidad() {                     
+            
+            $entidad = new Entidad();
+            $listadoAsignarEntidad = Array();
+            $listadoDesAsignarEntidad = Array();
+
+
+            $listadoTotal = unserialize($_POST['datos-id-list']);
+            foreach(unserialize($_POST['datos-id-select']) as $programa) {   
+                $listadoOriginal[] = $programa;
+            }
+
+            $entidadId = $_POST['datos-entidad-id'];    
+            var_dump($entidadId);
+            $id = Array(); 
+
+            if(isset($_POST['id'])) {    
+                $id = $_POST['id'];                
+                for( $i=0; $i < count($listadoOriginal); $i++) {
+                    if( in_array( $listadoOriginal[$i],$id) ) {
+                            $listadoAsignarEntidad[] = $listadoOriginal[$i];
+                        }
+                    else {
+                            $listadoDesAsignarEntidad[] = $listadoOriginal[$i];
+                        }
+                }
+
+                if( count($listadoAsignarEntidad) )
+                    $entidad->asignaEntidadEntidad($listadoAsignarEntidad, $entidadId);
+
+                if( count($listadoDesAsignarEntidad) )
+                    $entidad->desasignaProgramaEntidad($listadoDesAsignarEntidad, $entidadId);       
+            }
+            else{
+                $entidad->desasignaProgramaEntidad($listadoOriginal, $entidadId);                   
+            }
+
+
+            $this->redirect(array("indexEntidad",'id'=>$entidadId));
+
+        }
+        
+        public function actionBorrar() {
+            
+                if(isset($_POST['id'])){
+                    $idEntidad = $_POST['id'];
+                }
+                
+                $entidad = new Entidad();
+                $entidad->eliminarLogicoEntidad($idEntidad);
+                $this->redirect('admin');
+        }
+        
 }

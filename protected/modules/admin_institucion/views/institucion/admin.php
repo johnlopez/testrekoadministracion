@@ -81,7 +81,7 @@ $(document).ready(function() {
                                     </button>
                                 </form>
                                 
-                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/institucion/view" method="get">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/institucion/borrar" method="post">
                                     <input type="hidden" name="id" value="<?php echo $institucion['id']?>" />
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
                                         <span class="icon mif-cancel">

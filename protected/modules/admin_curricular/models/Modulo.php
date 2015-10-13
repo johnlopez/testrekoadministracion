@@ -130,4 +130,12 @@ class Modulo extends CActiveRecord
             $comando->execute();
             return $comando;
         }
+        
+        public function eliminarLogicoModulo($idModulo) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_curricular_eliminado_logico_modulo(:idModulo)");
+            $comando->bindParam(':idModulo', $idModulo);
+            $comando->execute();
+            return $comando;
+        }
 }

@@ -28,7 +28,7 @@ class ProgramaAcademicoController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin','indexInstitucion','indexEntidad','AsignarProgramaInstitucion','AsignarProgramaEntidad'),
+				'actions'=>array('index','view','admin','indexInstitucion','indexEntidad','AsignarProgramaInstitucion','AsignarProgramaEntidad','borrar'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -117,20 +117,6 @@ class ProgramaAcademicoController extends Controller
 	}
 
 	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-	}
-
-	/**
 	 * Lists all models.
 	 */
 	public function actionIndex()
@@ -205,11 +191,13 @@ class ProgramaAcademicoController extends Controller
                     $preSelectedCategories[] =  (int) $item['id'];
                 }
                 else{ 
-                    $preSelectedCategories[] =  0;                             
+                    $preSelectedCategories[] =  0; 
+                    echo 'No hay programas disponibles';
                 }
 
                 $tmpObj->id = (int)$item['id'];
-                $tmpObj->entidad_id = (int)$item['entidad_id'];                              
+                $tmpObj->entidad_id = (int)$item['entidad_id']; 
+                $tmpObj->nombre = $item['nombre'];
                 $objetoEntidadArray[] = $tmpObj;
             }
 
@@ -276,13 +264,16 @@ class ProgramaAcademicoController extends Controller
                 $tmpObj = new ProgramaAcademico('myscenario');
                 if((int) $item['institucion_id'] != 0 ){
                     $preSelectedCategories[] =  (int) $item['id'];
+                    
                 }
                 else{ 
-                    $preSelectedCategories[] =  0;                             
+                    $preSelectedCategories[] =  0; 
                 }
 
                 $tmpObj->id = (int)$item['id'];
-                $tmpObj->institucion_id = (int)$item['institucion_id'];                              
+                $tmpObj->institucion_id = (int)$item['institucion_id']; 
+                $tmpObj->nombre = $item['nombre'];
+                
                 $objetoInstitucionArray[] = $tmpObj;
             }
 
@@ -330,5 +321,16 @@ class ProgramaAcademicoController extends Controller
 
             $this->redirect(array("indexInstitucion",'id'=>$institucionId));
 
+        }
+        
+        public function actionBorrar() {
+            
+                if(isset($_POST['id'])){
+                    $idPrograma = $_POST['id'];
+                }
+                
+                $programa = new ProgramaAcademico();
+                $programa->eliminarLogicoProgramaAcademico($idPrograma);
+                $this->redirect('admin');
         }
 }

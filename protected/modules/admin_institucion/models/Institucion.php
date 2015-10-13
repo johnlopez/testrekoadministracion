@@ -155,5 +155,19 @@ class Institucion extends CActiveRecord
             $comando->execute();
             $this->llaveIdInstitucion = Yii::app()->db->createCommand("select @llave_id as result;")->queryScalar();
             return $comando;
-        }        
+        }
+        
+        public function eliminarLogicoInstitucion($idInstitucion) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_institucion_eliminado_logico_institucion(:idInstitucion)");
+            $comando->bindParam(':idInstitucion', $idInstitucion);
+            $comando->execute();
+            return $comando;
+        }
+        
+        public function listarInstitucionPorEstado() {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_institucion_listar_institucion_por_estado()");
+            return $comando->queryAll();
+        }
 }

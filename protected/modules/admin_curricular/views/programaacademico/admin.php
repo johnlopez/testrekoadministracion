@@ -83,7 +83,7 @@ $(document).ready(function() {
                                         </span>
                                     </button>
                                 </form>
-                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/programaacademico/delete" method="post">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/programaacademico/borrar" method="post">
                                     <input type="hidden" name="id" value="<?php echo $programa['id']?>" />
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
                                         <span class="icon mif-cancel">
