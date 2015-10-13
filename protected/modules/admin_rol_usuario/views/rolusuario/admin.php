@@ -26,6 +26,14 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
+<div class="place-right padding20 no-padding-top no-padding-right">
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_rol_usuario/institucionhasrolusuario/listainstitucion" >
+            <button class="button primary" type="submit">
+                    Asignar Rol a Institucion
+            </button>
+        </form>           
+</div>
+
 <h1>Manage Rol Usuarios</h1>
 
 <p>
@@ -48,6 +56,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id',
 		'nombre',
 		'descripcion',
+                'tipo',
 		'fecha_creacion',
 		'fecha_eliminacion',
 		'fecha_acceso',
@@ -63,7 +72,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
                         'buttons' => array(                                   
                                     'asignarpermiso' => array(
                                             'label' => 'asignar permiso',
-                                            'url'=>'Yii::app()->createUrl("admin_rol_usuario/institucionHasRolUsuario/index",array("id" => $data->id) )', //url de la acción nueva
+                                            'url'=>'Yii::app()->createUrl("admin_rol_usuario/Rolusuariohasauthitempermisousuario/asignarpermisorol",array("id" => $data->id) )', //url de la acción nueva
                                     ),
                         ),                       
 		),

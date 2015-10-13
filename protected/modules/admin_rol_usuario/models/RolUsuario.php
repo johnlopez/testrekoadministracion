@@ -36,11 +36,11 @@ class RolUsuario extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre, descripcion', 'length', 'max'=>45),
+			array('nombre, descripcion,tipo', 'length', 'max'=>45),
 			array('fecha_creacion, fecha_eliminacion, fecha_acceso, fecha_modificacion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre, descripcion, fecha_creacion, fecha_eliminacion, fecha_acceso, fecha_modificacion', 'safe', 'on'=>'search'),
+			array('id, nombre, descripcion, tipo, fecha_creacion, fecha_eliminacion, fecha_acceso, fecha_modificacion', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,6 +68,7 @@ class RolUsuario extends CActiveRecord
 			'id' => 'ID',
 			'nombre' => 'Nombre',
 			'descripcion' => 'Descripcion',
+                        'tipo' => 'Tipo',
 			'fecha_creacion' => 'Fecha Creacion',
 			'fecha_eliminacion' => 'Fecha Eliminacion',
 			'fecha_acceso' => 'Fecha Acceso',
@@ -96,6 +97,7 @@ class RolUsuario extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('descripcion',$this->descripcion,true);
+                $criteria->compare('tipo',$this->descripcion,true);
 		$criteria->compare('fecha_creacion',$this->fecha_creacion,true);
 		$criteria->compare('fecha_eliminacion',$this->fecha_eliminacion,true);
 		$criteria->compare('fecha_acceso',$this->fecha_acceso,true);

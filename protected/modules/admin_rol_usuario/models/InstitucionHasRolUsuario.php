@@ -1,5 +1,5 @@
 <?php
-
+require 'InterfaceInstitucionHasRolUsuario.php';
 /**
  * This is the model class for table "institucion_has_rol_usuario".
  *
@@ -7,8 +7,47 @@
  * @property integer $institucion_id
  * @property integer $rol_usuario_id
  */
-class InstitucionHasRolUsuario extends CActiveRecord
+class InstitucionHasRolUsuario extends CActiveRecord implements InterfaceInstitucionHasRolUsuario
 {
+        private $rolusuarionombre;   
+        private $rolusuariotipo;    
+   
+        public function setRolUsuarioNombre($data){
+           $this->rolusuarionombre = $data;
+        }
+        public function getRolUsuarioNombre() {
+           return $this->rolusuarionombre;
+        }
+        public function setRolUsuarioTipo($data){
+           $this->rolusuariotipo = $data;
+        }
+        public function getRolUsuarioTipo() {
+           return $this->rolusuariotipo;
+        }
+        
+        public function setAttributes($values, $safeOnly = true) {
+        if (!is_array($values))
+                return;
+            $attributes = array_flip($safeOnly ? $this->getSafeAttributeNames() : $this->attributeNames());      
+            foreach ($values as $name => $value) {
+                $nameRest = substr($name, 1);
+                $func = 'set' . strtoupper($name[0]) . $nameRest;            
+                if (method_exists($this, $func)) {
+                    $this->$func($value);                
+                } else if (isset($attributes[$name])) {
+                    $this->$name = $value;                
+                }
+                else if ($safeOnly) {                
+                    $this->onUnsafeAttribute($name, $value);
+                }
+            }
+        }
+        
+        public function attributeNames() {
+            $attributes = parent::attributeNames();
+            $newAttributes = Array('rolusuarionombre','rolusuariotipo');        
+            return array_merge($attributes, $newAttributes);      
+        }   
 	/**
 	 * @return string the associated database table name
 	 */
@@ -92,35 +131,33 @@ class InstitucionHasRolUsuario extends CActiveRecord
 		return parent::model($className);
 	}
         
-        public function listaRolInstitucion($idRol) {        
-            $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_lista_rol_institucion(:nuevo_rol_id)");
-            $command->bindParam(':nuevo_rol_id',$idRol);	
+         public function listaInstitucionRolUsuario($idInstitucion) {        
+            $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_lista_institucion_rol(:nuevoInstitucionId)");
+            $command->bindParam(':nuevoInstitucionId',$idInstitucion);	
             $resultado = $command->queryAll();        
             return $resultado;       
         }
-        
-        public function asignaRolInstitucion($listaRolInstitucion,$rolId) {
-            $lista = implode(',', $listaRolInstitucion);
+        public function asignaInstitucionRolUsuario($listaInstitucionRolUsuario,$institucionId) {
+            $lista = implode(',', $listaInstitucionRolUsuario);
             var_dump($lista);
-            $listaLen = count($listaRolInstitucion);        
+            $listaLen = count($listaInstitucionRolUsuario);        
 
-            $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_asigna_rol_institucion(:lista_institucion_id,:lista_largo,:nuevo_rol_id)");
-            $command->bindParam(':lista_institucion_id',$lista);
-            $command->bindParam(':lista_largo',$listaLen);
-            $command->bindParam(':nuevo_rol_id',$rolId);
+            $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_asigna_rol_institucion(:listaRolUsuarioId,:listaLargo,:nuevoInstitucionId)");
+            $command->bindParam(':listaRolUsuarioId',$lista);
+            $command->bindParam(':listaLargo',$listaLen);
+            $command->bindParam(':nuevoInstitucionId',$institucionId);
             $resultado = $command->execute();        
             return $resultado;
         }
-        
-        public function desasignaRolInstitucion($listaRolInstitucion,$rolId) {
-            $lista = implode(',', $listaRolInstitucion);
+        public function desasignaInstitucionRolUsuario($listaInstitucionRolUsuario,$institucionId) {
+            $lista = implode(',', $listaInstitucionRolUsuario);
             var_dump($lista);
-            $listaLen = count($listaRolInstitucion);        
+            $listaLen = count($listaInstitucionRolUsuario);        
 
-            $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_desasigna_rol_institucion(:lista_institucion_id,:lista_largo,:nuevo_rol_id)");
-            $command->bindParam(':lista_institucion_id',$lista);
-            $command->bindParam(':lista_largo',$listaLen);
-            $command->bindParam(':nuevo_rol_id',$rolId);
+            $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_desasigna_rol_institucion(:listaRolUsuarioId,:listaLargo,:nuevoInstitucionId)");
+            $command->bindParam(':listaRolUsuarioId',$lista);
+            $command->bindParam(':listaLargo',$listaLen);
+            $command->bindParam(':nuevoInstitucionId',$institucionId);
             $resultado = $command->execute();        
             return $resultado;
         }
