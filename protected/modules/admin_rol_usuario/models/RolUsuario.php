@@ -118,4 +118,9 @@ class RolUsuario extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        public function listarRolUsuarioGeneral(){        
+            $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_listar_rol_usuario_general()");
+            return $command->queryAll(); 
+        }
 }

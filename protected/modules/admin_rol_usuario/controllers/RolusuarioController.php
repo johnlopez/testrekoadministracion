@@ -133,14 +133,20 @@ class RolusuarioController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new RolUsuario('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['RolUsuario']))
-			$model->attributes=$_GET['RolUsuario'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
+//		$model=new RolUsuario('search');
+//		$model->unsetAttributes();  // clear any default values
+//		if(isset($_GET['RolUsuario']))
+//			$model->attributes=$_GET['RolUsuario'];
+//
+//		$this->render('admin',array(
+//			'model'=>$model,
+//		));
+                
+                $model = new RolUsuario();
+                $rolUsuario = $model->listarRolUsuarioGeneral();
+                $this->render('admin',array(
+                        'rolUsuario'=>$rolUsuario,
+                ));
 	}
 
 	/**

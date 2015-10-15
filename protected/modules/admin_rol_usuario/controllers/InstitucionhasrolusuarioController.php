@@ -80,7 +80,8 @@ class InstitucionHasRolUsuarioController extends Controller {
             $listadoOriginal[] = $roles;
         }
         
-        $institucionId = $_POST['datos-institucion-id'];    
+        $institucionId = $_POST['datos-institucion-id'];
+        $institucionNombre = $_POST['datos-institucion-nombre'];
         var_dump($institucionId);
         $rol_usuario_id = Array(); 
                 
@@ -96,18 +97,39 @@ class InstitucionHasRolUsuarioController extends Controller {
             }
                 
             if( count($listadoAsignarRolUsuario) )
-                $rol_usuario_institucion->asignaInstitucionRolUsuario($listadoAsignarRolUsuario, $institucionId);           
+                $rol_usuario_institucion->asignaInstitucionRolUsuarioGeneral($listadoAsignarRolUsuario, $institucionId);           
                 
             if( count( $listadoDesAsignarRolUsuario) )
-                $rol_usuario_institucion->desasignaInstitucionRolUsuario($listadoDesAsignarRolUsuario, $institucionId);        
+                $rol_usuario_institucion->desasignaInstitucionRolUsuarioGeneral($listadoDesAsignarRolUsuario, $institucionId);        
         }
         else{
-            $rol_usuario_institucion->desasignaInstitucionRolUsuario($listadoOriginal,$institucionId);                
+            $rol_usuario_institucion->desasignaInstitucionRolUsuarioGeneral($listadoOriginal,$institucionId);                
         }
            
        
-        $this->redirect(array("asignarrolinstitucion",'institucion_id'=>$institucionId));
+        $this->redirect(array("asignarrolinstitucion",
+                        'institucion_id'=>$institucionId,
+                        'institucion_nombre'=>$institucionNombre,
+        ));
 
     }
-   
+    
+    public function actionEditarrolinstitucion()
+    {
+        if(isset($_GET['institucion_id']))
+        {
+            $institucionId = $_GET['institucion_id'];
+            $institucionNombre = $_GET['institucion_nombre'];
+            
+            $model = new InstitucionHasRolUsuario();
+            
+            $rolUsuarioInstitucion = $model->listarRolUsuarioInstitucion($institucionId);
+                       
+            $this->render('editarrolinstitucion',array(            
+                'institucionId'=>$institucionId,
+                'institucionNombre'=>$institucionNombre,
+                'rolUsuarioInstitucion'=>$rolUsuarioInstitucion,
+            ));
+        }    
+    }   
 }
