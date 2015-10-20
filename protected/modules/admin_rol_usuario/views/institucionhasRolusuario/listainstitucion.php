@@ -136,7 +136,7 @@ $(document).ready(function() {
                                     <input type="hidden" name="institucion_id" value="<?php echo $inst->id?>" />
                                     <input type="hidden" name="institucion_nombre" value="<?php echo $inst->nombre?>" />
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
-                                               Asignar Roles
+                                               Asignar Roles a Institucion
                                     </button>
                                     &nbsp;
                                     &nbsp;
@@ -147,7 +147,16 @@ $(document).ready(function() {
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
                                                Editar Roles
                                     </button>
-                                </form>  
+                                    &nbsp;
+                                    &nbsp;
+                                </form>
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_rol_usuario/Usuariohasrolusuario/adminrolusuarioinstitucion" method="get">
+                                    <input type="hidden" name="institucion_id" value="<?php echo $inst->id?>" />
+                                    <input type="hidden" name="institucion_nombre" value="<?php echo $inst->nombre?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                               Asignar Roles a Usuarios
+                                    </button>
+                                </form> 
                             </div>                                        
                         </td>
                     </tr>
