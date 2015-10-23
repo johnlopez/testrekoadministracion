@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-10-2015 a las 18:46:41
+-- Tiempo de generación: 23-10-2015 a las 13:22:47
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -36,6 +36,78 @@ usuario = nuevo_usuario,
 clave = nuevo_clave
 where id = nuevo_id;
 end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `admin_repositorio_agregar_modelo_aprendizaje_herramienta`(
+
+	nuevo_modelo_aprendizaje_nombre VARCHAR (255),
+	nuevo_modelo_aprendizaje_descripcion TEXT,
+    
+    nuevo_trabajo_grupal BOOL,
+    nuevo_archivo_recurso BOOL,
+    nuevo_link_interes BOOL,
+    nuevo_glosario BOOL,
+	nuevo_contenido_libre BOOL,
+	nuevo_foro BOOL,
+	nuevo_evaluacion BOOL,
+	nuevo_autoevaluacion BOOL,
+	nuevo_proyecto BOOL,
+	nuevo_recepcion_trabajo BOOL,
+	nuevo_evaluacion_no_objetiva BOOL,
+    OUT last_insert_modelo_aprendizaje_id INT(11),
+    OUT last_insert_modelo_aprendizaje_herramienta_id INT(11)
+
+)
+BEGIN
+
+
+	INSERT INTO modelo_aprendizaje(
+		nombre,
+        descripcion,
+        fecha_creacion
+        
+    )
+    VALUES(
+		nuevo_modelo_aprendizaje_nombre,
+        nuevo_modelo_aprendizaje_descripcion,
+        NOW()
+    );
+	
+    SELECT LAST_INSERT_ID () INTO last_insert_modelo_aprendizaje_id;
+    
+    INSERT INTO modelo_aprendizaje_has_herramienta(
+		
+		trabajo_grupal,
+		archivo_recurso,
+		link_interes,
+		glosario,
+		contenido_libre,
+		foro,
+		evaluacion,
+		autoevaluacion,
+		proyecto,
+		recepcion_trabajo,
+		evaluacion_no_objetiva,
+		modelo_aprendizaje_id   
+    )
+    VALUES(
+		
+		nuevo_trabajo_grupal,
+		nuevo_archivo_recurso,
+		nuevo_link_interes,
+		nuevo_glosario,
+		nuevo_contenido_libre,
+		nuevo_foro,
+		nuevo_evaluacion,
+		nuevo_autoevaluacion,
+		nuevo_proyecto,
+		nuevo_recepcion_trabajo,
+		nuevo_evaluacion_no_objetiva,
+		last_insert_modelo_aprendizaje_id
+    
+    );
+    
+     SELECT LAST_INSERT_ID () INTO last_insert_modelo_aprendizaje_herramienta_id;
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `agregar_usuario_administrador`(
 nuevo_usuario varchar(50),
@@ -2636,6 +2708,23 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `archivo_recurso`
+--
+
+CREATE TABLE IF NOT EXISTS `archivo_recurso` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_elminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `aula`
 --
 
@@ -2791,6 +2880,23 @@ INSERT INTO `authitem_permiso_usuario` (`name`, `type`, `description`, `bizrule`
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `autoevaluacion`
+--
+
+CREATE TABLE IF NOT EXISTS `autoevaluacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `codigo_seguridad`
 --
 
@@ -2799,6 +2905,23 @@ CREATE TABLE IF NOT EXISTS `codigo_seguridad` (
   `codigo` varchar(6) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contenido_libre`
+--
+
+CREATE TABLE IF NOT EXISTS `contenido_libre` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -3219,27 +3342,90 @@ INSERT INTO `estado_usuario` (`id`, `estado`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `evaluacion`
+--
+
+CREATE TABLE IF NOT EXISTS `evaluacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modifcacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `evaluacion_no_objetiva`
+--
+
+CREATE TABLE IF NOT EXISTS `evaluacion_no_objetiva` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `foro`
+--
+
+CREATE TABLE IF NOT EXISTS `foro` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `glosario`
+--
+
+CREATE TABLE IF NOT EXISTS `glosario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `herramienta`
 --
 
 CREATE TABLE IF NOT EXISTS `herramienta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
+  `descripcion` text,
   `fecha_acceso` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
   `recurso_id` int(11) DEFAULT NULL,
-  `repositorio_id` int(11) DEFAULT NULL,
-  `tipo_herramienta_id` int(11) DEFAULT NULL,
-  `herramienta_id` int(11) DEFAULT NULL,
-  `herramienta_master_id` int(11) DEFAULT NULL,
+  `repositorio_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_herramienta_repositorio1_idx` (`repositorio_id`),
-  KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`),
-  KEY `fk_herramienta_herramienta1_idx` (`herramienta_id`),
-  KEY `fk_herramienta_herramienta_master1_idx` (`herramienta_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='	' AUTO_INCREMENT=1 ;
+  KEY `fk_herramienta_repositorio1_idx` (`repositorio_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -3347,14 +3533,64 @@ INSERT INTO `institucion_has_rol_usuario` (`institucion_id`, `rol_usuario_id`) V
 
 CREATE TABLE IF NOT EXISTS `link_interes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `link` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `imagen_referencia` varchar(45) DEFAULT NULL,
-  `fecha_acceso` varchar(45) DEFAULT NULL,
-  `fecha_modificacion` varchar(45) DEFAULT NULL,
-  `fecha_creacion` varchar(45) DEFAULT NULL,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_elminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `modelo_aprendizaje`
+--
+
+CREATE TABLE IF NOT EXISTS `modelo_aprendizaje` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='			' AUTO_INCREMENT=36 ;
+
+--
+-- Volcado de datos para la tabla `modelo_aprendizaje`
+--
+
+INSERT INTO `modelo_aprendizaje` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`) VALUES
+(1, 'A1 modelo de aprendizaje ', 'A1 descripcion modelo aprendizaje', NULL, NULL, NULL, NULL),
+(2, 'B2 modelo de aprendizaje', 'B2 descripcion modelo de aprendizaje', NULL, NULL, NULL, NULL),
+(3, 'C3 modelo aprendizaje', 'C3 descripcion modelo aprendizaje', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `modelo_aprendizaje_has_herramienta`
+--
+
+CREATE TABLE IF NOT EXISTS `modelo_aprendizaje_has_herramienta` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `trabajo_grupal` tinyint(1) DEFAULT NULL,
+  `archivo_recurso` tinyint(1) DEFAULT NULL,
+  `link_interes` tinyint(1) DEFAULT NULL,
+  `glosario` tinyint(1) DEFAULT NULL,
+  `contenido_libre` tinyint(1) DEFAULT NULL,
+  `foro` tinyint(1) DEFAULT NULL,
+  `evaluacion` tinyint(1) DEFAULT NULL,
+  `autoevaluacion` tinyint(1) DEFAULT NULL,
+  `proyecto` tinyint(1) DEFAULT NULL,
+  `recepcion_trabajo` tinyint(1) DEFAULT NULL,
+  `evaluacion_no_objetiva` tinyint(1) DEFAULT NULL,
+  `modelo_aprendizaje_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_modelo_aprendizaje_has_herramienta_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='	' AUTO_INCREMENT=32 ;
 
 -- --------------------------------------------------------
 
@@ -3687,6 +3923,40 @@ INSERT INTO `programa_academico_has_modulo` (`programa_academico_id`, `modulo_id
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `proyecto`
+--
+
+CREATE TABLE IF NOT EXISTS `proyecto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `recepcion_trabajo`
+--
+
+CREATE TABLE IF NOT EXISTS `recepcion_trabajo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modifcacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `region`
 --
 
@@ -3733,42 +4003,13 @@ CREATE TABLE IF NOT EXISTS `repositorio` (
   `fecha_acceso` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
-  `tipo_repositorio_id` int(11) DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `tipo_repositorio_id` int(11) NOT NULL,
+  `modelo_aprendizaje_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_repositorio_tipo_repositorio2_idx` (`tipo_repositorio_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
-
---
--- Volcado de datos para la tabla `repositorio`
---
-
-INSERT INTO `repositorio` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `tipo_repositorio_id`) VALUES
-(3, 'repositorio 1 ', 'descripcion repositorio q', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(4, 'repositorio 2', 'descripcion repositorio 2', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `repositorio_has_institucion`
---
-
-CREATE TABLE IF NOT EXISTS `repositorio_has_institucion` (
-  `repositorio_id` int(11) NOT NULL,
-  `institucion_id` int(11) NOT NULL,
-  PRIMARY KEY (`repositorio_id`,`institucion_id`),
-  KEY `fk_repositorio_has_institucion_institucion1_idx` (`institucion_id`),
-  KEY `fk_repositorio_has_institucion_repositorio1_idx` (`repositorio_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `repositorio_has_institucion`
---
-
-INSERT INTO `repositorio_has_institucion` (`repositorio_id`, `institucion_id`) VALUES
-(3, 1),
-(4, 1),
-(3, 2),
-(4, 2);
+  KEY `fk_repositorio_tipo_repositorio1_idx` (`tipo_repositorio_id`),
+  KEY `fk_repositorio_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='\n	\n	\n	\n\n\n	\n\n	\n	' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4208,26 +4449,29 @@ INSERT INTO `seccion` (`id`, `nombre`, `jornada`, `descripcion`, `fecha_creacion
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tipo_herramienta`
---
-
-CREATE TABLE IF NOT EXISTS `tipo_herramienta` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `tipo_herramienta_master_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_tipo_herramienta_tipo_herramienta_master1_idx` (`tipo_herramienta_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `tipo_repositorio`
 --
 
 CREATE TABLE IF NOT EXISTS `tipo_repositorio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='				' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `trabajo_grupal`
+--
+
+CREATE TABLE IF NOT EXISTS `trabajo_grupal` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -4482,8 +4726,7 @@ ALTER TABLE `escritorio_administrador`
 -- Filtros para la tabla `herramienta`
 --
 ALTER TABLE `herramienta`
-  ADD CONSTRAINT `fk_herramienta_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_herramienta_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_herramienta_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `icono_aplicacion_administrador`
@@ -4503,6 +4746,12 @@ ALTER TABLE `institucion`
 ALTER TABLE `institucion_has_rol_usuario`
   ADD CONSTRAINT `fk_institucion_has_rol_usuario_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_institucion_has_rol_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `modelo_aprendizaje_has_herramienta`
+--
+ALTER TABLE `modelo_aprendizaje_has_herramienta`
+  ADD CONSTRAINT `fk_modelo_aprendizaje_has_herramienta_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `modulo`
@@ -4568,14 +4817,8 @@ ALTER TABLE `region`
 -- Filtros para la tabla `repositorio`
 --
 ALTER TABLE `repositorio`
-  ADD CONSTRAINT `fk_repositorio_tipo_repositorio2` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `repositorio_has_institucion`
---
-ALTER TABLE `repositorio_has_institucion`
-  ADD CONSTRAINT `fk_repositorio_has_institucion_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_has_institucion_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_repositorio_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_tipo_repositorio1` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_administrador_has_authitem_permiso_administrador`

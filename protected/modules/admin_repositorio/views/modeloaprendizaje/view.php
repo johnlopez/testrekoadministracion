@@ -1,5 +1,5 @@
 <?php
-/* @var $this ModeloAprendizajeController */
+/* @var $this ModeloaprendizajeController */
 /* @var $model ModeloAprendizaje */
 
 $this->breadcrumbs=array(
@@ -27,5 +27,29 @@ $this->menu=array(
 		'fecha_acceso',
 		'fecha_modificacion',
 		'fecha_creacion',
+		'fecha_eliminacion',
 	),
 )); ?>
+
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$herramienta,
+	'attributes'=>array(
+		'id',
+                'trabajo_grupal',
+                'archivo_recurso',
+                'link_interes',
+                'glosario',
+                'contenido_libre',
+                'foro',
+                'evaluacion',
+                'autoevaluacion',
+                'proyecto',
+                'recepcion_trabajo',
+                'evaluacion_no_objetiva',
+                'modelo_aprendizaje_id',
+	),
+)); ?>
+
+<?php 
+
+

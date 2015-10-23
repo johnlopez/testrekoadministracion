@@ -52,7 +52,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'fecha_modificacion',
 		'fecha_creacion',
 		/*
+		'fecha_eliminacion',
 		'tipo_repositorio_id',
+		'modelo_aprendizaje_id',
 		*/
 		array(
 			'class'=>'CButtonColumn',

@@ -1,5 +1,5 @@
 <?php
-/* @var $this ModeloAprendizajeController */
+/* @var $this ModeloaprendizajeController */
 /* @var $model ModeloAprendizaje */
 
 $this->breadcrumbs=array(
@@ -51,6 +51,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'fecha_acceso',
 		'fecha_modificacion',
 		'fecha_creacion',
+		/*
+		'fecha_eliminacion',
+		*/
 		array(
 			'class'=>'CButtonColumn',
 		),

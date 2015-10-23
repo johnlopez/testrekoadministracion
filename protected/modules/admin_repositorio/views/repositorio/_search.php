@@ -42,8 +42,18 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'fecha_eliminacion'); ?>
+		<?php echo $form->textField($model,'fecha_eliminacion'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'tipo_repositorio_id'); ?>
 		<?php echo $form->textField($model,'tipo_repositorio_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'modelo_aprendizaje_id'); ?>
+		<?php echo $form->textField($model,'modelo_aprendizaje_id'); ?>
 	</div>
 
 	<div class="row buttons">
