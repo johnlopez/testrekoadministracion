@@ -127,4 +127,12 @@ class ModeloAprendizajeHasHerramienta extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        public function listaModeloAprendizajeHasHerramienta($nuevoModeloAprendisajeId)
+        {
+            $command = Yii::app()->db->createCommand("CALL sp_admin_repositorio_listar_modelo_aprendizaje_has_herramienta(:nuevo_modelo_aprendizaje_id)");
+            $command->bindParam(':nuevo_modelo_aprendizaje_id', $nuevoModeloAprendisajeId);
+            $resultado = $command->queryAll();
+            return $resultado;            
+        }
 }

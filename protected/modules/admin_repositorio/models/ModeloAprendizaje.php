@@ -134,7 +134,7 @@ class ModeloAprendizaje extends CActiveRecord
         ) 
         {
             
-            $comando = Yii::app()->db->createCommand("CALL admin_repositorio_agregar_modelo_aprendizaje_herramienta(
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_repositorio_agregar_modelo_aprendizaje_herramienta(
                 :nuevoModeloAprendizajeNombre,
                 :nuevoModeloAprendizajeDescripcion,
 
@@ -153,6 +153,68 @@ class ModeloAprendizaje extends CActiveRecord
                 @last_insert_modelo_aprendizaje_herramienta_id)"
             );              
                     
+            $comando->bindParam(':nuevoModeloAprendizajeNombre',$nuevoModeloAprendizajeNombre);
+            $comando->bindParam(':nuevoModeloAprendizajeDescripcion',$nuevoModeloAprendizajeDescripcion);
+
+            $comando->bindParam(':nuevoTrabajoGrupalBool',$nuevoTrabajoGrupalBool);
+            $comando->bindParam(':nuevoArchivoRecursoBool',$nuevoArchivoRecursoBool);
+            $comando->bindParam(':nuevoLinkInteresBool',$nuevoLinkInteresBool);
+            $comando->bindParam(':nuevoGlosarioBool',$nuevoGlosarioBool);
+            $comando->bindParam(':nuevoContenidoLibreBool',$nuevoContenidoLibreBool);
+            $comando->bindParam(':nuevoForoBool',$nuevoForoBool);
+            $comando->bindParam(':nuevoEvaluacionBool',$nuevoEvaluacionBool);
+            $comando->bindParam(':nuevoAutoevaluacionBool',$nuevoAutoevaluacionBool);
+            $comando->bindParam(':nuevoProyectoBool',$nuevoProyectoBool);
+            $comando->bindParam(':nuevoRecepcionTrabajoBool',$nuevoRecepcionTrabajoBool);
+            $comando->bindParam(':nuevoEvaluacionNoObjetivaBool',$nuevoEvaluacionNoObjetivaBool);
+           
+            $comando->execute();
+            $this->lastInsertModeloAprendizajeId = Yii::app()->db->createCommand("select @last_insert_modelo_aprendizaje_id as result;")->queryScalar();
+            $this->lastInsertModeloAprendizajeHerramientaId = Yii::app()->db->createCommand("select @last_insert_modelo_aprendizaje_herramienta_id as result;")->queryScalar();
+
+            return $comando;
+        }
+        
+        
+        public function modificarModeloAprendizaje(                
+                $nuevoModeloAprendizajeId,
+                $nuevoModeloAprendizajeNombre,
+                $nuevoModeloAprendizajeDescripcion,
+
+                $nuevoTrabajoGrupalBool,
+                $nuevoArchivoRecursoBool,
+                $nuevoLinkInteresBool,
+                $nuevoGlosarioBool,
+                $nuevoContenidoLibreBool,
+                $nuevoForoBool,
+                $nuevoEvaluacionBool,
+                $nuevoAutoevaluacionBool,
+                $nuevoProyectoBool,
+                $nuevoRecepcionTrabajoBool,
+                $nuevoEvaluacionNoObjetivaBool                
+        ) 
+        {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_repositorio_modificar_modelo_aprendizaje_herramienta(
+                :nuevoModeloAprendizajeId,
+                :nuevoModeloAprendizajeNombre,
+                :nuevoModeloAprendizajeDescripcion,
+
+                :nuevoTrabajoGrupalBool,
+                :nuevoArchivoRecursoBool,
+                :nuevoLinkInteresBool,
+                :nuevoGlosarioBool,
+                :nuevoContenidoLibreBool,
+                :nuevoForoBool,
+                :nuevoEvaluacionBool,
+                :nuevoAutoevaluacionBool,
+                :nuevoProyectoBool,
+                :nuevoRecepcionTrabajoBool,
+                :nuevoEvaluacionNoObjetivaBool,
+                @last_insert_modelo_aprendizaje_id,
+                @last_insert_modelo_aprendizaje_herramienta_id)"
+            );              
+            $comando->bindParam(':nuevoModeloAprendizajeId',$nuevoModeloAprendizajeId);
             $comando->bindParam(':nuevoModeloAprendizajeNombre',$nuevoModeloAprendizajeNombre);
             $comando->bindParam(':nuevoModeloAprendizajeDescripcion',$nuevoModeloAprendizajeDescripcion);
 

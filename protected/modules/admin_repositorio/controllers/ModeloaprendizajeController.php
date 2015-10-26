@@ -51,9 +51,31 @@ class ModeloaprendizajeController extends Controller
 	 */
 	public function actionView($id)
 	{
-                $modelo = new ModeloAprendizajeHasHerramienta();
-                $herramienta = $modelo->findByPk($_GET['herramienta_id']);
-                
+                $modelHerramienta = new ModeloAprendizajeHasHerramienta();
+
+                if(isset($_GET['herramienta_id']))
+                {
+                    $herramienta = $modelHerramienta->findByPk($_GET['herramienta_id']);
+                }
+                else {
+                    $herramientaProcedure = $modelHerramienta->listaModeloAprendizajeHasHerramienta($id);
+                    $herramienta = new ModeloAprendizajeHasHerramienta();
+                    foreach ($herramientaProcedure as $herramientaP){
+                        $herramienta->id = $herramientaP['id'];
+                        $herramienta->trabajo_grupal =  $herramientaP['trabajo_grupal'];
+                        $herramienta->archivo_recurso =  $herramientaP['archivo_recurso'];
+                        $herramienta->link_interes =  $herramientaP['link_interes'];
+                        $herramienta->glosario =  $herramientaP['glosario'];
+                        $herramienta->contenido_libre =  $herramientaP['contenido_libre'];
+                        $herramienta->foro =  $herramientaP['foro'];
+                        $herramienta->evaluacion =  $herramientaP['evaluacion'];
+                        $herramienta->autoevaluacion =  $herramientaP['autoevaluacion'];
+                        $herramienta->proyecto =  $herramientaP['proyecto'];
+                        $herramienta->recepcion_trabajo =  $herramientaP['recepcion_trabajo'];
+                        $herramienta->evaluacion_no_objetiva =  $herramientaP['evaluacion_no_objetiva'];
+                        $herramienta->modelo_aprendizaje_id =  $herramientaP['modelo_aprendizaje_id'];
+                    }                    
+                }
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
                         'herramienta'=>$herramienta,
@@ -112,19 +134,61 @@ class ModeloaprendizajeController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+                $modelHerramienta = new ModeloAprendizajeHasHerramienta();
+                $herramientaProcedure = $modelHerramienta->listaModeloAprendizajeHasHerramienta($id);
+                $herramienta = new ModeloAprendizajeHasHerramienta();
+                foreach ($herramientaProcedure as $herramientaP){
+                    $herramienta->id = $herramientaP['id'];
+                    $herramienta->trabajo_grupal =  $herramientaP['trabajo_grupal'];
+                    $herramienta->archivo_recurso =  $herramientaP['archivo_recurso'];
+                    $herramienta->link_interes =  $herramientaP['link_interes'];
+                    $herramienta->glosario =  $herramientaP['glosario'];
+                    $herramienta->contenido_libre =  $herramientaP['contenido_libre'];
+                    $herramienta->foro =  $herramientaP['foro'];
+                    $herramienta->evaluacion =  $herramientaP['evaluacion'];
+                    $herramienta->autoevaluacion =  $herramientaP['autoevaluacion'];
+                    $herramienta->proyecto =  $herramientaP['proyecto'];
+                    $herramienta->recepcion_trabajo =  $herramientaP['recepcion_trabajo'];
+                    $herramienta->evaluacion_no_objetiva =  $herramientaP['evaluacion_no_objetiva'];
+                    $herramienta->modelo_aprendizaje_id =  $herramientaP['modelo_aprendizaje_id'];
+                }
+                
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ModeloAprendizaje']))
+		if(isset($_POST['ModeloAprendizaje']) && isset($_POST['ModeloAprendizajeHasHerramienta']))
 		{
-			$model->attributes=$_POST['ModeloAprendizaje'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+                    $model->attributes = $_POST['ModeloAprendizaje'];
+                    $herramienta->attributes = $_POST['ModeloAprendizajeHasHerramienta'];
+                                                                       
+                    if($model->modificarModeloAprendizaje(
+                            $id,
+                            $model->nombre, 
+                            $model->descripcion, 
+                            $herramienta->trabajo_grupal,
+                            $herramienta->archivo_recurso,
+                            $herramienta->link_interes, 
+                            $herramienta->glosario, 
+                            $herramienta->contenido_libre, 
+                            $herramienta->foro, 
+                            $herramienta->evaluacion, 
+                            $herramienta->autoevaluacion, 
+                            $herramienta->proyecto, 
+                            $herramienta->recepcion_trabajo, 
+                            $herramienta->evaluacion_no_objetiva)
+                        )
+                    {
+                        
+                        $this->redirect(array('view','id'=>$model->lastInsertModeloAprendizajeId,'herramienta_id'=>$model->lastInsertModeloAprendizajeHerramientaId));
+                    }
+			
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+                        'herramienta'=>$herramienta,
+
 		));
 	}
 
