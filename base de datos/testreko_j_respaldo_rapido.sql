@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 23-10-2015 a las 13:22:47
+-- Tiempo de generación: 29-10-2015 a las 14:36:40
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -36,78 +36,6 @@ usuario = nuevo_usuario,
 clave = nuevo_clave
 where id = nuevo_id;
 end$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `admin_repositorio_agregar_modelo_aprendizaje_herramienta`(
-
-	nuevo_modelo_aprendizaje_nombre VARCHAR (255),
-	nuevo_modelo_aprendizaje_descripcion TEXT,
-    
-    nuevo_trabajo_grupal BOOL,
-    nuevo_archivo_recurso BOOL,
-    nuevo_link_interes BOOL,
-    nuevo_glosario BOOL,
-	nuevo_contenido_libre BOOL,
-	nuevo_foro BOOL,
-	nuevo_evaluacion BOOL,
-	nuevo_autoevaluacion BOOL,
-	nuevo_proyecto BOOL,
-	nuevo_recepcion_trabajo BOOL,
-	nuevo_evaluacion_no_objetiva BOOL,
-    OUT last_insert_modelo_aprendizaje_id INT(11),
-    OUT last_insert_modelo_aprendizaje_herramienta_id INT(11)
-
-)
-BEGIN
-
-
-	INSERT INTO modelo_aprendizaje(
-		nombre,
-        descripcion,
-        fecha_creacion
-        
-    )
-    VALUES(
-		nuevo_modelo_aprendizaje_nombre,
-        nuevo_modelo_aprendizaje_descripcion,
-        NOW()
-    );
-	
-    SELECT LAST_INSERT_ID () INTO last_insert_modelo_aprendizaje_id;
-    
-    INSERT INTO modelo_aprendizaje_has_herramienta(
-		
-		trabajo_grupal,
-		archivo_recurso,
-		link_interes,
-		glosario,
-		contenido_libre,
-		foro,
-		evaluacion,
-		autoevaluacion,
-		proyecto,
-		recepcion_trabajo,
-		evaluacion_no_objetiva,
-		modelo_aprendizaje_id   
-    )
-    VALUES(
-		
-		nuevo_trabajo_grupal,
-		nuevo_archivo_recurso,
-		nuevo_link_interes,
-		nuevo_glosario,
-		nuevo_contenido_libre,
-		nuevo_foro,
-		nuevo_evaluacion,
-		nuevo_autoevaluacion,
-		nuevo_proyecto,
-		nuevo_recepcion_trabajo,
-		nuevo_evaluacion_no_objetiva,
-		last_insert_modelo_aprendizaje_id
-    
-    );
-    
-     SELECT LAST_INSERT_ID () INTO last_insert_modelo_aprendizaje_herramienta_id;
-END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `agregar_usuario_administrador`(
 nuevo_usuario varchar(50),
@@ -956,6 +884,85 @@ select * from pais;
 select * from region;
 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_agregar_modelo_aprendizaje_herramienta`(
+
+	nuevo_modelo_aprendizaje_nombre VARCHAR (255),
+	nuevo_modelo_aprendizaje_descripcion TEXT,
+    
+    nuevo_trabajo_grupal BOOL,
+    nuevo_archivo_recurso BOOL,
+    nuevo_link_interes BOOL,
+    nuevo_glosario BOOL,
+	nuevo_contenido_libre BOOL,
+	nuevo_foro BOOL,
+	nuevo_evaluacion BOOL,
+	nuevo_autoevaluacion BOOL,
+	nuevo_proyecto BOOL,
+	nuevo_recepcion_trabajo BOOL,
+	nuevo_evaluacion_no_objetiva BOOL,
+    OUT last_insert_modelo_aprendizaje_id INT(11),
+    OUT last_insert_modelo_aprendizaje_herramienta_id INT(11)
+
+)
+BEGIN
+
+
+	INSERT INTO modelo_aprendizaje(
+		nombre,
+        descripcion,
+        fecha_creacion
+        
+    )
+    VALUES(
+		nuevo_modelo_aprendizaje_nombre,
+        nuevo_modelo_aprendizaje_descripcion,
+        NOW()
+    );
+	
+    SELECT LAST_INSERT_ID () INTO last_insert_modelo_aprendizaje_id;
+    
+    INSERT INTO modelo_aprendizaje_has_herramienta(
+		
+		trabajo_grupal,
+		archivo_recurso,
+		link_interes,
+		glosario,
+		contenido_libre,
+		foro,
+		evaluacion,
+		autoevaluacion,
+		proyecto,
+		recepcion_trabajo,
+		evaluacion_no_objetiva,
+		modelo_aprendizaje_id   
+    )
+    VALUES(
+		
+		nuevo_trabajo_grupal,
+		nuevo_archivo_recurso,
+		nuevo_link_interes,
+		nuevo_glosario,
+		nuevo_contenido_libre,
+		nuevo_foro,
+		nuevo_evaluacion,
+		nuevo_autoevaluacion,
+		nuevo_proyecto,
+		nuevo_recepcion_trabajo,
+		nuevo_evaluacion_no_objetiva,
+		last_insert_modelo_aprendizaje_id
+    
+    );
+    
+     SELECT LAST_INSERT_ID () INTO last_insert_modelo_aprendizaje_herramienta_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_asignar_modelo_aprendizaje_repositorio`(nuevo_repositorio_id int , nuevo_modelo_id int)
+BEGIN
+UPDATE repositorio SET modelo_aprendizaje_id =  nuevo_modelo_id
+WHERE id = nuevo_repositorio_id;
+
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_asignar_mod_aprendizaje_master_rep_master`(nuevo_repositorio_id int , nuevo_modelo_id int)
 BEGIN
 UPDATE repositorio_master SET modelo_aprendizaje_master_id =  nuevo_modelo_id
@@ -985,9 +992,9 @@ DECLARE repositorio_id_tmp int default NULL;
 DECLARE resultado BOOLEAN DEFAULT TRUE;
 WHILE x < lista_largo DO
 	SET nuevo_repositorio_id = getValueFromArray(lista_repositorio_id, ',', x);	
-    SELECT repositorio_id INTO repositorio_id_tmp FROM repositorio_has_institucion WHERE repositorio_id = nuevo_repositorio_id AND institucion_id = nuevo_institucion_id;
+    SELECT repositorio_id INTO repositorio_id_tmp FROM institucion_has_repositorio WHERE repositorio_id = nuevo_repositorio_id AND institucion_id = nuevo_institucion_id;
     IF ( repositorio_id_tmp IS NULL) THEN
-		INSERT INTO repositorio_has_institucion (`repositorio_id`,`institucion_id`) VALUES (nuevo_repositorio_id,nuevo_institucion_id);
+		INSERT INTO institucion_has_repositorio (`repositorio_id`,`institucion_id`) VALUES (nuevo_repositorio_id,nuevo_institucion_id);
 	ELSE
 		SET repositorio_id_tmp = NULL;
     END IF;    
@@ -1027,9 +1034,9 @@ DECLARE repositorio_id_tmp int default NULL;
 DECLARE resultado BOOLEAN DEFAULT TRUE;
 WHILE x < lista_largo DO
 	SET nuevo_repositorio_id = getValueFromArray(lista_repositorio_id, ',', x);	
-    SELECT repositorio_id INTO repositorio_id_tmp FROM repositorio_has_institucion WHERE repositorio_id = nuevo_repositorio_id AND institucion_id = nuevo_institucion_id;
+    SELECT repositorio_id INTO repositorio_id_tmp FROM institucion_has_repositorio WHERE repositorio_id = nuevo_repositorio_id AND institucion_id = nuevo_institucion_id;
     IF ( repositorio_id_tmp IS NOT NULL) THEN
-		DELETE FROM repositorio_has_institucion WHERE institucion_id = nuevo_institucion_id AND repositorio_id = nuevo_repositorio_id;
+		DELETE FROM institucion_has_repositorio WHERE institucion_id = nuevo_institucion_id AND repositorio_id = nuevo_repositorio_id;
 	ELSE
 		SET repositorio_id_tmp = NULL;
     END IF;    
@@ -1061,29 +1068,38 @@ SELECT resultado, nuevo_repositorio_id, repositorio_id_tmp;
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_listar_modelo_aprendizaje_has_herramienta`(nuevo_modelo_aprendizaje_id INT)
+BEGIN
+
+	SELECT *
+    FROM modelo_aprendizaje_has_herramienta
+    WHERE modelo_aprendizaje_id = nuevo_modelo_aprendizaje_id;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_lista_institucion_repositorio`(nuevo_institucion_id int(11))
 BEGIN
 SELECT 
-		A.nombre,
-		B.institucion_id,
-		B.repositorio_id 
+		I.nombre,
+		IR.institucion_id,
+		IR.repositorio_id 
 FROM 
-		`institucion` A, 
-		`repositorio_has_institucion` B 
+		`institucion` I, 
+		`institucion_has_repositorio` IR 
 		
-WHERE A.id = B.institucion_id
-AND A.id = nuevo_institucion_id 
+WHERE I.id = IR.institucion_id
+AND I.id = nuevo_institucion_id 
 
 UNION 
 
 SELECT 
 		null,
         null,
-        A.id 
+        R.id 
 FROM 
-		(`repositorio` A LEFT JOIN `repositorio_has_institucion` B ON A.id = B.repositorio_id AND B.institucion_id = nuevo_institucion_id)
+		(`repositorio` R LEFT JOIN `institucion_has_repositorio` IR ON R.id = IR.repositorio_id AND IR.institucion_id = nuevo_institucion_id)
         
-WHERE B.repositorio_id is NULL
+WHERE IR.repositorio_id is NULL
 order by repositorio_id;
 
 END$$
@@ -1104,6 +1120,57 @@ SELECT null,null,A.id
 FROM (`repositorio_master` A LEFT JOIN `repositorio_master_has_institucion` B ON A.id = B.repositorio_master_id AND B.institucion_id = nuevo_institucion_id)
 WHERE B.repositorio_master_id is NULL
 order by repositorio_master_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_modificar_modelo_aprendizaje_herramienta`(
+
+	nuevo_modelo_aprendizaje_id INT,
+    nuevo_modelo_aprendizaje_nombre VARCHAR (255),
+	nuevo_modelo_aprendizaje_descripcion TEXT,
+    
+    nuevo_trabajo_grupal BOOL,
+    nuevo_archivo_recurso BOOL,
+    nuevo_link_interes BOOL,
+    nuevo_glosario BOOL,
+	nuevo_contenido_libre BOOL,
+	nuevo_foro BOOL,
+	nuevo_evaluacion BOOL,
+	nuevo_autoevaluacion BOOL,
+	nuevo_proyecto BOOL,
+	nuevo_recepcion_trabajo BOOL,
+	nuevo_evaluacion_no_objetiva BOOL,
+    OUT last_insert_modelo_aprendizaje_id INT(11),
+    OUT last_insert_modelo_aprendizaje_herramienta_id INT(11)
+
+)
+BEGIN
+
+	UPDATE modelo_aprendizaje SET
+		nombre = nuevo_modelo_aprendizaje_nombre,
+        descripcion = nuevo_modelo_aprendizaje_descripcion,
+        fecha_modificacion = NOW()
+	WHERE modelo_aprendizaje.id = nuevo_modelo_aprendizaje_id;	
+	
+    SET last_insert_modelo_aprendizaje_id = nuevo_modelo_aprendizaje_id;
+    
+    UPDATE modelo_aprendizaje_has_herramienta SET
+		
+		trabajo_grupal = nuevo_trabajo_grupal,
+		archivo_recurso = nuevo_archivo_recurso,
+		link_interes = nuevo_link_interes,
+		glosario = nuevo_glosario,
+		contenido_libre = nuevo_contenido_libre,
+		foro = nuevo_foro,
+		evaluacion = nuevo_evaluacion,
+		autoevaluacion = nuevo_autoevaluacion,
+		proyecto = nuevo_proyecto,
+		recepcion_trabajo = nuevo_recepcion_trabajo,
+		evaluacion_no_objetiva = nuevo_evaluacion_no_objetiva
+	 WHERE  modelo_aprendizaje_id = nuevo_modelo_aprendizaje_id;
+    
+     SELECT id  INTO last_insert_modelo_aprendizaje_herramienta_id
+     FROM modelo_aprendizaje_has_herramienta 
+     WHERE  modelo_aprendizaje_id = nuevo_modelo_aprendizaje_id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_asignar_privilegio_rol_automatico`( nuevo_rol_id int ,nuevo_permiso_name varchar(255) )
@@ -3502,6 +3569,28 @@ INSERT INTO `institucion` (`id`, `nombre`, `vision`, `mision`, `acreditada`, `fe
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `institucion_has_repositorio`
+--
+
+CREATE TABLE IF NOT EXISTS `institucion_has_repositorio` (
+  `institucion_id` int(11) NOT NULL,
+  `repositorio_id` int(11) NOT NULL,
+  PRIMARY KEY (`institucion_id`,`repositorio_id`),
+  KEY `fk_institucion_has_repositorio_repositorio1_idx` (`repositorio_id`),
+  KEY `fk_institucion_has_repositorio_institucion1_idx` (`institucion_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `institucion_has_repositorio`
+--
+
+INSERT INTO `institucion_has_repositorio` (`institucion_id`, `repositorio_id`) VALUES
+(2, 1),
+(2, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `institucion_has_rol_usuario`
 --
 
@@ -3557,7 +3646,7 @@ CREATE TABLE IF NOT EXISTS `modelo_aprendizaje` (
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_eliminacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='			' AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='			' AUTO_INCREMENT=42 ;
 
 --
 -- Volcado de datos para la tabla `modelo_aprendizaje`
@@ -3566,7 +3655,13 @@ CREATE TABLE IF NOT EXISTS `modelo_aprendizaje` (
 INSERT INTO `modelo_aprendizaje` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`) VALUES
 (1, 'A1 modelo de aprendizaje ', 'A1 descripcion modelo aprendizaje', NULL, NULL, NULL, NULL),
 (2, 'B2 modelo de aprendizaje', 'B2 descripcion modelo de aprendizaje', NULL, NULL, NULL, NULL),
-(3, 'C3 modelo aprendizaje', 'C3 descripcion modelo aprendizaje', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(3, 'C3 modelo aprendizaje', 'C3 descripcion modelo aprendizaje', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(36, 'BART', 'HOMERO', NULL, '2015-10-26 16:24:52', '2015-10-23 11:27:15', NULL),
+(37, 'MOU', 'DUFF', NULL, NULL, '2015-10-26 12:13:27', NULL),
+(38, 'HERMOSO', 'HERMOSURA', NULL, '2015-10-26 16:18:07', '2015-10-26 13:22:15', NULL),
+(39, 'AHH SIII', 'WOM', NULL, '2015-10-26 16:33:11', '2015-10-26 16:23:21', NULL),
+(40, 'CLARO ', 'MARTIN CARCAMO', NULL, NULL, '2015-10-26 16:33:45', NULL),
+(41, 'NEXTEL', 'TONKA', NULL, '2015-10-26 16:35:28', '2015-10-26 16:35:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -3590,7 +3685,19 @@ CREATE TABLE IF NOT EXISTS `modelo_aprendizaje_has_herramienta` (
   `modelo_aprendizaje_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_modelo_aprendizaje_has_herramienta_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='	' AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='	' AUTO_INCREMENT=38 ;
+
+--
+-- Volcado de datos para la tabla `modelo_aprendizaje_has_herramienta`
+--
+
+INSERT INTO `modelo_aprendizaje_has_herramienta` (`id`, `trabajo_grupal`, `archivo_recurso`, `link_interes`, `glosario`, `contenido_libre`, `foro`, `evaluacion`, `autoevaluacion`, `proyecto`, `recepcion_trabajo`, `evaluacion_no_objetiva`, `modelo_aprendizaje_id`) VALUES
+(32, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 36),
+(33, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 37),
+(34, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 38),
+(35, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 39),
+(36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 40),
+(37, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 41);
 
 -- --------------------------------------------------------
 
@@ -4004,12 +4111,20 @@ CREATE TABLE IF NOT EXISTS `repositorio` (
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_eliminacion` datetime DEFAULT NULL,
-  `tipo_repositorio_id` int(11) NOT NULL,
-  `modelo_aprendizaje_id` int(11) NOT NULL,
+  `tipo_repositorio_id` int(11) DEFAULT NULL,
+  `modelo_aprendizaje_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_repositorio_tipo_repositorio1_idx` (`tipo_repositorio_id`),
   KEY `fk_repositorio_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='\n	\n	\n	\n\n\n	\n\n	\n	' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='\n	\n	\n	\n\n\n	\n\n	\n	' AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `repositorio`
+--
+
+INSERT INTO `repositorio` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `tipo_repositorio_id`, `modelo_aprendizaje_id`) VALUES
+(1, '1A repositorio', '1A repositorio', NULL, NULL, NULL, NULL, 1, 1),
+(2, '2B repositorio', '2B repositorio', NULL, NULL, NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -4456,7 +4571,14 @@ CREATE TABLE IF NOT EXISTS `tipo_repositorio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='				' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='				' AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `tipo_repositorio`
+--
+
+INSERT INTO `tipo_repositorio` (`id`, `descripcion`) VALUES
+(1, 'repositorio_troncal');
 
 -- --------------------------------------------------------
 
@@ -4741,6 +4863,13 @@ ALTER TABLE `institucion`
   ADD CONSTRAINT `fk_institucion_estado_institucion1` FOREIGN KEY (`estado_institucion_id`) REFERENCES `estado_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `institucion_has_repositorio`
+--
+ALTER TABLE `institucion_has_repositorio`
+  ADD CONSTRAINT `fk_institucion_has_repositorio_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_institucion_has_repositorio_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `institucion_has_rol_usuario`
 --
 ALTER TABLE `institucion_has_rol_usuario`
@@ -4817,8 +4946,8 @@ ALTER TABLE `region`
 -- Filtros para la tabla `repositorio`
 --
 ALTER TABLE `repositorio`
-  ADD CONSTRAINT `fk_repositorio_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_tipo_repositorio1` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_repositorio_tipo_repositorio1` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_administrador_has_authitem_permiso_administrador`

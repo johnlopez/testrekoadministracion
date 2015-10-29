@@ -28,8 +28,8 @@ class RepositorioController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
+				'actions'=>array('index','view','asignarmodeloaprendizaje'),
+				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
@@ -37,7 +37,7 @@ class RepositorioController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -169,5 +169,35 @@ class RepositorioController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+        
+        public function actionAsignarmodeloaprendizaje()
+	{  
+            $repositorio = new Repositorio();
+            $modeloaprendizaje = new ModeloAprendizaje();
+
+            $vmodeloaprendizaje = $modeloaprendizaje::model()->findAll();
+
+            if(isset($_GET['id'])) 
+            {                    
+                if(isset($_POST['ModeloAprendizaje']))
+                {
+                    $repositorio->asignarModeloAprendizajeRepositorio($_GET['id'], $_POST['ModeloAprendizaje']['id']);
+
+                    $model=new Repositorio('search');
+                    $model->unsetAttributes();  // clear any default values
+                    if(isset($_GET['Repositorio']))
+                            $model->attributes=$_GET['Repositorio'];
+
+                    $this->render('admin',array(
+                            'model'=>$model,
+                    ));
+                }
+                else
+                {                    
+                    $vrepositorio = $repositorio::model()->findByPk($_GET['id']);                    
+                    $this->render('asignarmodeloaprendizaje', array('vmodeloaprendizaje'=>$vmodeloaprendizaje,'modeloaprendizaje'=>$modeloaprendizaje,'vrepositorio'=>$vrepositorio));                    
+                }
+            }                
 	}
 }

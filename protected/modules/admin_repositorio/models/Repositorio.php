@@ -16,8 +16,8 @@
  *
  * The followings are the available model relations:
  * @property Herramienta[] $herramientas
- * @property ModeloAprendizaje $modeloAprendizaje
  * @property TipoRepositorio $tipoRepositorio
+ * @property ModeloAprendizaje $modeloAprendizaje
  */
 class Repositorio extends CActiveRecord
 {
@@ -37,7 +37,6 @@ class Repositorio extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('tipo_repositorio_id, modelo_aprendizaje_id', 'required'),
 			array('tipo_repositorio_id, modelo_aprendizaje_id', 'numerical', 'integerOnly'=>true),
 			array('nombre, descripcion', 'length', 'max'=>45),
 			array('fecha_acceso, fecha_modificacion, fecha_creacion, fecha_eliminacion', 'safe'),
@@ -56,8 +55,8 @@ class Repositorio extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'herramientas' => array(self::HAS_MANY, 'Herramienta', 'repositorio_id'),
-			'modeloAprendizaje' => array(self::BELONGS_TO, 'ModeloAprendizaje', 'modelo_aprendizaje_id'),
 			'tipoRepositorio' => array(self::BELONGS_TO, 'TipoRepositorio', 'tipo_repositorio_id'),
+			'modeloAprendizaje' => array(self::BELONGS_TO, 'ModeloAprendizaje', 'modelo_aprendizaje_id'),
 		);
 	}
 
@@ -122,4 +121,13 @@ class Repositorio extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        public function asignarModeloAprendizajeRepositorio($nuevo_repositorio_id,$nuevo_modelo_id) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_repositorio_asignar_modelo_aprendizaje_repositorio(:nuevo_repositorio_id,:nuevo_modelo_id)");
+            $comando->bindParam(':nuevo_repositorio_id',$nuevo_repositorio_id);
+            $comando->bindParam(':nuevo_modelo_id',$nuevo_modelo_id );
+            $comando->execute();
+            return $comando;
+        }
 }
