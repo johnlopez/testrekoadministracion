@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 29-10-2015 a las 14:36:40
+-- Tiempo de generación: 06-11-2015 a las 20:35:38
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -2640,6 +2640,18 @@ WHERE B.logica_estado_usuario_id is NULL
 order by logica_estado_usuario_id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_components_obtener_institucion_usuario`(nuevo_usuario_id int)
+SELECT I.*
+FROM
+		institucion I,
+        usuario_has_institucion UI,
+        usuario U
+        
+WHERE UI.institucion_id = I.id
+AND UI.usuario_id = U.id
+AND U.id = nuevo_usuario_id
+ORDER BY institucion_id$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_escritorio_administrador_get_icono_permiso_usuario`(nuevo_usuario_id int)
 BEGIN
 SELECT I.estilo,P.name
@@ -2693,6 +2705,49 @@ AND P.name = RP.authitem_permiso_usuario_name
 AND U.id = nuevo_usuario_id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_agregar_glosario_repositorio_troncal`(
+	
+    nuevo_repositorio_id INT,
+    nuevo_glosario_nombre VARCHAR(255),
+    nuevo_glosario_descripcion TEXT,
+    OUT last_insert_glosario_id INT
+)
+BEGIN
+
+	INSERT INTO glosario(
+		nombre,
+        descripcion,
+        fecha_creacion,
+        tipo_herramienta_id
+	)
+    VALUES(
+		nuevo_glosario_nombre,
+        nuevo_glosario_descripcion,
+        NOW(),
+        1
+    );
+    
+    SELECT LAST_INSERT_ID () INTO last_insert_glosario_id;
+    
+    INSERT INTO herramienta(
+		nombre,
+        descripcion,
+        fecha_creacion,
+        recurso_id,
+        repositorio_id,
+        tipo_herramienta_id
+    )
+    VALUES(
+		nuevo_glosario_nombre,
+        nuevo_glosario_descripcion,
+        NOW(),
+        last_insert_glosario_id,
+        nuevo_repositorio_id,
+        1
+    );
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_asignar_mod_aprendizaje_rep_troncal_admin`(nuevo_repositorio_id int , nuevo_modelo_id int)
 begin
 UPDATE repositorio_troncal_admin SET modelo_aprendizaje_id =  nuevo_modelo_id
@@ -2706,6 +2761,95 @@ UPDATE repositorio_troncal_app SET modelo_aprendizaje_id =  nuevo_modelo_id
 WHERE id = nuevo_repositorio_id;
 
 end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_listar_repositorio`(nuevo_institucion_id INT )
+BEGIN
+SELECT R.*
+FROM 
+		repositorio R,
+        institucion_has_repositorio IR,
+        institucion I
+        
+WHERE R.id = IR.institucion_id
+AND I.id = IR.institucion_id
+AND I.id = nuevo_institucion_id;
+		
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_glosario_repositorio`(nuevo_repositorio_id INT)
+BEGIN
+
+	SELECT G.*
+
+	FROM
+			repositorio R,
+			herramienta H,
+			glosario G
+			
+	WHERE R.id = H.repositorio_id
+	AND H.recurso_id = G.id
+	AND R.id = nuevo_repositorio_id;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_repositorio_institucion`(nuevo_institucion_id int(11))
+BEGIN
+
+	SELECT R.*
+    FROM 
+			repositorio R,
+            institucion_has_repositorio IR,
+            institucion I
+            
+WHERE R.id = IR.repositorio_id
+AND I.id = IR.institucion_id
+AND I.id = nuevo_institucion_id
+
+ORDER BY repositorio_id;         
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_modificar_glosario_repositorio_troncal`(
+	
+    nuevo_glosario_id INT,
+    nuevo_repositorio_id INT,
+    nuevo_glosario_nombre VARCHAR(255),
+    nuevo_glosario_descripcion TEXT,
+    OUT last_insert_glosario_id INT
+)
+BEGIN
+	UPDATE glosario SET
+		nombre = nuevo_glosario_nombre,
+        descripcion = nuevo_glosario_descripcion,
+        fecha_modificacion = NOW()
+	
+    WHERE glosario.id = nuevo_glosario_id;
+   
+    
+    SET last_insert_glosario_id = nuevo_glosario_id;
+    
+    UPDATE herramienta SET
+		nombre = nuevo_glosario_nombre,
+        descripcion = nuevo_glosario_descripcion,
+        fecha_modificacion = NOW()
+	WHERE herramienta.recurso_id = nuevo_glosario_id
+    AND herramienta.repositorio_id = nuevo_repositorio_id;
+    
+    
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_obtener_herramientas_disponibles_repositorio`(nuevo_repositorio_id int(11))
+BEGIN
+	SELECT MH.*
+    FROM
+			modelo_aprendizaje M,
+            modelo_aprendizaje_has_herramienta MH,
+            repositorio R
+	WHERE R.modelo_aprendizaje_id = M.id
+    AND MH.modelo_aprendizaje_id = M.id
+    AND R.id = nuevo_repositorio_id;
+    
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `validar_privilegio`(nuevo_usuario_id int , nuevo_permiso_nombre varchar(50) , nuevo_controlador_nombre varchar(50) , nuevo_privilegio_nombre varchar(50),out vista varchar(50))
 SELECT PRIV.nombre into vista
@@ -3471,6 +3615,46 @@ CREATE TABLE IF NOT EXISTS `glosario` (
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_eliminacion` datetime DEFAULT NULL,
   `fecha_acceso` datetime DEFAULT NULL,
+  `tipo_herramienta_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_glosario_tipo_herramienta1_idx` (`tipo_herramienta_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
+
+--
+-- Volcado de datos para la tabla `glosario`
+--
+
+INSERT INTO `glosario` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_eliminacion`, `fecha_acceso`, `tipo_herramienta_id`) VALUES
+(1, 'Diccionario de la lengua española', 'Versión electrónica del Diccionario de la lengua española, obra lexicográfica académica por excelencia.', NULL, NULL, NULL, NULL, 1),
+(2, 'UCT Diccionario Abreviado Mapudungun - Españo', 'Contiene un listado de entradas léxicas del mapudungun, ordenado alfabéticamente, con una versión abreviada de sus significados en español e inglés.', NULL, NULL, NULL, NULL, 1),
+(3, 'Glosario de términos geográficos', 'A. Acantilado: Costa alta y escarpada, de altura variable. Accesibilidad: Capacidad potencial de establecer contactos físicos y/o sociales', NULL, NULL, NULL, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `glosario_termino_definicion`
+--
+
+CREATE TABLE IF NOT EXISTS `glosario_termino_definicion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `termino` varchar(45) DEFAULT NULL,
+  `definicion` text,
+  `glosario_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_glosario_termino_definicion_glosario1_idx` (`glosario_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `guia_instruccional`
+--
+
+CREATE TABLE IF NOT EXISTS `guia_instruccional` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(45) DEFAULT NULL,
+  `detalle` varchar(45) DEFAULT NULL,
+  `adjunto` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -3489,10 +3673,22 @@ CREATE TABLE IF NOT EXISTS `herramienta` (
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_eliminacion` datetime DEFAULT NULL,
   `recurso_id` int(11) DEFAULT NULL,
-  `repositorio_id` int(11) NOT NULL,
+  `repositorio_id` int(11) DEFAULT NULL,
+  `tipo_herramienta_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_herramienta_repositorio1_idx` (`repositorio_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `fk_herramienta_repositorio1_idx` (`repositorio_id`),
+  KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
+
+--
+-- Volcado de datos para la tabla `herramienta`
+--
+
+INSERT INTO `herramienta` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `recurso_id`, `repositorio_id`, `tipo_herramienta_id`) VALUES
+(1, 'Diccionario de la lengua española', 'Versión electrónica del Diccionario de la lengua española, obra lexicográfica académica por excelencia.', NULL, NULL, NULL, NULL, 1, 1, 1),
+(2, 'UCT Diccionario Abreviado Mapudungun - Españo', 'Contiene un listado de entradas léxicas del mapudungun, ordenado alfabéticamente, con una versión abreviada de sus significados en español e inglés.', NULL, NULL, NULL, NULL, 2, 1, 1),
+(3, 'Glosario de términos geográficos', 'A. Acantilado: Costa alta y escarpada, de altura variable. Accesibilidad: Capacidad potencial de establecer contactos físicos y/o sociales', NULL, NULL, NULL, NULL, 3, 2, 1),
+(28, 'gggggggggg', 'gggggggggggggggggg', NULL, '2015-11-06 15:57:25', '2015-11-06 15:56:06', NULL, 28, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3585,7 +3781,9 @@ CREATE TABLE IF NOT EXISTS `institucion_has_repositorio` (
 --
 
 INSERT INTO `institucion_has_repositorio` (`institucion_id`, `repositorio_id`) VALUES
+(1, 1),
 (2, 1),
+(1, 2),
 (2, 2);
 
 -- --------------------------------------------------------
@@ -3646,7 +3844,7 @@ CREATE TABLE IF NOT EXISTS `modelo_aprendizaje` (
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_eliminacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='			' AUTO_INCREMENT=42 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='			' AUTO_INCREMENT=44 ;
 
 --
 -- Volcado de datos para la tabla `modelo_aprendizaje`
@@ -3661,7 +3859,9 @@ INSERT INTO `modelo_aprendizaje` (`id`, `nombre`, `descripcion`, `fecha_acceso`,
 (38, 'HERMOSO', 'HERMOSURA', NULL, '2015-10-26 16:18:07', '2015-10-26 13:22:15', NULL),
 (39, 'AHH SIII', 'WOM', NULL, '2015-10-26 16:33:11', '2015-10-26 16:23:21', NULL),
 (40, 'CLARO ', 'MARTIN CARCAMO', NULL, NULL, '2015-10-26 16:33:45', NULL),
-(41, 'NEXTEL', 'TONKA', NULL, '2015-10-26 16:35:28', '2015-10-26 16:35:07', NULL);
+(41, 'NEXTEL', 'TONKA', NULL, '2015-10-26 16:35:28', '2015-10-26 16:35:07', NULL),
+(42, 'e-learning', 'descripcion modelo aprendizaje  e-learning', NULL, NULL, '2015-11-03 12:57:37', NULL),
+(43, 'full', 'descripcion modelo aprendizaje full', NULL, NULL, '2015-11-03 16:15:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -3685,7 +3885,7 @@ CREATE TABLE IF NOT EXISTS `modelo_aprendizaje_has_herramienta` (
   `modelo_aprendizaje_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_modelo_aprendizaje_has_herramienta_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='	' AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='	' AUTO_INCREMENT=40 ;
 
 --
 -- Volcado de datos para la tabla `modelo_aprendizaje_has_herramienta`
@@ -3697,7 +3897,9 @@ INSERT INTO `modelo_aprendizaje_has_herramienta` (`id`, `trabajo_grupal`, `archi
 (34, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 38),
 (35, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 39),
 (36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 40),
-(37, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 41);
+(37, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 41),
+(38, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 42),
+(39, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 43);
 
 -- --------------------------------------------------------
 
@@ -4100,6 +4302,26 @@ INSERT INTO `region` (`id`, `nombre`, `codigo`, `pais_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `reko_session`
+--
+
+CREATE TABLE IF NOT EXISTS `reko_session` (
+  `id` char(32) NOT NULL,
+  `expire` int(11) DEFAULT NULL,
+  `data` longblob,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `reko_session`
+--
+
+INSERT INTO `reko_session` (`id`, `expire`, `data`) VALUES
+('o9k32vus9jak0skbf22ntl34k3', 1446839872, 0x30373333353130383865316330316231363262316162353236386465653766615f5f72657475726e55726c7c733a34333a222f7465737472656b6f2f7265706f7369746f72696f2f676c6f736172696f2f7570646174653f69643d3237223b30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a313a2231223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d696e737469747563696f6e49647c733a313a2231223b696e737469747563696f6e4e6f6d6272657c733a343a227574656d223b696e737469747563696f6e566973696f6e7c733a363a22766973696f6e223b696e737469747563696f6e4d6973696f6e7c733a363a226d6973696f6e223b696e737469747563696f6e416372656469746164617c733a313a2230223b696e737469747563696f6e4665636861496e6963696f416372656469746163696f6e7c733a31393a22323031352d30382d30362031353a34303a3332223b696e737469747563696f6e46656368615465726d696e6f416372656469746163696f6e7c733a31393a22323031352d30382d30362031353a34303a3332223b7265706f7369746f72696f7c4f3a31313a225265706f7369746f72696f223a31313a7b733a31393a2200434163746976655265636f7264005f6e6577223b623a303b733a32363a2200434163746976655265636f7264005f61747472696275746573223b613a31303a7b733a323a226964223b733a313a2231223b733a363a226e6f6d627265223b733a31343a223141207265706f7369746f72696f223b733a31313a226465736372697063696f6e223b733a31343a223141207265706f7369746f72696f223b733a31323a2266656368615f61636365736f223b4e3b733a31383a2266656368615f6d6f64696669636163696f6e223b4e3b733a31343a2266656368615f6372656163696f6e223b4e3b733a31373a2266656368615f656c696d696e6163696f6e223b4e3b733a31393a227469706f5f7265706f7369746f72696f5f6964223b733a313a2231223b733a32313a226d6f64656c6f5f617072656e64697a616a655f6964223b733a323a223433223b733a32313a22677569615f696e737472756363696f6e616c5f6964223b4e3b7d733a32333a2200434163746976655265636f7264005f72656c61746564223b613a303a7b7d733a31373a2200434163746976655265636f7264005f63223b4e3b733a31383a2200434163746976655265636f7264005f706b223b733a313a2231223b733a32313a2200434163746976655265636f7264005f616c696173223b733a313a2274223b733a31353a2200434d6f64656c005f6572726f7273223b613a303a7b7d733a31393a2200434d6f64656c005f76616c696461746f7273223b4e3b733a31373a2200434d6f64656c005f7363656e6172696f223b733a363a22757064617465223b733a31343a220043436f6d706f6e656e74005f65223b4e3b733a31343a220043436f6d706f6e656e74005f6d223b4e3b7d);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `repositorio`
 --
 
@@ -4113,18 +4335,20 @@ CREATE TABLE IF NOT EXISTS `repositorio` (
   `fecha_eliminacion` datetime DEFAULT NULL,
   `tipo_repositorio_id` int(11) DEFAULT NULL,
   `modelo_aprendizaje_id` int(11) DEFAULT NULL,
+  `guia_instruccional_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_repositorio_tipo_repositorio1_idx` (`tipo_repositorio_id`),
-  KEY `fk_repositorio_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
+  KEY `fk_repositorio_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`),
+  KEY `fk_repositorio_guia_instruccional1_idx` (`guia_instruccional_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='\n	\n	\n	\n\n\n	\n\n	\n	' AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `repositorio`
 --
 
-INSERT INTO `repositorio` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `tipo_repositorio_id`, `modelo_aprendizaje_id`) VALUES
-(1, '1A repositorio', '1A repositorio', NULL, NULL, NULL, NULL, 1, 1),
-(2, '2B repositorio', '2B repositorio', NULL, NULL, NULL, NULL, 1, 1);
+INSERT INTO `repositorio` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `tipo_repositorio_id`, `modelo_aprendizaje_id`, `guia_instruccional_id`) VALUES
+(1, '1A repositorio', '1A repositorio', NULL, NULL, NULL, NULL, 1, 43, NULL),
+(2, '2B repositorio', '2B repositorio', NULL, NULL, NULL, NULL, 1, 42, NULL);
 
 -- --------------------------------------------------------
 
@@ -4564,6 +4788,38 @@ INSERT INTO `seccion` (`id`, `nombre`, `jornada`, `descripcion`, `fecha_creacion
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `session`
+--
+
+CREATE TABLE IF NOT EXISTS `session` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(11) DEFAULT NULL,
+  `institucion_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_herramienta`
+--
+
+CREATE TABLE IF NOT EXISTS `tipo_herramienta` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `tipo_herramienta`
+--
+
+INSERT INTO `tipo_herramienta` (`id`, `nombre`) VALUES
+(1, 'herramienta_troncal');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tipo_repositorio`
 --
 
@@ -4720,7 +4976,9 @@ INSERT INTO `usuario_has_institucion` (`usuario_id`, `institucion_id`) VALUES
 (2, 1),
 (3, 1),
 (4, 1),
-(5, 1);
+(5, 1),
+(6, 2),
+(6, 1);
 
 -- --------------------------------------------------------
 
@@ -4845,10 +5103,23 @@ ALTER TABLE `escritorio_administrador`
   ADD CONSTRAINT `fk_escritorio_administrador_usuario_administrador1` FOREIGN KEY (`usuario_administrador_id`) REFERENCES `usuario_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `glosario`
+--
+ALTER TABLE `glosario`
+  ADD CONSTRAINT `fk_glosario_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `glosario_termino_definicion`
+--
+ALTER TABLE `glosario_termino_definicion`
+  ADD CONSTRAINT `fk_glosario_termino_definicion_glosario1` FOREIGN KEY (`glosario_id`) REFERENCES `glosario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `herramienta`
 --
 ALTER TABLE `herramienta`
-  ADD CONSTRAINT `fk_herramienta_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_herramienta_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_herramienta_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `icono_aplicacion_administrador`
@@ -4946,8 +5217,9 @@ ALTER TABLE `region`
 -- Filtros para la tabla `repositorio`
 --
 ALTER TABLE `repositorio`
-  ADD CONSTRAINT `fk_repositorio_tipo_repositorio1` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_repositorio_guia_instruccional1` FOREIGN KEY (`guia_instruccional_id`) REFERENCES `guia_instruccional` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_tipo_repositorio1` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_administrador_has_authitem_permiso_administrador`
