@@ -47,14 +47,12 @@
 		<?php echo $form->labelEx($model,'fecha_inicio_acreditacion'); ?>
 		<?php
                     $this->widget('zii.widgets.jui.CJuiDatePicker',array(
-                        'name'=>'datepicker-showButtonPanel',
-                        'value'=>date('Y-m-d'),    
+                        'model' => $model,
+                        'value'=>date('Y-m-d H:i:s'), 
+                        'language' => 'es',
+                        'attribute' => 'fecha_inicio_acreditacion',
                         'options'=>array(
-                            'showAnim'=>'slide',//'slide','fold','slideDown','fadeIn','blind','bounce','clip','drop'
-                            'showButtonPanel'=>true,
-                        ),
-                        'htmlOptions'=>array(
-                            'style'=>''
+                            'showAnim'=>'fold',
                         ),
                     ));
                 ?>
@@ -67,7 +65,7 @@
 		<?php
                      $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                     'model' => $model,
-                    'value'=>date('Y-m-d'),  
+                    'value'=>date('Y-m-d H:i:s'),  
                     'language' => 'es',
                     'attribute' => 'fecha_termino_acreditacion',
                     'options' => array(

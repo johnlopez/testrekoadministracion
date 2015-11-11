@@ -28,7 +28,7 @@ class EntidadController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin','xi'),
+				'actions'=>array('index','view','admin','xi','admin2','xi2'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -80,6 +80,33 @@ class EntidadController extends Controller
                 
                 
 	}
+        
+        public function actionAdmin2()
+	{
+		$model=new Entidad('search');
+                
+                if(isset($_GET['id'])){
+                    $idInstitucion = $_GET['id'];
+                }
+                
+                
+                // Revisar como se hace con findALl + condicion $listadoEntidad = Entidad::model()->findAll($idInstitucion);
+                $listadoEntidad = $model->listarEntidadPorInstitucion($idInstitucion);
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Entidad']))
+			$model->attributes=$_GET['Entidad'];
+                
+                
+
+		$this->render('admin2',array(
+			'model'=>$model,
+                        'listadoEntidad' => $listadoEntidad,
+		));
+                
+                
+	}
+        
+        
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
@@ -128,6 +155,30 @@ class EntidadController extends Controller
                 
                 
 		$this->render('xi',array(
+			'model'=>$model,
+                        'listadoEntidades' => $listadoEntidades,
+		));
+        }
+        
+        public function actionXi2() {
+            
+                $model=new Entidad('search');
+                
+                
+                if(isset($_GET['id'])){
+                    $idEntidad = $_GET['id'];
+                }
+                
+                $listadoEntidades = $model->listarEntidadPorEntidad($idEntidad);
+          
+                
+                
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Entidad']))
+			$model->attributes=$_GET['Entidad'];
+                
+                
+		$this->render('xi2',array(
 			'model'=>$model,
                         'listadoEntidades' => $listadoEntidades,
 		));

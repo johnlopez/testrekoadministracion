@@ -27,5 +27,6 @@ $this->menu=array(
 		'fecha_acceso',
 		'fecha_modificacion',
 		'fecha_creacion',
+                'estado_usuario_id'
 	),
 )); ?>

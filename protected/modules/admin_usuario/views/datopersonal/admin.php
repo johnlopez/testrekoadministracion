@@ -83,7 +83,7 @@ $(document).ready(function() {
                         <td><?php echo $datoPersonal['estado_civil']?></td>
                         <td><?php echo $datoPersonal['idioma']?></td>
                         <td><?php echo $datoPersonal['nacionalidad']?></td>
-                        <td><?php echo $datoPersonal['usuario_id']?></td>-->
+                        <td><?php echo $datoPersonal['usuario']?></td>-->
                         <td>                                        
                             <?php 
                             // http://www.v09studio.com/websystems/materials/forms.html

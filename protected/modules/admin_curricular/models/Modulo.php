@@ -9,10 +9,17 @@
  * @property string $descripcion
  * @property string $fecha_creacion
  * @property string $fecha_modificacion
+ * @property integer $estado_modulo_id
+ * @property integer $entidad_id
+ * @property integer $institucion_id
  *
  * The followings are the available model relations:
+ * @property Entidad $entidad
+ * @property Institucion $institucion
+ * @property EstadoModulo $estadoModulo
  * @property ProgramaAcademico[] $programaAcademicos
  * @property Seccion[] $seccions
+ * @property Usuario[] $usuarios
  */
 class Modulo extends CActiveRecord
 {
@@ -34,11 +41,12 @@ class Modulo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('estado_modulo_id, entidad_id, institucion_id', 'numerical', 'integerOnly'=>true),
 			array('nombre, descripcion', 'length', 'max'=>45),
 			array('fecha_creacion, fecha_modificacion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre, descripcion, fecha_creacion, fecha_modificacion', 'safe', 'on'=>'search'),
+			array('id, nombre, descripcion, fecha_creacion, fecha_modificacion, estado_modulo_id, entidad_id, institucion_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -50,8 +58,12 @@ class Modulo extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'entidad' => array(self::BELONGS_TO, 'Entidad', 'entidad_id'),
+			'institucion' => array(self::BELONGS_TO, 'Institucion', 'institucion_id'),
+			'estadoModulo' => array(self::BELONGS_TO, 'EstadoModulo', 'estado_modulo_id'),
 			'programaAcademicos' => array(self::MANY_MANY, 'ProgramaAcademico', 'programa_academico_has_modulo(modulo_id, programa_academico_id)'),
 			'seccions' => array(self::HAS_MANY, 'Seccion', 'modulo_id'),
+			'usuarios' => array(self::MANY_MANY, 'Usuario', 'usuario_has_modulo(modulo_id, usuario_id)'),
 		);
 	}
 
@@ -66,6 +78,9 @@ class Modulo extends CActiveRecord
 			'descripcion' => 'Descripcion',
 			'fecha_creacion' => 'Fecha Creacion',
 			'fecha_modificacion' => 'Fecha Modificacion',
+			'estado_modulo_id' => 'Estado Modulo',
+			'entidad_id' => 'Entidad',
+			'institucion_id' => 'Institucion',
 		);
 	}
 
@@ -92,6 +107,9 @@ class Modulo extends CActiveRecord
 		$criteria->compare('descripcion',$this->descripcion,true);
 		$criteria->compare('fecha_creacion',$this->fecha_creacion,true);
 		$criteria->compare('fecha_modificacion',$this->fecha_modificacion,true);
+		$criteria->compare('estado_modulo_id',$this->estado_modulo_id);
+		$criteria->compare('entidad_id',$this->entidad_id);
+		$criteria->compare('institucion_id',$this->institucion_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -109,24 +127,30 @@ class Modulo extends CActiveRecord
 		return parent::model($className);
 	}
         
-        public function agregarModulo($nombre,$descripcion,$fechaCreacion) {
+        public function agregarModulo($nombre,$descripcion,$fechaCreacion,$estadoModuloId,$entidadId,$institucionId) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_admin_curricular_agregar_modulo(:nombre,:descripcion,:fechaCreacion,@llave_id)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_curricular_agregar_modulo(:nombre,:descripcion,:fechaCreacion,:estadoModuloId,:entidadId,:institucionId,@llave_id)");
             $comando->bindParam(':nombre', $nombre);
             $comando->bindParam(':descripcion', $descripcion);
             $comando->bindParam(':fechaCreacion', $fechaCreacion);
+            $comando->bindParam(':estadoModuloId', $estadoModuloId);
+            $comando->bindParam(':entidadId', $entidadId);
+            $comando->bindParam(':institucionId', $institucionId);
             $comando->execute();
             $this->llaveIdModulo = Yii::app()->db->createCommand("select @llave_id as result;")->queryScalar();
             return $comando;
         }
         
-        public function modificarModulo($id,$nombre,$descripcion,$fechaModificacion) {
+        public function modificarModulo($id,$nombre,$descripcion,$fechaModificacion,$estadoModuloId,$entidadId,$institucionId) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_admin_curricular_actualizar_modulo(:id,:nombre,:descripcion,:fechaModificacion)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_curricular_actualizar_modulo(:id,:nombre,:descripcion,:fechaModificacion,:estadoModuloId,:entidadId,:institucionId)");
             $comando->bindParam('id', $id);
             $comando->bindParam(':nombre', $nombre);
             $comando->bindParam(':descripcion', $descripcion);
             $comando->bindParam(':fechaModificacion', $fechaModificacion);
+             $comando->bindParam(':estadoModuloId', $estadoModuloId);
+            $comando->bindParam(':entidadId', $entidadId);
+            $comando->bindParam(':institucionId', $institucionId);
             $comando->execute();
             return $comando;
         }
@@ -137,5 +161,91 @@ class Modulo extends CActiveRecord
             $comando->bindParam(':idModulo', $idModulo);
             $comando->execute();
             return $comando;
+        }
+        
+        public function listaEntidadModulo($idEntidad) {        
+            $command = Yii::app()->db->createCommand("CALL sp_admin_curricular_lista_entidad_modulo(:nuevo_entidad_id)");
+            $command->bindParam(':nuevo_entidad_id',$idEntidad);	
+            $resultado = $command->queryAll();        
+            return $resultado;       
+        }
+        
+        public function asignaModuloEntidad($listaEntidadModulo,$entidadId) {
+            $lista = implode(',', $listaEntidadModulo);
+            var_dump($lista);
+            $listaLen = count($listaEntidadModulo);        
+
+            $command = Yii::app()->db->createCommand("CALL sp_admin_curricular_asigna_modulo_entidad(:lista_modulo_id,:lista_largo,:nuevo_entidad_id)");
+            $command->bindParam(':lista_modulo_id',$lista);
+            $command->bindParam(':lista_largo',$listaLen);
+            $command->bindParam(':nuevo_entidad_id',$entidadId);
+            $resultado = $command->execute();        
+            return $resultado;
+        }
+        
+        public function desasignaModuloEntidad($listaEntidadModulo,$entidadId) {
+            $lista = implode(',', $listaEntidadModulo);
+            var_dump($lista);
+            $listaLen = count($listaEntidadModulo);        
+
+            $command = Yii::app()->db->createCommand("CALL sp_admin_curricular_desasigna_modulo_entidad(:lista_modulo_id,:lista_largo,:nuevo_entidad_id)");
+            $command->bindParam(':lista_modulo_id',$lista);
+            $command->bindParam(':lista_largo',$listaLen);
+            $command->bindParam(':nuevo_entidad_id',$entidadId);
+            $resultado = $command->execute();        
+            return $resultado;
+        }
+        
+        public function listaInstitucionModulo($idInstitucion) {        
+            $command = Yii::app()->db->createCommand("CALL sp_admin_curricular_lista_institucion_modulo(:nuevo_institucion_id)");
+            $command->bindParam(':nuevo_institucion_id',$idInstitucion);	
+            $resultado = $command->queryAll();        
+            return $resultado;       
+        }
+        
+        public function asignaModuloInstitucion($listaInstitucionModulo,$institucionId) {
+            $lista = implode(',', $listaInstitucionModulo);
+            var_dump($lista);
+            $listaLen = count($listaInstitucionModulo);        
+
+            $command = Yii::app()->db->createCommand("CALL sp_admin_curricular_asigna_modulo_institucion(:lista_modulo_id,:lista_largo,:nuevo_institucion_id)");
+            $command->bindParam(':lista_modulo_id',$lista);
+            $command->bindParam(':lista_largo',$listaLen);
+            $command->bindParam(':nuevo_institucion_id',$institucionId);
+            $resultado = $command->execute();        
+            return $resultado;
+        }
+        
+        public function desasignaModuloInstitucion($listaInstitucionModulo,$institucionId) {
+            $lista = implode(',', $listaInstitucionModulo);
+            var_dump($lista);
+            $listaLen = count($listaInstitucionModulo);        
+
+            $command = Yii::app()->db->createCommand("CALL sp_admin_curricular_desasigna_modulo_institucion(:lista_modulo_id,:lista_largo,:nuevo_institucion_id)");
+            $command->bindParam(':lista_modulo_id',$lista);
+            $command->bindParam(':lista_largo',$listaLen);
+            $command->bindParam(':nuevo_institucion_id',$institucionId);
+            $resultado = $command->execute();        
+            return $resultado;
+        }
+        
+        public function listarModulosPorInstitucion($idInstitucion) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_curricular_listar_modulos_por_institucion(:idInstitucion)");
+            $comando->bindParam(':idInstitucion', $idInstitucion);
+            return $comando->queryAll();
+        }
+        
+        public function listarModulosPorPrograma($idPrograma) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_curricular_listar_modulos_por_programa(:idPrograma)");
+            $comando->bindParam(':idPrograma', $idPrograma);
+            return $comando->queryAll();
+        }
+        
+        public function listarModulosPorEstado() {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_curricular_listar_modulos_por_estado()");
+            return $comando->queryAll();
         }
 }

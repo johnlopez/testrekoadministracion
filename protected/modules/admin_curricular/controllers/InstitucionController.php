@@ -28,7 +28,7 @@ class InstitucionController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin'),
+				'actions'=>array('index','view','admin','admin2','admin3','listaRoles','listaRolesModulo','admin4','listaRolesSeccion'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -65,6 +65,20 @@ class InstitucionController extends Controller
                         'listadoInstitucion' => $listadoInstitucion,
 		));
 	}
+        
+        public function actionAdmin2()
+	{
+		$model=new Institucion('search');
+                $listadoInstitucion = Institucion::model()->findAll();
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Institucion']))
+			$model->attributes=$_GET['Institucion'];
+
+		$this->render('admin2',array(
+			'model'=>$model,
+                        'listadoInstitucion' => $listadoInstitucion,
+		));
+	}
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
@@ -93,4 +107,59 @@ class InstitucionController extends Controller
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionAdmin3() {
+            
+            $programa = new ProgramaAcademico();
+            if(isset($_GET['id'])){
+                $id = $_GET['id'];
+            }
+            $listadoPrograma = $programa->listarProgramasPorInstitucion($id);
+            $this->render('admin3',array('listadoPrograma' => $listadoPrograma));
+        }
+        
+        public function actionListaRoles() {
+            
+            $institucion = new Institucion();
+            if(isset($_GET['id'])){
+                $id = $_GET['id'];
+            }
+            $listadoRoles = $institucion->listarRolesPorInstitucion($id);
+            $this->render('listaRoles', array('listadoRoles' => $listadoRoles, 'programa_id' => $id));
+        }
+        
+        
+        public function actionListaRolesModulo() {
+            
+            $institucion = new Institucion();
+             if(isset($_GET['id'])){
+                $id = $_GET['id'];
+            }
+            
+            $listadoRolesModulo = $institucion->listarRolesPorInstitucionModulo($id);
+            
+            $this->render('listaRolesModulo', array('listadoRolesModulo' => $listadoRolesModulo, 'modulo_id' => $id));
+        }
+        
+        
+        public function actionAdmin4() {
+            
+            $model = new Institucion();
+            $listadoInstitucion = Institucion::model()->findAll();
+            $this->render('admin4',array('listadoInstitucion' => $listadoInstitucion, 'model' => $model));
+        }
+        
+        
+        public function actionListaRolesSeccion() {
+            
+            $institucion = new Institucion();
+            
+            if(isset($_GET['id'])){
+                $idSeccion = $_GET['id'];
+            }
+            
+            $listadoRolesSeccion = $institucion->listarRolesPorInstitucionSeccion($idSeccion);
+            $this->render('listaRolesSeccion', array('listadoRolesSeccion' => $listadoRolesSeccion, 'seccion_id' => $idSeccion));
+        }
+   
 }

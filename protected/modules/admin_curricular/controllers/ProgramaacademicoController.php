@@ -1,4 +1,5 @@
 <?php
+Yii::app()->getModule('admin_institucion');
 
 class ProgramaAcademicoController extends Controller
 {
@@ -7,6 +8,7 @@ class ProgramaAcademicoController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
+        
 
 	/**
 	 * @return array action filters
@@ -28,7 +30,7 @@ class ProgramaAcademicoController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin','indexInstitucion','indexEntidad','AsignarProgramaInstitucion','AsignarProgramaEntidad','borrar'),
+				'actions'=>array('index','view','admin','indexInstitucion','indexEntidad','AsignarProgramaInstitucion','AsignarProgramaEntidad','borrar','index2','AsignarUsuarios','index3'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -62,7 +64,7 @@ class ProgramaAcademicoController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new ProgramaAcademico;
+		$model = new ProgramaAcademico();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -74,6 +76,9 @@ class ProgramaAcademicoController extends Controller
                                 $model->nombre,
                                 $model->descripcion,
                                 $model->version,
+                                $model->entidad_id ? : NULL,
+                                $model->institucion_id ? : NULL,
+                                $model->estado_programa_academico_id ? : NULL,
                                 $model->fecha_creacion
                         ))
 				
@@ -105,6 +110,9 @@ class ProgramaAcademicoController extends Controller
                                 $model->nombre,
                                 $model->descripcion,
                                 $model->version,
+                                $model->entidad_id ? : NULL,
+                                $model->institucion_id ? : NULL,
+                                $model->estado_programa_academico_id ? : NULL,
                                 $model->fecha_modificacion    
                         ))
 				
@@ -133,7 +141,8 @@ class ProgramaAcademicoController extends Controller
 	public function actionAdmin()
 	{
 		$model=new ProgramaAcademico('search');
-                $listadoPrograma = ProgramaAcademico::model()->findAll();
+                //$listadoPrograma = ProgramaAcademico::model()->findAll();
+                $listadoPrograma = $model->listarProgramasAcademicosPorEstado();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['ProgramaAcademico']))
 			$model->attributes=$_GET['ProgramaAcademico'];
@@ -192,7 +201,7 @@ class ProgramaAcademicoController extends Controller
                 }
                 else{ 
                     $preSelectedCategories[] =  0; 
-                    echo 'No hay programas disponibles';
+                   // echo 'No hay programas disponibles';
                 }
 
                 $tmpObj->id = (int)$item['id'];
@@ -332,5 +341,18 @@ class ProgramaAcademicoController extends Controller
                 $programa = new ProgramaAcademico();
                 $programa->eliminarLogicoProgramaAcademico($idPrograma);
                 $this->redirect('admin');
+        }   
+        
+        
+        public function actionIndex2() {
+            
+            $programa = new ProgramaAcademico();
+            
+            if(isset($_GET['id'])){
+               $id = $_GET['id'];
+            }
+            
+            $listadoPrograma = $programa->listarProgramasPorInstitucion($id);
+            $this->render('index2', array('listadoPrograma' => $listadoPrograma));
         }
 }

@@ -65,7 +65,7 @@ $(document).ready(function() {
                         <td><?php echo $datoAcademico['direccion_sede']?></td>
                         <td><?php echo $datoAcademico['comuna_sede']?></td>
                         <td><?php echo $datoAcademico['ciudad_sede']?></td>
-                        <td><?php echo $datoAcademico['usuario_id']?></td>
+                        <td><?php echo $datoAcademico['usuario']?></td>
                         <td>                                        
                             <?php 
                             // http://www.v09studio.com/websystems/materials/forms.html

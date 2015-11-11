@@ -28,7 +28,7 @@ class ModuloController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin','borrar'),
+				'actions'=>array('index','view','admin','indexInstitucion2','indexEntidad2','AsignarModuloInstitucion','AsignarModuloEntidad','borrar','listaModulos','index2'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -73,7 +73,10 @@ class ModuloController extends Controller
 			if($model->agregarModulo(
                                 $model->nombre,
                                 $model->descripcion,
-                                $model->fecha_creacion
+                                $model->fecha_creacion,
+                                $model->estado_modulo_id ? : NULL,
+                                $model->entidad_id ? : NULL,
+                                $model->institucion_id ? : NULL
                         ))
 				
                     $this->redirect(array('view','id'=>$model->llaveIdModulo));
@@ -103,7 +106,10 @@ class ModuloController extends Controller
                                 $model->id,
                                 $model->nombre,
                                 $model->descripcion,
-                                $model->fecha_modificacion
+                                $model->fecha_modificacion,
+                                $model->estado_modulo_id ? : NULL,
+                                $model->entidad_id ? : NULL,
+                                $model->institucion_id ? : NULL
                         ))
 				
                     $this->redirect(array('view','id'=>$model->id));
@@ -131,7 +137,8 @@ class ModuloController extends Controller
 	public function actionAdmin()
 	{
 		$model=new Modulo('search');
-                $listadoModulos = Modulo::model()->findAll();
+                //$listadoModulos = Modulo::model()->findAll();
+                $listadoModulos = $model->listarModulosPorEstado();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Modulo']))
 			$model->attributes=$_GET['Modulo'];
@@ -179,5 +186,178 @@ class ModuloController extends Controller
                 $modulo = new Modulo();
                 $modulo->eliminarLogicoModulo($idModulo);
                 $this->redirect('admin');
+        }
+        
+        
+        public function actionIndexEntidad2()
+        {   
+            $objetoEntidadArray = Array();
+            $preSelectedCategories = Array();
+            $modelo = new Modulo();
+
+            if(isset($_GET['id'])){
+                $idEntidad = $_GET['id'];
+            }
+
+            $listado = $modelo->listaEntidadModulo($idEntidad);
+
+
+            foreach($listado as $item) {                   
+                $tmpObj = new Modulo('myscenario');
+                if((int) $item['entidad_id'] != 0 ){
+                    $preSelectedCategories[] =  (int) $item['id'];
+                }
+                else{ 
+                    $preSelectedCategories[] =  0; 
+                   // echo 'No hay programas disponibles';
+                }
+
+                $tmpObj->id = (int)$item['id'];
+                $tmpObj->entidad_id = (int)$item['entidad_id']; 
+                $objetoEntidadArray[] = $tmpObj;
+            }
+
+
+            $this->render('indexEntidad2',array('model'=>$modelo,'objeto'=>$objetoEntidadArray,'seleccionados'=>$preSelectedCategories,'idEntidad'=>$idEntidad));
+        }
+    
+        public function actionAsignarModuloEntidad() {                     
+            
+            $modulo = new Modulo();
+            $listadoAsignarModulo = Array();
+            $listadoDesAsignarModulo = Array();
+
+
+            $listadoTotal = unserialize($_POST['datos-id-list']);
+            foreach(unserialize($_POST['datos-id-select']) as $modulos) {   
+                $listadoOriginal[] = $modulos;
+            }
+
+            $entidadId = $_POST['datos-entidad-id'];    
+            var_dump($entidadId);
+            $programaId = Array(); 
+
+            if(isset($_POST['id'])) {    
+                $programaId = $_POST['id'];                
+                for( $i=0; $i < count($listadoOriginal); $i++) {
+                    if( in_array( $listadoOriginal[$i],$programaId ) ) {
+                            $listadoAsignarModulo[] = $listadoOriginal[$i];
+                        }
+                    else {
+                            $listadoDesAsignarModulo[] = $listadoOriginal[$i];
+                        }
+                }
+
+                if( count($listadoAsignarModulo) )
+                    $modulo->asignaModuloEntidad ($listadoAsignarModulo, $entidadId);
+
+                if( count($listadoDesAsignarModulo) )
+                    $modulo->desasignaModuloEntidad ($listadoDesAsignarModulo, $entidadId);     
+            }
+            else{
+                $modulo->desasignaModuloEntidad($listadoOriginal, $entidadId);                  
+            }
+
+
+            $this->redirect(array("indexEntidad2",'id'=>$entidadId));
+
+        }
+        
+        public function actionIndexInstitucion2()
+        {
+            $objetoInstitucionArray = Array();
+            $preSelectedCategories = Array();
+            $modelo = new Modulo();
+
+            if(isset($_GET['id'])){
+                $idInstitucion = $_GET['id'];
+            }
+
+            $listado = $modelo->listaInstitucionModulo($idInstitucion);
+
+
+            foreach($listado as $item) {                   
+                $tmpObj = new Modulo('myscenario');
+                if((int) $item['institucion_id'] != 0 ){
+                    $preSelectedCategories[] =  (int) $item['id'];
+                    
+                }
+                else{ 
+                    $preSelectedCategories[] =  0; 
+                }
+
+                $tmpObj->id = (int)$item['id'];
+                $tmpObj->institucion_id = (int)$item['institucion_id']; 
+                
+                $objetoInstitucionArray[] = $tmpObj;
+            }
+
+
+            $this->render('indexInstitucion2',array('model'=>$modelo,'objeto'=>$objetoInstitucionArray,'seleccionados'=>$preSelectedCategories,'idInstitucion'=>$idInstitucion));
+        }
+    
+        public function actionAsignarModuloInstitucion() {                     
+            
+            $modulo = new Modulo();
+            $listadoAsignarModulo = Array();
+            $listadoDesAsignarModulo = Array();
+
+
+            $listadoTotal = unserialize($_POST['datos-id-list']);
+            foreach(unserialize($_POST['datos-id-select']) as $modulos) {   
+                $listadoOriginal[] = $modulos;
+            }
+
+            $institucionId = $_POST['datos-institucion-id'];    
+            var_dump($institucionId);
+            $programaId = Array(); 
+
+            if(isset($_POST['id'])) {    
+                $programaId = $_POST['id'];                
+                for( $i=0; $i < count($listadoOriginal); $i++) {
+                    if( in_array( $listadoOriginal[$i],$programaId ) ) {
+                            $listadoAsignarModulo[] = $listadoOriginal[$i];
+                        }
+                    else {
+                            $listadoDesAsignarModulo[] = $listadoOriginal[$i];
+                        }
+                }
+
+                if( count($listadoAsignarModulo) )
+                    $modulo->asignaModuloInstitucion($listadoAsignarModulo, $institucionId);
+
+                if( count($listadoDesAsignarModulo) )
+                    $modulo->desasignaModuloInstitucion($listadoDesAsignarModulo, $institucionId);      
+            }
+            else{
+                $modulo->desasignaModuloInstitucion($listadoOriginal, $institucionId);                
+            }
+
+
+            $this->redirect(array("indexInstitucion2",'id'=>$institucionId));
+
+        }
+        
+        public function actionListaModulos() {
+            
+            if(isset($_GET['id'])){
+                $idInstitucion = $_GET['id'];
+            }
+            
+            $modulo = new Modulo();
+            $listadoModulos = $modulo->listarModulosPorInstitucion($idInstitucion);
+            
+            $this->render('listaModulos',array('listadoModulos' => $listadoModulos));
+        }
+        
+        public function actionIndex2() {
+            
+            $modulo = new Modulo();
+            if(isset($_GET['id'])){
+                $idPrograma = $_GET['id'];
+            }
+            
+            $listadoModulos = $modulo->listarModulosPorPrograma($idPrograma);
+            $this->render('index2', array('listadoModulos' => $listadoModulos));
         }
 }

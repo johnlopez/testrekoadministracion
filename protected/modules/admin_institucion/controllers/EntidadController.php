@@ -70,15 +70,14 @@ class EntidadController extends Controller
 
 		if(isset($_POST['Entidad']))
 		{
-                        print_r($_POST['Entidad']);
-  
 			$model->attributes=$_POST['Entidad'];
 			if($model->agregarEntidad(
                                 $model->nombre,
                                 $model->descripcion,
-                                $model->fecha_creacion,
                                 $model->institucion_id,
-                                $model->entidad_id = $model->entidad_id ? $model->entidad_id : null
+                                $model->entidad_id ? : NULL,
+                                $model->estado_entidad_id ? : NULL,
+                                $model->fecha_creacion
                         ))
                            
 				
@@ -109,10 +108,10 @@ class EntidadController extends Controller
                                 $model->id,
                                 $model->nombre,
                                 $model->descripcion,
-                                $model->fecha_modificacion,
                                 $model->institucion_id,
-                                $model->entidad_id = $model->entidad_id ? $model->entidad_id : null
-                                
+                                $model->entidad_id ? : NULL,
+                                $model->estado_entidad_id ? : NULL,
+                                $model->fecha_modificacion
                         ))
 				
                     $this->redirect(array('view','id'=>$model->id));

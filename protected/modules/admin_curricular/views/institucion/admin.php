@@ -14,13 +14,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+<h3>Listado de instituciones</h3><br><br>
 
 <script type="text/javascript" language="javascript" class="init">
 $(document).ready(function() {
@@ -82,6 +76,15 @@ $(document).ready(function() {
                                         </span>
                                     </button>
                                 </form>
+                                
+                                 <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/institucion/admin3" method="get">
+                                    <input type="hidden" name="id" value="<?php echo $institucion['id']?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                        <span class="icon mif-eye">
+
+                                        </span>
+                                    </button>
+                                </form>
                             </div>                                        
                         </td>
                     </tr>
@@ -93,3 +96,4 @@ $(document).ready(function() {
         </ul>               
     </section>
 </div>
+

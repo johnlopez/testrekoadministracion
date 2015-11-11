@@ -10,27 +10,24 @@
  * @property string $fecha_acceso
  * @property string $fecha_modificacion
  * @property string $fecha_creacion
+ * @property integer $estado_usuario_id
  *
  * The followings are the available model relations:
  * @property DatoAcademico[] $datoAcademicos
  * @property DatoLaboral[] $datoLaborals
  * @property DatoLogin[] $datoLogins
  * @property DatoPersonal[] $datoPersonals
- * @property EscritorioUsuario[] $escritorioUsuarios
- * @property EstadoUsuario[] $estadoUsuarios
+ * @property EstadoUsuario $estadoUsuario
+ * @property UsuarioHasInstitucion[] $usuarioHasInstitucions
+ * @property Modulo[] $modulos
+ * @property ProgramaAcademico[] $programaAcademicos
  * @property RolUsuario[] $rolUsuarios
+ * @property Seccion[] $seccions
  */
 class Usuario extends CActiveRecord
 {
-	/**
-	 * @return string the associated database table name
-	 */
         public $llaveIdUsuario;
-        public $file;
-        
-       
-
-
+      
 	public function tableName()
 	{
 		return 'usuario';
@@ -44,17 +41,12 @@ class Usuario extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('usuario, clave', 'length', 'max'=>45),
+			array('estado_usuario_id', 'numerical', 'integerOnly'=>true),
+                        array('usuario, clave', 'length', 'max'=>45),
 			array('fecha_acceso, fecha_modificacion, fecha_creacion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, usuario, clave, fecha_acceso, fecha_modificacion, fecha_creacion', 'safe', 'on'=>'search'),
-                        array('file', 'file', 
-                                'types'=>'csv',
-                                'maxSize'=>1024 * 1024 * 10, // 10MB
-                                'tooLarge'=>'The file was larger than 10MB. Please upload a smaller file.',
-                                'allowEmpty' => false
-                        ),
+			array('id, usuario, clave, fecha_acceso, fecha_modificacion, fecha_creacion, estado_usuario_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,9 +62,12 @@ class Usuario extends CActiveRecord
 			'datoLaborals' => array(self::HAS_MANY, 'DatoLaboral', 'usuario_id'),
 			'datoLogins' => array(self::HAS_MANY, 'DatoLogin', 'usuario_id'),
 			'datoPersonals' => array(self::HAS_MANY, 'DatoPersonal', 'usuario_id'),
-			'escritorioUsuarios' => array(self::HAS_MANY, 'EscritorioUsuario', 'usuario_id'),
-			'estadoUsuarios' => array(self::HAS_MANY, 'EstadoUsuario', 'usuario_id'),
+			'estadoUsuario' => array(self::BELONGS_TO, 'EstadoUsuario', 'estado_usuario_id'),
+			'usuarioHasInstitucions' => array(self::HAS_MANY, 'UsuarioHasInstitucion', 'usuario_id'),
+			'modulos' => array(self::MANY_MANY, 'Modulo', 'usuario_has_modulo(usuario_id, modulo_id)'),
+			'programaAcademicos' => array(self::MANY_MANY, 'ProgramaAcademico', 'usuario_has_programa_academico(usuario_id, programa_academico_id)'),
 			'rolUsuarios' => array(self::MANY_MANY, 'RolUsuario', 'usuario_has_rol_usuario(usuario_id, rol_usuario_id)'),
+			'seccions' => array(self::MANY_MANY, 'Seccion', 'usuario_has_seccion(usuario_id, seccion_id)'),
 		);
 	}
 
@@ -88,7 +83,7 @@ class Usuario extends CActiveRecord
 			'fecha_acceso' => 'Fecha Acceso',
 			'fecha_modificacion' => 'Fecha Modificacion',
 			'fecha_creacion' => 'Fecha Creacion',
-                        'file' => 'Seleccionar Archivo',
+			'estado_usuario_id' => 'Estado Usuario',
 		);
 	}
 
@@ -116,6 +111,7 @@ class Usuario extends CActiveRecord
 		$criteria->compare('fecha_acceso',$this->fecha_acceso,true);
 		$criteria->compare('fecha_modificacion',$this->fecha_modificacion,true);
 		$criteria->compare('fecha_creacion',$this->fecha_creacion,true);
+		$criteria->compare('estado_usuario_id',$this->estado_usuario_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -133,24 +129,26 @@ class Usuario extends CActiveRecord
 		return parent::model($className);
 	}
         
-        public function agregarUsuario($usuario,$clave,$fechaCreacion) {
+        public function agregarUsuario($usuario,$clave,$fechaCreacion,$estadoUsuarioId) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_agregar_usuario(:usuario,:clave,:fechaCreacion,@llave_id)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_agregar_usuario(:usuario,:clave,:fechaCreacion,:estadoUsuarioId,@llave_id)");
             $comando->bindParam(':usuario', $usuario);
             $comando->bindParam(':clave', $clave);
             $comando->bindParam(':fechaCreacion', $fechaCreacion);
+            $comando->bindParam(':estadoUsuarioId', $estadoUsuarioId);
             $comando->execute();
             $this->llaveIdUsuario = Yii::app()->db->createCommand("select @llave_id as result;")->queryScalar();
             return $comando;
         }
         
-        public function modificarUsuario($id,$usuario,$clave,$fechaModificacion) {
+        public function modificarUsuario($id,$usuario,$clave,$fechaModificacion,$estadoUsuarioId) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_actualizar_usuario(:id,:usuario,:clave,:fechaModificacion)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_actualizar_usuario(:id,:usuario,:clave,:fechaModificacion,:estadoUsuarioId)");
             $comando->bindParam(':id', $id);
             $comando->bindParam(':usuario', $usuario);
             $comando->bindParam(':clave', $clave);
             $comando->bindParam(':fechaModificacion', $fechaModificacion);
+            $comando->bindParam(':estadoUsuarioId', $estadoUsuarioId);
             $comando->execute();
             return $comando;
         }
@@ -180,4 +178,5 @@ class Usuario extends CActiveRecord
             $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_listar_usuarios_por_estado()");
             return $comando->queryAll();
         }
+        
 }

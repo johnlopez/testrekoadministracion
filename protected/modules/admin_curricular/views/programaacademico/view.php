@@ -27,5 +27,8 @@ $this->menu=array(
 		'version',
 		'fecha_creacion',
 		'fecha_modificacion',
+                'entidad_id',
+                'institucion_id',
+                'estado_programa_academico_id'
 	),
 )); ?>

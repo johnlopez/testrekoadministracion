@@ -32,15 +32,21 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'institucion_id'); ?>
+		<?php echo $form->labelEx($model,'institucion'); ?>
 		<?php echo $form->dropDownList($model,'institucion_id', CHtml::listData(Institucion::model()->findAll(),'id' ,'nombre'),array('empty'=>'seleccionar institucion')); ?>
 		<?php echo $form->error($model,'institucion_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'entidad_id'); ?>
+		<?php echo $form->labelEx($model,'entidad'); ?>
 		<?php echo $form->dropDownList($model,'entidad_id', CHtml::listData(Entidad::model()->findAll(),'id' ,'nombre'),array('empty'=>'seleccionar entidad')); ?>
 		<?php echo $form->error($model,'entidad_id'); ?>
+	</div>
+        
+        <div class="row">
+		<?php echo $form->labelEx($model,'estado'); ?>
+		<?php echo $form->dropDownList($model,'estado_entidad_id', CHtml::listData(EstadoEntidad::model()->findAll(),'id' ,'estado'),array('empty'=>'seleccionar estado')); ?>
+		<?php echo $form->error($model,'estado_entidad_id'); ?>
 	</div>
 
 	<div class="row buttons">

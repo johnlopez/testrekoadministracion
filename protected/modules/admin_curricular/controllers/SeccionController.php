@@ -28,7 +28,7 @@ class SeccionController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin','borrar'),
+				'actions'=>array('index','view','admin','borrar','index2'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -73,9 +73,10 @@ class SeccionController extends Controller
 			if($model->agregarSeccion(
                                 $model->nombre,
                                 $model->jornada,
-                                $model->descripcion,
-                                $model->fecha_creacion,
-                                $model->modulo_id
+                                $model->descripcion,     
+                                $model->modulo_id,
+                                $model->estado_seccion_id,
+                                $model->fecha_creacion
                         ))
 				
                             
@@ -106,9 +107,10 @@ class SeccionController extends Controller
                                 $model->id,
                                 $model->nombre,
                                 $model->jornada,
-                                $model->descripcion,
-                                $model->fecha_modificacion,
-                                $model->modulo_id             
+                                $model->descripcion,         
+                                $model->modulo_id,
+                                $model->estado_seccion_id,
+                                $model->fecha_modificacion
                         ))
 				
                     $this->redirect(array('view','id'=>$model->id));
@@ -136,7 +138,8 @@ class SeccionController extends Controller
 	public function actionAdmin()
 	{
 		$model=new Seccion('search');
-                $listadoSeccion = Seccion::model()->findAll();
+                //$listadoSeccion = Seccion::model()->findAll();
+                $listadoSeccion = $model->listarSeccionesPorEstado();
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Seccion']))
 			$model->attributes=$_GET['Seccion'];
@@ -184,5 +187,17 @@ class SeccionController extends Controller
                 $seccion = new Seccion();
                 $seccion->eliminarLogicoSeccion($idSeccion);
                 $this->redirect('admin');
+        }
+        
+        public function actionIndex2() {
+            
+            $seccion = new Seccion();
+            
+            if(isset($_GET['id'])){
+                $idModulo = $_GET['id'];
+            }
+            
+            $listadoSeccion = $seccion->listarSeccionesPorModulo($idModulo);   
+            $this->render('index2', array('listadoSeccion' => $listadoSeccion));
         }
 }

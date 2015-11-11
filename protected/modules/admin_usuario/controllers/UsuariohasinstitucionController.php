@@ -38,6 +38,7 @@ class UsuarioHasInstitucionController extends Controller {
             $tmpObj->usuario_id = (int)$item['usuario_id'];
             $tmpObj->institucion_id = (int)$item['institucion_id'];  
             $tmpObj->usuario = $item['usuario'];
+ 
             $objetoInstitucionArray[] = $tmpObj;
         }
             

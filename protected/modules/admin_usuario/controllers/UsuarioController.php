@@ -1,5 +1,5 @@
 <?php
-
+Yii::app()->getModule('admin_curricular');
 
 class UsuarioController extends Controller
 {
@@ -74,7 +74,9 @@ class UsuarioController extends Controller
 			if($model->agregarUsuario(
                                 $model->usuario,
                                 $model->clave,
-                                $model->fecha_creacion
+                                $model->fecha_creacion,
+                                $model->estado_usuario_id ? : NULL
+                                
                             ))
                                 
                         $this->redirect(array('view','id' => $model->llaveIdUsuario));
@@ -104,7 +106,8 @@ class UsuarioController extends Controller
                                 $model->id,
                                 $model->usuario,
                                 $model->clave,
-                                $model->fecha_modificacion
+                                $model->fecha_modificacion,
+                                $model->estado_usuario_id ? : NULL
                             ))
 				
                         $this->redirect(array('view','id'=>$model->id));

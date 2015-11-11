@@ -38,11 +38,17 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'modulo_id'); ?>
+		<?php echo $form->labelEx($model,'modulo'); ?>
 		<?php echo $form->dropDownList($model,'modulo_id', CHtml::listData(Modulo::model()->findAll(),'id' ,'nombre'),array('empty'=>'seleccionar modulo')); ?>
 		<?php echo $form->error($model,'modulo_id'); ?>
 	</div>
-
+        
+        <div class="row">
+		<?php echo $form->labelEx($model,'estado'); ?>
+		<?php echo $form->dropDownList($model,'estado_seccion_id', CHtml::listData(EstadoSeccion::model()->findAll(),'id' ,'estado'),array('empty'=>'seleccionar estado')); ?>
+		<?php echo $form->error($model,'estado_seccion_id'); ?>
+	</div>
+        
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

@@ -51,10 +51,11 @@ $(document).ready(function() {
                     <th>FECHA MODIFICACION</th>
                     <th>FECHA CREACION</th>
                     <th>ESTADO</th>
-                    <th>OPCIONES</th>
+                    <th>OPCIONES</th> 
                 </tr>
             </thead>
             <tbody>
+                <?php $vacio = 'Sin estado'; ?>
                 <?php foreach ($listadoUsuarios as $usuario):?>                                                     
                     <tr>
                         <td><?php echo $usuario['id'] ?></td>
@@ -63,7 +64,8 @@ $(document).ready(function() {
                         <td><?php echo $usuario['fecha_acceso']?></td>
                         <td><?php echo $usuario['fecha_modificacion']?></td>
                         <td><?php echo $usuario['fecha_creacion']?></td>
-                        <td><?php echo $usuario['estado']?></td>
+                        <td><?php echo $usuario['estado'] ? : $usuario['estado'] = $vacio ?></td>
+       
                         <td>                                        
                             <?php 
                             // http://www.v09studio.com/websystems/materials/forms.html

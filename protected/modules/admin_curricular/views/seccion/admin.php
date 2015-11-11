@@ -88,15 +88,6 @@ $(document).ready(function() {
                                         </span>
                                     </button>
                                 </form> 
-                                
-                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/programaacademicohasmodulo/index" method="get">
-                                    <input type="hidden" name="id" value="<?php echo $seccion['id']?>" />
-                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
-                                        <span class="icon mif-pin">
-
-                                        </span>
-                                    </button>
-                                </form>
                             </div>                                        
                         </td>
                     </tr>
@@ -108,3 +99,20 @@ $(document).ready(function() {
         </ul>               
     </section>
 </div>
+
+
+<a href="<?php echo Yii::app()->getBaseUrl()."/admin_curricular/institucion/admin4";?>" >
+                <div class="tile-small bg-darkViolet fg-white" data-role="tile">
+                    <div class="tile-content iconic">
+                        <span class="icon mif-library"></span>
+                    </div>
+                    <span class="tile-label">            
+                        <?php 
+                            $pizza  = CHtml::encode('');
+                            $porciones = explode("_", $pizza);
+                            foreach ($porciones as $p)
+                            echo $p." "; // porciÃ³n
+                        ?>                
+                    </span>
+                </div>  
+</a>

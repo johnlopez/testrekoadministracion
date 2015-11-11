@@ -68,7 +68,7 @@ $(document).ready(function() {
                         <td><?php echo $datoLaboral['celular_empresa']?></td>
                         <td><?php echo $datoLaboral['rut_numero']?></td>
                         <td><?php echo $datoLaboral['digito_verificador']?></td>
-                        <td><?php echo $datoLaboral['usuario_id']?></td>
+                        <td><?php echo $datoLaboral['usuario']?></td>
                         <td>                                        
                             <?php 
                             // http://www.v09studio.com/websystems/materials/forms.html

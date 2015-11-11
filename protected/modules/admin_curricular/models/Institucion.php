@@ -128,4 +128,25 @@ class Institucion extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        public function listarRolesPorInstitucion($id) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_institucion_listar_rol_por_institucion(:id)");
+            $comando->bindParam(':id', $id);
+            return $comando->queryAll();
+        }
+        
+        public function listarRolesPorInstitucionModulo($id) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_institucion_listar_rol_por_institucion2(:id)");
+            $comando->bindParam(':id', $id);
+            return $comando->queryAll();
+        }
+        
+        public function listarRolesPorInstitucionSeccion($idSeccion) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_institucion_listar_rol_por_institucion3(:idSeccion)");
+            $comando->bindParam(':idSeccion', $idSeccion);
+            return $comando->queryAll();
+        }
 }

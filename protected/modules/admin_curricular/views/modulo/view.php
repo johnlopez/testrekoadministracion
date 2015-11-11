@@ -26,5 +26,8 @@ $this->menu=array(
 		'descripcion',
 		'fecha_creacion',
 		'fecha_modificacion',
+                'estado_modulo_id',
+                'entidad_id',
+                'institucion_id'
 	),
 )); ?>

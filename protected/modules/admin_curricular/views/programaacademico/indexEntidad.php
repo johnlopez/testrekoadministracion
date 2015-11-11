@@ -1,5 +1,5 @@
 <div class="form">
-    <?php echo CHtml::beginForm($this->createUrl('AsignarProgramaEntidad'), 'post'); ?>
+    <?php echo CHtml::beginForm($this->createUrl('AsignarUsuarios'), 'post'); ?>
 
         <h3>Programas por asignar</h3>
         <div class="row rememberMe">

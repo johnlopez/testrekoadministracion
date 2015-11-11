@@ -26,7 +26,8 @@ $this->menu=array(
 		'jornada',
 		'descripcion',
 		'fecha_creacion',
-		'fecha_modificacion',
+                'fecha_modificacion',
 		'modulo_id',
+                'estado_seccion_id'
 	),
 )); ?>

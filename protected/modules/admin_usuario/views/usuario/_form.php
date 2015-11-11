@@ -30,7 +30,12 @@
 		<?php echo $form->textField($model,'clave',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'clave'); ?>
 	</div>
-         
+        
+         <div class="row">
+		<?php echo $form->labelEx($model,'estado'); ?>
+		<?php echo $form->dropDownList($model,'estado_usuario_id', CHtml::listData(EstadoUsuario::model()->findAll(),'id' ,'estado'),array('empty'=>'seleccione')); ?>
+		<?php echo $form->error($model,'estado_usuario_id'); ?>
+	</div>
         
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
