@@ -1,5 +1,5 @@
 <?php
-/* @var $this ModeloAprendizajeController */
+/* @var $this ModeloaprendizajeController */
 /* @var $data ModeloAprendizaje */
 ?>
 
@@ -27,6 +27,10 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('fecha_creacion')); ?>:</b>
 	<?php echo CHtml::encode($data->fecha_creacion); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('fecha_eliminacion')); ?>:</b>
+	<?php echo CHtml::encode($data->fecha_eliminacion); ?>
 	<br />
 
 

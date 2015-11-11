@@ -1,5 +1,5 @@
 <?php
-/* @var $this ModeloAprendizajeController */
+/* @var $this ModeloaprendizajeController */
 /* @var $model ModeloAprendizaje */
 /* @var $form CActiveForm */
 ?>
@@ -23,7 +23,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'descripcion'); ?>
-		<?php echo $form->textField($model,'descripcion',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->textArea($model,'descripcion',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
 	<div class="row">
@@ -39,6 +39,11 @@
 	<div class="row">
 		<?php echo $form->label($model,'fecha_creacion'); ?>
 		<?php echo $form->textField($model,'fecha_creacion'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'fecha_eliminacion'); ?>
+		<?php echo $form->textField($model,'fecha_eliminacion'); ?>
 	</div>
 
 	<div class="row buttons">

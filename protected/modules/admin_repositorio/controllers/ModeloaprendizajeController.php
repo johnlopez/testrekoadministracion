@@ -1,6 +1,6 @@
 <?php
 
-class ModeloAprendizajeController extends Controller
+class ModeloaprendizajeController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -24,15 +24,11 @@ class ModeloAprendizajeController extends Controller
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-//        public function accessRules()
-//	{
-//            return Yii::app()->Validar->validarAcceso();
-//	}
-        public function accessRules()
+	public function accessRules()
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','asignar'),
+				'actions'=>array('index','view'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -55,8 +51,34 @@ class ModeloAprendizajeController extends Controller
 	 */
 	public function actionView($id)
 	{
+                $modelHerramienta = new ModeloAprendizajeHasHerramienta();
+
+                if(isset($_GET['herramienta_id']))
+                {
+                    $herramienta = $modelHerramienta->findByPk($_GET['herramienta_id']);
+                }
+                else {
+                    $herramientaProcedure = $modelHerramienta->listaModeloAprendizajeHasHerramienta($id);
+                    $herramienta = new ModeloAprendizajeHasHerramienta();
+                    foreach ($herramientaProcedure as $herramientaP){
+                        $herramienta->id = $herramientaP['id'];
+                        $herramienta->trabajo_grupal =  $herramientaP['trabajo_grupal'];
+                        $herramienta->archivo_recurso =  $herramientaP['archivo_recurso'];
+                        $herramienta->link_interes =  $herramientaP['link_interes'];
+                        $herramienta->glosario =  $herramientaP['glosario'];
+                        $herramienta->contenido_libre =  $herramientaP['contenido_libre'];
+                        $herramienta->foro =  $herramientaP['foro'];
+                        $herramienta->evaluacion =  $herramientaP['evaluacion'];
+                        $herramienta->autoevaluacion =  $herramientaP['autoevaluacion'];
+                        $herramienta->proyecto =  $herramientaP['proyecto'];
+                        $herramienta->recepcion_trabajo =  $herramientaP['recepcion_trabajo'];
+                        $herramienta->evaluacion_no_objetiva =  $herramientaP['evaluacion_no_objetiva'];
+                        $herramienta->modelo_aprendizaje_id =  $herramientaP['modelo_aprendizaje_id'];
+                    }                    
+                }
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+                        'herramienta'=>$herramienta,
 		));
 	}
 
@@ -66,20 +88,41 @@ class ModeloAprendizajeController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new ModeloAprendizaje;
+		$model=new ModeloAprendizaje();
+                $herramienta = new ModeloAprendizajeHasHerramienta();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ModeloAprendizaje']))
+		if(isset($_POST['ModeloAprendizaje'],$_POST['ModeloAprendizajeHasHerramienta']))
 		{
 			$model->attributes=$_POST['ModeloAprendizaje'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+                        $herramienta->attributes= $_POST['ModeloAprendizajeHasHerramienta'];
+                        
+                        var_dump($model);
+                        
+                        
+			if  ($model->agregarModeloAprendizaje(
+                                $model->nombre, 
+                                $model->descripcion, 
+                                $herramienta->trabajo_grupal,
+                                $herramienta->archivo_recurso,
+                                $herramienta->link_interes, 
+                                $herramienta->glosario, 
+                                $herramienta->contenido_libre, 
+                                $herramienta->foro, 
+                                $herramienta->evaluacion, 
+                                $herramienta->autoevaluacion, 
+                                $herramienta->proyecto, 
+                                $herramienta->recepcion_trabajo, 
+                                $herramienta->evaluacion_no_objetiva)
+                            )
+				$this->redirect(array('view','id'=>$model->lastInsertModeloAprendizajeId,'herramienta_id'=>$model->lastInsertModeloAprendizajeHerramientaId));
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+                        'herramienta'=>$herramienta,
 		));
 	}
 
@@ -91,19 +134,61 @@ class ModeloAprendizajeController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+                $modelHerramienta = new ModeloAprendizajeHasHerramienta();
+                $herramientaProcedure = $modelHerramienta->listaModeloAprendizajeHasHerramienta($id);
+                $herramienta = new ModeloAprendizajeHasHerramienta();
+                foreach ($herramientaProcedure as $herramientaP){
+                    $herramienta->id = $herramientaP['id'];
+                    $herramienta->trabajo_grupal =  $herramientaP['trabajo_grupal'];
+                    $herramienta->archivo_recurso =  $herramientaP['archivo_recurso'];
+                    $herramienta->link_interes =  $herramientaP['link_interes'];
+                    $herramienta->glosario =  $herramientaP['glosario'];
+                    $herramienta->contenido_libre =  $herramientaP['contenido_libre'];
+                    $herramienta->foro =  $herramientaP['foro'];
+                    $herramienta->evaluacion =  $herramientaP['evaluacion'];
+                    $herramienta->autoevaluacion =  $herramientaP['autoevaluacion'];
+                    $herramienta->proyecto =  $herramientaP['proyecto'];
+                    $herramienta->recepcion_trabajo =  $herramientaP['recepcion_trabajo'];
+                    $herramienta->evaluacion_no_objetiva =  $herramientaP['evaluacion_no_objetiva'];
+                    $herramienta->modelo_aprendizaje_id =  $herramientaP['modelo_aprendizaje_id'];
+                }
+                
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ModeloAprendizaje']))
+		if(isset($_POST['ModeloAprendizaje']) && isset($_POST['ModeloAprendizajeHasHerramienta']))
 		{
-			$model->attributes=$_POST['ModeloAprendizaje'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+                    $model->attributes = $_POST['ModeloAprendizaje'];
+                    $herramienta->attributes = $_POST['ModeloAprendizajeHasHerramienta'];
+                                                                       
+                    if($model->modificarModeloAprendizaje(
+                            $id,
+                            $model->nombre, 
+                            $model->descripcion, 
+                            $herramienta->trabajo_grupal,
+                            $herramienta->archivo_recurso,
+                            $herramienta->link_interes, 
+                            $herramienta->glosario, 
+                            $herramienta->contenido_libre, 
+                            $herramienta->foro, 
+                            $herramienta->evaluacion, 
+                            $herramienta->autoevaluacion, 
+                            $herramienta->proyecto, 
+                            $herramienta->recepcion_trabajo, 
+                            $herramienta->evaluacion_no_objetiva)
+                        )
+                    {
+                        
+                        $this->redirect(array('view','id'=>$model->lastInsertModeloAprendizajeId,'herramienta_id'=>$model->lastInsertModeloAprendizajeHerramientaId));
+                    }
+			
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+                        'herramienta'=>$herramienta,
+
 		));
 	}
 

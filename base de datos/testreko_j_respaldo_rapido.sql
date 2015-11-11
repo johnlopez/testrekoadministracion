@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 29-09-2015 a las 21:40:58
+-- Tiempo de generación: 11-11-2015 a las 12:49:27
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -226,6 +226,14 @@ FROM
 WHERE P.name = C.authitem_permiso_administrador_name
 AND P.name = nuevo_permiso;
 end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_entidad_por_institucion`(nuevo_id_institucion int)
+BEGIN
+SELECT en.id,en.nombre,en.descripcion,en.fecha_creacion,en.fecha_modificacion 
+FROM entidad en, institucion ins
+WHERE ins.id = en.institucion_id
+AND ins.id = nuevo_id_institucion;
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_estados_usuario`()
 begin
@@ -478,6 +486,48 @@ SELECT resultado, nuevo_modulo_id, modulo_id_tmp;
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_asigna_programa_entidad`(lista_programa_id varchar(255), lista_largo int, nuevo_entidad_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_programa_id int default NULL;
+DECLARE programa_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_programa_id = getValueFromArray(lista_programa_id, ',', x);	
+    SELECT programa_academico_id INTO programa_id_tmp FROM programa_academico_has_entidad WHERE programa_academico_id = nuevo_programa_id AND entidad_id = nuevo_entidad_id;
+    IF ( programa_id_tmp IS NULL) THEN
+		INSERT INTO programa_academico_has_entidad (`programa_academico_id`,`entidad_id`) VALUES (nuevo_programa_id,nuevo_entidad_id);
+	ELSE
+		SET programa_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_programa_id, programa_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_asigna_programa_institucion`(lista_programa_id varchar(255), lista_largo int, nuevo_institucion_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_programa_id int default NULL;
+DECLARE programa_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_programa_id = getValueFromArray(lista_programa_id, ',', x);	
+    SELECT programa_academico_id INTO programa_id_tmp FROM programa_academico_has_institucion WHERE programa_academico_id = nuevo_programa_id AND institucion_id = nuevo_institucion_id;
+    IF ( programa_id_tmp IS NULL) THEN
+		INSERT INTO programa_academico_has_institucion (`programa_academico_id`,`institucion_id`) VALUES (nuevo_programa_id,nuevo_institucion_id);
+	ELSE
+		SET programa_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_programa_id, programa_id_tmp;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_desasigna_modulo_programa_academico`(lista_modulo_id varchar(255), lista_largo int, nuevo_programa_id int)
 BEGIN
 DECLARE x int DEFAULT 0;
@@ -497,6 +547,98 @@ END WHILE;
 
 SELECT resultado, nuevo_modulo_id, modulo_id_tmp;
 
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_desasigna_programa_entidad`(lista_programa_id varchar(255), lista_largo int, nuevo_entidad_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_programa_id int default NULL;
+DECLARE programa_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_programa_id = getValueFromArray(lista_programa_id, ',', x);	
+    SELECT programa_academico_id INTO programa_id_tmp FROM programa_academico_has_entidad WHERE programa_academico_id = nuevo_programa_id AND entidad_id = nuevo_entidad_id;
+    IF ( programa_id_tmp IS NOT NULL) THEN
+		DELETE FROM programa_academico_has_entidad WHERE entidad_id = nuevo_entidad_id AND programa_academico_id = nuevo_programa_id;
+	ELSE
+		SET programa_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_programa_id, programa_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_desasigna_programa_institucion`(lista_programa_id varchar(255), lista_largo int, nuevo_institucion_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_programa_id int default NULL;
+DECLARE programa_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_programa_id = getValueFromArray(lista_programa_id, ',', x);	
+    SELECT programa_academico_id INTO programa_id_tmp FROM programa_academico_has_institucion WHERE programa_academico_id = nuevo_programa_id AND institucion_id = nuevo_institucion_id;
+    IF ( programa_id_tmp IS NOT NULL) THEN
+		DELETE FROM programa_academico_has_institucion WHERE institucion_id = nuevo_institucion_id AND programa_academico_id = nuevo_programa_id;
+	ELSE
+		SET programa_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_programa_id, programa_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_eliminado_logico_modulo`(nuevo_id int)
+BEGIN
+	update modulo m,estado_modulo em
+	set m.estado_modulo_id = em.id 
+	where m.id = nuevo_id
+	and em.id = 1;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_eliminado_logico_programa_academico`(nuevo_id int)
+BEGIN
+	update programa_academico pa,estado_programa_academico epa
+	set pa.estado_programa_academico_id = epa.id 
+	where pa.id = nuevo_id
+	and epa.id = 1;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_eliminado_logico_seccion`(nuevo_id int)
+BEGIN
+	update seccion s,estado_seccion es
+	set s.estado_seccion_id = es.id 
+	where s.id = nuevo_id
+	and es.id = 1;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_listar2_entidad_entidad`(nuevo_entidad_id int(11))
+BEGIN
+SELECT A.nombre,A.entidad_id,A.id FROM `entidad` A
+WHERE A.id = A.entidad_id
+AND A.id = nuevo_entidad_id UNION SELECT null,null,A.id FROM (`entidad` A LEFT JOIN `entidad` B ON A.entidad_id = B.id)
+WHERE A.entidad_id is NULL;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_lista_entidad_programa`(nuevo_entidad_id int(11))
+BEGIN
+SELECT A.nombre,B.entidad_id, B.programa_academico_id FROM `entidad` A, `programa_academico_has_entidad` B 
+WHERE A.id = B.entidad_id
+AND A.id = nuevo_entidad_id UNION SELECT null,null,A.id FROM (`programa_academico` A LEFT JOIN `programa_academico_has_entidad` B ON A.id = B.programa_academico_id)
+WHERE B.programa_academico_id is NULL
+order by programa_academico_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_lista_institucion_programa`(nuevo_institucion_id int(11))
+BEGIN
+SELECT A.nombre,B.institucion_id, B.programa_academico_id FROM `institucion` A, `programa_academico_has_institucion` B 
+WHERE A.id = B.institucion_id
+AND A.id = nuevo_institucion_id UNION SELECT null,null,A.id FROM (`programa_academico` A LEFT JOIN `programa_academico_has_institucion` B ON A.id = B.programa_academico_id)
+WHERE B.programa_academico_id is NULL
+order by programa_academico_id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_lista_programa_modulo`(nuevo_programa_id int(11))
@@ -603,6 +745,29 @@ now()
 SELECT LAST_INSERT_ID () into llave_id;
 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_asigna_entidad_entidad`(lista_entidad_id varchar(255), lista_largo int, nuevo_entidad2_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_entidad_id int default NULL;
+DECLARE entidad_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+    SET nuevo_entidad_id = getValueFromArray(lista_entidad_id, ',', x);   
+    SELECT id INTO entidad_id_tmp FROM entidad WHERE id = nuevo_entidad_id AND entidad_id = nuevo_entidad2_id;
+    IF ( entidad_id_tmp IS NULL) THEN
+        UPDATE entidad
+        SET entidad_id = nuevo_entidad2_id
+        WHERE id = nuevo_entidad_id;
+    ELSE
+        SET entidad_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_entidad_id, entidad_id_tmp;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_asigna_entidad_institucion`(lista_entidad_id varchar(255), lista_largo int,nuevo_institucion_id int)
 BEGIN
 DECLARE x int DEFAULT 0;
@@ -625,6 +790,80 @@ SELECT resultado, nuevo_entidad_id, entidad_id_tmp;
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_desasigna_entidad_entidad`(lista_entidad_id varchar(255), lista_largo int, nuevo_entidad2_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_entidad_id int default NULL;
+DECLARE entidad_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+    SET nuevo_entidad_id = getValueFromArray(lista_entidad_id, ',', x);   
+    SELECT id INTO entidad_id_tmp FROM entidad WHERE id = nuevo_entidad_id AND entidad_id = nuevo_entidad2_id;
+    IF ( entidad_id_tmp IS NOT NULL) THEN
+        UPDATE entidad
+        SET entidad_id = NULL
+        WHERE id = nuevo_entidad_id;
+    ELSE
+        SET entidad_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_entidad_id, entidad_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_eliminado_logico_entidad`(nuevo_id int)
+BEGIN
+	update entidad en,estado_entidad ee
+	set en.estado_entidad_id = ee.id 
+	where en.id = nuevo_id
+	and ee.id = 1;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_eliminado_logico_institucion`(nuevo_id int)
+BEGIN
+	update institucion ins,estado_institucion ei
+	set ins.estado_institucion_id = ei.id 
+	where ins.id = nuevo_id
+	and ei.id = 1;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_listar_entidad_entidad`(nuevo_id int)
+BEGIN
+SELECT en.id,en.nombre,en.descripcion,en.fecha_creacion,en.fecha_modificacion,en.entidad_id
+FROM entidad en
+where en.entidad_id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_listar_entidad_por_estado`()
+BEGIN
+select 
+	en.*,
+    ee.estado 
+from entidad en,estado_entidad ee
+where ee.id = en.estado_entidad_id
+and en.estado_entidad_id !=1;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_listar_entidad_por_institucion`(nuevo_id_institucion int)
+BEGIN
+SELECT en.id,en.nombre,en.descripcion,en.fecha_creacion,en.fecha_modificacion,en.entidad_id 
+FROM entidad en, institucion ins
+WHERE ins.id = en.institucion_id
+AND ins.id = nuevo_id_institucion;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_listar_institucion_por_estado`()
+BEGIN
+select 
+	ins.*,
+    ei.estado 
+from institucion ins,estado_institucion ei
+where ei.id = ins.estado_institucion_id
+and ins.estado_institucion_id !=1;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_lista_institucion_entidad`(nuevo_institucion_id int(11))
 BEGIN
 SELECT A.nombre,B.institucion_id FROM `institucion` A, `entidad` B 
@@ -643,6 +882,85 @@ select * from dato_personal;
 select * from logica_estado_usuario;
 select * from pais;
 select * from region;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_agregar_modelo_aprendizaje_herramienta`(
+
+	nuevo_modelo_aprendizaje_nombre VARCHAR (255),
+	nuevo_modelo_aprendizaje_descripcion TEXT,
+    
+    nuevo_trabajo_grupal BOOL,
+    nuevo_archivo_recurso BOOL,
+    nuevo_link_interes BOOL,
+    nuevo_glosario BOOL,
+	nuevo_contenido_libre BOOL,
+	nuevo_foro BOOL,
+	nuevo_evaluacion BOOL,
+	nuevo_autoevaluacion BOOL,
+	nuevo_proyecto BOOL,
+	nuevo_recepcion_trabajo BOOL,
+	nuevo_evaluacion_no_objetiva BOOL,
+    OUT last_insert_modelo_aprendizaje_id INT(11),
+    OUT last_insert_modelo_aprendizaje_herramienta_id INT(11)
+
+)
+BEGIN
+
+
+	INSERT INTO modelo_aprendizaje(
+		nombre,
+        descripcion,
+        fecha_creacion
+        
+    )
+    VALUES(
+		nuevo_modelo_aprendizaje_nombre,
+        nuevo_modelo_aprendizaje_descripcion,
+        NOW()
+    );
+	
+    SELECT LAST_INSERT_ID () INTO last_insert_modelo_aprendizaje_id;
+    
+    INSERT INTO modelo_aprendizaje_has_herramienta(
+		
+		trabajo_grupal,
+		archivo_recurso,
+		link_interes,
+		glosario,
+		contenido_libre,
+		foro,
+		evaluacion,
+		autoevaluacion,
+		proyecto,
+		recepcion_trabajo,
+		evaluacion_no_objetiva,
+		modelo_aprendizaje_id   
+    )
+    VALUES(
+		
+		nuevo_trabajo_grupal,
+		nuevo_archivo_recurso,
+		nuevo_link_interes,
+		nuevo_glosario,
+		nuevo_contenido_libre,
+		nuevo_foro,
+		nuevo_evaluacion,
+		nuevo_autoevaluacion,
+		nuevo_proyecto,
+		nuevo_recepcion_trabajo,
+		nuevo_evaluacion_no_objetiva,
+		last_insert_modelo_aprendizaje_id
+    
+    );
+    
+     SELECT LAST_INSERT_ID () INTO last_insert_modelo_aprendizaje_herramienta_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_asignar_modelo_aprendizaje_repositorio`(nuevo_repositorio_id int , nuevo_modelo_id int)
+BEGIN
+UPDATE repositorio SET modelo_aprendizaje_id =  nuevo_modelo_id
+WHERE id = nuevo_repositorio_id;
+
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_asignar_mod_aprendizaje_master_rep_master`(nuevo_repositorio_id int , nuevo_modelo_id int)
@@ -674,9 +992,9 @@ DECLARE repositorio_id_tmp int default NULL;
 DECLARE resultado BOOLEAN DEFAULT TRUE;
 WHILE x < lista_largo DO
 	SET nuevo_repositorio_id = getValueFromArray(lista_repositorio_id, ',', x);	
-    SELECT repositorio_id INTO repositorio_id_tmp FROM repositorio_has_institucion WHERE repositorio_id = nuevo_repositorio_id AND institucion_id = nuevo_institucion_id;
+    SELECT repositorio_id INTO repositorio_id_tmp FROM institucion_has_repositorio WHERE repositorio_id = nuevo_repositorio_id AND institucion_id = nuevo_institucion_id;
     IF ( repositorio_id_tmp IS NULL) THEN
-		INSERT INTO repositorio_has_institucion (`repositorio_id`,`institucion_id`) VALUES (nuevo_repositorio_id,nuevo_institucion_id);
+		INSERT INTO institucion_has_repositorio (`repositorio_id`,`institucion_id`) VALUES (nuevo_repositorio_id,nuevo_institucion_id);
 	ELSE
 		SET repositorio_id_tmp = NULL;
     END IF;    
@@ -716,9 +1034,9 @@ DECLARE repositorio_id_tmp int default NULL;
 DECLARE resultado BOOLEAN DEFAULT TRUE;
 WHILE x < lista_largo DO
 	SET nuevo_repositorio_id = getValueFromArray(lista_repositorio_id, ',', x);	
-    SELECT repositorio_id INTO repositorio_id_tmp FROM repositorio_has_institucion WHERE repositorio_id = nuevo_repositorio_id AND institucion_id = nuevo_institucion_id;
+    SELECT repositorio_id INTO repositorio_id_tmp FROM institucion_has_repositorio WHERE repositorio_id = nuevo_repositorio_id AND institucion_id = nuevo_institucion_id;
     IF ( repositorio_id_tmp IS NOT NULL) THEN
-		DELETE FROM repositorio_has_institucion WHERE institucion_id = nuevo_institucion_id AND repositorio_id = nuevo_repositorio_id;
+		DELETE FROM institucion_has_repositorio WHERE institucion_id = nuevo_institucion_id AND repositorio_id = nuevo_repositorio_id;
 	ELSE
 		SET repositorio_id_tmp = NULL;
     END IF;    
@@ -750,29 +1068,38 @@ SELECT resultado, nuevo_repositorio_id, repositorio_id_tmp;
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_listar_modelo_aprendizaje_has_herramienta`(nuevo_modelo_aprendizaje_id INT)
+BEGIN
+
+	SELECT *
+    FROM modelo_aprendizaje_has_herramienta
+    WHERE modelo_aprendizaje_id = nuevo_modelo_aprendizaje_id;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_lista_institucion_repositorio`(nuevo_institucion_id int(11))
 BEGIN
 SELECT 
-		A.nombre,
-		B.institucion_id,
-		B.repositorio_id 
+		I.nombre,
+		IR.institucion_id,
+		IR.repositorio_id 
 FROM 
-		`institucion` A, 
-		`repositorio_has_institucion` B 
+		`institucion` I, 
+		`institucion_has_repositorio` IR 
 		
-WHERE A.id = B.institucion_id
-AND A.id = nuevo_institucion_id 
+WHERE I.id = IR.institucion_id
+AND I.id = nuevo_institucion_id 
 
 UNION 
 
 SELECT 
 		null,
         null,
-        A.id 
+        R.id 
 FROM 
-		(`repositorio` A LEFT JOIN `repositorio_has_institucion` B ON A.id = B.repositorio_id AND B.institucion_id = nuevo_institucion_id)
+		(`repositorio` R LEFT JOIN `institucion_has_repositorio` IR ON R.id = IR.repositorio_id AND IR.institucion_id = nuevo_institucion_id)
         
-WHERE B.repositorio_id is NULL
+WHERE IR.repositorio_id is NULL
 order by repositorio_id;
 
 END$$
@@ -793,6 +1120,57 @@ SELECT null,null,A.id
 FROM (`repositorio_master` A LEFT JOIN `repositorio_master_has_institucion` B ON A.id = B.repositorio_master_id AND B.institucion_id = nuevo_institucion_id)
 WHERE B.repositorio_master_id is NULL
 order by repositorio_master_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_modificar_modelo_aprendizaje_herramienta`(
+
+	nuevo_modelo_aprendizaje_id INT,
+    nuevo_modelo_aprendizaje_nombre VARCHAR (255),
+	nuevo_modelo_aprendizaje_descripcion TEXT,
+    
+    nuevo_trabajo_grupal BOOL,
+    nuevo_archivo_recurso BOOL,
+    nuevo_link_interes BOOL,
+    nuevo_glosario BOOL,
+	nuevo_contenido_libre BOOL,
+	nuevo_foro BOOL,
+	nuevo_evaluacion BOOL,
+	nuevo_autoevaluacion BOOL,
+	nuevo_proyecto BOOL,
+	nuevo_recepcion_trabajo BOOL,
+	nuevo_evaluacion_no_objetiva BOOL,
+    OUT last_insert_modelo_aprendizaje_id INT(11),
+    OUT last_insert_modelo_aprendizaje_herramienta_id INT(11)
+
+)
+BEGIN
+
+	UPDATE modelo_aprendizaje SET
+		nombre = nuevo_modelo_aprendizaje_nombre,
+        descripcion = nuevo_modelo_aprendizaje_descripcion,
+        fecha_modificacion = NOW()
+	WHERE modelo_aprendizaje.id = nuevo_modelo_aprendizaje_id;	
+	
+    SET last_insert_modelo_aprendizaje_id = nuevo_modelo_aprendizaje_id;
+    
+    UPDATE modelo_aprendizaje_has_herramienta SET
+		
+		trabajo_grupal = nuevo_trabajo_grupal,
+		archivo_recurso = nuevo_archivo_recurso,
+		link_interes = nuevo_link_interes,
+		glosario = nuevo_glosario,
+		contenido_libre = nuevo_contenido_libre,
+		foro = nuevo_foro,
+		evaluacion = nuevo_evaluacion,
+		autoevaluacion = nuevo_autoevaluacion,
+		proyecto = nuevo_proyecto,
+		recepcion_trabajo = nuevo_recepcion_trabajo,
+		evaluacion_no_objetiva = nuevo_evaluacion_no_objetiva
+	 WHERE  modelo_aprendizaje_id = nuevo_modelo_aprendizaje_id;
+    
+     SELECT id  INTO last_insert_modelo_aprendizaje_herramienta_id
+     FROM modelo_aprendizaje_has_herramienta 
+     WHERE  modelo_aprendizaje_id = nuevo_modelo_aprendizaje_id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_asignar_privilegio_rol_automatico`( nuevo_rol_id int ,nuevo_permiso_name varchar(255) )
@@ -833,20 +1211,173 @@ declare id_values int default 0;
     END WHILE;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_asignar_roles_generales_a_institucion`(lista_rol_id text, lista_largo int, nuevo_institucion_id int)
+BEGIN
+DECLARE x INT DEFAULT 0;
+DECLARE nuevo_rol_id INT default NULL;
+DECLARE rol_id_tmp INT default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+DECLARE rol_copia INT DEFAULT NULL;
+
+DECLARE permisos_totales INT DEFAULT NULL;
+DECLARE permisos_concat VARCHAR (255) DEFAULT NULL;
+DECLARE i int DEFAULT 0;
+DECLARE nuevo_permiso_name varchar(255) default NULL;
+DECLARE permiso_name_tmp varchar (255) default NULL;
+
+DECLARE privilegios_totales INT DEFAULT NULL;
+DECLARE privilegios_concat VARCHAR(255) DEFAULT NULL;
+DECLARE j int DEFAULT 0;
+DECLARE nuevo_privilegio_id varchar(255) default NULL;
+DECLARE privilegio_id_tmp varchar (255) default NULL;
+
+WHILE x < lista_largo DO
+	SET nuevo_rol_id = getValueFromArray(lista_rol_id, ',', x);	
+-- 	ASIGNOR ROL GENERAL A INSTITUCION -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    SELECT rol_usuario_id INTO rol_id_tmp FROM institucion_has_rol_usuario WHERE rol_usuario_id = nuevo_rol_id AND institucion_id = nuevo_institucion_id;
+    IF ( rol_id_tmp IS NULL) THEN
+		INSERT INTO institucion_has_rol_usuario (`rol_usuario_id`,`institucion_id`) VALUES (nuevo_rol_id,nuevo_institucion_id);
+        
+--  	COPIAR ROL GENERAL -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --    
+		INSERT INTO rol_usuario(nombre,descripcion,tipo,rol_usuario_general_id,fecha_creacion,fecha_eliminacion,fecha_acceso,fecha_modificacion) 
+		SELECT 
+				R.nombre,
+				R.descripcion,
+				'rol_usuario_institucion',
+				R.id,
+				now(),
+				null,
+				null,
+				now()
+				
+		FROM	rol_usuario R		
+		WHERE 	R.id= nuevo_rol_id; 
+		
+		SELECT LAST_INSERT_ID () into rol_copia;
+        
+-- 		ASIGNAR PERMISOS A ROL COPIA-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --        
+		SELECT COUNT(RP.authitem_permiso_usuario_name) into permisos_totales
+		FROM rol_usuario_has_authitem_permiso_usuario RP            
+		WHERE RP.rol_usuario_id = nuevo_rol_id;
+		
+		SELECT GROUP_CONCAT(RP.authitem_permiso_usuario_name SEPARATOR ',') into permisos_concat
+		FROM rol_usuario_has_authitem_permiso_usuario RP            
+		WHERE RP.rol_usuario_id = nuevo_rol_id;
+	  
+		WHILE i < permisos_totales DO
+			SET nuevo_permiso_name = getValueFromArray(permisos_concat, ',', i);	
+			SELECT authitem_permiso_usuario_name INTO permiso_name_tmp FROM rol_usuario_has_authitem_permiso_usuario WHERE authitem_permiso_usuario_name = nuevo_permiso_name AND rol_usuario_id = rol_copia;
+			IF ( permiso_name_tmp IS NULL) THEN
+				INSERT INTO rol_usuario_has_authitem_permiso_usuario (`authitem_permiso_usuario_name`,`rol_usuario_id`) VALUES (nuevo_permiso_name,rol_copia);
+			ELSE
+				SET permiso_name_tmp = NULL;
+			END IF;
+			SET i = i + 1;
+		END WHILE;
+		SET i = 0;
+        
+--  	CONTANDO CANTIDAD DE FILAS DE ID DE PRIVILEGIO --------------------------------------------------------------------------------
+		SELECT COUNT(RPRIV.privilegio_usuario_id) into privilegios_totales
+		FROM rol_usuario_has_privilegio_usuario RPRIV
+		WHERE RPRIV.rol_usuario_id = nuevo_rol_id;
+        
+-- 		OBTENIENDO VALORES DE LAS FILAS DE ID DE PRIVILEGIO ----------------------------------------------------------------------------
+		SELECT GROUP_CONCAT(RPRIV.privilegio_usuario_id SEPARATOR ',') into privilegios_concat
+		FROM rol_usuario_has_privilegio_usuario RPRIV
+		WHERE RPRIV.rol_usuario_id = nuevo_rol_id;
+        
+-- 		ASIGNA TODOS LOS PRIVILEGIOS DE LOS PERMISOS A ROL COPIA---------------------------------------------------------------------------------------------------------------------------------------------------
+		WHILE j < privilegios_totales DO
+			SET nuevo_privilegio_id = getValueFromArray(privilegios_concat, ',', j);	
+			SELECT privilegio_usuario_id INTO privilegio_id_tmp FROM rol_usuario_has_privilegio_usuario WHERE privilegio_usuario_id = nuevo_privilegio_id AND rol_usuario_id = rol_copia;
+			IF ( privilegio_id_tmp IS NULL) THEN
+				INSERT INTO rol_usuario_has_privilegio_usuario (`privilegio_usuario_id`,`rol_usuario_id`) VALUES (nuevo_privilegio_id,rol_copia);
+			ELSE
+				SET privilegio_id_tmp = NULL;
+			END IF;    
+			SET j = j +1;
+		END WHILE;		
+		SET j = 0;
+        
+-- 		ASIGNAR ROL COPIA A INSTITUCION --------------------------------------------------------------------------------------------------------------------------------      
+		SELECT rol_usuario_id INTO rol_id_tmp FROM institucion_has_rol_usuario WHERE rol_usuario_id = rol_copia AND institucion_id = nuevo_institucion_id;
+		IF ( rol_id_tmp IS NULL) THEN
+			INSERT INTO institucion_has_rol_usuario (`rol_usuario_id`,`institucion_id`) VALUES (rol_copia,nuevo_institucion_id);
+		ELSE
+			SET rol_id_tmp = NULL;
+		END IF;
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --  
+	ELSE
+		SET rol_id_tmp = NULL;
+    END IF; 
+    SET x = x +1;
+    SET rol_copia = NULL;
+    SET permisos_totales = NULL;
+    SET permisos_concat = NULL;
+    
+END WHILE;
+SELECT resultado, nuevo_rol_id, rol_id_tmp;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_asigna_permiso_rol`(lista_permiso_name text, lista_largo int, nuevo_rol_id int)
 BEGIN
 DECLARE x int DEFAULT 0;
 DECLARE nuevo_permiso_name varchar(255) default NULL;
 DECLARE permiso_name_tmp varchar (255) default NULL;
 DECLARE resultado BOOLEAN DEFAULT TRUE;
+DECLARE privilegios_totales INT DEFAULT NULL;
+DECLARE privilegios_concat VARCHAR(255) DEFAULT NULL;
+	
+DECLARE i int DEFAULT 0;
+DECLARE nuevo_privilegio_id varchar(255) default NULL;
+DECLARE privilegio_id_tmp varchar (255) default NULL;
+    
+
 WHILE x < lista_largo DO
 	SET nuevo_permiso_name = getValueFromArray(lista_permiso_name, ',', x);	
+--  ASIGNA PERMISO ROL USUARIO----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
     SELECT authitem_permiso_usuario_name INTO permiso_name_tmp FROM rol_usuario_has_authitem_permiso_usuario WHERE authitem_permiso_usuario_name = nuevo_permiso_name AND rol_usuario_id = nuevo_rol_id;
     IF ( permiso_name_tmp IS NULL) THEN
 		INSERT INTO rol_usuario_has_authitem_permiso_usuario (`authitem_permiso_usuario_name`,`rol_usuario_id`) VALUES (nuevo_permiso_name,nuevo_rol_id);
+        
+        
+-- 		CONTANDO CANTIDAD DE FILAS DE ID DE PRIVILEGIO --------------------------------------------------------------------------------
+		SELECT COUNT(PRIV.id) into privilegios_totales
+		FROM 
+			authitem_permiso_usuario P,
+			controlador_usuario C,
+			privilegio_usuario PRIV 
+
+		WHERE PRIV.controlador_usuario_id = C.id
+		AND C.authitem_permiso_usuario_name= P.name
+		AND P.name = nuevo_permiso_name;           	
+-- 		OBTENIENDO VALORES DE LAS FILAS DE ID DE PRIVILEGIO ----------------------------------------------------------------------------
+		SELECT GROUP_CONCAT(PRIV.id SEPARATOR ',') into privilegios_concat
+		FROM 
+				authitem_permiso_usuario P,
+				controlador_usuario C,
+				privilegio_usuario PRIV 
+
+		WHERE PRIV.controlador_usuario_id = C.id
+		AND C.authitem_permiso_usuario_name= P.name
+		AND P.name = nuevo_permiso_name;
+--  	ASIGNA TODOS LOS PRIVILEGIOS DE LOS PERMISOS A ROL USUARIO---------------------------------------------------------------------------------------------------------------------------------------------------
+		WHILE i < privilegios_totales DO
+			SET nuevo_privilegio_id = getValueFromArray(privilegios_concat, ',', i);	
+			SELECT privilegio_usuario_id INTO privilegio_id_tmp FROM rol_usuario_has_privilegio_usuario WHERE privilegio_usuario_id = nuevo_privilegio_id AND rol_usuario_id = nuevo_rol_id;
+			IF ( privilegio_id_tmp IS NULL) THEN
+				INSERT INTO rol_usuario_has_privilegio_usuario (`privilegio_usuario_id`,`rol_usuario_id`) VALUES (nuevo_privilegio_id,nuevo_rol_id);
+			ELSE
+				SET privilegio_id_tmp = NULL;
+			END IF;    
+			SET i = i +1;
+		END WHILE;
+		
+		SET i = 0;
+-- 		-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	ELSE
 		SET permiso_name_tmp = NULL;
-    END IF;    
+    END IF;
     SET x = x +1;
 END WHILE;
 
@@ -875,24 +1406,45 @@ SELECT resultado, nuevo_privilegio_id, privilegio_id_tmp;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_asigna_rol_institucion`(lista_institucion_id varchar(255), lista_largo int, nuevo_rol_id int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_asigna_rol_institucion`(lista_rol_id text, lista_largo int, nuevo_institucion_id int)
 BEGIN
 DECLARE x int DEFAULT 0;
-DECLARE nuevo_institucion_id int default NULL;
-DECLARE institucion_id_tmp int default NULL;
+DECLARE nuevo_rol_id int default NULL;
+DECLARE rol_id_tmp int (255) default NULL;
 DECLARE resultado BOOLEAN DEFAULT TRUE;
 WHILE x < lista_largo DO
-	SET nuevo_institucion_id = getValueFromArray(lista_institucion_id, ',', x);	
-    SELECT institucion_id INTO institucion_id_tmp FROM institucion_has_rol_usuario WHERE institucion_id = nuevo_institucion_id AND rol_usuario_id = nuevo_rol_id;
-    IF (institucion_id_tmp IS NULL) THEN
-		INSERT INTO institucion_has_rol_usuario (`institucion_id`,`rol_usuario_id`) VALUES (nuevo_institucion_id,nuevo_rol_id);
+	SET nuevo_rol_id = getValueFromArray(lista_rol_id, ',', x);	
+    SELECT rol_usuario_id INTO rol_id_tmp FROM institucion_has_rol_usuario WHERE rol_usuario_id = nuevo_rol_id AND institucion_id = nuevo_institucion_id;
+    IF ( rol_id_tmp IS NULL) THEN
+		INSERT INTO institucion_has_rol_usuario (`rol_usuario_id`,`institucion_id`) VALUES (nuevo_rol_id,nuevo_institucion_id);
 	ELSE
-		SET institucion_id_tmp = NULL;
+		SET rol_id_tmp = NULL;
     END IF;    
     SET x = x +1;
 END WHILE;
 
-SELECT resultado, nuevo_institucion_id, institucion_id_tmp;
+SELECT resultado, nuevo_rol_id, rol_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_asigna_usuario_institucion_rol_usuario`(lista_usuario_id varchar(255), lista_largo int, nuevo_rol_usuario_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_usuario_id int default NULL;
+DECLARE usuario_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_usuario_id = getValueFromArray(lista_usuario_id, ',', x);	
+    SELECT usuario_id INTO usuario_id_tmp FROM usuario_has_rol_usuario WHERE usuario_id = nuevo_usuario_id AND rol_usuario_id = nuevo_rol_usuario_id;
+    IF ( usuario_id_tmp IS NULL) THEN
+		INSERT INTO usuario_has_rol_usuario (`usuario_id`,`rol_usuario_id`) VALUES (nuevo_usuario_id,nuevo_rol_usuario_id);
+	ELSE
+		SET usuario_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_usuario_id, usuario_id_tmp;
 
 END$$
 
@@ -936,20 +1488,128 @@ declare id_values int default 0;
     END WHILE;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_desasignar_roles_generales_a_institucion`(lista_rol_id text, lista_largo int, nuevo_institucion_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_rol_id int default NULL;
+DECLARE rol_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+
+DECLARE rol_copia INT DEFAULT NULL;
+
+DECLARE permisos_totales INT DEFAULT NULL;
+DECLARE permisos_concat VARCHAR (255) DEFAULT NULL;
+
+DECLARE nuevo_permiso_name VARCHAR (255) DEFAULT NULL;
+DECLARE permiso_name_tmp VARCHAR (255) DEFAULT NULL;
+DECLARE i INT DEFAULT 0;
+
+DECLARE privilegios_totales INT DEFAULT NULL;
+DECLARE privilegios_concat VARCHAR (255) DEFAULT NULL;
+
+DECLARE nuevo_privilegio_id INT DEFAULT NULL;
+DECLARE privilegio_id_tmp INT DEFAULT NULL;
+DECLARE j INT DEFAULT NULL;
+
+WHILE x < lista_largo DO
+	SET nuevo_rol_id = getValueFromArray(lista_rol_id, ',', x);	
+
+	SELECT R.id INTO rol_copia
+	FROM
+			rol_usuario R,
+			institucion_has_rol_usuario IR
+
+	WHERE R.rol_usuario_general_id = nuevo_rol_id
+	AND IR.rol_usuario_id = R.id
+	AND IR.institucion_id = nuevo_institucion_id;
+
+
+	DELETE RPRIV.*
+	FROM rol_usuario_has_privilegio_usuario RPRIV
+	WHERE RPRIV.rol_usuario_id = rol_copia;
+
+	DELETE RP.*
+	FROM rol_usuario_has_authitem_permiso_usuario RP
+	WHERE RP.rol_usuario_id = rol_copia;
+
+	DELETE IR.*
+	FROM institucion_has_rol_usuario IR
+	WHERE IR.rol_usuario_id = rol_copia;
+
+	DELETE R.*
+	FROM rol_usuario R
+	WHERE R.id = rol_copia;
+
+	SELECT rol_usuario_id INTO rol_id_tmp FROM institucion_has_rol_usuario WHERE rol_usuario_id = nuevo_rol_id AND institucion_id = nuevo_institucion_id;
+    IF ( rol_id_tmp IS NOT NULL) THEN
+		DELETE FROM institucion_has_rol_usuario WHERE institucion_id = nuevo_institucion_id AND rol_usuario_id = nuevo_rol_id;
+	ELSE
+		SET rol_id_tmp = NULL;
+    END IF;    
+    
+    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_rol_id, rol_id_tmp;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_desasigna_permiso_rol`(lista_permiso_name text, lista_largo int, nuevo_rol_id int)
 BEGIN
 DECLARE x int DEFAULT 0;
 DECLARE nuevo_permiso_name varchar(255) default NULL;
 DECLARE permiso_name_tmp varchar(255) default NULL;
 DECLARE resultado BOOLEAN DEFAULT TRUE;
+DECLARE privilegios_totales INT DEFAULT NULL;
+DECLARE privilegios_concat VARCHAR (255) DEFAULT NULL;
+
+DECLARE i int DEFAULT 0;
+DECLARE nuevo_privilegio_id varchar(255) default NULL;
+DECLARE privilegio_id_tmp varchar(255) default NULL;
+
 WHILE x < lista_largo DO
 	SET nuevo_permiso_name = getValueFromArray(lista_permiso_name, ',', x);	
+-- DESASIGNA PERMISO DE ROL_USUARIO --------------------------------------------------------------------------------------------------    
     SELECT authitem_permiso_usuario_name INTO permiso_name_tmp FROM rol_usuario_has_authitem_permiso_usuario WHERE authitem_permiso_usuario_name = nuevo_permiso_name AND rol_usuario_id = nuevo_rol_id;
     IF ( permiso_name_tmp IS NOT NULL) THEN
 		DELETE FROM rol_usuario_has_authitem_permiso_usuario WHERE rol_usuario_id = nuevo_rol_id AND authitem_permiso_usuario_name = nuevo_permiso_name;
 	ELSE
 		SET permiso_name_tmp = NULL;
-    END IF;    
+    END IF;
+-- 	CONTANDO CANTIDAD DE FILAS DE ID DE PRIVILEGIO --------------------------------------------------------------------------------
+	SELECT COUNT(PRIV.id) into privilegios_totales
+	FROM 
+			authitem_permiso_usuario P,
+			controlador_usuario C,
+			privilegio_usuario PRIV 
+
+	WHERE PRIV.controlador_usuario_id = C.id
+	AND C.authitem_permiso_usuario_name= P.name
+	AND P.name = nuevo_permiso_name;           	
+-- OBTENIENDO VALORES DE LAS FILAS DE ID DE PRIVILEGIO ----------------------------------------------------------------------------
+	SELECT GROUP_CONCAT(PRIV.id SEPARATOR ',') into privilegios_concat
+	FROM 
+			authitem_permiso_usuario P,
+			controlador_usuario C,
+			privilegio_usuario PRIV 
+
+	WHERE PRIV.controlador_usuario_id = C.id
+	AND C.authitem_permiso_usuario_name= P.name
+	AND P.name = nuevo_permiso_name;    
+--  DESASIGNA TODOS LOS PRIVILEGIOS DEL PERMISO A ROL_USUARIO-------------------------------------------------------------------------------------------------------------------------------------  
+	WHILE i < privilegios_totales DO
+		SET nuevo_privilegio_id = getValueFromArray(privilegios_concat, ',', i);	
+		SELECT privilegio_usuario_id INTO privilegio_id_tmp FROM rol_usuario_has_privilegio_usuario WHERE privilegio_usuario_id = nuevo_privilegio_id AND rol_usuario_id = nuevo_rol_id;
+		IF ( privilegio_id_tmp IS NOT NULL) THEN
+			DELETE FROM rol_usuario_has_privilegio_usuario WHERE rol_usuario_id = nuevo_rol_id AND privilegio_usuario_id = nuevo_privilegio_id;
+		ELSE
+			SET privilegio_id_tmp = NULL;
+		END IF;    
+		SET i = i +1;
+	END WHILE;
+	SET i = 0;
+-- -------------------------------------------------------------------------------------------------------------------------------------
     SET x = x +1;
 END WHILE;
 
@@ -978,24 +1638,103 @@ SELECT resultado, nuevo_privilegio_id, privilegio_id_tmp;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_desasigna_rol_institucion`(lista_institucion_id varchar(255), lista_largo int, nuevo_rol_id int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_desasigna_rol_institucion`(lista_rol_id text, lista_largo int, nuevo_institucion_id int)
 BEGIN
 DECLARE x int DEFAULT 0;
-DECLARE nuevo_institucion_id int default NULL;
-DECLARE institucion_id_tmp int default NULL;
+DECLARE nuevo_rol_id int default NULL;
+DECLARE rol_id_tmp int default NULL;
 DECLARE resultado BOOLEAN DEFAULT TRUE;
 WHILE x < lista_largo DO
-	SET nuevo_institucion_id = getValueFromArray(lista_institucion_id, ',', x);	
-    SELECT institucion_id INTO institucion_id_tmp FROM institucion_has_rol_usuario WHERE institucion_id = nuevo_institucion_id AND rol_usuario_id = nuevo_rol_id;
-    IF (institucion_id_tmp IS NOT NULL) THEN
-		DELETE FROM institucion_has_rol_usuario WHERE rol_usuario_id = nuevo_rol_id AND institucion_id = nuevo_institucion_id;
+	SET nuevo_rol_id = getValueFromArray(lista_rol_id, ',', x);	
+    SELECT rol_usuario_id INTO rol_id_tmp FROM institucion_has_rol_usuario WHERE rol_usuario_id = nuevo_rol_id AND institucion_id = nuevo_institucion_id;
+    IF ( rol_id_tmp IS NOT NULL) THEN
+		DELETE FROM institucion_has_rol_usuario WHERE institucion_id = nuevo_institucion_id AND rol_usuario_id = nuevo_rol_id;
 	ELSE
-		SET institucion_id_tmp = NULL;
+		SET rol_id_tmp = NULL;
     END IF;    
     SET x = x +1;
 END WHILE;
 
-SELECT resultado, nuevo_institucion_id, institucion_id_tmp;
+SELECT resultado, nuevo_rol_id, rol_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_desasigna_usuario_institucion_rol_usuario`(lista_usuario_id varchar(255), lista_largo int, nuevo_rol_usuario_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_usuario_id int default NULL;
+DECLARE usuario_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+WHILE x < lista_largo DO
+	SET nuevo_usuario_id = getValueFromArray(lista_usuario_id, ',', x);	
+    SELECT usuario_id INTO usuario_id_tmp FROM usuario_has_rol_usuario WHERE usuario_id = nuevo_usuario_id AND rol_usuario_id = nuevo_rol_usuario_id;
+    IF ( usuario_id_tmp IS NOT NULL) THEN
+		DELETE FROM usuario_has_rol_usuario WHERE rol_usuario_id = nuevo_rol_usuario_id AND usuario_id = nuevo_usuario_id;
+	ELSE
+		SET usuario_id_tmp = NULL;
+    END IF;    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_usuario_id, usuario_id_tmp;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_listar_rol_usuario_general`()
+BEGIN
+SELECT R.*
+FROM rol_usuario R
+WHERE R.tipo = 'rol_usuario_general';
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_listar_rol_usuario_institucion`(nuevo_institucion_id int)
+BEGIN
+SELECT R.*
+FROM rol_usuario R,
+	institucion_has_rol_usuario IR
+WHERE R.tipo = 'rol_usuario_institucion'
+AND R.id = IR.rol_usuario_id
+AND IR.institucion_id = nuevo_institucion_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_lista_institucion_rol`(nuevo_institucion_id int(11))
+BEGIN
+SELECT 
+		I.id,
+        IR.institucion_id, 
+        IR.rol_usuario_id,
+        R.nombre as rol_usuario_nombre,
+        R.tipo as rol_usuario_tipo
+FROM 
+		`institucion` I, 
+        `institucion_has_rol_usuario` IR,
+        rol_usuario R
+        
+WHERE I.id = IR.institucion_id
+AND I.id = nuevo_institucion_id
+AND R.id = IR.rol_usuario_id 
+AND R.tipo = 'rol_usuario_general'
+
+UNION 
+
+SELECT 
+		null,
+        null,
+        R.id, 
+        R.nombre as rol_usuario_nombre,
+        R.tipo as rol_usuario_tipo
+FROM 
+(
+	`rol_usuario` R LEFT JOIN `institucion_has_rol_usuario` IR 
+	ON
+	R.id = IR.rol_usuario_id
+	AND 
+	IR.institucion_id = nuevo_institucion_id
+)
+
+WHERE IR.rol_usuario_id is NULL
+AND R.tipo = 'rol_usuario_general'
+order by rol_usuario_id;
 
 END$$
 
@@ -1044,40 +1783,58 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_lista_rol_permiso_privilegio`(nuevo_rol_id int(11),nuevo_permiso_name text)
 BEGIN
 SELECT 
-		A.nombre,
-        B.rol_usuario_id, 
-        B.privilegio_usuario_id 
+        RPRIV.rol_usuario_id, 
+        RPRIV.privilegio_usuario_id ,
+        C.nombre as controlador_usuario_nombre,
+        PRIV.nombre as privilegio_usuario_nombre
 FROM 
-		`rol_usuario` A, 
-        `rol_usuario_has_privilegio_usuario` B,
-        rol_usuario_has_authitem_permiso_usuario RP,
-		authitem_permiso_usuario P  
+        `rol_usuario_has_privilegio_usuario` RPRIV,
+        authitem_permiso_usuario P,
+        controlador_usuario C,
+        privilegio_usuario PRIV
         
-WHERE A.id = B.rol_usuario_id
-AND A.id = nuevo_rol_id 
-AND A.id = RP.rol_usuario_id
-AND P.name = RP.authitem_permiso_usuario_name
+        
+        
+WHERE  RPRIV.rol_usuario_id = (
+
+	SELECT 
+			RP.rol_usuario_id
+	FROM
+			rol_usuario_has_authitem_permiso_usuario RP
+
+
+	WHERE RP.authitem_permiso_usuario_name = nuevo_permiso_name
+	AND RP.rol_usuario_id = nuevo_rol_id
+
+	)
+AND P.name = C.authitem_permiso_usuario_name
+AND C.id = PRIV.controlador_usuario_id
 AND P.name = nuevo_permiso_name
+AND PRIV.id = RPRIV.privilegio_usuario_id
+
 
 UNION 
 
 SELECT 
-		null,
         null,
-        A.id 
+        PRIV.id, 
+        C.nombre as controlador_usuario_nombre,
+        PRIV.nombre as privilegio_usuario_nombre
 FROM 
 (
-	`privilegio_usuario` A LEFT JOIN `rol_usuario_has_privilegio_usuario` B 
-	ON	A.id = B.privilegio_usuario_id 
-	AND	B.rol_usuario_id = nuevo_rol_id
+	`privilegio_usuario` PRIV LEFT JOIN `rol_usuario_has_privilegio_usuario` RPRIV 
+	ON	PRIV.id = RPRIV.privilegio_usuario_id 
+	AND	RPRIV.rol_usuario_id = nuevo_rol_id
 ),
-	authitem_permiso_usuario P,
-	controlador_usuario C	
+	controlador_usuario C,
+    authitem_permiso_usuario P
 
-WHERE B.privilegio_usuario_id is NULL
-AND P.name = C.authitem_permiso_usuario_name
-AND C.id = A.controlador_usuario_id
+WHERE RPRIV.privilegio_usuario_id is NULL
+
 AND P.name = nuevo_permiso_name
+AND P.name = C.authitem_permiso_usuario_name
+AND C.id = PRIV.controlador_usuario_id
+
 order by privilegio_usuario_id;
 
 END$$
@@ -1104,14 +1861,62 @@ SELECT
 FROM 
 (
 	`privilegio_usuario` A LEFT JOIN `rol_usuario_has_privilegio_usuario` B 
-	ON
-	A.id = B.privilegio_usuario_id 
-	AND 
-	B.rol_usuario_id = nuevo_rol_id
+	ON	A.id = B.privilegio_usuario_id 
+	AND	B.rol_usuario_id = nuevo_rol_id
 )
 
 WHERE B.privilegio_usuario_id is NULL
 order by privilegio_usuario_id;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_rol_usuario_lista_usuario_institucion_rol_usuario`(nuevo_rol_usuario_id int, nuevo_institucion_id int)
+BEGIN
+
+SELECT 
+		R.id,
+        UR.rol_usuario_id,
+        UR.usuario_id,
+        U.usuario,
+        DP.rut, 
+        DP.primer_nombre,
+        DP.apellido_paterno,
+        DP.apellido_materno
+	
+FROM 
+	
+	`rol_usuario` R, 
+	`usuario_has_rol_usuario` UR, 
+    usuario U,
+    dato_personal DP
+
+WHERE R.id = UR.rol_usuario_id
+AND R.id = nuevo_rol_usuario_id
+AND U.id = UR.usuario_id
+AND DP.usuario_id = U.id
+
+UNION
+
+SELECT 
+
+		null,
+        null,
+        U.id,
+        U.usuario,
+        DP.rut,
+        DP.primer_nombre,
+        DP.apellido_paterno,
+        DP.apellido_materno
+FROM
+	(`usuario` U LEFT JOIN `usuario_has_rol_usuario` UR ON U.id = UR.usuario_id AND UR.rol_usuario_id = nuevo_rol_usuario_id),
+    usuario_has_institucion UI,
+    dato_personal DP
+
+WHERE UR.usuario_id is NULL
+AND UI.institucion_id = nuevo_institucion_id
+AND UI.usuario_id = U.id
+AND DP.usuario_id = U.id
+ORDER BY usuario_id;
 
 END$$
 
@@ -1681,6 +2486,121 @@ SELECT resultado, nuevo_usuario_id, usuario_id_tmp;
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_eliminado_fisico_dato_academico`(nuevo_id int)
+BEGIN
+DELETE FROM dato_academico 
+WHERE id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_eliminado_fisico_dato_laboral`(nuevo_id int)
+BEGIN
+DELETE FROM dato_laboral 
+WHERE id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_eliminado_fisico_dato_login`(nuevo_id int)
+BEGIN
+DELETE FROM dato_login
+WHERE id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_eliminado_fisico_dato_personal`(nuevo_id int)
+BEGIN
+DELETE FROM dato_personal
+WHERE id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_eliminado_logico_usuario`(nuevo_id int)
+BEGIN
+	update usuario usu,estado_usuario ea
+	set usu.estado_usuario_id = ea.id 
+	where usu.id = nuevo_id
+	and ea.id = 3;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_datos_academicos_por_estado`()
+BEGIN
+SELECT 
+		da.id,
+		da.universidad,
+		da.carrera,
+		da.ano_cursado,
+		da.duracion_carrera,
+		da.sede,
+		da.direccion_sede,
+		da.comuna_sede,
+		da.ciudad_sede,
+		da.usuario_id
+FROM dato_academico da,usuario usu,estado_usuario ea
+WHERE da.usuario_id = usu.id
+AND usu.estado_usuario_id = ea.id
+AND usu.estado_usuario_id !=3;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_datos_laborales_por_estado`()
+BEGIN
+SELECT 
+		dl.id,
+		dl.nombre_empresa,
+		dl.ano_antiguedad,
+		dl.cargo,
+		dl.actividad,
+		dl.comuna_empresa,
+		dl.ciudad_empresa,
+		dl.telefono_empresa,
+		dl.celular_empresa,
+		dl.rut_numero,
+        dl.digito_verificador,
+        dl.usuario_id
+FROM dato_laboral dl,usuario usu,estado_usuario ea
+WHERE dl.usuario_id = usu.id
+AND usu.estado_usuario_id = ea.id
+AND usu.estado_usuario_id !=3;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_datos_login_por_estado`()
+BEGIN
+SELECT 
+		dl.id,
+		dl.usuario_id,
+		dl.codigo_seguridad_id
+
+FROM dato_login dl,usuario usu,estado_usuario ea
+WHERE dl.usuario_id = usu.id
+AND usu.estado_usuario_id = ea.id
+AND usu.estado_usuario_id !=3;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_datos_personales_por_estado`()
+BEGIN
+SELECT 
+		dp.id, 
+        dp.primer_nombre, 
+        dp.segundo_nombre, 
+        dp.apellido_paterno, 
+        dp.apellido_materno, 
+        dp.fecha_nacimiento, 
+        dp.edad, 
+        dp.rut, 
+        dp.digito_verificador, 
+        dp.direccion_personal, 
+        dp.numero_casa, 
+        dp.telefono_personal, 
+        dp.celular_personal, 
+        dp.comuna_personal, 
+        dp.ciudad_personal, 
+        dp.interes, 
+        dp.estado_civil, 
+        dp.idioma, 
+        dp.nacionalidad, 
+        dp.usuario_id
+        
+FROM dato_personal dp,usuario usu,estado_usuario ea
+WHERE dp.usuario_id = usu.id
+AND usu.estado_usuario_id = ea.id
+AND usu.estado_usuario_id !=3;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_estado_usuario`(nuevo_id_usuario varchar(50))
 BEGIN	
 	SELECT * FROM (logica_estado_usuario A LEFT JOIN estado_usuario B ON A.id =  B.logica_estado_usuario_id AND B.usuario_id = nuevo_id_usuario);
@@ -1693,6 +2613,13 @@ FROM usuario usu, logica_estado_usuario lo, estado_usuario ea
 WHERE usu.id = ea.usuario_id
 AND lo.id = ea.logica_estado_usuario_id
 AND lo.estado = nuevo_estado;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_usuarios_por_estado`()
+BEGIN
+select usu.id,usu.usuario,usu.clave,usu.fecha_acceso,usu.fecha_modificacion,usu.fecha_creacion,eu.estado from usuario usu,estado_usuario eu
+where eu.id = usu.estado_usuario_id
+and usu.estado_usuario_id !=3;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_lista_institucion_usuario`(nuevo_institucion_id int(11))
@@ -1712,6 +2639,18 @@ AND A.id = nuevo_usuario_id UNION SELECT null,null,A.id FROM (`logica_estado_usu
 WHERE B.logica_estado_usuario_id is NULL
 order by logica_estado_usuario_id;
 END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_components_obtener_institucion_usuario`(nuevo_usuario_id int)
+SELECT I.*
+FROM
+		institucion I,
+        usuario_has_institucion UI,
+        usuario U
+        
+WHERE UI.institucion_id = I.id
+AND UI.usuario_id = U.id
+AND U.id = nuevo_usuario_id
+ORDER BY institucion_id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_escritorio_administrador_get_icono_permiso_usuario`(nuevo_usuario_id int)
 BEGIN
@@ -1766,6 +2705,74 @@ AND P.name = RP.authitem_permiso_usuario_name
 AND U.id = nuevo_usuario_id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_agregar_glosario_repositorio_troncal`(
+	
+    nuevo_repositorio_id INT,
+    nuevo_glosario_nombre VARCHAR(255),
+    nuevo_glosario_descripcion TEXT,
+    OUT last_insert_glosario_id INT
+)
+BEGIN
+
+	INSERT INTO glosario(
+		nombre,
+        descripcion,
+        fecha_creacion,
+        tipo_herramienta_id
+	)
+    VALUES(
+		nuevo_glosario_nombre,
+        nuevo_glosario_descripcion,
+        NOW(),
+        1
+    );
+    
+    SELECT LAST_INSERT_ID () INTO last_insert_glosario_id;
+    
+    INSERT INTO herramienta(
+		nombre,
+        descripcion,
+        fecha_creacion,
+        recurso_id,
+        repositorio_id,
+        tipo_herramienta_id
+    )
+    VALUES(
+		nuevo_glosario_nombre,
+        nuevo_glosario_descripcion,
+        NOW(),
+        last_insert_glosario_id,
+        nuevo_repositorio_id,
+        1
+    );
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_agregar_glosario_termino_definicion`(
+
+	nuevo_glosario_id INT,
+    
+    nuevo_termino VARCHAR(255),
+    nuevo_definicion TEXT  
+)
+BEGIN
+
+	INSERT INTO glosario_termino_definicion(
+		termino,
+        definicion,
+        fecha_creacion,
+        glosario_id
+        
+    )
+    VALUES(
+		nuevo_termino,
+        nuevo_definicion,
+        NOW(),
+        nuevo_glosario_id
+    );   
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_asignar_mod_aprendizaje_rep_troncal_admin`(nuevo_repositorio_id int , nuevo_modelo_id int)
 begin
 UPDATE repositorio_troncal_admin SET modelo_aprendizaje_id =  nuevo_modelo_id
@@ -1779,6 +2786,109 @@ UPDATE repositorio_troncal_app SET modelo_aprendizaje_id =  nuevo_modelo_id
 WHERE id = nuevo_repositorio_id;
 
 end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_listar_repositorio`(nuevo_institucion_id INT )
+BEGIN
+SELECT R.*
+FROM 
+		repositorio R,
+        institucion_has_repositorio IR,
+        institucion I
+        
+WHERE R.id = IR.institucion_id
+AND I.id = IR.institucion_id
+AND I.id = nuevo_institucion_id;
+		
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_glosario_repositorio`(nuevo_repositorio_id INT)
+BEGIN
+
+	SELECT G.*
+
+	FROM
+			repositorio R,
+			herramienta H,
+			glosario G
+			
+	WHERE R.id = H.repositorio_id
+	AND H.recurso_id = G.id
+	AND R.id = nuevo_repositorio_id;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_glosario_termino_definicion`(nuevo_glosario_id INT)
+BEGIN
+
+	SELECT GTD.*
+
+	FROM 
+		glosario_termino_definicion GTD,
+		glosario G
+	WHERE G.id = GTD.glosario_id
+	AND G.id = nuevo_glosario_id
+    ORDER BY GTD.id;	
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_repositorio_institucion`(nuevo_institucion_id int(11))
+BEGIN
+
+	SELECT R.*
+    FROM 
+			repositorio R,
+            institucion_has_repositorio IR,
+            institucion I
+            
+WHERE R.id = IR.repositorio_id
+AND I.id = IR.institucion_id
+AND I.id = nuevo_institucion_id
+
+ORDER BY repositorio_id;         
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_modificar_glosario_repositorio_troncal`(
+	
+    nuevo_glosario_id INT,
+    nuevo_repositorio_id INT,
+    nuevo_glosario_nombre VARCHAR(255),
+    nuevo_glosario_descripcion TEXT,
+    OUT last_insert_glosario_id INT
+)
+BEGIN
+	UPDATE glosario SET
+		nombre = nuevo_glosario_nombre,
+        descripcion = nuevo_glosario_descripcion,
+        fecha_modificacion = NOW()
+	
+    WHERE glosario.id = nuevo_glosario_id;
+   
+    
+    SET last_insert_glosario_id = nuevo_glosario_id;
+    
+    UPDATE herramienta SET
+		nombre = nuevo_glosario_nombre,
+        descripcion = nuevo_glosario_descripcion,
+        fecha_modificacion = NOW()
+	WHERE herramienta.recurso_id = nuevo_glosario_id
+    AND herramienta.repositorio_id = nuevo_repositorio_id;
+    
+    
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_obtener_herramientas_disponibles_repositorio`(nuevo_repositorio_id int(11))
+BEGIN
+	SELECT MH.*
+    FROM
+			modelo_aprendizaje M,
+            modelo_aprendizaje_has_herramienta MH,
+            repositorio R
+	WHERE R.modelo_aprendizaje_id = M.id
+    AND MH.modelo_aprendizaje_id = M.id
+    AND R.id = nuevo_repositorio_id;
+    
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `validar_privilegio`(nuevo_usuario_id int , nuevo_permiso_nombre varchar(50) , nuevo_controlador_nombre varchar(50) , nuevo_privilegio_nombre varchar(50),out vista varchar(50))
 SELECT PRIV.nombre into vista
@@ -1844,6 +2954,23 @@ END IF;
 END$$
 
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `archivo_recurso`
+--
+
+CREATE TABLE IF NOT EXISTS `archivo_recurso` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_elminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2003,6 +3130,23 @@ INSERT INTO `authitem_permiso_usuario` (`name`, `type`, `description`, `bizrule`
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `autoevaluacion`
+--
+
+CREATE TABLE IF NOT EXISTS `autoevaluacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `codigo_seguridad`
 --
 
@@ -2011,6 +3155,23 @@ CREATE TABLE IF NOT EXISTS `codigo_seguridad` (
   `codigo` varchar(6) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contenido_libre`
+--
+
+CREATE TABLE IF NOT EXISTS `contenido_libre` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2096,7 +3257,7 @@ CREATE TABLE IF NOT EXISTS `dato_academico` (
 --
 
 INSERT INTO `dato_academico` (`id`, `universidad`, `carrera`, `ano_cursado`, `duracion_carrera`, `sede`, `direccion_sede`, `comuna_sede`, `ciudad_sede`, `usuario_id`) VALUES
-(1, 'ola ', 'lola', 12, 12, 'saldksj', 'jdklj', 'saljdklj', 'sajd', 1),
+(1, 'akjassa', 'askjak', 5, 5, 'skldj', 'sakjhd', 'sakjdhd', 'sakjdh', 9),
 (2, 'wuyeywueuiy', 'nmbcnxmnmcz', 45454, 0, 'sadsad', 'sadsad', 'sadsad', 'sdsdsda', 2);
 
 -- --------------------------------------------------------
@@ -2211,18 +3372,18 @@ CREATE TABLE IF NOT EXISTS `dato_personal` (
   `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_dato_personal_usuario1_idx` (`usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=501 ;
 
 --
 -- Volcado de datos para la tabla `dato_personal`
 --
 
 INSERT INTO `dato_personal` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `fecha_nacimiento`, `edad`, `rut`, `digito_verificador`, `direccion_personal`, `numero_casa`, `telefono_personal`, `celular_personal`, `comuna_personal`, `ciudad_personal`, `interes`, `estado_civil`, `idioma`, `nacionalidad`, `usuario_id`) VALUES
-(1, 'juan', 'diego', 'kjhdkjskjd', 'sakjdsakj', '2015-08-10 16:55:05', 5454, 54545, 4545, 'asdkj', 454, 545, 545, 'akjsh', 'kjshakjsh', 'askljasklj', 'alsjj', 'alskjasklj', 'asjsajklsaj', 1),
-(2, 'kjhxjhzkj<xhKHZ<KJXH', 'askjhaskh', 'skjdhskjsdh', 'askjha', '2015-08-10 17:04:11', 2121, 2121, 2121, 'askjaks', 454, 5454, 545, 'ajhsajsajhsk', 'akjshajksh', 'akjshakjsh', 'kjahsakjhs', 'kajshkjasjh', 'kjhakjshaks', 1),
-(3, 'kjhxjhzkj<xhKHZ<KJXH', 'askjhaskh', 'skjdhskjsdh', 'askjha', '2015-08-10 17:04:11', 2121, 2121, 2121, 'askjaks', 454, 5454, 545, 'ajhsajsajhsk', 'akjshajksh', 'akjshakjsh', 'kjahsakjhs', 'kajshkjasjh', 'kjhakjshaks', 1),
-(4, 'kljsldkjsadjkl', 'slkjdksjd', 'skljdkljd', 'skldjsakd', '2015-08-11 15:25:14', 45445, 455454, 5454, 'asljajskl', 44, 5454, 5454, 'lksjakjs', 'lasjsj', 'alsjasklj', 'askljajsk', 'akjaskjl', 'asjasljl', 5),
-(5, 'klsklsjklsd', 'iowuerwuo', 'iowuoiwueqoi', 'wiqowioe', '2015-08-12 10:28:29', 55454, 54545, 54545, 'skjdwkjkjl', 54545, 545454, 545454, 'sklajdkjsdkl', 'slkjdklsjdkljs', 'sjdskljd', 'wsjdklsjdkl', 'wsajdkljwskld', 'wljewjqeklj', 4);
+(100, 'christian', NULL, 'reyes', 'arellano', NULL, 11, 11111111, 1, NULL, NULL, NULL, NULL, 'maipu', 'santiago', NULL, NULL, 'espanol', 'chileno', 1),
+(200, 'francisco', NULL, 'carvajal', NULL, NULL, 22, 22222222, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(300, 'victor', NULL, 'guzman', NULL, NULL, 33, 33333333, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3),
+(400, 'marcelo', NULL, NULL, NULL, NULL, 44, 44444444, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4),
+(500, 'patricio', NULL, 'iriarte', NULL, NULL, 55, 55555555, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -2238,18 +3399,27 @@ CREATE TABLE IF NOT EXISTS `entidad` (
   `fecha_modificacion` datetime DEFAULT NULL,
   `institucion_id` int(11) NOT NULL,
   `entidad_id` int(11) DEFAULT NULL,
+  `estado_entidad_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_entidad_institucion1_idx` (`institucion_id`),
-  KEY `fk_entidad_entidad1_idx` (`entidad_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  KEY `fk_entidad_entidad1_idx` (`entidad_id`),
+  KEY `fk_entidad_estado_entidad1_idx` (`estado_entidad_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Volcado de datos para la tabla `entidad`
 --
 
-INSERT INTO `entidad` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `institucion_id`, `entidad_id`) VALUES
-(3, 'gfgfgfg', 'fgfgfdg', '2015-08-12 11:29:33', '2015-08-12 14:49:20', 2, 3),
-(5, 'nmxbzxnmbnmbzxcnmb', 'znmxcbznmxcbznmx', '2015-08-12 12:16:42', NULL, 1, 3);
+INSERT INTO `entidad` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `institucion_id`, `entidad_id`, `estado_entidad_id`) VALUES
+(1, 'centro de alumnos', 'centro-descripcion', '2015-09-04 16:40:13', '2015-09-04 16:40:13', 1, 9, 1),
+(2, 'sede', 'sede-descr', '2015-09-04 16:40:13', '2015-09-04 16:40:13', 1, 1, 1),
+(3, 'campus', 'campus-des', '2015-09-04 16:40:13', '2015-09-04 16:40:13', 1, 1, NULL),
+(4, 'facultad', 'facul-des', '2015-09-04 16:40:13', '2015-09-04 16:40:13', 2, 1, 1),
+(5, 'prueba1', 'des1', '2015-09-23 15:05:57', '2015-09-23 15:05:57', 1, 4, 2),
+(6, 'prueba2', 'des2', '2015-09-23 15:05:57', '2015-09-23 15:05:57', 1, 4, 2),
+(7, 'prueba3', 'des3', '2015-09-23 15:05:57', '2015-09-23 15:05:57', 1, 4, 2),
+(8, 'prueba4', 'des4', '2015-09-23 15:05:57', '2015-09-23 15:05:57', 1, 1, 2),
+(9, 'prueba5', 'des5', '2015-09-23 15:05:57', '2015-09-23 15:05:57', 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -2301,26 +3471,247 @@ INSERT INTO `estado_codigo_seguridad` (`id`, `estado`, `codigo_seguridad_id`) VA
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `estado_entidad`
+--
+
+CREATE TABLE IF NOT EXISTS `estado_entidad` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `estado_entidad`
+--
+
+INSERT INTO `estado_entidad` (`id`, `estado`) VALUES
+(1, 'eliminado'),
+(2, 'prueba');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_institucion`
+--
+
+CREATE TABLE IF NOT EXISTS `estado_institucion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `estado_institucion`
+--
+
+INSERT INTO `estado_institucion` (`id`, `estado`) VALUES
+(1, 'eliminado'),
+(2, 'prueba');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_modulo`
+--
+
+CREATE TABLE IF NOT EXISTS `estado_modulo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `estado_modulo`
+--
+
+INSERT INTO `estado_modulo` (`id`, `estado`) VALUES
+(1, 'eliminado'),
+(2, 'prueba');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_programa_academico`
+--
+
+CREATE TABLE IF NOT EXISTS `estado_programa_academico` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `estado_programa_academico`
+--
+
+INSERT INTO `estado_programa_academico` (`id`, `estado`) VALUES
+(1, 'eliminado'),
+(2, 'prueba');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_seccion`
+--
+
+CREATE TABLE IF NOT EXISTS `estado_seccion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `estado_seccion`
+--
+
+INSERT INTO `estado_seccion` (`id`, `estado`) VALUES
+(1, 'eliminado'),
+(2, 'prueba');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `estado_usuario`
 --
 
 CREATE TABLE IF NOT EXISTS `estado_usuario` (
-  `logica_estado_usuario_id` int(11) NOT NULL,
-  `usuario_id` int(11) NOT NULL,
-  KEY `fk_estado_usuario_logica_estado_usuario1_idx` (`logica_estado_usuario_id`),
-  KEY `fk_estado_usuario_usuario1_idx` (`usuario_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `estado_usuario`
 --
 
-INSERT INTO `estado_usuario` (`logica_estado_usuario_id`, `usuario_id`) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(1, 186),
-(1, 187);
+INSERT INTO `estado_usuario` (`id`, `estado`) VALUES
+(1, 'disponible'),
+(2, 'en espera'),
+(3, 'eliminado');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `evaluacion`
+--
+
+CREATE TABLE IF NOT EXISTS `evaluacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modifcacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `evaluacion_no_objetiva`
+--
+
+CREATE TABLE IF NOT EXISTS `evaluacion_no_objetiva` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `foro`
+--
+
+CREATE TABLE IF NOT EXISTS `foro` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `glosario`
+--
+
+CREATE TABLE IF NOT EXISTS `glosario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `tipo_herramienta_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_glosario_tipo_herramienta1_idx` (`tipo_herramienta_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
+
+--
+-- Volcado de datos para la tabla `glosario`
+--
+
+INSERT INTO `glosario` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_eliminacion`, `fecha_acceso`, `tipo_herramienta_id`) VALUES
+(1, 'Diccionario de la lengua española', 'Versión electrónica del Diccionario de la lengua española, obra lexicográfica académica por excelencia.', NULL, NULL, NULL, NULL, 1),
+(2, 'UCT Diccionario Abreviado Mapudungun - Españo', 'Contiene un listado de entradas léxicas del mapudungun, ordenado alfabéticamente, con una versión abreviada de sus significados en español e inglés.', NULL, NULL, NULL, NULL, 1),
+(3, 'Glosario de términos geográficos', 'A. Acantilado: Costa alta y escarpada, de altura variable. Accesibilidad: Capacidad potencial de establecer contactos físicos y/o sociales', NULL, NULL, NULL, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `glosario_termino_definicion`
+--
+
+CREATE TABLE IF NOT EXISTS `glosario_termino_definicion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `termino` varchar(45) DEFAULT NULL,
+  `definicion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `glosario_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_glosario_termino_definicion_glosario1_idx` (`glosario_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Volcado de datos para la tabla `glosario_termino_definicion`
+--
+
+INSERT INTO `glosario_termino_definicion` (`id`, `termino`, `definicion`, `fecha_creacion`, `fecha_modificacion`, `fecha_acceso`, `fecha_eliminacion`, `glosario_id`) VALUES
+(1, 'perfecto', 'Que tiene el mayor grado posible de bondad o excelencia en su línea', NULL, NULL, NULL, NULL, 1),
+(2, 'filete', 'Loncha delgada de carne magra o de pescado limpio de raspas.', NULL, NULL, NULL, NULL, 1),
+(3, '11111111111 termino', '11111111111 termino', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(4, 'gatitooooooooooooooo', 'Palabra ocupada para referirse a un amigo o conocido ej: que pasa perro, tambien usese, perrito, palabra abusada por el negro piñera ej: que pasa perrito, variaciones conocidas, que pasa papá', '2015-11-10 16:43:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
+(5, 'brigido', 'Expresion usada cuando el problema es muy grande', '2015-11-10 16:43:45', NULL, NULL, NULL, 1),
+(6, 'cuatico', 'Persona exagerada, Raro no común', '2015-11-10 16:45:44', NULL, NULL, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `guia_instruccional`
+--
+
+CREATE TABLE IF NOT EXISTS `guia_instruccional` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(45) DEFAULT NULL,
+  `detalle` varchar(45) DEFAULT NULL,
+  `adjunto` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2331,18 +3722,28 @@ INSERT INTO `estado_usuario` (`logica_estado_usuario_id`, `usuario_id`) VALUES
 CREATE TABLE IF NOT EXISTS `herramienta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `recurso_id` int(11) DEFAULT NULL,
+  `descripcion` text,
   `fecha_acceso` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_eliminacion` datetime DEFAULT NULL,
-  `tipo_herramienta_id` int(11) DEFAULT NULL,
+  `recurso_id` int(11) DEFAULT NULL,
   `repositorio_id` int(11) DEFAULT NULL,
+  `tipo_herramienta_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`),
-  KEY `fk_herramienta_repositorio1_idx` (`repositorio_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `fk_herramienta_repositorio1_idx` (`repositorio_id`),
+  KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
+
+--
+-- Volcado de datos para la tabla `herramienta`
+--
+
+INSERT INTO `herramienta` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `recurso_id`, `repositorio_id`, `tipo_herramienta_id`) VALUES
+(1, 'Diccionario de la lengua española', 'Versión electrónica del Diccionario de la lengua española, obra lexicográfica académica por excelencia.', NULL, NULL, NULL, NULL, 1, 1, 1),
+(2, 'UCT Diccionario Abreviado Mapudungun - Españo', 'Contiene un listado de entradas léxicas del mapudungun, ordenado alfabéticamente, con una versión abreviada de sus significados en español e inglés.', NULL, NULL, NULL, NULL, 2, 1, 1),
+(3, 'Glosario de términos geográficos', 'A. Acantilado: Costa alta y escarpada, de altura variable. Accesibilidad: Capacidad potencial de establecer contactos físicos y/o sociales', NULL, NULL, NULL, NULL, 3, 2, 1),
+(28, 'gggggggggg', 'gggggggggggggggggg', NULL, '2015-11-06 15:57:25', '2015-11-06 15:56:06', NULL, 28, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2392,27 +3793,53 @@ CREATE TABLE IF NOT EXISTS `institucion` (
   `descripcion` varchar(45) DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `estado_institucion_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_institucion_estado_institucion1_idx` (`estado_institucion_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Volcado de datos para la tabla `institucion`
 --
 
-INSERT INTO `institucion` (`id`, `nombre`, `vision`, `mision`, `acreditada`, `fecha_inicio_acreditacion`, `fecha_termino_acreditacion`, `descripcion`, `fecha_creacion`, `fecha_modificacion`) VALUES
-(1, 'utem', 'vision', 'mision', b'0', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 'ajhsjah', '2015-08-06 15:40:32', '2015-08-06 15:40:32'),
-(2, 'duoc', 'vision', 'mision', b'1', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 'kjahsa', '2015-08-06 15:40:32', '2015-08-06 15:40:32'),
-(3, 'usash', 'vision', 'mision', b'1', '2015-08-10 11:48:35', '2015-08-10 11:48:35', 'descripcion', NULL, NULL),
-(4, 'catolica', 'vision', 'sakjhdksj', b'1', '2015-08-10 12:11:56', '2015-08-10 12:11:56', 'sdsdsdasd', '2015-08-10 12:16:53', '2015-08-10 12:22:20'),
-(5, 'udp', 'kljsakdljsadl', 'olaolaolaolaola', b'1', '2015-08-12 10:28:29', '2015-08-12 10:28:29', 'kjsdjkjsahdkjsd', '2015-08-12 10:33:26', '2015-08-12 10:33:47'),
-(6, 'ucv', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, 'tvn', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8, 'chv', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, 'c13', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 'mega', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, 'la red', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, 'telecanal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(13, 'etc tv', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `institucion` (`id`, `nombre`, `vision`, `mision`, `acreditada`, `fecha_inicio_acreditacion`, `fecha_termino_acreditacion`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_institucion_id`) VALUES
+(1, 'utem', 'vision', 'mision', b'0', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 'ajhsjah', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 2),
+(2, 'duoc', 'vision', 'mision', b'1', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 'kjahsa', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 1),
+(3, 'usash', 'vision', 'mision', b'1', '2015-08-10 11:48:35', '2015-08-10 11:48:35', 'descripcion', NULL, NULL, 1),
+(4, 'catolica', 'vision', 'sakjhdksj', b'1', '2015-08-10 12:11:56', '2015-08-10 12:11:56', 'sdsdsdasd', '2015-08-10 12:16:53', '2015-08-10 12:22:20', NULL),
+(5, 'udp', 'kljsakdljsadl', 'olaolaolaolaola', b'1', '2015-08-12 10:28:29', '2015-08-12 10:28:29', 'kjsdjkjsahdkjsd', '2015-08-12 10:33:26', '2015-08-12 10:33:47', NULL),
+(6, 'kjksjaklsadklj', 'salkjdskljd', 'djlskdj', b'1', NULL, NULL, 'sdsadsadasd', '2015-09-21 16:11:06', NULL, NULL),
+(7, 'tvn', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 'chv', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 'c13', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 'mega', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 'la red', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 'telecanal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 'etc tv', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `institucion_has_repositorio`
+--
+
+CREATE TABLE IF NOT EXISTS `institucion_has_repositorio` (
+  `institucion_id` int(11) NOT NULL,
+  `repositorio_id` int(11) NOT NULL,
+  PRIMARY KEY (`institucion_id`,`repositorio_id`),
+  KEY `fk_institucion_has_repositorio_repositorio1_idx` (`repositorio_id`),
+  KEY `fk_institucion_has_repositorio_institucion1_idx` (`institucion_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `institucion_has_repositorio`
+--
+
+INSERT INTO `institucion_has_repositorio` (`institucion_id`, `repositorio_id`) VALUES
+(1, 1),
+(2, 1),
+(1, 2),
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -2433,7 +3860,12 @@ CREATE TABLE IF NOT EXISTS `institucion_has_rol_usuario` (
 --
 
 INSERT INTO `institucion_has_rol_usuario` (`institucion_id`, `rol_usuario_id`) VALUES
-(1, 1);
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 186),
+(1, 187),
+(1, 188);
 
 -- --------------------------------------------------------
 
@@ -2443,35 +3875,86 @@ INSERT INTO `institucion_has_rol_usuario` (`institucion_id`, `rol_usuario_id`) V
 
 CREATE TABLE IF NOT EXISTS `link_interes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `link` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `imagen_referencia` varchar(45) DEFAULT NULL,
-  `fecha_acceso` varchar(45) DEFAULT NULL,
-  `fecha_modificacion` varchar(45) DEFAULT NULL,
-  `fecha_creacion` varchar(45) DEFAULT NULL,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_elminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `logica_estado_usuario`
+-- Estructura de tabla para la tabla `modelo_aprendizaje`
 --
 
-CREATE TABLE IF NOT EXISTS `logica_estado_usuario` (
+CREATE TABLE IF NOT EXISTS `modelo_aprendizaje` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `estado` varchar(45) DEFAULT NULL,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='			' AUTO_INCREMENT=44 ;
 
 --
--- Volcado de datos para la tabla `logica_estado_usuario`
+-- Volcado de datos para la tabla `modelo_aprendizaje`
 --
 
-INSERT INTO `logica_estado_usuario` (`id`, `estado`) VALUES
-(1, 'disponible'),
-(2, 'en espera'),
-(3, 'eliminado');
+INSERT INTO `modelo_aprendizaje` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`) VALUES
+(1, 'A1 modelo de aprendizaje ', 'A1 descripcion modelo aprendizaje', NULL, NULL, NULL, NULL),
+(2, 'B2 modelo de aprendizaje', 'B2 descripcion modelo de aprendizaje', NULL, NULL, NULL, NULL),
+(3, 'C3 modelo aprendizaje', 'C3 descripcion modelo aprendizaje', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(36, 'BART', 'HOMERO', NULL, '2015-10-26 16:24:52', '2015-10-23 11:27:15', NULL),
+(37, 'MOU', 'DUFF', NULL, NULL, '2015-10-26 12:13:27', NULL),
+(38, 'HERMOSO', 'HERMOSURA', NULL, '2015-10-26 16:18:07', '2015-10-26 13:22:15', NULL),
+(39, 'AHH SIII', 'WOM', NULL, '2015-10-26 16:33:11', '2015-10-26 16:23:21', NULL),
+(40, 'CLARO ', 'MARTIN CARCAMO', NULL, NULL, '2015-10-26 16:33:45', NULL),
+(41, 'NEXTEL', 'TONKA', NULL, '2015-10-26 16:35:28', '2015-10-26 16:35:07', NULL),
+(42, 'e-learning', 'descripcion modelo aprendizaje  e-learning', NULL, NULL, '2015-11-03 12:57:37', NULL),
+(43, 'full', 'descripcion modelo aprendizaje full', NULL, NULL, '2015-11-03 16:15:00', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `modelo_aprendizaje_has_herramienta`
+--
+
+CREATE TABLE IF NOT EXISTS `modelo_aprendizaje_has_herramienta` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `trabajo_grupal` tinyint(1) DEFAULT NULL,
+  `archivo_recurso` tinyint(1) DEFAULT NULL,
+  `link_interes` tinyint(1) DEFAULT NULL,
+  `glosario` tinyint(1) DEFAULT NULL,
+  `contenido_libre` tinyint(1) DEFAULT NULL,
+  `foro` tinyint(1) DEFAULT NULL,
+  `evaluacion` tinyint(1) DEFAULT NULL,
+  `autoevaluacion` tinyint(1) DEFAULT NULL,
+  `proyecto` tinyint(1) DEFAULT NULL,
+  `recepcion_trabajo` tinyint(1) DEFAULT NULL,
+  `evaluacion_no_objetiva` tinyint(1) DEFAULT NULL,
+  `modelo_aprendizaje_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_modelo_aprendizaje_has_herramienta_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='	' AUTO_INCREMENT=40 ;
+
+--
+-- Volcado de datos para la tabla `modelo_aprendizaje_has_herramienta`
+--
+
+INSERT INTO `modelo_aprendizaje_has_herramienta` (`id`, `trabajo_grupal`, `archivo_recurso`, `link_interes`, `glosario`, `contenido_libre`, `foro`, `evaluacion`, `autoevaluacion`, `proyecto`, `recepcion_trabajo`, `evaluacion_no_objetiva`, `modelo_aprendizaje_id`) VALUES
+(32, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 36),
+(33, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 37),
+(34, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 38),
+(35, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 39),
+(36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 40),
+(37, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 41),
+(38, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 42),
+(39, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 43);
 
 -- --------------------------------------------------------
 
@@ -2485,21 +3968,23 @@ CREATE TABLE IF NOT EXISTS `modulo` (
   `descripcion` varchar(45) DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `estado_modulo_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_modulo_estado_modulo1_idx` (`estado_modulo_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `modulo`
 --
 
-INSERT INTO `modulo` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`) VALUES
-(1, 'matematicas', 'des-matematicas', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
-(2, 'lenguaje', 'des-lenguaje', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
-(3, 'calculo', 'des-calculo', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
-(4, 'historia', 'des-historia', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
-(5, 'algebra', 'des-algebra', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
-(6, 'dibujo', 'des-dibujo', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
-(7, 'estadistica', 'des-estadistica', '2015-08-11 15:59:49', '2015-08-11 15:59:49');
+INSERT INTO `modulo` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_modulo_id`) VALUES
+(1, 'matematicas', 'des-matematicas', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL),
+(2, 'lenguaje', 'des-lenguaje', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL),
+(3, 'calculo', 'des-calculo', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL),
+(4, 'historia', 'des-historia', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL),
+(5, 'algebra', 'des-algebra', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL),
+(6, 'dibujo', 'des-dibujo', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL),
+(7, 'estadistica', 'des-estadistica', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -2752,18 +4237,25 @@ CREATE TABLE IF NOT EXISTS `programa_academico` (
   `version` varchar(45) DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `entidad_id` int(11) DEFAULT NULL,
+  `institucion_id` int(11) DEFAULT NULL,
+  `estado_programa_academico_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_programa_academico_entidad1_idx` (`entidad_id`),
+  KEY `fk_programa_academico_institucion1_idx` (`institucion_id`),
+  KEY `fk_programa_academico_estado_programa_academico1_idx` (`estado_programa_academico_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `programa_academico`
 --
 
-INSERT INTO `programa_academico` (`id`, `nombre`, `descripcion`, `version`, `fecha_creacion`, `fecha_modificacion`) VALUES
-(1, 'ingenieria en informatica', 'des-info', '1.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
-(2, 'diseño', 'des-diseño', '1.5', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
-(3, 'derecho', 'des-derecho', '2.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49'),
-(4, 'juegos', 'des-juegos', '3.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49');
+INSERT INTO `programa_academico` (`id`, `nombre`, `descripcion`, `version`, `fecha_creacion`, `fecha_modificacion`, `entidad_id`, `institucion_id`, `estado_programa_academico_id`) VALUES
+(1, 'ingenieria en informatica', 'des-info', '1.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49', 1, NULL, NULL),
+(2, 'diseño', 'des-diseño', '1.5', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, 2, NULL),
+(3, 'derecho', 'des-derecho', '2.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49', 2, NULL, NULL),
+(4, 'juegos', 'des-juegos', '3.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, 5, NULL),
+(5, 'redes', 'des-redes', '4.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -2795,46 +4287,36 @@ INSERT INTO `programa_academico_has_modulo` (`programa_academico_id`, `modulo_id
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `prueba`
+-- Estructura de tabla para la tabla `proyecto`
 --
 
-CREATE TABLE IF NOT EXISTS `prueba` (
+CREATE TABLE IF NOT EXISTS `proyecto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_rol` int(11) DEFAULT NULL,
-  `name_permiso` varchar(45) DEFAULT NULL,
-  `id_privilegio` int(11) DEFAULT NULL,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `prueba`
+-- Estructura de tabla para la tabla `recepcion_trabajo`
 --
 
-INSERT INTO `prueba` (`id`, `id_rol`, `name_permiso`, `id_privilegio`) VALUES
-(1, 1, 'aula', 1),
-(2, 1, 'aula', 2),
-(3, 1, 'aula', 3),
-(4, 1, 'aula', 4),
-(5, 1, 'aula', 5),
-(6, 1, 'aula', 6),
-(7, 1, 'aula', 7),
-(8, 1, 'aula', 8),
-(9, 1, 'aula', 9),
-(10, 1, 'aula', 10),
-(11, 1, 'aula', 11),
-(12, 1, 'aula', 12),
-(13, 1, 'repositorio', 13),
-(14, 1, 'repositorio', 14),
-(15, 1, 'repositorio', 15),
-(16, 1, 'repositorio', 16),
-(17, 1, 'repositorio', 17),
-(18, 1, 'repositorio', 18),
-(19, 1, 'repositorio', 19),
-(20, 1, 'repositorio', 20),
-(21, 1, 'repositorio', 21),
-(22, 1, 'repositorio', 22),
-(23, 1, 'repositorio', 23),
-(24, 1, 'repositorio', 24);
+CREATE TABLE IF NOT EXISTS `recepcion_trabajo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modifcacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2849,21 +4331,48 @@ CREATE TABLE IF NOT EXISTS `region` (
   `pais_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_region_pais1_idx` (`pais_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Volcado de datos para la tabla `region`
 --
 
 INSERT INTO `region` (`id`, `nombre`, `codigo`, `pais_id`) VALUES
-(2, 'santiago', 'san54', 1),
-(3, 'la plata', 'laplata23', 2),
-(4, 'kjjdkskdhsakj', 'kjsahdkjsahdak', 1),
-(5, 'sadsadad', 'sdsadsad', 2),
-(6, 'iowueuweqo', 'owiueiowuqe', 3),
-(7, 'akjssajh', 'kjahskjhsk', 2),
-(8, 'metropolitana', 'suecia', 1),
-(9, 'jhghjsgdsjd', 'jhsdjhhsdhsd', 1);
+(1, 'Arica y Parinacota', 'XV', 1),
+(2, 'Tarapaca', 'I', 1),
+(3, 'Antofagasta', 'II', 1),
+(4, 'Atacama', 'III', 1),
+(5, 'Coquimbo', 'IV', 1),
+(6, 'Valparaiso', 'V', 1),
+(7, 'Metropolitana de Santiago', 'RM', 1),
+(8, 'Ohiggins', 'VI', 1),
+(9, 'Maule', 'VII', 1),
+(10, 'Biobio', 'VIII', 1),
+(11, 'La Araucania', 'IX', 1),
+(12, 'Los Rios', 'XIV', 1),
+(13, 'Los Lagos', 'X', 1),
+(14, 'Aysen', 'XI', 1),
+(15, 'Magallanes', 'XII', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reko_session`
+--
+
+CREATE TABLE IF NOT EXISTS `reko_session` (
+  `id` char(32) NOT NULL,
+  `expire` int(11) DEFAULT NULL,
+  `data` longblob,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `reko_session`
+--
+
+INSERT INTO `reko_session` (`id`, `expire`, `data`) VALUES
+('qr5oovk4tanb0j4mjdt0169084', 1447190031, 0x30373333353130383865316330316231363262316162353236386465653766615f5f72657475726e55726c7c733a35343a222f7465737472656b6f2f7265706f7369746f72696f2f676c6f736172696f7465726d696e6f646566696e6963696f6e2f637265617465223b30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a313a2231223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d696e737469747563696f6e49647c733a313a2231223b696e737469747563696f6e4e6f6d6272657c733a343a227574656d223b696e737469747563696f6e566973696f6e7c733a363a22766973696f6e223b696e737469747563696f6e4d6973696f6e7c733a363a226d6973696f6e223b696e737469747563696f6e416372656469746164617c733a313a2230223b696e737469747563696f6e4665636861496e6963696f416372656469746163696f6e7c733a31393a22323031352d30382d30362031353a34303a3332223b696e737469747563696f6e46656368615465726d696e6f416372656469746163696f6e7c733a31393a22323031352d30382d30362031353a34303a3332223b7265706f7369746f72696f7c4f3a31313a225265706f7369746f72696f223a31313a7b733a31393a2200434163746976655265636f7264005f6e6577223b623a303b733a32363a2200434163746976655265636f7264005f61747472696275746573223b613a31303a7b733a323a226964223b733a313a2231223b733a363a226e6f6d627265223b733a31343a223141207265706f7369746f72696f223b733a31313a226465736372697063696f6e223b733a31343a223141207265706f7369746f72696f223b733a31323a2266656368615f61636365736f223b4e3b733a31383a2266656368615f6d6f64696669636163696f6e223b4e3b733a31343a2266656368615f6372656163696f6e223b4e3b733a31373a2266656368615f656c696d696e6163696f6e223b4e3b733a31393a227469706f5f7265706f7369746f72696f5f6964223b733a313a2231223b733a32313a226d6f64656c6f5f617072656e64697a616a655f6964223b733a323a223433223b733a32313a22677569615f696e737472756363696f6e616c5f6964223b4e3b7d733a32333a2200434163746976655265636f7264005f72656c61746564223b613a303a7b7d733a31373a2200434163746976655265636f7264005f63223b4e3b733a31383a2200434163746976655265636f7264005f706b223b733a313a2231223b733a32313a2200434163746976655265636f7264005f616c696173223b733a313a2274223b733a31353a2200434d6f64656c005f6572726f7273223b613a303a7b7d733a31393a2200434d6f64656c005f76616c696461746f7273223b4e3b733a31373a2200434d6f64656c005f7363656e6172696f223b733a363a22757064617465223b733a31343a220043436f6d706f6e656e74005f65223b4e3b733a31343a220043436f6d706f6e656e74005f6d223b4e3b7d);
 
 -- --------------------------------------------------------
 
@@ -2878,42 +4387,23 @@ CREATE TABLE IF NOT EXISTS `repositorio` (
   `fecha_acceso` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
   `tipo_repositorio_id` int(11) DEFAULT NULL,
+  `modelo_aprendizaje_id` int(11) DEFAULT NULL,
+  `guia_instruccional_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_repositorio_tipo_repositorio2_idx` (`tipo_repositorio_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  KEY `fk_repositorio_tipo_repositorio1_idx` (`tipo_repositorio_id`),
+  KEY `fk_repositorio_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`),
+  KEY `fk_repositorio_guia_instruccional1_idx` (`guia_instruccional_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='\n	\n	\n	\n\n\n	\n\n	\n	' AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `repositorio`
 --
 
-INSERT INTO `repositorio` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `tipo_repositorio_id`) VALUES
-(3, 'repositorio 1 ', 'descripcion repositorio q', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(4, 'repositorio 2', 'descripcion repositorio 2', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `repositorio_has_institucion`
---
-
-CREATE TABLE IF NOT EXISTS `repositorio_has_institucion` (
-  `repositorio_id` int(11) NOT NULL,
-  `institucion_id` int(11) NOT NULL,
-  PRIMARY KEY (`repositorio_id`,`institucion_id`),
-  KEY `fk_repositorio_has_institucion_institucion1_idx` (`institucion_id`),
-  KEY `fk_repositorio_has_institucion_repositorio1_idx` (`repositorio_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `repositorio_has_institucion`
---
-
-INSERT INTO `repositorio_has_institucion` (`repositorio_id`, `institucion_id`) VALUES
-(3, 1),
-(4, 1),
-(3, 2),
-(4, 2);
+INSERT INTO `repositorio` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `tipo_repositorio_id`, `modelo_aprendizaje_id`, `guia_instruccional_id`) VALUES
+(1, '1A repositorio', '1A repositorio', NULL, NULL, NULL, NULL, 1, 43, NULL),
+(2, '2B repositorio', '2B repositorio', NULL, NULL, NULL, NULL, 1, 42, NULL);
 
 -- --------------------------------------------------------
 
@@ -2986,6 +4476,7 @@ INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_adminis
 (1, 'admin_usuario'),
 (1, 'admin_usuario_administrador'),
 (5, 'admin_aplicacion'),
+(5, 'admin_rol_usuario'),
 (5, 'admin_usuario'),
 (5, 'admin_usuario_administrador'),
 (6, 'admin_rol_usuario'),
@@ -3071,64 +4562,93 @@ INSERT INTO `rol_administrador_has_privilegio_administrador` (`rol_administrador
 (5, 54),
 (6, 54),
 (1, 55),
+(5, 55),
 (6, 55),
 (1, 56),
 (6, 56),
 (1, 57),
+(5, 57),
 (6, 57),
 (1, 58),
+(5, 58),
 (6, 58),
 (1, 59),
+(5, 59),
 (6, 59),
 (1, 60),
+(5, 60),
 (6, 60),
 (1, 61),
+(5, 61),
 (6, 61),
 (1, 62),
+(5, 62),
 (6, 62),
 (1, 63),
+(5, 63),
 (6, 63),
 (1, 64),
+(5, 64),
 (6, 64),
 (1, 65),
+(5, 65),
 (6, 65),
 (1, 66),
+(5, 66),
 (6, 66),
 (1, 67),
+(5, 67),
 (6, 67),
 (1, 68),
+(5, 68),
 (6, 68),
 (1, 69),
+(5, 69),
 (6, 69),
 (1, 70),
+(5, 70),
 (6, 70),
 (1, 71),
+(5, 71),
 (6, 71),
 (1, 72),
+(5, 72),
 (6, 72),
 (1, 73),
+(5, 73),
 (6, 73),
 (1, 74),
+(5, 74),
 (6, 74),
 (1, 75),
+(5, 75),
 (6, 75),
 (1, 76),
+(5, 76),
 (6, 76),
 (1, 77),
+(5, 77),
 (6, 77),
 (1, 78),
+(5, 78),
 (6, 78),
 (1, 79),
+(5, 79),
 (6, 79),
 (1, 80),
+(5, 80),
 (6, 80),
 (1, 81),
+(5, 81),
 (6, 81),
 (1, 82),
+(5, 82),
 (6, 82),
 (1, 83),
+(5, 83),
 (6, 83),
 (1, 84),
+(5, 84),
 (6, 84);
 
 -- --------------------------------------------------------
@@ -3141,21 +4661,32 @@ CREATE TABLE IF NOT EXISTS `rol_usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
+  `tipo` varchar(45) DEFAULT NULL,
+  `rol_usuario_general_id` int(11) DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_eliminacion` datetime DEFAULT NULL,
   `fecha_acceso` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  PRIMARY KEY (`id`),
+  KEY `rol_usuario_general_id` (`rol_usuario_general_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=190 ;
 
 --
 -- Volcado de datos para la tabla `rol_usuario`
 --
 
-INSERT INTO `rol_usuario` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_eliminacion`, `fecha_acceso`, `fecha_modificacion`) VALUES
-(1, 'superusuario', 'rol superusuario', NULL, NULL, NULL, NULL),
-(2, 'profesor', 'rol profesor', NULL, NULL, NULL, NULL),
-(3, 'alumno', 'rol alumno', NULL, NULL, NULL, NULL);
+INSERT INTO `rol_usuario` (`id`, `nombre`, `descripcion`, `tipo`, `rol_usuario_general_id`, `fecha_creacion`, `fecha_eliminacion`, `fecha_acceso`, `fecha_modificacion`) VALUES
+(1, 'superusuario', 'rol superusuario', NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'profesor', 'rol profesor', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
+(3, 'alumno', 'rol alumno', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
+(4, 'ayudante', 'rol ayudante', 'rol_usuario_general', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 'inspector', 'rol inspector', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
+(6, 'percutor', 'rol percutor', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
+(7, 'constructor', 'rol constructor', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
+(186, 'profesor', 'rol profesor', 'rol_usuario_institucion', 2, '2015-10-15 11:31:41', NULL, NULL, '2015-10-15 11:31:41'),
+(187, 'alumno', 'rol alumno', 'rol_usuario_institucion', 3, '2015-10-15 11:31:42', NULL, NULL, '2015-10-15 11:31:42'),
+(188, 'ayudante', 'rol ayudante', 'rol_usuario_institucion', 4, '2015-10-15 11:31:44', NULL, NULL, '2015-10-15 11:31:44'),
+(189, 'destructor', 'rol destructor', 'rol_usuario_general', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -3176,27 +4707,19 @@ CREATE TABLE IF NOT EXISTS `rol_usuario_has_authitem_permiso_usuario` (
 --
 
 INSERT INTO `rol_usuario_has_authitem_permiso_usuario` (`rol_usuario_id`, `authitem_permiso_usuario_name`) VALUES
-(2, 'repositorio');
-
---
--- Disparadores `rol_usuario_has_authitem_permiso_usuario`
---
-DROP TRIGGER IF EXISTS `rol_usuario_has_authitem_permiso_usuario_AFTER_INSERT`;
-DELIMITER //
-CREATE TRIGGER `rol_usuario_has_authitem_permiso_usuario_AFTER_INSERT` AFTER INSERT ON `rol_usuario_has_authitem_permiso_usuario`
- FOR EACH ROW BEGIN
-	CALL sp_admin_rol_usuario_asignar_privilegio_rol_automatico (new.rol_usuario_id,new.authitem_permiso_usuario_name);
-END
-//
-DELIMITER ;
-DROP TRIGGER IF EXISTS `rol_usuario_has_authitem_permiso_usuario_AFTER_DELETE`;
-DELIMITER //
-CREATE TRIGGER `rol_usuario_has_authitem_permiso_usuario_AFTER_DELETE` AFTER DELETE ON `rol_usuario_has_authitem_permiso_usuario`
- FOR EACH ROW BEGIN
-		CALL sp_admin_rol_usuario_desasignar_privilegio_rol_automatico (old.rol_usuario_id, old.authitem_permiso_usuario_name);
-END
-//
-DELIMITER ;
+(1, 'aula'),
+(1, 'mesa_de_ayuda'),
+(1, 'repositorio'),
+(2, 'aula'),
+(2, 'repositorio'),
+(3, 'aula'),
+(3, 'repositorio'),
+(4, 'mesa_de_ayuda'),
+(186, 'aula'),
+(186, 'repositorio'),
+(187, 'aula'),
+(187, 'repositorio'),
+(188, 'mesa_de_ayuda');
 
 -- --------------------------------------------------------
 
@@ -3217,18 +4740,78 @@ CREATE TABLE IF NOT EXISTS `rol_usuario_has_privilegio_usuario` (
 --
 
 INSERT INTO `rol_usuario_has_privilegio_usuario` (`rol_usuario_id`, `privilegio_usuario_id`) VALUES
-(2, 13),
-(2, 14),
-(2, 15),
-(2, 16),
-(2, 17),
-(2, 18),
-(2, 19),
-(2, 20),
-(2, 21),
-(2, 22),
-(2, 23),
-(2, 24);
+(1, 1),
+(2, 1),
+(186, 1),
+(1, 2),
+(2, 2),
+(186, 2),
+(1, 3),
+(2, 3),
+(186, 3),
+(1, 4),
+(2, 4),
+(186, 4),
+(1, 5),
+(2, 5),
+(186, 5),
+(1, 6),
+(2, 6),
+(186, 6),
+(1, 7),
+(2, 7),
+(186, 7),
+(1, 8),
+(2, 8),
+(186, 8),
+(1, 9),
+(2, 9),
+(186, 9),
+(1, 10),
+(2, 10),
+(186, 10),
+(1, 11),
+(2, 11),
+(186, 11),
+(1, 12),
+(2, 12),
+(186, 12),
+(1, 13),
+(3, 13),
+(187, 13),
+(1, 14),
+(3, 14),
+(187, 14),
+(1, 15),
+(3, 15),
+(187, 15),
+(1, 16),
+(3, 16),
+(187, 16),
+(1, 17),
+(3, 17),
+(187, 17),
+(1, 18),
+(3, 18),
+(187, 18),
+(1, 19),
+(3, 19),
+(187, 19),
+(1, 20),
+(3, 20),
+(187, 20),
+(1, 21),
+(3, 21),
+(187, 21),
+(1, 22),
+(3, 22),
+(187, 22),
+(1, 23),
+(3, 23),
+(187, 23),
+(1, 24),
+(3, 24),
+(187, 24);
 
 -- --------------------------------------------------------
 
@@ -3244,16 +4827,31 @@ CREATE TABLE IF NOT EXISTS `seccion` (
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `modulo_id` int(11) NOT NULL,
+  `estado_seccion_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_seccion_modulo1_idx` (`modulo_id`)
+  KEY `fk_seccion_modulo1_idx` (`modulo_id`),
+  KEY `fk_seccion_estado_seccion1_idx` (`estado_seccion_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `seccion`
 --
 
-INSERT INTO `seccion` (`id`, `nombre`, `jornada`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `modulo_id`) VALUES
-(6, 'mnbvbnmvc', 'nmcvbbnmvxc', 'cmnvbnmcbvx', '2015-08-12 11:38:53', '2015-08-12 11:39:57', 1);
+INSERT INTO `seccion` (`id`, `nombre`, `jornada`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `modulo_id`, `estado_seccion_id`) VALUES
+(6, 'mnbvbnmvc', 'nmcvbbnmvxc', 'cmnvbnmcbvx', '2015-08-12 11:38:53', '2015-08-12 11:39:57', 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `session`
+--
+
+CREATE TABLE IF NOT EXISTS `session` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(11) DEFAULT NULL,
+  `institucion_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -3265,7 +4863,14 @@ CREATE TABLE IF NOT EXISTS `tipo_herramienta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `tipo_herramienta`
+--
+
+INSERT INTO `tipo_herramienta` (`id`, `nombre`) VALUES
+(1, 'herramienta_troncal');
 
 -- --------------------------------------------------------
 
@@ -3276,6 +4881,30 @@ CREATE TABLE IF NOT EXISTS `tipo_herramienta` (
 CREATE TABLE IF NOT EXISTS `tipo_repositorio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='				' AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `tipo_repositorio`
+--
+
+INSERT INTO `tipo_repositorio` (`id`, `descripcion`) VALUES
+(1, 'repositorio_troncal');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `trabajo_grupal`
+--
+
+CREATE TABLE IF NOT EXISTS `trabajo_grupal` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `descripcion` text,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -3292,46 +4921,48 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `fecha_acceso` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `estado_usuario_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_usuario_estado_usuario1_idx` (`estado_usuario_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=204 ;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`) VALUES
-(1, 'creyes', '123', NULL, NULL, NULL),
-(2, 'francisco', '123', NULL, NULL, NULL),
-(3, 'victor', '123', NULL, NULL, NULL),
-(4, 'marcelo', '123', NULL, NULL, NULL),
-(5, 'patricio', '123', NULL, NULL, NULL),
-(6, 'bruno', '123', '0000-00-00 00:00:00', '2015-08-10 16:09:43', '2015-08-10 16:09:16'),
-(7, 'cristobal', '123', NULL, '2015-08-25 10:21:14', '2015-08-12 09:57:11'),
-(8, 'camilo', '123', NULL, NULL, '2015-08-25 10:16:05'),
-(9, 'manuel', '123', NULL, NULL, '2015-08-25 10:16:14'),
-(10, 'andres', '123', NULL, NULL, '2015-08-25 10:16:24'),
-(11, 'carlos', '123', NULL, NULL, '2015-08-25 10:16:31'),
-(12, 'ricardo', '123', NULL, NULL, '2015-08-25 10:16:41'),
-(13, 'rodrigo', '123', NULL, NULL, '2015-08-25 10:16:52'),
-(14, 'daniel', '123', NULL, NULL, '2015-08-25 10:17:00'),
-(15, 'matias', '123', NULL, NULL, '2015-08-25 10:19:12'),
-(186, 'usuario viejo', 'viejo clave', NULL, '2015-08-10 16:09:43', '2015-08-10 16:09:16'),
-(187, 'nbnvmcvmc', 'nmcbvnmcxvnv', NULL, '2015-08-12 09:57:23', '2015-08-12 09:57:11'),
-(189, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
-(190, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
-(191, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
-(192, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
-(193, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
-(194, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
-(195, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
-(196, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
-(197, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
-(198, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
-(199, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
-(200, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
-(201, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
-(202, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41'),
-(203, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41');
+INSERT INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `estado_usuario_id`) VALUES
+(1, 'creyes', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 1),
+(2, 'francisco', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 1),
+(3, 'victor', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
+(4, 'marcelo', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
+(5, 'patricio', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
+(6, 'usuario6', 'clave6', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
+(7, 'usuario7', 'clave7', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
+(8, 'usuario8', 'clave8', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
+(9, 'usuario9', 'clave9', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
+(10, 'andres', '123', NULL, NULL, '2015-08-25 10:16:24', NULL),
+(11, 'carlos', '123', NULL, NULL, '2015-08-25 10:16:31', NULL),
+(12, 'ricardo', '123', NULL, NULL, '2015-08-25 10:16:41', NULL),
+(13, 'rodrigo', '123', NULL, NULL, '2015-08-25 10:16:52', NULL),
+(14, 'daniel', '123', NULL, NULL, '2015-08-25 10:17:00', NULL),
+(15, 'matias', '123', NULL, NULL, '2015-08-25 10:19:12', NULL),
+(186, 'usuario viejo', 'viejo clave', NULL, '2015-08-10 16:09:43', '2015-08-10 16:09:16', NULL),
+(187, 'nbnvmcvmc', 'nmcbvnmcxvnv', NULL, '2015-08-12 09:57:23', '2015-08-12 09:57:11', NULL),
+(189, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
+(190, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
+(191, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
+(192, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
+(193, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
+(194, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
+(195, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
+(196, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
+(197, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
+(198, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
+(199, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
+(200, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
+(201, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
+(202, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
+(203, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -3401,29 +5032,8 @@ INSERT INTO `usuario_has_institucion` (`usuario_id`, `institucion_id`) VALUES
 (3, 1),
 (4, 1),
 (5, 1),
-(1, 2),
-(2, 2),
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 1),
-(5, 1),
-(1, 2),
-(2, 2),
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 1),
-(5, 1),
-(1, 2),
-(2, 2),
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 1),
-(5, 1),
-(1, 2),
-(2, 2);
+(6, 2),
+(6, 1);
 
 -- --------------------------------------------------------
 
@@ -3448,7 +5058,9 @@ INSERT INTO `usuario_has_rol_usuario` (`usuario_id`, `rol_usuario_id`) VALUES
 (4, 2),
 (5, 2),
 (2, 3),
-(3, 3);
+(3, 3),
+(3, 186),
+(4, 186);
 
 --
 -- Restricciones para tablas volcadas
@@ -3508,8 +5120,8 @@ ALTER TABLE `dato_laboral`
 -- Filtros para la tabla `dato_login`
 --
 ALTER TABLE `dato_login`
-  ADD CONSTRAINT `fk_dato_login_codigo_seguridad1` FOREIGN KEY (`codigo_seguridad_id`) REFERENCES `codigo_seguridad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_dato_login_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_dato_login_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_dato_login_codigo_seguridad1` FOREIGN KEY (`codigo_seguridad_id`) REFERENCES `codigo_seguridad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `dato_login_has_pregunta_login`
@@ -3535,8 +5147,9 @@ ALTER TABLE `dato_personal`
 -- Filtros para la tabla `entidad`
 --
 ALTER TABLE `entidad`
+  ADD CONSTRAINT `fk_entidad_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_entidad_entidad1` FOREIGN KEY (`entidad_id`) REFERENCES `entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_entidad_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_entidad_estado_entidad1` FOREIGN KEY (`estado_entidad_id`) REFERENCES `estado_entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `escritorio_administrador`
@@ -3545,17 +5158,16 @@ ALTER TABLE `escritorio_administrador`
   ADD CONSTRAINT `fk_escritorio_administrador_usuario_administrador1` FOREIGN KEY (`usuario_administrador_id`) REFERENCES `usuario_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `escritorio_usuario`
+-- Filtros para la tabla `glosario`
 --
-ALTER TABLE `escritorio_usuario`
-  ADD CONSTRAINT `fk_escritorio_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `glosario`
+  ADD CONSTRAINT `fk_glosario_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `estado_usuario`
+-- Filtros para la tabla `glosario_termino_definicion`
 --
-ALTER TABLE `estado_usuario`
-  ADD CONSTRAINT `fk_estado_usuario_logica_estado_usuario1` FOREIGN KEY (`logica_estado_usuario_id`) REFERENCES `logica_estado_usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_estado_usuario_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `glosario_termino_definicion`
+  ADD CONSTRAINT `fk_glosario_termino_definicion_glosario1` FOREIGN KEY (`glosario_id`) REFERENCES `glosario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `herramienta`
@@ -3571,6 +5183,19 @@ ALTER TABLE `icono_aplicacion_administrador`
   ADD CONSTRAINT `fk_icono_aplicacion_administrador_authitem_permiso_administra1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `institucion`
+--
+ALTER TABLE `institucion`
+  ADD CONSTRAINT `fk_institucion_estado_institucion1` FOREIGN KEY (`estado_institucion_id`) REFERENCES `estado_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `institucion_has_repositorio`
+--
+ALTER TABLE `institucion_has_repositorio`
+  ADD CONSTRAINT `fk_institucion_has_repositorio_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_institucion_has_repositorio_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `institucion_has_rol_usuario`
 --
 ALTER TABLE `institucion_has_rol_usuario`
@@ -3578,25 +5203,37 @@ ALTER TABLE `institucion_has_rol_usuario`
   ADD CONSTRAINT `fk_institucion_has_rol_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `modelo_aprendizaje_has_herramienta`
+--
+ALTER TABLE `modelo_aprendizaje_has_herramienta`
+  ADD CONSTRAINT `fk_modelo_aprendizaje_has_herramienta_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `modulo`
+--
+ALTER TABLE `modulo`
+  ADD CONSTRAINT `fk_modulo_estado_modulo1` FOREIGN KEY (`estado_modulo_id`) REFERENCES `estado_modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `pais_has_dato_academico`
 --
 ALTER TABLE `pais_has_dato_academico`
-  ADD CONSTRAINT `fk_pais_has_dato_academico_dato_academico1` FOREIGN KEY (`dato_academico_id`) REFERENCES `dato_academico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_pais_has_dato_academico_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_pais_has_dato_academico_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pais_has_dato_academico_dato_academico1` FOREIGN KEY (`dato_academico_id`) REFERENCES `dato_academico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pais_has_dato_laboral`
 --
 ALTER TABLE `pais_has_dato_laboral`
-  ADD CONSTRAINT `fk_pais_has_dato_laboral_dato_laboral1` FOREIGN KEY (`dato_laboral_id`) REFERENCES `dato_laboral` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_pais_has_dato_laboral_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_pais_has_dato_laboral_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pais_has_dato_laboral_dato_laboral1` FOREIGN KEY (`dato_laboral_id`) REFERENCES `dato_laboral` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pais_has_dato_personal`
 --
 ALTER TABLE `pais_has_dato_personal`
-  ADD CONSTRAINT `fk_pais_has_dato_personal_dato_personal1` FOREIGN KEY (`dato_personal_id`) REFERENCES `dato_personal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_pais_has_dato_personal_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_pais_has_dato_personal_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pais_has_dato_personal_dato_personal1` FOREIGN KEY (`dato_personal_id`) REFERENCES `dato_personal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `privilegio_administrador`
@@ -3611,11 +5248,19 @@ ALTER TABLE `privilegio_usuario`
   ADD CONSTRAINT `fk_privilegio_controlador_usuario1` FOREIGN KEY (`controlador_usuario_id`) REFERENCES `controlador_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `programa_academico`
+--
+ALTER TABLE `programa_academico`
+  ADD CONSTRAINT `fk_programa_academico_entidad1` FOREIGN KEY (`entidad_id`) REFERENCES `entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_programa_academico_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_programa_academico_estado_programa_academico1` FOREIGN KEY (`estado_programa_academico_id`) REFERENCES `estado_programa_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `programa_academico_has_modulo`
 --
 ALTER TABLE `programa_academico_has_modulo`
-  ADD CONSTRAINT `fk_programa_academico_has_modulo_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_programa_academico_has_modulo_programa_academico1` FOREIGN KEY (`programa_academico_id`) REFERENCES `programa_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_programa_academico_has_modulo_programa_academico1` FOREIGN KEY (`programa_academico_id`) REFERENCES `programa_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_programa_academico_has_modulo_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `region`
@@ -3627,35 +5272,30 @@ ALTER TABLE `region`
 -- Filtros para la tabla `repositorio`
 --
 ALTER TABLE `repositorio`
-  ADD CONSTRAINT `fk_repositorio_tipo_repositorio2` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `repositorio_has_institucion`
---
-ALTER TABLE `repositorio_has_institucion`
-  ADD CONSTRAINT `fk_repositorio_has_institucion_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_has_institucion_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_repositorio_guia_instruccional1` FOREIGN KEY (`guia_instruccional_id`) REFERENCES `guia_instruccional` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_tipo_repositorio1` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_administrador_has_authitem_permiso_administrador`
 --
 ALTER TABLE `rol_administrador_has_authitem_permiso_administrador`
-  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_authi1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_rol_a1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_rol_a1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_authi1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_administrador_has_privilegio_administrador`
 --
 ALTER TABLE `rol_administrador_has_privilegio_administrador`
-  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_privilegio_1` FOREIGN KEY (`privilegio_administrador_id`) REFERENCES `privilegio_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_rol_adminis1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_rol_adminis1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_privilegio_1` FOREIGN KEY (`privilegio_administrador_id`) REFERENCES `privilegio_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_usuario_has_authitem_permiso_usuario`
 --
 ALTER TABLE `rol_usuario_has_authitem_permiso_usuario`
-  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_authitem_permiso_1` FOREIGN KEY (`authitem_permiso_usuario_name`) REFERENCES `authitem_permiso_usuario` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_authitem_permiso_1` FOREIGN KEY (`authitem_permiso_usuario_name`) REFERENCES `authitem_permiso_usuario` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_usuario_has_privilegio_usuario`
@@ -3668,28 +5308,34 @@ ALTER TABLE `rol_usuario_has_privilegio_usuario`
 -- Filtros para la tabla `seccion`
 --
 ALTER TABLE `seccion`
-  ADD CONSTRAINT `fk_seccion_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_seccion_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_seccion_estado_seccion1` FOREIGN KEY (`estado_seccion_id`) REFERENCES `estado_seccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `fk_usuario_estado_usuario1` FOREIGN KEY (`estado_usuario_id`) REFERENCES `estado_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario_administrador_has_rol_administrador`
 --
 ALTER TABLE `usuario_administrador_has_rol_administrador`
-  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_rol_administra1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_usuario_admini1` FOREIGN KEY (`usuario_administrador_id`) REFERENCES `usuario_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_usuario_admini1` FOREIGN KEY (`usuario_administrador_id`) REFERENCES `usuario_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_rol_administra1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario_has_institucion`
 --
 ALTER TABLE `usuario_has_institucion`
-  ADD CONSTRAINT `usuario_has_institucion_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`),
-  ADD CONSTRAINT `usuario_has_institucion_ibfk_2` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`);
+  ADD CONSTRAINT `usuario_has_institucion_ibfk_2` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`),
+  ADD CONSTRAINT `usuario_has_institucion_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`);
 
 --
 -- Filtros para la tabla `usuario_has_rol_usuario`
 --
 ALTER TABLE `usuario_has_rol_usuario`
-  ADD CONSTRAINT `fk_usuario_has_rol_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_has_rol_usuario_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_has_rol_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

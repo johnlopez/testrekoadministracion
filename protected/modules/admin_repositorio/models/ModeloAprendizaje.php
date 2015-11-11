@@ -10,15 +10,16 @@
  * @property string $fecha_acceso
  * @property string $fecha_modificacion
  * @property string $fecha_creacion
+ * @property string $fecha_eliminacion
  *
  * The followings are the available model relations:
- * @property RepositorioLocalAdmin[] $repositorioLocalAdmins
- * @property RepositorioLocalApp[] $repositorioLocalApps
- * @property RepositorioTroncalAdmin[] $repositorioTroncalAdmins
- * @property RepositorioTroncalApp[] $repositorioTroncalApps
+ * @property ModeloAprendizajeHasHerramienta[] $modeloAprendizajeHasHerramientas
+ * @property Repositorio[] $repositorios
  */
 class ModeloAprendizaje extends CActiveRecord
 {
+        public $lastInsertModeloAprendizajeId;
+        public $lastInsertModeloAprendizajeHerramientaId;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -35,11 +36,11 @@ class ModeloAprendizaje extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre, descripcion', 'length', 'max'=>45),
-			array('fecha_acceso, fecha_modificacion, fecha_creacion', 'safe'),
+			array('nombre', 'length', 'max'=>45),
+			array('descripcion, fecha_acceso, fecha_modificacion, fecha_creacion, fecha_eliminacion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre, descripcion, fecha_acceso, fecha_modificacion, fecha_creacion', 'safe', 'on'=>'search'),
+			array('id, nombre, descripcion, fecha_acceso, fecha_modificacion, fecha_creacion, fecha_eliminacion', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,10 +52,8 @@ class ModeloAprendizaje extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'repositorioLocalAdmins' => array(self::HAS_MANY, 'RepositorioLocalAdmin', 'modelo_aprendizaje_id'),
-			'repositorioLocalApps' => array(self::HAS_MANY, 'RepositorioLocalApp', 'modelo_aprendizaje_id'),
-			'repositorioTroncalAdmins' => array(self::HAS_MANY, 'RepositorioTroncalAdmin', 'modelo_aprendizaje_id'),
-			'repositorioTroncalApps' => array(self::HAS_MANY, 'RepositorioTroncalApp', 'modelo_aprendizaje_id'),
+			'modeloAprendizajeHasHerramientas' => array(self::HAS_MANY, 'ModeloAprendizajeHasHerramienta', 'modelo_aprendizaje_id'),
+			'repositorios' => array(self::HAS_MANY, 'Repositorio', 'modelo_aprendizaje_id'),
 		);
 	}
 
@@ -70,6 +69,7 @@ class ModeloAprendizaje extends CActiveRecord
 			'fecha_acceso' => 'Fecha Acceso',
 			'fecha_modificacion' => 'Fecha Modificacion',
 			'fecha_creacion' => 'Fecha Creacion',
+			'fecha_eliminacion' => 'Fecha Eliminacion',
 		);
 	}
 
@@ -97,6 +97,7 @@ class ModeloAprendizaje extends CActiveRecord
 		$criteria->compare('fecha_acceso',$this->fecha_acceso,true);
 		$criteria->compare('fecha_modificacion',$this->fecha_modificacion,true);
 		$criteria->compare('fecha_creacion',$this->fecha_creacion,true);
+		$criteria->compare('fecha_eliminacion',$this->fecha_eliminacion,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -113,4 +114,126 @@ class ModeloAprendizaje extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        public function agregarModeloAprendizaje(                
+                
+                $nuevoModeloAprendizajeNombre,
+                $nuevoModeloAprendizajeDescripcion,
+
+                $nuevoTrabajoGrupalBool,
+                $nuevoArchivoRecursoBool,
+                $nuevoLinkInteresBool,
+                $nuevoGlosarioBool,
+                $nuevoContenidoLibreBool,
+                $nuevoForoBool,
+                $nuevoEvaluacionBool,
+                $nuevoAutoevaluacionBool,
+                $nuevoProyectoBool,
+                $nuevoRecepcionTrabajoBool,
+                $nuevoEvaluacionNoObjetivaBool                
+        ) 
+        {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_repositorio_agregar_modelo_aprendizaje_herramienta(
+                :nuevoModeloAprendizajeNombre,
+                :nuevoModeloAprendizajeDescripcion,
+
+                :nuevoTrabajoGrupalBool,
+                :nuevoArchivoRecursoBool,
+                :nuevoLinkInteresBool,
+                :nuevoGlosarioBool,
+                :nuevoContenidoLibreBool,
+                :nuevoForoBool,
+                :nuevoEvaluacionBool,
+                :nuevoAutoevaluacionBool,
+                :nuevoProyectoBool,
+                :nuevoRecepcionTrabajoBool,
+                :nuevoEvaluacionNoObjetivaBool,
+                @last_insert_modelo_aprendizaje_id,
+                @last_insert_modelo_aprendizaje_herramienta_id)"
+            );              
+                    
+            $comando->bindParam(':nuevoModeloAprendizajeNombre',$nuevoModeloAprendizajeNombre);
+            $comando->bindParam(':nuevoModeloAprendizajeDescripcion',$nuevoModeloAprendizajeDescripcion);
+
+            $comando->bindParam(':nuevoTrabajoGrupalBool',$nuevoTrabajoGrupalBool);
+            $comando->bindParam(':nuevoArchivoRecursoBool',$nuevoArchivoRecursoBool);
+            $comando->bindParam(':nuevoLinkInteresBool',$nuevoLinkInteresBool);
+            $comando->bindParam(':nuevoGlosarioBool',$nuevoGlosarioBool);
+            $comando->bindParam(':nuevoContenidoLibreBool',$nuevoContenidoLibreBool);
+            $comando->bindParam(':nuevoForoBool',$nuevoForoBool);
+            $comando->bindParam(':nuevoEvaluacionBool',$nuevoEvaluacionBool);
+            $comando->bindParam(':nuevoAutoevaluacionBool',$nuevoAutoevaluacionBool);
+            $comando->bindParam(':nuevoProyectoBool',$nuevoProyectoBool);
+            $comando->bindParam(':nuevoRecepcionTrabajoBool',$nuevoRecepcionTrabajoBool);
+            $comando->bindParam(':nuevoEvaluacionNoObjetivaBool',$nuevoEvaluacionNoObjetivaBool);
+           
+            $comando->execute();
+            $this->lastInsertModeloAprendizajeId = Yii::app()->db->createCommand("select @last_insert_modelo_aprendizaje_id as result;")->queryScalar();
+            $this->lastInsertModeloAprendizajeHerramientaId = Yii::app()->db->createCommand("select @last_insert_modelo_aprendizaje_herramienta_id as result;")->queryScalar();
+
+            return $comando;
+        }
+        
+        
+        public function modificarModeloAprendizaje(                
+                $nuevoModeloAprendizajeId,
+                $nuevoModeloAprendizajeNombre,
+                $nuevoModeloAprendizajeDescripcion,
+
+                $nuevoTrabajoGrupalBool,
+                $nuevoArchivoRecursoBool,
+                $nuevoLinkInteresBool,
+                $nuevoGlosarioBool,
+                $nuevoContenidoLibreBool,
+                $nuevoForoBool,
+                $nuevoEvaluacionBool,
+                $nuevoAutoevaluacionBool,
+                $nuevoProyectoBool,
+                $nuevoRecepcionTrabajoBool,
+                $nuevoEvaluacionNoObjetivaBool                
+        ) 
+        {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_repositorio_modificar_modelo_aprendizaje_herramienta(
+                :nuevoModeloAprendizajeId,
+                :nuevoModeloAprendizajeNombre,
+                :nuevoModeloAprendizajeDescripcion,
+
+                :nuevoTrabajoGrupalBool,
+                :nuevoArchivoRecursoBool,
+                :nuevoLinkInteresBool,
+                :nuevoGlosarioBool,
+                :nuevoContenidoLibreBool,
+                :nuevoForoBool,
+                :nuevoEvaluacionBool,
+                :nuevoAutoevaluacionBool,
+                :nuevoProyectoBool,
+                :nuevoRecepcionTrabajoBool,
+                :nuevoEvaluacionNoObjetivaBool,
+                @last_insert_modelo_aprendizaje_id,
+                @last_insert_modelo_aprendizaje_herramienta_id)"
+            );              
+            $comando->bindParam(':nuevoModeloAprendizajeId',$nuevoModeloAprendizajeId);
+            $comando->bindParam(':nuevoModeloAprendizajeNombre',$nuevoModeloAprendizajeNombre);
+            $comando->bindParam(':nuevoModeloAprendizajeDescripcion',$nuevoModeloAprendizajeDescripcion);
+
+            $comando->bindParam(':nuevoTrabajoGrupalBool',$nuevoTrabajoGrupalBool);
+            $comando->bindParam(':nuevoArchivoRecursoBool',$nuevoArchivoRecursoBool);
+            $comando->bindParam(':nuevoLinkInteresBool',$nuevoLinkInteresBool);
+            $comando->bindParam(':nuevoGlosarioBool',$nuevoGlosarioBool);
+            $comando->bindParam(':nuevoContenidoLibreBool',$nuevoContenidoLibreBool);
+            $comando->bindParam(':nuevoForoBool',$nuevoForoBool);
+            $comando->bindParam(':nuevoEvaluacionBool',$nuevoEvaluacionBool);
+            $comando->bindParam(':nuevoAutoevaluacionBool',$nuevoAutoevaluacionBool);
+            $comando->bindParam(':nuevoProyectoBool',$nuevoProyectoBool);
+            $comando->bindParam(':nuevoRecepcionTrabajoBool',$nuevoRecepcionTrabajoBool);
+            $comando->bindParam(':nuevoEvaluacionNoObjetivaBool',$nuevoEvaluacionNoObjetivaBool);
+           
+            $comando->execute();
+            $this->lastInsertModeloAprendizajeId = Yii::app()->db->createCommand("select @last_insert_modelo_aprendizaje_id as result;")->queryScalar();
+            $this->lastInsertModeloAprendizajeHerramientaId = Yii::app()->db->createCommand("select @last_insert_modelo_aprendizaje_herramienta_id as result;")->queryScalar();
+
+            return $comando;
+        }
 }

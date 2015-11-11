@@ -1,5 +1,5 @@
 <?php
-/* @var $this ModeloAprendizajeController */
+/* @var $this ModeloaprendizajeController */
 /* @var $model ModeloAprendizaje */
 
 $this->breadcrumbs=array(
@@ -18,4 +18,4 @@ $this->menu=array(
 
 <h1>Update ModeloAprendizaje <?php echo $model->id; ?></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model,'herramienta'=>$herramienta)); ?>

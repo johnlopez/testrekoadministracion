@@ -131,7 +131,7 @@ class InstitucionHasRolUsuario extends CActiveRecord implements InterfaceInstitu
 		return parent::model($className);
 	}
         
-         public function listaInstitucionRolUsuario($idInstitucion) {        
+        public function listaInstitucionRolUsuario($idInstitucion) {        
             $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_lista_institucion_rol(:nuevoInstitucionId)");
             $command->bindParam(':nuevoInstitucionId',$idInstitucion);	
             $resultado = $command->queryAll();        
@@ -161,4 +161,39 @@ class InstitucionHasRolUsuario extends CActiveRecord implements InterfaceInstitu
             $resultado = $command->execute();        
             return $resultado;
         }
+        
+        
+        public function asignaInstitucionRolUsuarioGeneral($listaInstitucionRolUsuario,$institucionId) {
+            $lista = implode(',', $listaInstitucionRolUsuario);
+            var_dump($lista);
+            $listaLen = count($listaInstitucionRolUsuario);        
+
+            $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_asignar_roles_generales_a_institucion(:listaRolUsuarioId,:listaLargo,:nuevoInstitucionId)");
+            $command->bindParam(':listaRolUsuarioId',$lista);
+            $command->bindParam(':listaLargo',$listaLen);
+            $command->bindParam(':nuevoInstitucionId',$institucionId);
+            $resultado = $command->execute();        
+            return $resultado;
+        }
+        public function desasignaInstitucionRolUsuarioGeneral($listaInstitucionRolUsuario,$institucionId) {
+            $lista = implode(',', $listaInstitucionRolUsuario);
+            var_dump($lista);
+            $listaLen = count($listaInstitucionRolUsuario);        
+
+            $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_desasignar_roles_generales_a_institucion(:listaRolUsuarioId,:listaLargo,:nuevoInstitucionId)");
+            $command->bindParam(':listaRolUsuarioId',$lista);
+            $command->bindParam(':listaLargo',$listaLen);
+            $command->bindParam(':nuevoInstitucionId',$institucionId);
+            $resultado = $command->execute();        
+            return $resultado;
+        }
+        
+        public function listarRolUsuarioInstitucion($institucionId){        
+            $command = Yii::app()->db->createCommand("CALL sp_admin_rol_usuario_listar_rol_usuario_institucion(:nuevoInstitucionId)");
+            $command->bindParam(':nuevoInstitucionId',$institucionId);
+            return $command->queryAll(); 
+        }
+        
+        
+        
 }

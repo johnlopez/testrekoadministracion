@@ -25,18 +25,7 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-<div class="place-right padding20 no-padding-top no-padding-right">
-        <form class="place-left padding20 no-padding-left no-padding-bottom no-padding-top" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/index" >
-            <button class="button primary" type="submit">
-                    Listar Usuario
-            </button>
-        </form>    
-        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/css/usuario/create" >
-            <button class="button primary" type="submit">
-                    Crear Usuario
-            </button>
-        </form>          
-</div>
+
 
 <h1>Listado Instituciones</h1>
 <div class="progress small" data-value="100" data-color="bg-grayLight" data-role="progressBar"><div class="bar bg-red" style="width: 85%;"></div></div>
@@ -147,9 +136,27 @@ $(document).ready(function() {
                                     <input type="hidden" name="institucion_id" value="<?php echo $inst->id?>" />
                                     <input type="hidden" name="institucion_nombre" value="<?php echo $inst->nombre?>" />
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
-                                               Asignar Roles
+                                               Asignar Roles a Institucion
                                     </button>
+                                    &nbsp;
+                                    &nbsp;
                                 </form>                                
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_rol_usuario/institucionhasrolusuario/editarrolinstitucion" method="get">
+                                    <input type="hidden" name="institucion_id" value="<?php echo $inst->id?>" />
+                                    <input type="hidden" name="institucion_nombre" value="<?php echo $inst->nombre?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                               Editar Roles
+                                    </button>
+                                    &nbsp;
+                                    &nbsp;
+                                </form>
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_rol_usuario/Usuariohasrolusuario/adminrolusuarioinstitucion" method="get">
+                                    <input type="hidden" name="institucion_id" value="<?php echo $inst->id?>" />
+                                    <input type="hidden" name="institucion_nombre" value="<?php echo $inst->nombre?>" />
+                                    <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
+                                               Asignar Roles a Usuarios
+                                    </button>
+                                </form> 
                             </div>                                        
                         </td>
                     </tr>

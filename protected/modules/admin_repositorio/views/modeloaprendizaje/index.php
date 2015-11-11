@@ -1,5 +1,5 @@
 <?php
-/* @var $this ModeloAprendizajeController */
+/* @var $this ModeloaprendizajeController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(

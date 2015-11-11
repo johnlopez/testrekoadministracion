@@ -51,11 +51,25 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'fecha_acceso',
 		'fecha_modificacion',
 		'fecha_creacion',
+                'modelo_aprendizaje_id',
+
 		/*
+		'fecha_eliminacion',
 		'tipo_repositorio_id',
+		'modelo_aprendizaje_id',
 		*/
 		array(
 			'class'=>'CButtonColumn',
+		),
+                array(
+			'class'=>'CButtonColumn',
+                        'template' => '{asignar}',
+                        'buttons' => array(
+                                    'asignar' => array(
+                                            'label' => 'asignar modelo de aprendizaje',
+                                            'url'=>'Yii::app()->createUrl("admin_repositorio/repositorio/asignarmodeloaprendizaje",array("id"=>$data->id) )', //url de la acción nueva
+                                    ),
+                        ),
 		),
 	),
 )); ?>

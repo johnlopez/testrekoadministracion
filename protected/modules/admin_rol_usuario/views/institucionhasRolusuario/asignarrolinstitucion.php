@@ -48,6 +48,8 @@
                                     <?php echo CHtml::hiddenField("datos-rol_usuario_id-list", serialize ($seleccionados)); ?>
                                     <?php echo CHtml::hiddenField("datos-rol_usuario_id-select", serialize (CHtml::listData($objeto,'rol_usuario_id','rol_usuario_id'))); ?>
                                     <?php echo CHtml::hiddenField("datos-institucion-id",$idInstitucion)."<br><br>"; ?>
+                                    <?php echo CHtml::hiddenField("datos-institucion-nombre",$nombreInstitucion)."<br><br>"; ?>
+
                             </td>
                             <td>
                                 <?php echo $obje->rol_usuario_id;?>

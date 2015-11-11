@@ -10,11 +10,14 @@
  * @property string $fecha_acceso
  * @property string $fecha_modificacion
  * @property string $fecha_creacion
+ * @property string $fecha_eliminacion
  * @property integer $tipo_repositorio_id
+ * @property integer $modelo_aprendizaje_id
  *
  * The followings are the available model relations:
- * @property Institucion[] $institucions
+ * @property Herramienta[] $herramientas
  * @property TipoRepositorio $tipoRepositorio
+ * @property ModeloAprendizaje $modeloAprendizaje
  */
 class Repositorio extends CActiveRecord
 {
@@ -34,13 +37,12 @@ class Repositorio extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('tipo_repositorio_id', 'safe'),
-			array('tipo_repositorio_id', 'numerical', 'integerOnly'=>true),
+			array('tipo_repositorio_id, modelo_aprendizaje_id', 'numerical', 'integerOnly'=>true),
 			array('nombre, descripcion', 'length', 'max'=>45),
-			array('fecha_acceso, fecha_modificacion, fecha_creacion', 'safe'),
+			array('fecha_acceso, fecha_modificacion, fecha_creacion, fecha_eliminacion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre, descripcion, fecha_acceso, fecha_modificacion, fecha_creacion, tipo_repositorio_id', 'safe', 'on'=>'search'),
+			array('id, nombre, descripcion, fecha_acceso, fecha_modificacion, fecha_creacion, fecha_eliminacion, tipo_repositorio_id, modelo_aprendizaje_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,8 +54,9 @@ class Repositorio extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'institucions' => array(self::MANY_MANY, 'Institucion', 'institucion_has_repositorio(repositorio_id, institucion_id)'),
+			'herramientas' => array(self::HAS_MANY, 'Herramienta', 'repositorio_id'),
 			'tipoRepositorio' => array(self::BELONGS_TO, 'TipoRepositorio', 'tipo_repositorio_id'),
+			'modeloAprendizaje' => array(self::BELONGS_TO, 'ModeloAprendizaje', 'modelo_aprendizaje_id'),
 		);
 	}
 
@@ -69,7 +72,9 @@ class Repositorio extends CActiveRecord
 			'fecha_acceso' => 'Fecha Acceso',
 			'fecha_modificacion' => 'Fecha Modificacion',
 			'fecha_creacion' => 'Fecha Creacion',
+			'fecha_eliminacion' => 'Fecha Eliminacion',
 			'tipo_repositorio_id' => 'Tipo Repositorio',
+			'modelo_aprendizaje_id' => 'Modelo Aprendizaje',
 		);
 	}
 
@@ -97,7 +102,9 @@ class Repositorio extends CActiveRecord
 		$criteria->compare('fecha_acceso',$this->fecha_acceso,true);
 		$criteria->compare('fecha_modificacion',$this->fecha_modificacion,true);
 		$criteria->compare('fecha_creacion',$this->fecha_creacion,true);
+		$criteria->compare('fecha_eliminacion',$this->fecha_eliminacion,true);
 		$criteria->compare('tipo_repositorio_id',$this->tipo_repositorio_id);
+		$criteria->compare('modelo_aprendizaje_id',$this->modelo_aprendizaje_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -114,4 +121,13 @@ class Repositorio extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        public function asignarModeloAprendizajeRepositorio($nuevo_repositorio_id,$nuevo_modelo_id) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_repositorio_asignar_modelo_aprendizaje_repositorio(:nuevo_repositorio_id,:nuevo_modelo_id)");
+            $comando->bindParam(':nuevo_repositorio_id',$nuevo_repositorio_id);
+            $comando->bindParam(':nuevo_modelo_id',$nuevo_modelo_id );
+            $comando->execute();
+            return $comando;
+        }
 }
