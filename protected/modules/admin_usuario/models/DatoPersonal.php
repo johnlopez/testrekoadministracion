@@ -187,7 +187,7 @@ class DatoPersonal extends CActiveRecord
             return $comando;
         }
         
-         public function modificarDatoPersonal($id,$primerNombre,$segundoNombre,$apellidoPaterno,$apellidoMaterno,$fechaNacimiento,$edad,$rut,
+        public function modificarDatoPersonal($id,$primerNombre,$segundoNombre,$apellidoPaterno,$apellidoMaterno,$fechaNacimiento,$edad,$rut,
                 $digitoVerificador,$direccionPersonal, $numeroCasa, $telefonoPersonal, $celularPersonal, $comunaPersonal, 
                 $ciudadPersonal, $interes, $estadoCivil, $idioma, $nacionalidad,$usuarioId)     
         {
