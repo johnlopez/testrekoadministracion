@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 25-11-2015 a las 19:09:21
+-- Tiempo de generación: 27-11-2015 a las 20:05:23
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -3898,11 +3898,58 @@ AND P.name = RP.authitem_permiso_usuario_name
 AND U.id = nuevo_usuario_id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_agregar_archivo_recurso_repositorio_troncal`(
+
+	nuevo_repositorio_id INT,
+    nuevo_archivo_recurso_nombre VARCHAR(255),
+    nuevo_archivo_recurso_descripcion TEXT,
+    nuevo_recurso_tabla VARCHAR (255),
+	OUT last_insert_archivo_recurso_id INT    
+)
+BEGIN
+
+	INSERT INTO archivo_recurso(
+		nombre,
+        descripcion,
+        fecha_creacion,
+        tipo_herramienta_id
+    )
+    VALUES(
+		nuevo_archivo_recurso_nombre,
+        nuevo_archivo_recurso_descripcion,
+        NOW(),
+        1
+    );
+    
+	SELECT LAST_INSERT_ID () INTO last_insert_archivo_recurso_id;
+ 
+    INSERT INTO herramienta(
+		nombre,
+        descripcion,
+        fecha_creacion,
+        recurso_id,
+        recurso_tabla,
+        repositorio_id,
+        tipo_herramienta_id
+    )
+    VALUES (
+		nuevo_archivo_recurso_nombre,
+        nuevo_archivo_recurso_descripcion,
+        NOW(),
+        last_insert_archivo_recurso_id,
+        nuevo_recurso_tabla,
+        nuevo_repositorio_id,
+        1
+    );
+    
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_agregar_glosario_repositorio_troncal`(
 	
     nuevo_repositorio_id INT,
     nuevo_glosario_nombre VARCHAR(255),
     nuevo_glosario_descripcion TEXT,
+    nuevo_recurso_tabla VARCHAR (255),
     OUT last_insert_glosario_id INT
 )
 BEGIN
@@ -3927,6 +3974,7 @@ BEGIN
         descripcion,
         fecha_creacion,
         recurso_id,
+		recurso_tabla,
         repositorio_id,
         tipo_herramienta_id
     )
@@ -3935,6 +3983,7 @@ BEGIN
         nuevo_glosario_descripcion,
         NOW(),
         last_insert_glosario_id,
+        nuevo_recurso_tabla,
         nuevo_repositorio_id,
         1
     );
@@ -3994,6 +4043,23 @@ AND I.id = nuevo_institucion_id;
 		
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_archivo_recurso_repositorio_troncal`(nuevo_repositorio_id INT)
+BEGIN
+
+	SELECT AR.*
+    FROM
+		repositorio R,
+        herramienta H,
+        archivo_recurso AR
+	WHERE R.id = H.repositorio_id
+    AND H.recurso_id = AR.id 
+    AND R.id = nuevo_repositorio_id
+    AND H.recurso_tabla = 'archivo_recurso'
+    
+    ORDER BY AR.id;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_glosario_repositorio`(nuevo_repositorio_id INT)
 BEGIN
 
@@ -4006,7 +4072,10 @@ BEGIN
 			
 	WHERE R.id = H.repositorio_id
 	AND H.recurso_id = G.id
-	AND R.id = nuevo_repositorio_id;
+	AND R.id = nuevo_repositorio_id
+	AND H.recurso_tabla = 'glosario'
+    
+    ORDER BY G.id;
 
 END$$
 
@@ -4041,6 +4110,35 @@ ORDER BY repositorio_id;
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_modificar_archivo_recurso_repositorio_troncal`(
+
+	nuevo_archivo_recurso_id INT,
+    nuevo_repositorio_id INT,
+    nuevo_archivo_recurso_nombre VARCHAR(255),
+    nuevo_archivo_recurso_descripcion TEXT,
+    OUT last_insert_archivo_recurso_id INT
+
+)
+BEGIN
+	
+	UPDATE archivo_recurso SET
+		nombre = nuevo_archivo_recurso_nombre,
+        descripcion = nuevo_archivo_recurso_descripcion,
+        fecha_modificacion = NOW()
+	WHERE archivo_recurso.id = nuevo_archivo_recurso_id;
+    
+    SET last_insert_archivo_recurso_id = nuevo_archivo_recurso_id;
+    
+    UPDATE herramienta SET
+		nombre = nuevo_archivo_recurso_nombre,
+        descripcion = nuevo_archivo_recurso_descripcion,
+        fecha_modificacion = NOW()
+	WHERE herramienta.recurso_id = nuevo_archivo_recurso_id
+    AND herramienta.recurso_tabla = 'archivo_recurso'
+    ;
+    
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_modificar_glosario_repositorio_troncal`(
 	
     nuevo_glosario_id INT,
@@ -4065,7 +4163,9 @@ BEGIN
         descripcion = nuevo_glosario_descripcion,
         fecha_modificacion = NOW()
 	WHERE herramienta.recurso_id = nuevo_glosario_id
-    AND herramienta.repositorio_id = nuevo_repositorio_id;
+    AND herramienta.repositorio_id = nuevo_repositorio_id
+	AND herramienta.recurso_tabla = 'glosario'
+    ;
     
     
 END$$
@@ -4174,7 +4274,14 @@ CREATE TABLE IF NOT EXISTS `archivo` (
   PRIMARY KEY (`id`),
   KEY `contenedor_id` (`contenedor_id`),
   KEY `contenedor_tabla` (`contenedor_tabla`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=57 ;
+
+--
+-- Volcado de datos para la tabla `archivo`
+--
+
+INSERT INTO `archivo` (`id`, `nombre`, `mime_type`, `tamano`, `ruta`, `usuario_id`, `fecha_creacion`, `fecha_modificacion`, `fecha_acceso`, `fecha_eliminacion`, `lectura`, `escritura`, `descarga`, `eliminacion`, `contenedor_id`, `contenedor_tabla`) VALUES
+(56, '220657-red-planet-wallpaper-14428.jpg', 'image/jpeg', 392762, '/reko-archivos/utem/repositorio-id-1/glosario/glosario-id-8/', 1, '2015-11-27 12:23:46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8, 'glosario');
 
 -- --------------------------------------------------------
 
@@ -4190,16 +4297,18 @@ CREATE TABLE IF NOT EXISTS `archivo_recurso` (
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_elminacion` datetime DEFAULT NULL,
   `fecha_acceso` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `tipo_herramienta_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_archivo_recurso_tipo_herramienta1_idx` (`tipo_herramienta_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `archivo_recurso`
 --
 
-INSERT INTO `archivo_recurso` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_elminacion`, `fecha_acceso`) VALUES
-(1, '1 archivo recurso', '1 descripcion archivo recurso', NULL, NULL, NULL, NULL),
-(2, '2 archivo recurso', '2 descripcion archivo recurso', NULL, NULL, NULL, NULL);
+INSERT INTO `archivo_recurso` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_elminacion`, `fecha_acceso`, `tipo_herramienta_id`) VALUES
+(4, '4 archivo recurso', '4 descripcion archivo recurso', '2015-11-26 16:38:52', '2015-11-27 10:25:49', NULL, NULL, 1),
+(5, '5 archivo recurso', '5 descripcion archivo recurso', '2015-11-26 17:06:15', '2015-11-27 10:26:13', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -4890,19 +4999,14 @@ CREATE TABLE IF NOT EXISTS `glosario` (
   `tipo_herramienta_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_glosario_tipo_herramienta1_idx` (`tipo_herramienta_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Volcado de datos para la tabla `glosario`
 --
 
 INSERT INTO `glosario` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_eliminacion`, `fecha_acceso`, `tipo_herramienta_id`) VALUES
-(1, 'Diccionario de la lengua española', 'Versión electrónica del Diccionario de la lengua española, obra lexicográfica académica por excelencia.', NULL, NULL, NULL, NULL, 1),
-(2, 'UCT Diccionario Abreviado Mapudungun - Españo', 'Contiene un listado de entradas léxicas del mapudungun, ordenado alfabéticamente, con una versión abreviada de sus significados en español e inglés.', NULL, NULL, NULL, NULL, 1),
-(3, 'Glosario de términos geográficos', 'A. Acantilado: Costa alta y escarpada, de altura variable. Accesibilidad: Capacidad potencial de establecer contactos físicos y/o sociales', NULL, NULL, NULL, NULL, 1),
-(4, 'glosario sincronizacion', 'glosario sincronizacion descripcion', '2015-11-11 11:17:34', NULL, NULL, NULL, 1),
-(5, 'glosario con archivo', 'descripcion glosario con archivo ', '2015-11-18 10:33:35', NULL, NULL, NULL, 1),
-(6, 'glosario archivo', 'descripción glosario archivo', '2015-11-18 10:51:40', NULL, NULL, NULL, 1);
+(8, 'nuevo glosariooooooooooooooo', 'descripcion nuevo glosario', '2015-11-26 17:04:32', '2015-11-26 17:40:26', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -4921,21 +5025,7 @@ CREATE TABLE IF NOT EXISTS `glosario_termino_definicion` (
   `glosario_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_glosario_termino_definicion_glosario1_idx` (`glosario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
-
---
--- Volcado de datos para la tabla `glosario_termino_definicion`
---
-
-INSERT INTO `glosario_termino_definicion` (`id`, `termino`, `definicion`, `fecha_creacion`, `fecha_modificacion`, `fecha_acceso`, `fecha_eliminacion`, `glosario_id`) VALUES
-(1, 'perfecto', 'Que tiene el mayor grado posible de bondad o excelencia en su línea', NULL, NULL, NULL, NULL, 1),
-(2, 'filete', 'Loncha delgada de carne magra o de pescado limpio de raspas.', NULL, NULL, NULL, NULL, 1),
-(3, '11111111111 termino', '11111111111 termino', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(4, 'perro', 'Palabra ocupada para referirse a un amigo o conocido ej: que pasa perro, tambien usese, perrito, palabra abusada por el negro piñera ej: que pasa perrito, variaciones conocidas, que pasa papá', '2015-11-10 16:43:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
-(5, 'brigido', 'Expresion usada cuando el problema es muy grande', '2015-11-10 16:43:45', NULL, NULL, NULL, 1),
-(6, 'cuatico', 'Persona exagerada, Raro no común', '2015-11-10 16:45:44', NULL, NULL, NULL, 1),
-(7, 'termino sincronizacion editado', 'descripcion termino sincronizacion', '2015-11-11 11:18:10', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 4),
-(8, 'correo electronico', 'es un servicio de red que permite a los usuarios enviar y recibir mensajes ', '2015-11-23 16:15:23', NULL, NULL, NULL, 6);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4966,25 +5056,24 @@ CREATE TABLE IF NOT EXISTS `herramienta` (
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_eliminacion` datetime DEFAULT NULL,
   `recurso_id` int(11) DEFAULT NULL,
+  `recurso_tabla` varchar(255) DEFAULT NULL,
   `repositorio_id` int(11) DEFAULT NULL,
   `tipo_herramienta_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_herramienta_repositorio1_idx` (`repositorio_id`),
-  KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
+  KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`),
+  KEY `recurso_id` (`recurso_id`),
+  KEY `recurso_tabla` (`recurso_tabla`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=49 ;
 
 --
 -- Volcado de datos para la tabla `herramienta`
 --
 
-INSERT INTO `herramienta` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `recurso_id`, `repositorio_id`, `tipo_herramienta_id`) VALUES
-(1, 'Diccionario de la lengua española', 'Versión electrónica del Diccionario de la lengua española, obra lexicográfica académica por excelencia.', NULL, NULL, NULL, NULL, 1, 1, 1),
-(2, 'UCT Diccionario Abreviado Mapudungun - Españo', 'Contiene un listado de entradas léxicas del mapudungun, ordenado alfabéticamente, con una versión abreviada de sus significados en español e inglés.', NULL, NULL, NULL, NULL, 2, 1, 1),
-(3, 'Glosario de términos geográficos', 'A. Acantilado: Costa alta y escarpada, de altura variable. Accesibilidad: Capacidad potencial de establecer contactos físicos y/o sociales', NULL, NULL, NULL, NULL, 3, 2, 1),
-(28, 'gggggggggg', 'gggggggggggggggggg', NULL, '2015-11-06 15:57:25', '2015-11-06 15:56:06', NULL, 28, 1, 1),
-(29, 'glosario sincronizacion', 'glosario sincronizacion descripcion', NULL, NULL, '2015-11-11 11:17:34', NULL, 4, 1, 1),
-(30, 'glosario con archivo', 'descripcion glosario con archivo ', NULL, NULL, '2015-11-18 10:33:35', NULL, 5, 1, 1),
-(31, 'glosario archivo', 'descripción glosario archivo', NULL, NULL, '2015-11-18 10:51:40', NULL, 6, 1, 1);
+INSERT INTO `herramienta` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `recurso_id`, `recurso_tabla`, `repositorio_id`, `tipo_herramienta_id`) VALUES
+(45, '4 archivo recurso', '4 descripcion archivo recurso', NULL, '2015-11-27 10:25:49', '2015-11-26 16:38:52', NULL, 4, 'archivo_recurso', 1, 1),
+(47, 'nuevo glosariooooooooooooooo', 'descripcion nuevo glosario', NULL, '2015-11-26 17:40:26', '2015-11-26 17:04:32', NULL, 8, 'glosario', 1, 1),
+(48, '5 archivo recurso', '5 descripcion archivo recurso', NULL, '2015-11-27 10:26:13', '2015-11-26 17:06:15', NULL, 5, 'archivo_recurso', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5620,7 +5709,7 @@ CREATE TABLE IF NOT EXISTS `reko_session` (
 --
 
 INSERT INTO `reko_session` (`id`, `expire`, `data`) VALUES
-('oc30du0dmjl7raq57ulf2gop53', 1448479897, 0x30373333353130383865316330316231363262316162353236386465653766615f5f72657475726e55726c7c733a35323a222f7465737472656b6f2f6573637269746f72696f5f7573756172696f2f6573637269746f72696f7573756172696f2f696e646578223b30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a313a2231223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d696e737469747563696f6e49647c733a313a2231223b696e737469747563696f6e4e6f6d6272657c733a343a227574656d223b696e737469747563696f6e566973696f6e7c733a363a22766973696f6e223b696e737469747563696f6e4d6973696f6e7c733a363a226d6973696f6e223b696e737469747563696f6e416372656469746164617c733a313a2230223b696e737469747563696f6e4665636861496e6963696f416372656469746163696f6e7c733a31393a22323031352d30382d30362031353a34303a3332223b696e737469747563696f6e46656368615465726d696e6f416372656469746163696f6e7c733a31393a22323031352d30382d30362031353a34303a3332223b7265706f7369746f72696f7c4f3a31313a225265706f7369746f72696f223a31313a7b733a31393a2200434163746976655265636f7264005f6e6577223b623a303b733a32363a2200434163746976655265636f7264005f61747472696275746573223b613a31303a7b733a323a226964223b733a313a2231223b733a363a226e6f6d627265223b733a31343a223141207265706f7369746f72696f223b733a31313a226465736372697063696f6e223b733a31343a223141207265706f7369746f72696f223b733a31323a2266656368615f61636365736f223b4e3b733a31383a2266656368615f6d6f64696669636163696f6e223b4e3b733a31343a2266656368615f6372656163696f6e223b4e3b733a31373a2266656368615f656c696d696e6163696f6e223b4e3b733a31393a227469706f5f7265706f7369746f72696f5f6964223b733a313a2231223b733a32313a226d6f64656c6f5f617072656e64697a616a655f6964223b733a323a223433223b733a32313a22677569615f696e737472756363696f6e616c5f6964223b4e3b7d733a32333a2200434163746976655265636f7264005f72656c61746564223b613a303a7b7d733a31373a2200434163746976655265636f7264005f63223b4e3b733a31383a2200434163746976655265636f7264005f706b223b733a313a2231223b733a32313a2200434163746976655265636f7264005f616c696173223b733a313a2274223b733a31353a2200434d6f64656c005f6572726f7273223b613a303a7b7d733a31393a2200434d6f64656c005f76616c696461746f7273223b4e3b733a31373a2200434d6f64656c005f7363656e6172696f223b733a363a22757064617465223b733a31343a220043436f6d706f6e656e74005f65223b4e3b733a31343a220043436f6d706f6e656e74005f6d223b4e3b7d);
+('octu3humc25jog0spbbl4gf4a5', 1451245356, 0x30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a313a2231223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d696e737469747563696f6e49647c733a313a2231223b696e737469747563696f6e4e6f6d6272657c733a343a227574656d223b696e737469747563696f6e566973696f6e7c733a363a22766973696f6e223b696e737469747563696f6e4d6973696f6e7c733a363a226d6973696f6e223b696e737469747563696f6e416372656469746164617c733a313a2230223b696e737469747563696f6e4665636861496e6963696f416372656469746163696f6e7c733a31393a22323031352d30382d30362031353a34303a3332223b696e737469747563696f6e46656368615465726d696e6f416372656469746163696f6e7c733a31393a22323031352d30382d30362031353a34303a3332223b7265706f7369746f72696f7c4f3a31313a225265706f7369746f72696f223a31313a7b733a31393a2200434163746976655265636f7264005f6e6577223b623a303b733a32363a2200434163746976655265636f7264005f61747472696275746573223b613a31303a7b733a323a226964223b733a313a2231223b733a363a226e6f6d627265223b733a31343a223141207265706f7369746f72696f223b733a31313a226465736372697063696f6e223b733a31343a223141207265706f7369746f72696f223b733a31323a2266656368615f61636365736f223b4e3b733a31383a2266656368615f6d6f64696669636163696f6e223b4e3b733a31343a2266656368615f6372656163696f6e223b4e3b733a31373a2266656368615f656c696d696e6163696f6e223b4e3b733a31393a227469706f5f7265706f7369746f72696f5f6964223b733a313a2231223b733a32313a226d6f64656c6f5f617072656e64697a616a655f6964223b733a323a223433223b733a32313a22677569615f696e737472756363696f6e616c5f6964223b4e3b7d733a32333a2200434163746976655265636f7264005f72656c61746564223b613a303a7b7d733a31373a2200434163746976655265636f7264005f63223b4e3b733a31383a2200434163746976655265636f7264005f706b223b733a313a2231223b733a32313a2200434163746976655265636f7264005f616c696173223b733a313a2274223b733a31353a2200434d6f64656c005f6572726f7273223b613a303a7b7d733a31393a2200434d6f64656c005f76616c696461746f7273223b4e3b733a31373a2200434d6f64656c005f7363656e6172696f223b733a363a22757064617465223b733a31343a220043436f6d706f6e656e74005f65223b4e3b733a31343a220043436f6d706f6e656e74005f6d223b4e3b7d);
 
 -- --------------------------------------------------------
 
@@ -6383,6 +6472,12 @@ CREATE TABLE IF NOT EXISTS `usuario_has_seccion` (
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `archivo_recurso`
+--
+ALTER TABLE `archivo_recurso`
+  ADD CONSTRAINT `fk_archivo_recurso_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `authassignment_administrador`
