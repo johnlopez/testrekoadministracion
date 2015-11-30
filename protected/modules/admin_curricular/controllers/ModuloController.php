@@ -72,6 +72,7 @@ class ModuloController extends Controller
 			$model->attributes=$_POST['Modulo'];
 			if($model->agregarModulo(
                                 $model->nombre,
+                                $model->codigo,
                                 $model->descripcion,
                                 $model->fecha_creacion,
                                 $model->estado_modulo_id ? : NULL,
@@ -104,6 +105,7 @@ class ModuloController extends Controller
 			$model->attributes=$_POST['Modulo'];
 			if($model->modificarModulo(
                                 $model->id,
+                                $model->codigo,
                                 $model->nombre,
                                 $model->descripcion,
                                 $model->fecha_modificacion,

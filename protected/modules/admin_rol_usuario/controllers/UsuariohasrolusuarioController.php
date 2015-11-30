@@ -52,10 +52,10 @@ class UsuariohasrolusuarioController extends Controller
                 $tmpObj->usuario_id = (int)$item['usuario_id'];
                 $tmpObj->rol_usuario_id = (int)$item['rol_usuario_id']; 
                 $tmpObj->setAttributes(Array('usuario'=>((string)$item['usuario'])),false);      
-                $tmpObj->setAttributes(Array('rut'=>((string)$item['rut'])),false);     
-                $tmpObj->setAttributes(Array('primerNombre'=>((string)$item['primer_nombre'])),false);                
-                $tmpObj->setAttributes(Array('apellidoPaterno'=>((string)$item['apellido_paterno'])),false);     
-                $tmpObj->setAttributes(Array('apellidoMaterno'=>((string)$item['apellido_materno'])),false);                
+                //$tmpObj->setAttributes(Array('rut'=>((string)$item['rut'])),false);     
+                //$tmpObj->setAttributes(Array('primerNombre'=>((string)$item['primer_nombre'])),false);                
+                //$tmpObj->setAttributes(Array('apellidoPaterno'=>((string)$item['apellido_paterno'])),false);     
+                //$tmpObj->setAttributes(Array('apellidoMaterno'=>((string)$item['apellido_materno'])),false);                
 
                 $objetoRolUsuarioArray[] = $tmpObj;
             }

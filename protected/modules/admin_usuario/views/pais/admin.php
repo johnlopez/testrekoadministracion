@@ -1,30 +1,10 @@
-<?php
-/* @var $this PaisController */
-/* @var $model Pais */
-
-$this->breadcrumbs=array(
-	'Paises'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Pais', 'url'=>array('index')),
-	array('label'=>'Create Pais', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#pais-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
-?>
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/pais/create" >
+            <button class="button primary" type="submit">
+                    Crear Pais
+            </button>
+        </form>          
+</div>
 
 <h2>Administración paises</h2><br><br>
 
@@ -41,6 +21,7 @@ $(document).ready(function() {
                     <th>ID</th>
                     <th>NOMBRE</th>
                     <th>CODIGO</th>
+                    <th>OPCIONES</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,7 +36,7 @@ $(document).ready(function() {
                             // pagina html post url form button
                             ?>                                        
                             <div id="button-group-1">
-                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/datoacademico/view" method="get">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/pais/view" method="get">
                                     <input type="hidden" name="id" value="<?php echo $pais['id']?>" />
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
                                         <span class="icon mif-search">
@@ -63,7 +44,7 @@ $(document).ready(function() {
                                         </span>
                                     </button>
                                 </form>
-                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/datoacademico/update" method="get">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/pais/update" method="get">
                                     <input type="hidden" name="id" value="<?php echo $pais['id']?>" />
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
                                         <span class="icon mif-pencil">
@@ -71,7 +52,7 @@ $(document).ready(function() {
                                         </span>
                                     </button>
                                 </form>
-                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/datoacademico/delete" method="post">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/pais/borradoFisicoPais" method="post">
                                     <input type="hidden" name="id" value="<?php echo $pais['id']?>" />
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
                                         <span class="icon mif-cancel">
@@ -89,4 +70,13 @@ $(document).ready(function() {
                 <li class="active"></li>                        
         </ul>               
     </section>
+</div>
+
+
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario" >
+            <button class="button primary" type="submit">
+                    Volver a administracion
+            </button>
+        </form>          
 </div>

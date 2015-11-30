@@ -1,30 +1,10 @@
-<?php
-/* @var $this ModuloController */
-/* @var $model Modulo */
-
-$this->breadcrumbs=array(
-	'Modulos'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Modulo', 'url'=>array('index')),
-	array('label'=>'Create Modulo', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#modulo-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
-?>
+<div class="place-right padding20 no-padding-top no-padding-right">
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/modulo/create" >
+            <button class="button primary" type="submit">
+                    Agregar Modulo
+            </button>
+        </form>   
+</div>
 
 <h2>Administración modulos</h2><br><br>
 
@@ -43,10 +23,12 @@ $(document).ready(function() {
                     <th>DESCRIPCION</th>
                     <th>FECHA CREACION</th>
                     <th>FECHA MODIFICACION</th>
+                    <th>ESTADO</th>
                     <th>OPCIONES</th>
                 </tr>
             </thead>
             <tbody>
+                <?php $vacio = 'Sin estado'; ?>
                 <?php foreach ($listadoModulos as $modulo):?>                                                     
                     <tr>
                         <td><?php echo $modulo['id'] ?></td>
@@ -54,6 +36,7 @@ $(document).ready(function() {
                         <td><?php echo $modulo['descripcion']?></td>
                         <td><?php echo $modulo['fecha_creacion']?></td>
                         <td><?php echo $modulo['fecha_modificacion']?></td>
+                        <td><?php echo $modulo['estado'] ? : $modulo['estado'] = $vacio ?></td>
                         <td>                                        
                             <?php 
                             // http://www.v09studio.com/websystems/materials/forms.html
@@ -114,3 +97,11 @@ $(document).ready(function() {
                     </span>
                 </div>  
 </a>
+
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular" >
+            <button class="button primary" type="submit">
+                    Volver a administracion
+            </button>
+        </form>          
+</div>

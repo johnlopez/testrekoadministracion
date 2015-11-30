@@ -55,16 +55,18 @@ $(document).ready(function() {
                 </tr>
             </thead>
             <tbody>
-                <?php $vacio = 'Sin estado'; ?>
+                <?php $vacioEstado = 'Sin estado'; ?>
+                <?php $vacioFechaModificacion = 'No se registra'?>
+                <?php $vacioFechaAcceso = 'No se registra'?>
                 <?php foreach ($listadoUsuarios as $usuario):?>                                                     
                     <tr>
                         <td><?php echo $usuario['id'] ?></td>
                         <td><?php echo $usuario['usuario'] ?></td>
                         <td><?php echo $usuario['clave']?></td>
-                        <td><?php echo $usuario['fecha_acceso']?></td>
-                        <td><?php echo $usuario['fecha_modificacion']?></td>
+                        <td><?php echo $usuario['fecha_acceso']? : $usuario['fecha_acceso'] = $vacioFechaAcceso ?></td>
+                        <td><?php echo $usuario['fecha_modificacion'] ? : $usuario['fecha_modificacion'] = $vacioFechaModificacion ?></td>
                         <td><?php echo $usuario['fecha_creacion']?></td>
-                        <td><?php echo $usuario['estado'] ? : $usuario['estado'] = $vacio ?></td>
+                        <td><?php echo $usuario['estado'] ? : $usuario['estado'] = $vacioEstado ?></td>
        
                         <td>                                        
                             <?php 
@@ -159,3 +161,10 @@ $(document).ready(function() {
         </div>  
 </a>
 
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario" >
+            <button class="button primary" type="submit">
+                    Volver a administracion
+            </button>
+        </form>          
+</div>

@@ -28,7 +28,7 @@ class DatoPersonalController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin','borradoFisicoDatoPersonal'),
+				'actions'=>array('index','view','admin','borradoFisicoDatoPersonal','usuarios'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -162,12 +162,12 @@ class DatoPersonalController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new DatoPersonal('search');
-                //$listadoDatoPersonal = DatoPersonal::model()->findAll();
-                $listadoDatoPersonal = $model->listarPorEstado();
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['DatoPersonal']))
-			$model->attributes=$_GET['DatoPersonal'];
+		if(isset($_POST['idUsuario'])){
+                    $idUsuario = $_POST['idUsuario'];
+                }
+            
+                $model = new DatoPersonal();
+                $listadoDatoPersonal = $model->listarDatosPersonalesPorUsuario($idUsuario);
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -212,5 +212,13 @@ class DatoPersonalController extends Controller
                 $datoPersonal = new DatoPersonal();
                 $datoPersonal->eliminadoFisicoDatoPersonal($idDatoPersonal);
                 $this->redirect('admin');
+        }
+        
+        public function actionUsuarios() {
+            
+            $usuario = new Usuario();
+            $listadoUsuarios = $usuario->listarPorEstado();
+            
+            $this->render('usuarios', array('listadoUsuarios' => $listadoUsuarios));
         }
 }

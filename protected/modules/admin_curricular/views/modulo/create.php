@@ -1,18 +1,12 @@
-<?php
-/* @var $this ModuloController */
-/* @var $model Modulo */
+<div class="place-right padding20 no-padding-top no-padding-right">
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/modulo/admin" >
+            <button class="button primary" type="submit">
+                    Administrar Modulo
+            </button>
+        </form>   
+</div>
 
-$this->breadcrumbs=array(
-	'Modulos'=>array('index'),
-	'Create',
-);
 
-$this->menu=array(
-	array('label'=>'List Modulo', 'url'=>array('index')),
-	array('label'=>'Manage Modulo', 'url'=>array('admin')),
-);
-?>
-
-<h1>Create Modulo</h1>
+<h2>Agregar Modulo</h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

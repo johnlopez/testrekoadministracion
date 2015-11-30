@@ -1,18 +1,11 @@
-<?php
-/* @var $this InstitucionController */
-/* @var $model Institucion */
+<div class="place-right padding20 no-padding-top no-padding-right">
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/institucion/admin" >
+            <button class="button primary" type="submit">
+                    Administrar Institucion
+            </button>
+        </form>          
+</div>
 
-$this->breadcrumbs=array(
-	'Institucions'=>array('index'),
-	'Create',
-);
-
-$this->menu=array(
-	array('label'=>'List Institucion', 'url'=>array('index')),
-	array('label'=>'Manage Institucion', 'url'=>array('admin')),
-);
-?>
-
-<h1>Create Institucion</h1>
+<h2>Crear Institucion</h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

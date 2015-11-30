@@ -25,7 +25,7 @@ $this->breadcrumbs=array(
                     </span>
                 </div>  
             </a>
-            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario/datoAcademico/admin";?>" >
+            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario/datoAcademico/usuarios";?>" >
                 <div class="tile-wide bg-darkGreen fg-white" data-role="tile">
                     <div class="tile-content iconic">
                         <span class="icon mif-profile"></span>
@@ -40,7 +40,7 @@ $this->breadcrumbs=array(
                     </span>
                 </div>  
             </a>
-            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario/datoLaboral/admin";?>" >
+            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario/datoLaboral/usuarios";?>" >
                 <div class="tile-wide bg-darkGreen fg-white" data-role="tile">
                     <div class="tile-content iconic">
                         <span class="icon mif-profile"></span>
@@ -70,7 +70,7 @@ $this->breadcrumbs=array(
                     </span>
                 </div>  
             </a>
-            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario/datoPersonal/admin";?>" >
+            <a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario/datoPersonal/usuarios";?>" >
                 <div class="tile-wide bg-darkGreen fg-white" data-role="tile">
                     <div class="tile-content iconic">
                         <span class="icon mif-profile"></span>

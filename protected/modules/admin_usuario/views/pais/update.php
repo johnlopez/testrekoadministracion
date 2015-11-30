@@ -1,21 +1,11 @@
-<?php
-/* @var $this PaisController */
-/* @var $model Pais */
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/pais/admin" >
+            <button class="button primary" type="submit">
+                    Administracion Pais
+            </button>
+        </form>          
+</div>
 
-$this->breadcrumbs=array(
-	'Paises'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
-
-$this->menu=array(
-	array('label'=>'List Pais', 'url'=>array('index')),
-	array('label'=>'Create Pais', 'url'=>array('create')),
-	array('label'=>'View Pais', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Pais', 'url'=>array('admin')),
-);
-?>
-
-<h1>Update Pais <?php echo $model->id; ?></h1>
+<h2>Actualizar Pais # <?php echo $model->id; ?></h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

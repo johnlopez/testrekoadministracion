@@ -27,7 +27,7 @@ $this->menu=array(
 		'descripcion',
 		'fecha_creacion',
                 'fecha_modificacion',
-		'modulo_id',
-                'estado_seccion_id'
+                'estado_seccion_id',
+		'modulo_id'
 	),
 )); ?>

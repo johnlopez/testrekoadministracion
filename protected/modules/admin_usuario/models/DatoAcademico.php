@@ -173,4 +173,11 @@ class DatoAcademico extends CActiveRecord
             $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_listar_datos_academicos_por_estado()");
             return $comando->queryAll();
         }
+        
+        public function listarDatosAcademicosPorUsuario($id) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_listar_datos_academicos_por_usuario(:id)");
+            $comando->bindParam(':id', $id);
+            return $comando->queryAll();
+        }
 }

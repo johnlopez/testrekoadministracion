@@ -127,4 +127,12 @@ class Region extends CActiveRecord
             $comando->execute();
             return $comando;
         }
+        
+        public function eliminadoFisicoPais($idRegion) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_eliminado_fisico_region(:idRegion)");
+            $comando->bindParam(':idRegion', $idRegion);
+            $comando->execute();
+            return $comando;
+        }
 }

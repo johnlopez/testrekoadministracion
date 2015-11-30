@@ -28,7 +28,7 @@ class RegionController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin'),
+				'actions'=>array('index','view','admin','borradoFisicoRegion'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -183,4 +183,15 @@ class RegionController extends Controller
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionBorradoFisicoRegion() {
+            
+                if(isset($_POST['id'])){
+                    $idRegion = $_POST['id'];
+                }
+                
+                $region = new Region();
+                $region->eliminadoFisicoPais($idRegion);
+                $this->redirect('admin');
+        }
 }

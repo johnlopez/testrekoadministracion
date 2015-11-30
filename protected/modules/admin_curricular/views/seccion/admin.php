@@ -1,30 +1,10 @@
-<?php
-/* @var $this SeccionController */
-/* @var $model Seccion */
-
-$this->breadcrumbs=array(
-	'Seccions'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Seccion', 'url'=>array('index')),
-	array('label'=>'Create Seccion', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#seccion-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
-?>
+<div class="place-right padding20 no-padding-top no-padding-right">
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/seccion/create" >
+            <button class="button primary" type="submit">
+                    Agregar seccion
+            </button>
+        </form>   
+</div>
 
 <h2>Administración secciones</h2><br<<br>
 
@@ -45,10 +25,12 @@ $(document).ready(function() {
                     <th>FECHA CREACION</th>
                     <th>FECHA MODIFICACION</th>
                     <th>MODULO</th>
+                    <th>ESTADO</th>
                     <th>OPCIONES</th>
                 </tr>
             </thead>
             <tbody>
+                <?php $vacioEstado = 'Sin estado'; ?>
                 <?php foreach ($listadoSeccion as $seccion):?>                                                     
                     <tr>
                         <td><?php echo $seccion['id'] ?></td>
@@ -58,6 +40,7 @@ $(document).ready(function() {
                         <td><?php echo $seccion['fecha_creacion']?></td>
                         <td><?php echo $seccion['fecha_modificacion']?></td>
                         <td><?php echo $seccion['modulo_id']?></td>
+                        <td><?php echo $seccion['estado'] ? : $seccion['estado'] = $vacioEstado ?></td>
                         <td>                                        
                             <?php 
                             // http://www.v09studio.com/websystems/materials/forms.html
@@ -116,3 +99,11 @@ $(document).ready(function() {
                     </span>
                 </div>  
 </a>
+
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular" >
+            <button class="button primary" type="submit">
+                    Volver a administracion
+            </button>
+        </form>          
+</div>

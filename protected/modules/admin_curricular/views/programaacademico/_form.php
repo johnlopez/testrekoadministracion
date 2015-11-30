@@ -15,7 +15,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Campos con <span class="required">*</span> son requeridos.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -47,6 +47,12 @@
                 <?php echo $form->labelEx($model,'institucion'); ?>
                 <?php echo $form->dropDownList($model,'institucion_id', CHtml::listData(Institucion::model()->findAll(),'id' ,'nombre'),array('empty'=>'seleccionar institucion')); ?>
                 <?php echo $form->error($model,'institucion_id'); ?>
+        </div>
+        
+         <div class="row">
+                <?php echo $form->labelEx($model,'estado'); ?>
+                <?php echo $form->dropDownList($model,'estado_programa_academico_id', CHtml::listData(EstadoProgramaAcademico::model()->findAll(),'id' ,'estado'),array('empty'=>'seleccionar estado')); ?>
+                <?php echo $form->error($model,'estado_programa_academico_id'); ?>
         </div>
         
 	<div class="row buttons">

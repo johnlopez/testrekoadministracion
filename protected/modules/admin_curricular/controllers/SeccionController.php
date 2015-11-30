@@ -72,11 +72,12 @@ class SeccionController extends Controller
 			$model->attributes=$_POST['Seccion'];
 			if($model->agregarSeccion(
                                 $model->nombre,
+                                $model->codigo,
                                 $model->jornada,
-                                $model->descripcion,     
-                                $model->modulo_id,
-                                $model->estado_seccion_id,
-                                $model->fecha_creacion
+                                $model->descripcion,  
+                                $model->fecha_creacion,
+                                $model->estado_seccion_id ? : NULL,
+                                $model->modulo_id        
                         ))
 				
                             
@@ -106,11 +107,12 @@ class SeccionController extends Controller
 			if($model->modificarSeccion(
                                 $model->id,
                                 $model->nombre,
+                                $model->codigo,
                                 $model->jornada,
-                                $model->descripcion,         
-                                $model->modulo_id,
-                                $model->estado_seccion_id,
-                                $model->fecha_modificacion
+                                $model->descripcion,  
+                                $model->fecha_modificacion,
+                                $model->estado_seccion_id ? : NULL,
+                                $model->modulo_id           
                         ))
 				
                     $this->redirect(array('view','id'=>$model->id));

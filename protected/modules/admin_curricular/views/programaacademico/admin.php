@@ -1,30 +1,10 @@
-<?php
-/* @var $this ProgramaAcademicoController */
-/* @var $model ProgramaAcademico */
-
-$this->breadcrumbs=array(
-	'Programa Academicos'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List ProgramaAcademico', 'url'=>array('index')),
-	array('label'=>'Create ProgramaAcademico', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#programa-academico-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
-?>
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/programaacademico/create" >
+            <button class="button primary" type="submit">
+                    Crear Programa
+            </button>
+        </form>          
+</div>
 
 <h2>Administración programas academicos</h2><br><br>
 
@@ -47,10 +27,14 @@ $(document).ready(function() {
                     <th>FECHA MODIFICACION</th>
                     <th>ENTIDAD</th>
                     <th>INSTITUCION</th>
+                    <th>ESTADO</th>
                     <th>OPCIONES</th>
                 </tr>
             </thead>
             <tbody>
+                <?php $vacioEstado = 'Sin estado'; ?>
+                <?php $vacioEntidad = 'Sin entidad'; ?>
+                <?php $vacioInstitucion = 'Sin institucion'; ?>
                 <?php foreach ($listadoPrograma as $programa):?>                                                     
                     <tr>
                         <td><?php echo $programa['id'] ?></td>
@@ -59,8 +43,9 @@ $(document).ready(function() {
                         <td><?php echo $programa['version']?></td>
                         <td><?php echo $programa['fecha_creacion']?></td>
                         <td><?php echo $programa['fecha_modificacion']?></td>
-                        <td><?php echo $programa['entidad_id']?></td>
-                        <td><?php echo $programa['institucion_id']?></td>
+                        <td><?php echo $programa['entidad_id'] ? : $programa['entidad_id'] = $vacioEntidad ?></td>
+                        <td><?php echo $programa['institucion_id'] ? : $programa['institucion_id'] = $vacioInstitucion ?></td>
+                        <td><?php echo $programa['estado'] ? : $programa['estado'] = $vacioEstado ?></td>
                         <td>                                        
                             <?php 
                             // http://www.v09studio.com/websystems/materials/forms.html
@@ -129,4 +114,12 @@ $(document).ready(function() {
                     </span>
                 </div>  
 </a>
+
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular" >
+            <button class="button primary" type="submit">
+                    Volver a administracion
+            </button>
+        </form>          
+</div>
 

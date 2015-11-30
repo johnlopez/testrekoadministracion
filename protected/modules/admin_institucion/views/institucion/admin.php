@@ -1,30 +1,11 @@
-<?php
-/* @var $this InstitucionController */
-/* @var $model Institucion */
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/institucion/create" >
+            <button class="button primary" type="submit">
+                    Crear Institucion
+            </button>
+        </form>          
+</div>
 
-$this->breadcrumbs=array(
-	'Institucions'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Institucion', 'url'=>array('index')),
-	array('label'=>'Create Institucion', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#institucion-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
-?>
 
 <h2>Administración Institucion</h2><br><br>
 
@@ -41,6 +22,7 @@ $(document).ready(function() {
                 <tr>
                     <th>ID</th>
                     <th>NOMBRE</th>
+                    <th>SIGLA</th>
                     <th>VISION</th>
                     <th>MISION</th>
                     <th>ACREDITADA</th>
@@ -53,6 +35,7 @@ $(document).ready(function() {
                     <tr>
                         <td><?php echo $institucion['id'] ?></td>
                         <td><?php echo $institucion['nombre'] ?></td>
+                        <td><?php echo $institucion['sigla'] ?></td>
                         <td><?php echo $institucion['vision']?></td>
                         <td><?php echo $institucion['mision']?></td>
                         <td><?php echo $institucion['acreditada']?></td>
@@ -99,4 +82,12 @@ $(document).ready(function() {
                 <li class="active"></li>                        
         </ul>               
     </section>
+</div>
+
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion" >
+            <button class="button primary" type="submit">
+                    Volver a administracion
+            </button>
+        </form>          
 </div>

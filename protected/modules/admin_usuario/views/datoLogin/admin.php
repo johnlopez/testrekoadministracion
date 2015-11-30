@@ -92,3 +92,10 @@ $(document).ready(function() {
     </section>
 </div>
 
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario" >
+            <button class="button primary" type="submit">
+                    Volver a administracion
+            </button>
+        </form>          
+</div>
