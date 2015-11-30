@@ -128,4 +128,5 @@ class Institucion extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
 }

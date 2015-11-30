@@ -83,7 +83,7 @@ $(document).ready(function() {
                         <td><?php echo $datoPersonal['estado_civil']?></td>
                         <td><?php echo $datoPersonal['idioma']?></td>
                         <td><?php echo $datoPersonal['nacionalidad']?></td>
-                        <td><?php echo $datoPersonal['usuario']?></td>-->
+                        <td><?php echo $datoPersonal['usuario_id']?></td>-->
                         <td>                                        
                             <?php 
                             // http://www.v09studio.com/websystems/materials/forms.html
@@ -124,4 +124,12 @@ $(document).ready(function() {
                 <li class="active"></li>                        
         </ul>               
     </section>
+</div>
+
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario" >
+            <button class="button primary" type="submit">
+                    Volver a administracion
+            </button>
+        </form>          
 </div>

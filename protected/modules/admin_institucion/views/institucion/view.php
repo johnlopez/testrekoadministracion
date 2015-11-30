@@ -1,22 +1,24 @@
-<?php
-/* @var $this InstitucionController */
-/* @var $model Institucion */
+<div class="place-right padding20 no-padding-top no-padding-right">
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/institucion/create" >
+            <button class="button primary" type="submit">
+                    Crear Institucion
+            </button>
+        </form>
+    <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/institucion/update" method="GET" >
+        <input type="hidden" name="id" value="<?php echo $model->id?>" />
+            <button class="button primary" type="submit">
+                    Actualizar Institucion
+            </button>
+        </form> 
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/institucion/admin" >
+            <button class="button primary" type="submit">
+                    Administrar Institucion
+            </button>
+        </form>   
+</div>
 
-$this->breadcrumbs=array(
-	'Institucions'=>array('index'),
-	$model->id,
-);
 
-$this->menu=array(
-	array('label'=>'List Institucion', 'url'=>array('index')),
-	array('label'=>'Create Institucion', 'url'=>array('create')),
-	array('label'=>'Update Institucion', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Institucion', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Institucion', 'url'=>array('admin')),
-);
-?>
-
-<h1>View Institucion #<?php echo $model->id; ?></h1>
+<h2>Institucion #<?php echo $model->id; ?></h2>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -31,5 +33,8 @@ $this->menu=array(
 		'descripcion',
 		'fecha_creacion',
 		'fecha_modificacion',
+                'estado_institucion_id',
+                'pais_id',
+                'region_id'
 	),
 )); ?>

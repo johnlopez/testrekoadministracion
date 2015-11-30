@@ -1,21 +1,11 @@
-<?php
-/* @var $this SeccionController */
-/* @var $model Seccion */
+<div class="place-right padding20 no-padding-top no-padding-right">
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_curricular/seccion/admin" >
+            <button class="button primary" type="submit">
+                    Administrar seccion
+            </button>
+        </form>   
+</div>
 
-$this->breadcrumbs=array(
-	'Seccions'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
-
-$this->menu=array(
-	array('label'=>'List Seccion', 'url'=>array('index')),
-	array('label'=>'Create Seccion', 'url'=>array('create')),
-	array('label'=>'View Seccion', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Seccion', 'url'=>array('admin')),
-);
-?>
-
-<h1>Update Seccion <?php echo $model->id; ?></h1>
+<h2>Actualizar Seccion # <?php echo $model->id; ?></h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -1,18 +1,11 @@
-<?php
-/* @var $this EntidadController */
-/* @var $model Entidad */
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/entidad/admin" >
+            <button class="button primary" type="submit">
+                    Administrar Entidad
+            </button>
+        </form>          
+</div>
 
-$this->breadcrumbs=array(
-	'Entidads'=>array('index'),
-	'Create',
-);
-
-$this->menu=array(
-	array('label'=>'List Entidad', 'url'=>array('index')),
-	array('label'=>'Manage Entidad', 'url'=>array('admin')),
-);
-?>
-
-<h1>Create Entidad</h1>
+<h2>Agregar Entidad</h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -188,5 +188,12 @@ class DatoLaboral extends CActiveRecord
             return $comando->queryAll();
         }
         
+        public function listarDatosLaboralesPorUsuario($id) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_listar_datos_laborales_por_usuario(:id)");
+            $comando->bindParam(':id', $id);
+            return $comando->queryAll();
+        }
+        
         
 }

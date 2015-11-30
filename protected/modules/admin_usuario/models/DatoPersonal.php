@@ -231,4 +231,11 @@ class DatoPersonal extends CActiveRecord
             $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_listar_datos_personales_por_estado()");
             return $comando->queryAll();
         }
+        
+        public function listarDatosPersonalesPorUsuario($id) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_listar_datos_personales_por_usuario(:id)");
+            $comando->bindParam(':id', $id);
+            return $comando->queryAll();
+        }
 }

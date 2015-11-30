@@ -1,32 +1,13 @@
-<?php
-/* @var $this EntidadController */
-/* @var $model Entidad */
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion/entidad/create" >
+            <button class="button primary" type="submit">
+                    Crear Entidad
+            </button>
+        </form>          
+</div>
 
-$this->breadcrumbs=array(
-	'Entidads'=>array('index'),
-	'Manage',
-);
 
-$this->menu=array(
-	array('label'=>'List Entidad', 'url'=>array('index')),
-	array('label'=>'Create Entidad', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#entidad-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
-?>
-
-<h2>Administración entidades</h2><br><br>
+<h2>Administración entidad</h2><br><br>
 
 
 
@@ -42,6 +23,7 @@ $(document).ready(function() {
                 <tr>
                     <th>ID</th>
                     <th>NOMBRE</th>
+                    <th>SIGLA</th>
                     <th>DESCRIPCION</th>
                     <th>FECHA CREACION</th>
                     <th>FECHA MODIFICACION</th>
@@ -53,6 +35,7 @@ $(document).ready(function() {
                     <tr>
                         <td><?php echo $entidad['id'] ?></td>
                         <td><?php echo $entidad['nombre'] ?></td>
+                        <td><?php echo $entidad['sigla'] ?></td>
                         <td><?php echo $entidad['descripcion']?></td>
                         <td><?php echo $entidad['fecha_creacion']?></td>
                         <td><?php echo $entidad['fecha_modificacion']?></td>
@@ -107,4 +90,12 @@ $(document).ready(function() {
                 <li class="active"></li>                        
         </ul>               
     </section>
+</div>
+
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_institucion" >
+            <button class="button primary" type="submit">
+                    Volver a administracion
+            </button>
+        </form>          
 </div>

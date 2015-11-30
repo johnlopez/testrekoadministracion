@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'modulo':
  * @property integer $id
  * @property string $nombre
+ * @property string $codigo
  * @property string $descripcion
  * @property string $fecha_creacion
  * @property string $fecha_modificacion
@@ -15,18 +16,15 @@
  *
  * The followings are the available model relations:
  * @property Entidad $entidad
- * @property Institucion $institucion
  * @property EstadoModulo $estadoModulo
+ * @property Institucion $institucion
  * @property ProgramaAcademico[] $programaAcademicos
  * @property Seccion[] $seccions
- * @property Usuario[] $usuarios
+ * @property UsuarioHasModulo[] $usuarioHasModulos
  */
 class Modulo extends CActiveRecord
 {
-	/**
-	 * @return string the associated database table name
-	 */
-        public $llaveIdModulo;
+	public $llaveIdModulo;
         
 	public function tableName()
 	{
@@ -42,11 +40,11 @@ class Modulo extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('estado_modulo_id, entidad_id, institucion_id', 'numerical', 'integerOnly'=>true),
-			array('nombre, descripcion', 'length', 'max'=>45),
+			array('nombre, codigo, descripcion', 'length', 'max'=>45),
 			array('fecha_creacion, fecha_modificacion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre, descripcion, fecha_creacion, fecha_modificacion, estado_modulo_id, entidad_id, institucion_id', 'safe', 'on'=>'search'),
+			array('id, nombre, codigo, descripcion, fecha_creacion, fecha_modificacion, estado_modulo_id, entidad_id, institucion_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,11 +57,11 @@ class Modulo extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'entidad' => array(self::BELONGS_TO, 'Entidad', 'entidad_id'),
-			'institucion' => array(self::BELONGS_TO, 'Institucion', 'institucion_id'),
 			'estadoModulo' => array(self::BELONGS_TO, 'EstadoModulo', 'estado_modulo_id'),
+			'institucion' => array(self::BELONGS_TO, 'Institucion', 'institucion_id'),
 			'programaAcademicos' => array(self::MANY_MANY, 'ProgramaAcademico', 'programa_academico_has_modulo(modulo_id, programa_academico_id)'),
 			'seccions' => array(self::HAS_MANY, 'Seccion', 'modulo_id'),
-			'usuarios' => array(self::MANY_MANY, 'Usuario', 'usuario_has_modulo(modulo_id, usuario_id)'),
+			'usuarioHasModulos' => array(self::HAS_MANY, 'UsuarioHasModulo', 'modulo_id'),
 		);
 	}
 
@@ -75,6 +73,7 @@ class Modulo extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'nombre' => 'Nombre',
+			'codigo' => 'Codigo',
 			'descripcion' => 'Descripcion',
 			'fecha_creacion' => 'Fecha Creacion',
 			'fecha_modificacion' => 'Fecha Modificacion',
@@ -104,6 +103,7 @@ class Modulo extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('nombre',$this->nombre,true);
+		$criteria->compare('codigo',$this->codigo,true);
 		$criteria->compare('descripcion',$this->descripcion,true);
 		$criteria->compare('fecha_creacion',$this->fecha_creacion,true);
 		$criteria->compare('fecha_modificacion',$this->fecha_modificacion,true);
@@ -127,10 +127,11 @@ class Modulo extends CActiveRecord
 		return parent::model($className);
 	}
         
-        public function agregarModulo($nombre,$descripcion,$fechaCreacion,$estadoModuloId,$entidadId,$institucionId) {
+        public function agregarModulo($nombre,$codigo,$descripcion,$fechaCreacion,$estadoModuloId,$entidadId,$institucionId) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_admin_curricular_agregar_modulo(:nombre,:descripcion,:fechaCreacion,:estadoModuloId,:entidadId,:institucionId,@llave_id)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_curricular_agregar_modulo(:nombre,:codigo,:descripcion,:fechaCreacion,:estadoModuloId,:entidadId,:institucionId,@llave_id)");
             $comando->bindParam(':nombre', $nombre);
+            $comando->bindParam(':codigo', $codigo);
             $comando->bindParam(':descripcion', $descripcion);
             $comando->bindParam(':fechaCreacion', $fechaCreacion);
             $comando->bindParam(':estadoModuloId', $estadoModuloId);
@@ -141,14 +142,15 @@ class Modulo extends CActiveRecord
             return $comando;
         }
         
-        public function modificarModulo($id,$nombre,$descripcion,$fechaModificacion,$estadoModuloId,$entidadId,$institucionId) {
+        public function modificarModulo($id,$nombre,$codigo,$descripcion,$fechaModificacion,$estadoModuloId,$entidadId,$institucionId) {
             
-            $comando = Yii::app()->db->createCommand("CALL sp_admin_curricular_actualizar_modulo(:id,:nombre,:descripcion,:fechaModificacion,:estadoModuloId,:entidadId,:institucionId)");
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_curricular_actualizar_modulo(:id,:nombre,:codigo,:descripcion,:fechaModificacion,:estadoModuloId,:entidadId,:institucionId)");
             $comando->bindParam('id', $id);
             $comando->bindParam(':nombre', $nombre);
+            $comando->bindParam(':codigo', $codigo);
             $comando->bindParam(':descripcion', $descripcion);
             $comando->bindParam(':fechaModificacion', $fechaModificacion);
-             $comando->bindParam(':estadoModuloId', $estadoModuloId);
+            $comando->bindParam(':estadoModuloId', $estadoModuloId);
             $comando->bindParam(':entidadId', $entidadId);
             $comando->bindParam(':institucionId', $institucionId);
             $comando->execute();

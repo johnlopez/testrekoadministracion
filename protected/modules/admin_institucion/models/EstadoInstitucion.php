@@ -1,24 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "tipo_repositorio_master".
+ * This is the model class for table "estado_institucion".
  *
- * The followings are the available columns in table 'tipo_repositorio_master':
+ * The followings are the available columns in table 'estado_institucion':
  * @property integer $id
- * @property string $descripcion
+ * @property string $estado
  *
  * The followings are the available model relations:
- * @property RepositorioMaster[] $repositorioMasters
- * @property TipoRepositorio[] $tipoRepositorios
+ * @property Institucion[] $institucions
  */
-class TipoRepositorioMaster extends CActiveRecord
+class EstadoInstitucion extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'tipo_repositorio_master';
+		return 'estado_institucion';
 	}
 
 	/**
@@ -29,10 +28,10 @@ class TipoRepositorioMaster extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('descripcion', 'length', 'max'=>45),
+			array('estado', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, descripcion', 'safe', 'on'=>'search'),
+			array('id, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -44,8 +43,7 @@ class TipoRepositorioMaster extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'repositorioMasters' => array(self::HAS_MANY, 'RepositorioMaster', 'tipo_repositorio_master_id'),
-			'tipoRepositorios' => array(self::HAS_MANY, 'TipoRepositorio', 'tipo_repositorio_master_int'),
+			'institucions' => array(self::HAS_MANY, 'Institucion', 'estado_institucion_id'),
 		);
 	}
 
@@ -56,7 +54,7 @@ class TipoRepositorioMaster extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'descripcion' => 'Descripcion',
+			'estado' => 'Estado',
 		);
 	}
 
@@ -79,7 +77,7 @@ class TipoRepositorioMaster extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('descripcion',$this->descripcion,true);
+		$criteria->compare('estado',$this->estado,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -90,7 +88,7 @@ class TipoRepositorioMaster extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return TipoRepositorioMaster the static model class
+	 * @return EstadoInstitucion the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

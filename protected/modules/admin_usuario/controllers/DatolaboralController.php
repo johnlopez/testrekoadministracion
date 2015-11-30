@@ -28,7 +28,7 @@ class DatoLaboralController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin'),
+				'actions'=>array('index','view','admin','usuarios'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -147,12 +147,13 @@ class DatoLaboralController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new DatoLaboral('search');
-                //$listadoDatoLaboral = DatoLaboral::model()->findAll();
-                $listadoDatoLaboral = $model->listarPorEstado();
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['DatoLaboral']))
-			$model->attributes=$_GET['DatoLaboral'];
+		if(isset($_POST['idUsuario'])){
+                    $idUsuario = $_POST['idUsuario'];
+                }
+                
+                $model = new DatoLaboral();
+                $listadoDatoLaboral = $model->listarDatosLaboralesPorUsuario($idUsuario);
+		
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -197,5 +198,13 @@ class DatoLaboralController extends Controller
                 $datoLaboral = new DatoLaboral();
                 $datoLaboral->eliminarFisicoDatoLaboral($idDatoLaboral);
                 $this->redirect('admin');
+        }
+        
+        public function actionUsuarios() {
+            
+            $usuario = new Usuario();
+            $listadoUsuarios = $usuario->listarPorEstado();
+            
+            $this->render('usuarios', array('listadoUsuarios' => $listadoUsuarios));
         }
 }

@@ -1,30 +1,10 @@
-<?php
-/* @var $this RegionController */
-/* @var $model Region */
-
-$this->breadcrumbs=array(
-	'Regions'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Region', 'url'=>array('index')),
-	array('label'=>'Create Region', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#region-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
-?>
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/region/create" >
+            <button class="button primary" type="submit">
+                    Crear region
+            </button>
+        </form>          
+</div>
 
 <h2>Administración regiones</h2><br><br>
 
@@ -73,7 +53,7 @@ $(document).ready(function() {
                                         </span>
                                     </button>
                                 </form>
-                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/region/delete" method="post">
+                                <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/region/borradoFisicoRegion" method="post">
                                     <input type="hidden" name="id" value="<?php echo $region['id']?>" />
                                     <button class="toolbar-button bg-white bg-active-grayLighter fg-black" type="submit">
                                         <span class="icon mif-cancel">
@@ -91,4 +71,13 @@ $(document).ready(function() {
                 <li class="active"></li>                        
         </ul>               
     </section>
+</div>
+
+
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario" >
+            <button class="button primary" type="submit">
+                    Volver a administracion
+            </button>
+        </form>          
 </div>

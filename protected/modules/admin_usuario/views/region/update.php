@@ -1,21 +1,11 @@
-<?php
-/* @var $this RegionController */
-/* @var $model Region */
+<div class="place-right padding20 no-padding-top no-padding-right">  
+        <form class="place-left" action="<?php echo Yii::app()->getBaseUrl(); ?>/admin_usuario/region/admin" >
+            <button class="button primary" type="submit">
+                    Administrar region
+            </button>
+        </form>          
+</div>
 
-$this->breadcrumbs=array(
-	'Regions'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
-
-$this->menu=array(
-	array('label'=>'List Region', 'url'=>array('index')),
-	array('label'=>'Create Region', 'url'=>array('create')),
-	array('label'=>'View Region', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Region', 'url'=>array('admin')),
-);
-?>
-
-<h1>Update Region <?php echo $model->id; ?></h1>
+<h2>Actualizar Region #<?php echo $model->id; ?></h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

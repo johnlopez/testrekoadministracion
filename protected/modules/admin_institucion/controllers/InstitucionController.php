@@ -1,4 +1,6 @@
 <?php
+Yii::import('application.modules.admin_usuario.models.Pais');
+Yii::import('application.modules.admin_usuario.models.Region');
 
 class InstitucionController extends Controller
 {
@@ -72,13 +74,17 @@ class InstitucionController extends Controller
 			$model->attributes=$_POST['Institucion'];
 			if($model->agregarInstitucion(
                                 $model->nombre,
+                                $model->sigla,
                                 $model->vision,
                                 $model->mision,
                                 $model->acreditada,
                                 $model->fecha_inicio_acreditacion,
                                 $model->fecha_termino_acreditacion,
                                 $model->descripcion,
-                                $model->fecha_creacion
+                                $model->fecha_creacion,
+                                $model->estado_institucion_id ? : NULL,
+                                $model->pais_id ? : NULL,
+                                $model->region_id ? : NULL
                         ))
 				
                     $this->redirect(array('view','id'=>$model->llaveIdInstitucion));
@@ -107,13 +113,17 @@ class InstitucionController extends Controller
 			if($model->modificarInstitucion(
                                 $model->id,
                                 $model->nombre,
+                                $model->sigla,
                                 $model->vision,
                                 $model->mision,
                                 $model->acreditada,
                                 $model->fecha_inicio_acreditacion,
                                 $model->fecha_termino_acreditacion,
                                 $model->descripcion,
-                                $model->fecha_modificacion
+                                $model->fecha_modificacion,
+                                $model->estado_institucion_id ? : NULL,
+                                $model->pais_id ? : NULL,
+                                $model->region_id ? : NULL
                         ))
 				
                     $this->redirect(array('view','id'=>$model->id));
@@ -140,7 +150,8 @@ class InstitucionController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model = new Institucion('search');
+		//$model = new Institucion();
+                $model = new Institucion();
                 //$listadoInstitucion = Institucion::model()->findAll();
                 $listadoInstitucion = $model->listarInstitucionPorEstado();
 		$model->unsetAttributes();  // clear any default values

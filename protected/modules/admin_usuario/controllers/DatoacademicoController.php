@@ -28,7 +28,7 @@ class DatoAcademicoController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin','borradoFisicoDatoAcademico'),
+				'actions'=>array('index','view','admin','borradoFisicoDatoAcademico','usuarios'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -142,16 +142,17 @@ class DatoAcademicoController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new DatoAcademico('search');
-                //$listadoDatoAcademico = DatoAcademico::model()->findAll();
-                $listadoDatoAcademico = $model->listarPorEstado();
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['DatoAcademico']))
-			$model->attributes=$_GET['DatoAcademico'];
+                if(isset($_POST['idUsuarios'])){
+                    $idUsuario = $_POST['idUsuarios'];
+                }
+                
+		$model = new DatoAcademico();    
+                $listadoDatoAcademico = $model->listarDatosAcademicosPorUsuario($idUsuario);
+		
 
 		$this->render('admin',array(
-			'model'=>$model,
-                        'listadoDatoAcademico' => $listadoDatoAcademico,
+                              'model'=>$model,
+                              'listadoDatoAcademico' => $listadoDatoAcademico,
 		));
 	}
 
@@ -192,5 +193,13 @@ class DatoAcademicoController extends Controller
                 $datoAcademico = new DatoAcademico();
                 $datoAcademico->eliminadoFisicoDatoAcademico($idDatoAcademico);
                 $this->redirect('admin');
+        }
+        
+        public function actionUsuarios() {
+            
+            $usuario = new Usuario();
+            $listadoUsuarios = $usuario->listarPorEstado();
+            
+            $this->render('usuarios', array('listadoUsuarios' => $listadoUsuarios));
         }
 }

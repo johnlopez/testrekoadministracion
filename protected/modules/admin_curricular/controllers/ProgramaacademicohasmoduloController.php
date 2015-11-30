@@ -24,11 +24,11 @@ class ProgramaAcademicoHasModuloController extends Controller {
             else{ 
                 $preSelectedCategories[] =  0;                             
             }
-                    
+             
             $tmpObj->modulo_id = (int)$item['modulo_id'];
             $tmpObj->programa_academico_id = (int)$item['programa_academico_id']; 
-           
-            
+            $tmpObj->nombre = $item['nombre'];
+         
             $objetoProgramaArray[] = $tmpObj;
         }
             
@@ -73,9 +73,7 @@ class ProgramaAcademicoHasModuloController extends Controller {
         else{
             $moduloPrograma->desasignaProgramaModulo($listadoOriginal,$programaId);                
         }
-           
-       
+   
         $this->redirect(array("index",'id'=>$programaId));
-
     }
 }

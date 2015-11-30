@@ -125,4 +125,12 @@ class Pais extends CActiveRecord
             $comando->execute();
             return $comando;
         }
+        
+        public function eliminadoFisicoPais($idPais) {
+            
+            $comando = Yii::app()->db->createCommand("CALL sp_admin_usuario_eliminado_fisico_pais(:idPais)");
+            $comando->bindParam(':idPais', $idPais);
+            $comando->execute();
+            return $comando;
+        }
 }
