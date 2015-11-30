@@ -3,11 +3,10 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-11-2015 a las 14:33:39
+-- Tiempo de generación: 30-11-2015 a las 14:02:56
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
-SET foreign_key_checks = 0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -354,7 +353,8 @@ end$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_actualizar_modulo`(
 nuevo_id int,
 nuevo_nombre varchar(50),
-nuevo_descripcion varchar(50),
+nuevo_codigo varchar(50),
+nuevo_descripcion text,
 nuevo_fecha_modificacion datetime,
 nuevo_estado_modulo_id int,
 nuevo_entidad_id int,
@@ -364,6 +364,7 @@ begin
 update modulo set 
 id = nuevo_id,
 nombre = nuevo_nombre,
+codigo = nuevo_codigo,
 descripcion = nuevo_descripcion,
 fecha_modificacion = nuevo_fecha_modificacion,
 estado_modulo_id = nuevo_estado_modulo_id,
@@ -398,27 +399,30 @@ end$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_actualizar_seccion`(
 nuevo_id int,
 nuevo_nombre varchar(50),
+nuevo_codigo varchar(50),
 nuevo_jornada varchar(50),
-nuevo_descripcion varchar(50),
-nuevo_modulo_id int,
+nuevo_descripcion text,
+nuevo_fecha_modificacion datetime,
 nuevo_estado_seccion_id int,
-nuevo_fecha_modificacion datetime
+nuevo_modulo_id int
 )
 begin
 update seccion set
 id = nuevo_id,
 nombre = nuevo_nombre,
+codigo = nuevo_codigo,
 jornada = nuevo_jornada,
 descripcion = nuevo_descripcion,
-modulo_id = nuevo_modulo_id,
+fecha_modificacion = now(),
 estado_seccion_id = nuevo_estado_seccion_id,
-fecha_modificacion = now()
+modulo_id = nuevo_modulo_id
 where id = nuevo_id;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_agregar_modulo`(
 nuevo_nombre varchar(50),
-nuevo_descripcion varchar(50),
+nuevo_codigo varchar(50),
+nuevo_descripcion text,
 nuevo_fecha_creacion datetime,
 nuevo_estado_modulo_id int,
 nuevo_entidad_id int,
@@ -428,6 +432,7 @@ OUT llave_id int(11)
 begin
 insert into modulo(
 nombre,
+codigo,
 descripcion,
 fecha_creacion,
 estado_modulo_id,
@@ -436,6 +441,7 @@ institucion_id
 )
 values(
 nuevo_nombre,
+nuevo_codigo,
 nuevo_descripcion,
 now(),
 nuevo_estado_modulo_id,
@@ -479,29 +485,32 @@ end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_agregar_seccion`(
 nuevo_nombre varchar(50),
+nuevo_codigo varchar(50),
 nuevo_jornada varchar(50),
-nuevo_descripcion varchar(50),
-nuevo_modulo_id int,
-nuevo_estado_seccion_id int,
+nuevo_descripcion text,
 nuevo_fecha_creacion datetime,
+nuevo_estado_seccion_id int,
+nuevo_modulo_id int,
 OUT llave_id int(11)
 )
 begin
 insert into seccion(
 nombre,
+codigo,
 jornada,
 descripcion,
-modulo_id,
+fecha_creacion,
 estado_seccion_id,
-fecha_creacion
+modulo_id
 )
 values(
 nuevo_nombre,
+nuevo_codigo,
 nuevo_jornada,
 nuevo_descripcion,
-nuevo_modulo_id,
+now(),
 nuevo_estado_seccion_id,
-now()
+nuevo_modulo_id
 );
 SELECT LAST_INSERT_ID () into llave_id;
 end$$
@@ -1046,7 +1055,7 @@ BEGIN
 	update modulo m,estado_modulo em
 	set m.estado_modulo_id = em.id 
 	where m.id = nuevo_id
-	and em.id = 2;
+	and em.id = 3;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_eliminado_logico_programa_academico`(nuevo_id int)
@@ -1062,7 +1071,7 @@ BEGIN
 	update seccion s,estado_seccion es
 	set s.estado_seccion_id = es.id 
 	where s.id = nuevo_id
-	and es.id = 2;
+	and es.id = 3;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_listar2_entidad_entidad`(nuevo_entidad_id int(11))
@@ -1075,16 +1084,18 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_listar_modulos_por_estado`()
 BEGIN
-	SELECT A.*
+	SELECT 
+		A.*,
+        B.estado
 
 		FROM 
 			 modulo A,
 			 estado_modulo B
 			 
 		WHERE A.estado_modulo_id = B.id
-		AND   A.estado_modulo_id !=2
+		AND   A.estado_modulo_id !=3
 		
-		UNION SELECT A.*
+		UNION SELECT A.*, B.estado
 				FROM 
 					modulo A LEFT JOIN estado_modulo B ON A.estado_modulo_id = B.id
 				WHERE A.estado_modulo_id IS NULL;
@@ -1116,16 +1127,16 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_listar_programas_academicos_por_estado`()
 BEGIN
-	SELECT A.*
+	SELECT A.*,B.estado
 
 		FROM 
 			 programa_academico A,
 			 estado_programa_academico B
 			 
 		WHERE A.estado_programa_academico_id = B.id
-		AND  A.estado_programa_academico_id !=2
+		AND  A.estado_programa_academico_id !=3
 		
-		UNION SELECT A.*
+		UNION SELECT A.*,B.estado
 				FROM 
 					programa_academico A LEFT JOIN estado_programa_academico B ON A.estado_programa_academico_id = B.id
 				WHERE A.estado_programa_academico_id IS NULL;
@@ -1141,7 +1152,7 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_listar_secciones_por_estado`()
 BEGIN
-	SELECT A.*
+	SELECT A.*,B.estado
 		FROM 
 			 seccion A,
 			 estado_seccion B,
@@ -1149,16 +1160,14 @@ BEGIN
 			 
 		WHERE A.estado_seccion_id = B.id
         AND   A.modulo_id = C.id
-		AND   A.estado_seccion_id !=2
+		AND   A.estado_seccion_id !=3
 
 
   
-		UNION SELECT A.*
+		UNION SELECT A.*,B.estado
 				FROM 
 					(seccion A LEFT JOIN estado_seccion B ON A.estado_seccion_id = B.id), modulo C
-				WHERE A.estado_seccion_id IS NULL
-                AND   A.modulo_id = C.id
-                AND   C.estado_modulo_id !=2;
+				WHERE A.estado_seccion_id IS NULL;
                 
 END$$
 
@@ -1374,9 +1383,9 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_lista_programa_modulo`(nuevo_programa_id int(11))
 BEGIN
-SELECT A.nombre,B.programa_academico_id,B.modulo_id FROM `programa_academico` A, `programa_academico_has_modulo` B 
+SELECT A.nombre,B.programa_academico_id,B.modulo_id,C.nombre FROM `programa_academico` A, `programa_academico_has_modulo` B, `modulo` C
 WHERE A.id = B.programa_academico_id
-AND A.id = nuevo_programa_id UNION SELECT null,null,A.id FROM (`modulo` A LEFT JOIN `programa_academico_has_modulo` B ON A.id = B.modulo_id AND B.programa_academico_id = nuevo_programa_id)
+AND A.id = nuevo_programa_id UNION SELECT null,null,A.id,A.nombre FROM (`modulo` A LEFT JOIN `programa_academico_has_modulo` B ON A.id = B.modulo_id AND B.programa_academico_id = nuevo_programa_id)
 WHERE B.modulo_id is NULL
 order by modulo_id;
 END$$
@@ -1447,25 +1456,33 @@ end$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_actualizar_institucion`(
 nuevo_id int,
 nuevo_nombre varchar(50),
-nuevo_vision varchar(50),
-nuevo_mision varchar(50),
+nuevo_sigla varchar(50),
+nuevo_vision text,
+nuevo_mision text,
 nuevo_acreditada bit(1),
 nuevo_fecha_inicio_acreditacion datetime,
 nuevo_fecha_termino_acreditacion datetime,
-nuevo_descripcion varchar(50),
-nuevo_fecha_modificacion datetime
+nuevo_descripcion text,
+nuevo_fecha_modificacion datetime,
+nuevo_estado_id int,
+nuevo_pais_id int,
+nuevo_region_id int
 )
 begin
 update institucion set
 id = nuevo_id,
 nombre = nuevo_nombre,
+sigla = nuevo_sigla,
 vision = nuevo_vision,
 mision = nuevo_mision,
 acreditada = nuevo_acreditada,
 fecha_inicio_acreditacion = nuevo_fecha_inicio_acreditacion,
 fecha_termino_acreditacion = nuevo_fecha_termino_acreditacion,
 descripcion = nuevo_descripcion,
-fecha_modificacion = now()
+fecha_modificacion = now(),
+estado_institucion_id = nuevo_estado_id,
+pais_id = nuevo_pais_id,
+region_id = nuevo_region_id
 where id = nuevo_id;
 end$$
 
@@ -1500,35 +1517,47 @@ end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_agregar_institucion`(
 nuevo_nombre varchar(50),
-nuevo_vision varchar(50),
-nuevo_mision varchar(50),
+nuevo_sigla varchar(50),
+nuevo_vision text,
+nuevo_mision text,
 nuevo_acreditada bit(1),
 nuevo_fecha_inicio_acreditacion datetime,
 nuevo_fecha_termino_acreditacion datetime,
-nuevo_descripcion varchar(50),
+nuevo_descripcion text,
 nuevo_fecha_creacion datetime,
+nuevo_estado_id int,
+nuevo_pais_id int,
+nuevo_region_id int,
 OUT llave_id int(11)
 )
 begin
 insert into institucion(
 nombre,
+sigla,
 vision,
 mision,
 acreditada,
 fecha_inicio_acreditacion,
 fecha_termino_acreditacion,
 descripcion,
-fecha_creacion
+fecha_creacion,
+estado_institucion_id,
+pais_id,
+region_id
 )
 values(
 nuevo_nombre,
+nuevo_sigla,
 nuevo_vision, 
 nuevo_mision, 
 nuevo_acreditada, 
 nuevo_fecha_inicio_acreditacion, 
 nuevo_fecha_termino_acreditacion, 
 nuevo_descripcion, 
-now()
+now(),
+nuevo_estado_id,
+nuevo_pais_id,
+nuevo_region_id
 );
 SELECT LAST_INSERT_ID () into llave_id;
 end$$
@@ -1606,7 +1635,7 @@ BEGIN
 	update entidad en,estado_entidad ee
 	set en.estado_entidad_id = ee.id 
 	where en.id = nuevo_id
-	and ee.id = 1;
+	and ee.id = 3;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_eliminado_logico_institucion`(nuevo_id int)
@@ -1614,7 +1643,7 @@ BEGIN
 	update institucion ins,estado_institucion ei
 	set ins.estado_institucion_id = ei.id 
 	where ins.id = nuevo_id
-	and ei.id = 1;
+	and ei.id = 3;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_listar_entidad_entidad`(nuevo_id int)
@@ -1630,18 +1659,14 @@ BEGIN
 	
     FROM 
 		entidad A,
-        estado_entidad B,
-        institucion C
+        estado_entidad B
 	
     WHERE	A.estado_entidad_id = B.id  
-    AND 	A.institucion_id = C.id  
 	AND 	A.estado_entidad_id !=3
-    OR		C.estado_institucion_id !=3
     
     UNION SELECT A.*, B.estado
 		FROM (entidad A LEFT JOIN estado_entidad B ON A.estado_entidad_id = B.id), institucion C
-        WHERE A.estado_entidad_id IS NULL
-        OR  C.estado_institucion_id IS NULL;
+        WHERE A.estado_entidad_id IS NULL;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_listar_entidad_por_institucion`(nuevo_id_institucion int)
@@ -1656,7 +1681,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_listar_institu
 BEGIN
 	SELECT
 		A.*,
-		B.estado 
+        B.estado
 
 	FROM 
 		institucion A,
@@ -3620,6 +3645,18 @@ DELETE FROM dato_personal
 WHERE id = nuevo_id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_eliminado_fisico_pais`(nuevo_id int)
+BEGIN
+DELETE FROM pais
+WHERE id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_eliminado_fisico_region`(nuevo_id int)
+BEGIN
+DELETE FROM region
+WHERE id = nuevo_id;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_eliminado_logico_usuario`(nuevo_id int)
 BEGIN
 	update usuario usu,estado_usuario ea
@@ -3648,6 +3685,19 @@ BEGIN
             AND  	A.usuario_id = B.id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_datos_academicos_por_usuario`(nuevo_id int)
+BEGIN
+	SELECT 
+		A.*
+        
+	FROM 
+		dato_academico A,
+		usuario B
+        
+	WHERE A.usuario_id = B.id
+    AND   B.id = nuevo_id;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_datos_laborales_por_estado`()
 BEGIN
 	SELECT A.*, B.usuario
@@ -3667,6 +3717,19 @@ BEGIN
 			WHERE	B.estado_usuario_id IS NULL
             AND  	A.usuario_id = B.id;
     
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_datos_laborales_por_usuario`(nuevo_id int)
+BEGIN
+	SELECT 
+		A.*
+        
+	FROM 
+		dato_laboral A,
+		usuario B
+        
+	WHERE A.usuario_id = B.id
+    AND   B.id = nuevo_id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_datos_login_por_estado`()
@@ -3709,6 +3772,19 @@ BEGIN
 			FROM	(usuario B LEFT JOIN estado_usuario C ON B.estado_usuario_id = C.id), dato_personal A
 			WHERE	B.estado_usuario_id IS NULL
             AND  	A.usuario_id = B.id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_datos_personales_por_usuario`(nuevo_id int)
+BEGIN
+	SELECT 
+		A.*
+        
+	FROM 
+		dato_personal A,
+		usuario B
+        
+	WHERE A.usuario_id = B.id
+    AND   B.id = nuevo_id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_estado_usuario`(nuevo_id_usuario varchar(50))
@@ -3774,6 +3850,152 @@ WHERE B.logica_estado_usuario_id is NULL
 order by logica_estado_usuario_id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_aula_listar_modulos_no_asignados_a_programa`(nuevoIdRol int, nuevoIdUsuario int)
+BEGIN
+	SELECT M.id,M.nombre,M.descripcion
+		FROM  
+		usuario U,
+		usuario_has_modulo UM, 
+		rol_usuario RU,
+		usuario_has_rol_usuario UR, 
+		estado_modulo EM,
+		(modulo M LEFT JOIN  programa_academico_has_modulo P ON  M.id = P.modulo_id )
+
+		 WHERE P.modulo_id IS NULL
+		 AND U.id = UM.usuario_id
+		 AND EM.id = M.estado_modulo_id
+		 AND EM.id = 1
+		 AND U.id = UR.usuario_id
+		 AND RU.id = UR.rol_usuario_id
+		 AND UM.modulo_id = M.id
+		 AND RU.tipo = 'rol_usuario_institucion'
+		 AND RU.id = nuevoIdRol
+		 AND U.id = nuevoIdUsuario;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_aula_listar_modulos_por_programa`(nuevo_id int)
+BEGIN
+	SELECT A.id,A.nombre,A.descripcion
+    
+    FROM 
+		modulo A,
+		programa_academico B,
+        programa_academico_has_modulo C,
+        estado_modulo D
+        
+	WHERE A.id = C.modulo_id
+    AND   B.id = C.programa_academico_id
+    AND   A.estado_modulo_id = D.id
+    AND   A.estado_modulo_id = 1
+    AND   B.id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_aula_listar_programas_por_rol`(nuevo_id int,id_usuario int)
+BEGIN
+	SELECT A.id,A.nombre,A.descripcion
+    
+    FROM 
+		programa_academico A,
+        usuario B,
+        rol_usuario C,
+        usuario_has_rol_usuario D,
+        usuario_has_programa_academico E,
+        estado_programa_academico F
+        
+	WHERE A.id = E.programa_academico_id
+    AND   B.id = E.usuario_id
+    AND   C.id = E.rol_usuario_id
+    AND   B.id = D.usuario_id
+    AND   C.id = D.rol_usuario_id
+    AND   A.estado_programa_academico_id = F.id
+    AND   A.estado_programa_academico_id !=3
+    AND   C.id = nuevo_id
+    AND   B.id = id_usuario;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_aula_listar_roles_por_usuario`(nuevo_id int)
+BEGIN
+	SELECT 
+		A.id,
+		A.nombre
+
+	FROM 
+		rol_usuario A,
+		usuario B,
+		institucion C,
+		usuario_has_rol_usuario D,
+		institucion_has_rol_usuario E,
+		usuario_has_institucion F
+		
+	WHERE A.id = D.rol_usuario_id
+	AND   A.id = E.rol_usuario_id
+	AND   B.id = D.usuario_id
+	AND   B.id = F.usuario_id
+	AND   C.id = E.institucion_id
+	AND   C.id = F.institucion_id
+	AND   A.tipo = 'rol_usuario_institucion'
+	AND   B.id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_aula_listar_secciones_por_modulo`(nuevo_id int)
+BEGIN
+	SELECT A.id, A.nombre, A.descripcion
+    
+	FROM
+		seccion A,
+        Modulo B,
+        estado_seccion C
+
+	WHERE B.id = A.modulo_id
+    AND   A.estado_seccion_id = C.id
+    AND   A.estado_seccion_id =1
+    AND   B.id = nuevo_id;    
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_components_agregar_archivo`(
+	 nuevo_archivo_nombre VARCHAR(255),
+     nuevo_archivo_mime_type TEXT,
+     nuevo_archivo_tamano INT(11),
+     nuevo_archivo_ruta TEXT,
+     nuevo_archivo_usuario_id INT(11),
+     nuevo_archivo_contenedor_id INT(11),
+     nuevo_archivo_contenedor_tabla VARCHAR(255),
+	 OUT last_insert_archivo_id INT(11)
+)
+BEGIN
+	
+	INSERT INTO archivo(
+		nombre,
+        mime_type,
+        tamano,
+        ruta,
+        usuario_id,
+        fecha_creacion,
+        contenedor_id,
+        contenedor_tabla        
+    )
+    VALUES(
+		nuevo_archivo_nombre,
+        nuevo_archivo_mime_type,
+        nuevo_archivo_tamano,
+        nuevo_archivo_ruta,
+        nuevo_archivo_usuario_id,
+        NOW(),
+        nuevo_archivo_contenedor_id,
+        nuevo_archivo_contenedor_tabla        
+    );
+    
+	SELECT LAST_INSERT_ID () INTO last_insert_archivo_id;
+        
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_components_eliminar_archivo`(nuevo_archivo_id INT)
+BEGIN
+
+DELETE FROM archivo WHERE id = nuevo_archivo_id;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_components_obtener_institucion_usuario`(nuevo_usuario_id int)
 BEGIN
 
@@ -3788,6 +4010,18 @@ AND UI.usuario_id = U.id
 AND U.id = nuevo_usuario_id
 ORDER BY institucion_id;
 
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_component_lista_archivos`(nuevo_contenedor_id INT,nuevo_contenedor_tabla VARCHAR(255))
+BEGIN
+
+SELECT A.*
+
+FROM archivo A
+WHERE A.contenedor_id = nuevo_contenedor_id
+AND A.contenedor_tabla = nuevo_contenedor_tabla
+
+ORDER BY A.id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_escritorio_administrador_get_icono_permiso_usuario`(nuevo_usuario_id int)
@@ -3843,11 +4077,92 @@ AND P.name = RP.authitem_permiso_usuario_name
 AND U.id = nuevo_usuario_id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_actualizar_link_interes`(
+	
+    nuevo_link_id INT,
+    nuevo_repositorio_id INT,
+    nuevo_link_titutlo VARCHAR(255),
+    nuevo_link_nombre VARCHAR(255),
+    nuevo_link_url varchar(50),
+    nuevo_link_descripcion TEXT,
+    OUT last_insert_link_id INT
+)
+BEGIN
+	UPDATE link_interes SET
+		id = nuevo_link_id,
+        titulo = nuevo_link_titutlo,
+		nombre = nuevo_link_nombre,
+        url = nuevo_link_url,
+        descripcion = nuevo_link_descripcion,
+        fecha_modificacion = NOW()
+	
+    WHERE link_interes.id = nuevo_link_id;
+   
+    
+    SET last_insert_link_id = nuevo_link_id;
+    
+    UPDATE herramienta SET
+		nombre = nuevo_link_nombre,
+        descripcion = nuevo_link_nombre,
+        fecha_modificacion = NOW()
+	WHERE herramienta.recurso_id = nuevo_link_id
+    AND herramienta.repositorio_id = nuevo_repositorio_id;
+    
+    
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_agregar_archivo_recurso_repositorio_troncal`(
+
+	nuevo_repositorio_id INT,
+    nuevo_archivo_recurso_nombre VARCHAR(255),
+    nuevo_archivo_recurso_descripcion TEXT,
+    nuevo_recurso_tabla VARCHAR (255),
+	OUT last_insert_archivo_recurso_id INT    
+)
+BEGIN
+
+	INSERT INTO archivo_recurso(
+		nombre,
+        descripcion,
+        fecha_creacion,
+        tipo_herramienta_id
+    )
+    VALUES(
+		nuevo_archivo_recurso_nombre,
+        nuevo_archivo_recurso_descripcion,
+        NOW(),
+        1
+    );
+    
+	SELECT LAST_INSERT_ID () INTO last_insert_archivo_recurso_id;
+ 
+    INSERT INTO herramienta(
+		nombre,
+        descripcion,
+        fecha_creacion,
+        recurso_id,
+        recurso_tabla,
+        repositorio_id,
+        tipo_herramienta_id
+    )
+    VALUES (
+		nuevo_archivo_recurso_nombre,
+        nuevo_archivo_recurso_descripcion,
+        NOW(),
+        last_insert_archivo_recurso_id,
+        nuevo_recurso_tabla,
+        nuevo_repositorio_id,
+        1
+    );
+    
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_agregar_glosario_repositorio_troncal`(
 	
     nuevo_repositorio_id INT,
     nuevo_glosario_nombre VARCHAR(255),
     nuevo_glosario_descripcion TEXT,
+    nuevo_recurso_tabla VARCHAR (255),
     OUT last_insert_glosario_id INT
 )
 BEGIN
@@ -3872,6 +4187,7 @@ BEGIN
         descripcion,
         fecha_creacion,
         recurso_id,
+		recurso_tabla,
         repositorio_id,
         tipo_herramienta_id
     )
@@ -3880,6 +4196,7 @@ BEGIN
         nuevo_glosario_descripcion,
         NOW(),
         last_insert_glosario_id,
+        nuevo_recurso_tabla,
         nuevo_repositorio_id,
         1
     );
@@ -3911,6 +4228,55 @@ BEGIN
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_agregar_link_interes`(
+	
+    nuevo_repositorio_id INT,
+    nuevo_link_titutlo varchar(50),
+    nuevo_link_nombre VARCHAR(255),
+    nuevo_link_url varchar(50),
+    nuevo_link_descripcion TEXT,
+    OUT last_insert_link_id INT
+)
+BEGIN
+
+	INSERT INTO link_interes(
+		titulo,
+        nombre,
+        url,
+        descripcion,
+        fecha_creacion,
+        tipo_herramienta_id
+	)
+    VALUES(
+		nuevo_link_titutlo,
+		nuevo_link_nombre,
+        nuevo_link_url,
+        nuevo_link_descripcion,
+        NOW(),
+        1
+    );
+    
+    SELECT LAST_INSERT_ID () INTO last_insert_link_id;
+    
+    INSERT INTO herramienta(
+		nombre,
+        descripcion,
+        fecha_creacion,
+        recurso_id,
+        repositorio_id,
+        tipo_herramienta_id
+    )
+    VALUES(
+		nuevo_link_nombre,
+        nuevo_link_descripcion,
+        NOW(),
+        last_insert_link_id,
+        nuevo_repositorio_id,
+        1
+    );
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_asignar_mod_aprendizaje_rep_troncal_admin`(nuevo_repositorio_id int , nuevo_modelo_id int)
 begin
 UPDATE repositorio_troncal_admin SET modelo_aprendizaje_id =  nuevo_modelo_id
@@ -3939,6 +4305,23 @@ AND I.id = nuevo_institucion_id;
 		
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_archivo_recurso_repositorio_troncal`(nuevo_repositorio_id INT)
+BEGIN
+
+	SELECT AR.*
+    FROM
+		repositorio R,
+        herramienta H,
+        archivo_recurso AR
+	WHERE R.id = H.repositorio_id
+    AND H.recurso_id = AR.id 
+    AND R.id = nuevo_repositorio_id
+    AND H.recurso_tabla = 'archivo_recurso'
+    
+    ORDER BY AR.id;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_glosario_repositorio`(nuevo_repositorio_id INT)
 BEGIN
 
@@ -3951,7 +4334,10 @@ BEGIN
 			
 	WHERE R.id = H.repositorio_id
 	AND H.recurso_id = G.id
-	AND R.id = nuevo_repositorio_id;
+	AND R.id = nuevo_repositorio_id
+	AND H.recurso_tabla = 'glosario'
+    
+    ORDER BY G.id;
 
 END$$
 
@@ -3986,6 +4372,35 @@ ORDER BY repositorio_id;
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_modificar_archivo_recurso_repositorio_troncal`(
+
+	nuevo_archivo_recurso_id INT,
+    nuevo_repositorio_id INT,
+    nuevo_archivo_recurso_nombre VARCHAR(255),
+    nuevo_archivo_recurso_descripcion TEXT,
+    OUT last_insert_archivo_recurso_id INT
+
+)
+BEGIN
+	
+	UPDATE archivo_recurso SET
+		nombre = nuevo_archivo_recurso_nombre,
+        descripcion = nuevo_archivo_recurso_descripcion,
+        fecha_modificacion = NOW()
+	WHERE archivo_recurso.id = nuevo_archivo_recurso_id;
+    
+    SET last_insert_archivo_recurso_id = nuevo_archivo_recurso_id;
+    
+    UPDATE herramienta SET
+		nombre = nuevo_archivo_recurso_nombre,
+        descripcion = nuevo_archivo_recurso_descripcion,
+        fecha_modificacion = NOW()
+	WHERE herramienta.recurso_id = nuevo_archivo_recurso_id
+    AND herramienta.recurso_tabla = 'archivo_recurso'
+    ;
+    
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_modificar_glosario_repositorio_troncal`(
 	
     nuevo_glosario_id INT,
@@ -4010,7 +4425,9 @@ BEGIN
         descripcion = nuevo_glosario_descripcion,
         fecha_modificacion = NOW()
 	WHERE herramienta.recurso_id = nuevo_glosario_id
-    AND herramienta.repositorio_id = nuevo_repositorio_id;
+    AND herramienta.repositorio_id = nuevo_repositorio_id
+	AND herramienta.recurso_tabla = 'glosario'
+    ;
     
     
 END$$
@@ -4096,6 +4513,34 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `archivo`
+--
+
+CREATE TABLE IF NOT EXISTS `archivo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) DEFAULT NULL,
+  `mime_type` text,
+  `tamano` int(11) DEFAULT NULL,
+  `ruta` text,
+  `usuario_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `lectura` tinyint(1) DEFAULT NULL,
+  `escritura` tinyint(1) DEFAULT NULL,
+  `descarga` tinyint(1) DEFAULT NULL,
+  `eliminacion` tinyint(1) DEFAULT NULL,
+  `contenedor_id` int(11) DEFAULT NULL,
+  `contenedor_tabla` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `contenedor_id` (`contenedor_id`),
+  KEY `contenedor_tabla` (`contenedor_tabla`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `archivo_recurso`
 --
 
@@ -4107,7 +4552,9 @@ CREATE TABLE IF NOT EXISTS `archivo_recurso` (
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_elminacion` datetime DEFAULT NULL,
   `fecha_acceso` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `tipo_herramienta_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_archivo_recurso_tipo_herramienta1_idx` (`tipo_herramienta_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -4142,14 +4589,22 @@ CREATE TABLE IF NOT EXISTS `authassignment_administrador` (
 --
 
 INSERT INTO `authassignment_administrador` (`itemname`, `userid`, `bizrule`, `data`) VALUES
+('', '', NULL, NULL),
 ('administracion_rol_administrador', '1', NULL, NULL),
 ('administracion_rol_usuario', '1', NULL, NULL),
-('administracion_rol_usuario', '2', NULL, 'N;'),
 ('administracion_usuario', '1', NULL, NULL),
-('administracion_usuario', '2', NULL, 'N;'),
 ('administracion_usuario_administrador', '1', NULL, NULL),
-('admin_rol_usuario', '2', NULL, 'N;'),
-('admin_usuario', '2', NULL, 'N;');
+('admin_aplicacion', '1', NULL, NULL),
+('admin_aula', '1', NULL, NULL),
+('admin_curricular', '1', NULL, NULL),
+('admin_error_log_mensaje', '1', NULL, NULL),
+('admin_escritorio', '1', NULL, NULL),
+('admin_institucion', '1', NULL, NULL),
+('admin_repositorio', '1', NULL, NULL),
+('admin_rol_administrador', '1', NULL, NULL),
+('admin_rol_usuario', '1', NULL, NULL),
+('admin_usuario', '1', NULL, NULL),
+('admin_usuario_administrador', '1', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4164,20 +4619,6 @@ CREATE TABLE IF NOT EXISTS `authassignment_usuario` (
   `data` text,
   PRIMARY KEY (`itemname`,`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `authassignment_usuario`
---
-
-INSERT INTO `authassignment_usuario` (`itemname`, `userid`, `bizrule`, `data`) VALUES
-('aula', '1', NULL, NULL),
-('aula', '2', NULL, NULL),
-('aula', '3', NULL, NULL),
-('aula', '4', NULL, NULL),
-('aula', '5', NULL, NULL),
-('repositorio', '1', NULL, NULL),
-('repositorio', '4', NULL, NULL),
-('repositorio', '5', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4225,10 +4666,11 @@ CREATE TABLE IF NOT EXISTS `authitem_permiso_administrador` (
 --
 
 INSERT INTO `authitem_permiso_administrador` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
-('administracion_rol_administrador', 2, '', '', ''),
+('', 0, NULL, NULL, NULL),
+('administracion_rol_administrador', 2, NULL, NULL, NULL),
 ('administracion_rol_usuario', 2, NULL, NULL, NULL),
-('administracion_usuario', 2, '', NULL, 'N;'),
-('administracion_usuario_administrador', 2, '', NULL, 'N;'),
+('administracion_usuario', 2, NULL, NULL, NULL),
+('administracion_usuario_administrador', 2, NULL, NULL, NULL),
 ('admin_aplicacion', 2, NULL, NULL, NULL),
 ('admin_aula', 2, NULL, NULL, NULL),
 ('admin_curricular', 2, NULL, NULL, NULL),
@@ -4261,9 +4703,8 @@ CREATE TABLE IF NOT EXISTS `authitem_permiso_usuario` (
 --
 
 INSERT INTO `authitem_permiso_usuario` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
-('aula', 2, NULL, NULL, NULL),
-('mesa_de_ayuda', 2, NULL, NULL, NULL),
-('repositorio', 2, NULL, NULL, NULL);
+('aula', 2, 'des-aula', NULL, NULL),
+('repositorio', 2, 'des-repositorio', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4323,27 +4764,7 @@ CREATE TABLE IF NOT EXISTS `controlador_administrador` (
   `authitem_permiso_administrador_name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_controlador_administrador_authitem_permiso_administrador_idx` (`authitem_permiso_administrador_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
-
---
--- Volcado de datos para la tabla `controlador_administrador`
---
-
-INSERT INTO `controlador_administrador` (`id`, `nombre`, `authitem_permiso_administrador_name`) VALUES
-(1, 'AuthitemPermisoAdministrador', 'admin_rol_administrador'),
-(2, 'ControladorAdministrador', 'admin_rol_administrador'),
-(3, 'Default', 'admin_rol_administrador'),
-(4, 'PrivilegioAdministrador', 'admin_rol_administrador'),
-(5, 'RolAdministrador', 'admin_rol_administrador'),
-(6, 'UsuarioAdministrador', 'admin_usuario_administrador'),
-(7, 'Default', 'admin_usuario_administrador'),
-(8, 'Usuario', 'admin_usuario'),
-(9, 'Default', 'admin_usuario'),
-(10, 'RolUsuario', 'admin_rol_usuario'),
-(11, 'default', 'admin_rol_usuario'),
-(12, 'AuthitemPermisoUsuario', 'admin_rol_usuario'),
-(13, 'ControladorUsuario', 'admin_rol_usuario'),
-(14, 'PrivilegioUsuario', 'admin_rol_usuario');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4357,17 +4778,7 @@ CREATE TABLE IF NOT EXISTS `controlador_usuario` (
   `authitem_permiso_usuario_name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_controlador_authitem_permiso_usuario1_idx` (`authitem_permiso_usuario_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
-
---
--- Volcado de datos para la tabla `controlador_usuario`
---
-
-INSERT INTO `controlador_usuario` (`id`, `nombre`, `authitem_permiso_usuario_name`) VALUES
-(1, 'Aula', 'aula'),
-(2, 'Default', 'aula'),
-(3, 'Repositorio', 'repositorio'),
-(4, 'Default', 'repositorio');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4388,16 +4799,14 @@ CREATE TABLE IF NOT EXISTS `dato_academico` (
   `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_dato_academico_usuario1_idx` (`usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `dato_academico`
 --
 
 INSERT INTO `dato_academico` (`id`, `universidad`, `carrera`, `ano_cursado`, `duracion_carrera`, `sede`, `direccion_sede`, `comuna_sede`, `ciudad_sede`, `usuario_id`) VALUES
-(1, 'akjassa', 'askjak', 5, 5, 'skldj', 'sakjhd', 'sakjdhd', 'sakjdh', 9),
-(2, 'wuyeywueuiy', 'nmbcnxmnmcz', 45454, 0, 'sadsad', 'sadsad', 'sadsad', 'sdsdsda', 2),
-(3, 'utem', 'ingenieria informatica', 3, 6, 'macul', 'macul 123 ', 'santiago', 'santiago', 234);
+(4, 'Duoc', 'Ingenieria en informatica', 3, 4, 'Antonio varas', 'antonio varas 666', 'providencia', 'santiago', 236);
 
 -- --------------------------------------------------------
 
@@ -4420,15 +4829,14 @@ CREATE TABLE IF NOT EXISTS `dato_laboral` (
   `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_dato_laboral_usuario1_idx` (`usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `dato_laboral`
 --
 
 INSERT INTO `dato_laboral` (`id`, `nombre_empresa`, `ano_antiguedad`, `cargo`, `actividad`, `comuna_empresa`, `ciudad_empresa`, `telefono_empresa`, `celular_empresa`, `rut_numero`, `digito_verificador`, `usuario_id`) VALUES
-(1, 'empresa', 3, 'analista', 'informatica', 'santiago', 'santiago', 5826584, 45256987, 11589125, 1, 234),
-(2, 'dvcvcvcxvcv', 12121, 'efefefef', 'saxsadsads', 'sakjhdsakjsk', 'sakhdskjhdsak', 212121, 212121, 21212, 21212, 2);
+(3, 'Utem Virtual', 3, 'Analista', 'creacion de reko 2', 'santiago', 'santiago', 227578121, 2147483647, 1578951, 1, 236);
 
 -- --------------------------------------------------------
 
@@ -4443,16 +4851,7 @@ CREATE TABLE IF NOT EXISTS `dato_login` (
   PRIMARY KEY (`id`),
   KEY `fk_dato_login_usuario1_idx` (`usuario_id`),
   KEY `fk_dato_login_codigo_seguridad1_idx` (`codigo_seguridad_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Volcado de datos para la tabla `dato_login`
---
-
-INSERT INTO `dato_login` (`id`, `usuario_id`, `codigo_seguridad_id`) VALUES
-(1, 1, 0),
-(2, 1, 0),
-(3, 5, 0);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4511,19 +4910,18 @@ CREATE TABLE IF NOT EXISTS `dato_personal` (
   `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_dato_personal_usuario1_idx` (`usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=501 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=507 ;
 
 --
 -- Volcado de datos para la tabla `dato_personal`
 --
 
 INSERT INTO `dato_personal` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `fecha_nacimiento`, `edad`, `rut`, `digito_verificador`, `direccion_personal`, `numero_casa`, `telefono_personal`, `celular_personal`, `comuna_personal`, `ciudad_personal`, `interes`, `estado_civil`, `idioma`, `nacionalidad`, `usuario_id`) VALUES
-(2, 'kjhxjhzkj<xhKHZ<KJXH', 'askjhaskh', 'skjdhskjsdh', 'askjha', '2015-08-10 17:04:11', 2121, 2121, 2121, 'askjaks', 454, 5454, 545, 'ajhsajsajhsk', 'akjshajksh', 'akjshakjsh', 'kjahsakjhs', 'kajshkjasjh', 'kjhakjshaks', 234),
-(100, 'christian', NULL, 'reyes', 'arellano', NULL, 11, 11111111, 1, NULL, NULL, NULL, NULL, 'maipu', 'santiago', NULL, NULL, 'espanol', 'chileno', 1),
-(200, 'francisco', NULL, 'carvajal', NULL, NULL, 22, 22222222, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(300, 'victor', NULL, 'guzman', NULL, NULL, 33, 33333333, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3),
-(400, 'marcelo', NULL, NULL, NULL, NULL, 44, 44444444, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4),
-(500, 'patricio', NULL, 'iriarte', NULL, NULL, 55, 55555555, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5);
+(501, 'Diego ', 'Antonio', 'Morales', 'Hernandez', '2015-11-20 12:33:15', 23, 18087707, 9, 'Avenida el raleo ', 1396, 82460780, 52072575, 'buin', 'santiago', 'nada', 'soltero', 'español', 'chilena', 236),
+(503, 'Christian', 'Andres', 'Reyes', 'Arellano', '2015-11-20 13:30:42', 38, 13230098, 4, 'calle 18', 161, 2147483647, 2147483647, 'santiago', 'santiago', 'informatica', 'soltero', 'espanol', 'chilena', 248),
+(504, 'John', 'Paul', 'Lopez', 'Suarez', '2015-11-20 13:46:42', 25, 17382459, 9, 'calle 18', 161, 2147483647, 2147483647, 'san bernardo', 'santiago', 'informatica', 'soltero', 'espanol', 'chilena', 237),
+(505, 'dfgdfgfgfg', 'fgfg', 'dfgfdg', 'fgfdg', '0000-00-00 00:00:00', 0, 0, 0, '', 0, 0, 0, '', '', '', '', '', '', 238),
+(506, 'Francisco', 'Francisco', 'Carvajal', 'Carvajal', '2015-11-20 12:53:05', 30, 11111111, 1, 'calle 18', 161, 2147483647, 52072575, 'santiago', 'santiago', 'diseño', 'soltero', 'espanol', 'chilena', 241);
 
 -- --------------------------------------------------------
 
@@ -4540,26 +4938,15 @@ CREATE TABLE IF NOT EXISTS `entidad` (
   `institucion_id` int(11) NOT NULL,
   `entidad_id` int(11) DEFAULT NULL,
   `estado_entidad_id` int(11) DEFAULT NULL,
+  `pais_id` int(11) DEFAULT NULL,
+  `region_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_entidad_institucion1_idx` (`institucion_id`),
   KEY `fk_entidad_entidad1_idx` (`entidad_id`),
-  KEY `fk_entidad_estado_entidad1_idx` (`estado_entidad_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
-
---
--- Volcado de datos para la tabla `entidad`
---
-
-INSERT INTO `entidad` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `institucion_id`, `entidad_id`, `estado_entidad_id`) VALUES
-(1, 'centro de alumno', 'des-centro', '2015-11-06 15:34:44', NULL, 14, NULL, NULL),
-(2, 'sdsad', 'sdsasad', NULL, NULL, 15, NULL, NULL),
-(3, 'sdsd', 'sadsad', NULL, NULL, 16, NULL, NULL),
-(4, 'facultad', 'facul-des', '2015-09-04 16:40:13', '2015-09-04 16:40:13', 2, 1, 1),
-(5, 'prueba1', 'des1', '2015-09-23 15:05:57', '2015-09-23 15:05:57', 1, 4, 2),
-(6, 'prueba2', 'des2', '2015-09-23 15:05:57', '2015-09-23 15:05:57', 1, 4, 2),
-(7, 'prueba3', 'des3', '2015-09-23 15:05:57', '2015-09-23 15:05:57', 1, 4, 2),
-(8, 'prueba4', 'des4', '2015-09-23 15:05:57', '2015-09-23 15:05:57', 1, 1, 2),
-(9, 'prueba5', 'des5', '2015-09-23 15:05:57', '2015-09-23 15:05:57', 1, 1, 2);
+  KEY `fk_entidad_estado_entidad1_idx` (`estado_entidad_id`),
+  KEY `fk_entidad_pais1_idx` (`pais_id`),
+  KEY `fk_entidad_region1_idx` (`region_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4599,14 +4986,7 @@ CREATE TABLE IF NOT EXISTS `estado_codigo_seguridad` (
   `codigo_seguridad_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_estado_codigo_seguridad_codigo_seguridad1_idx` (`codigo_seguridad_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Volcado de datos para la tabla `estado_codigo_seguridad`
---
-
-INSERT INTO `estado_codigo_seguridad` (`id`, `estado`, `codigo_seguridad_id`) VALUES
-(1, 'bloqueadostodos', 0);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4618,16 +4998,7 @@ CREATE TABLE IF NOT EXISTS `estado_entidad` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `estado` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Volcado de datos para la tabla `estado_entidad`
---
-
-INSERT INTO `estado_entidad` (`id`, `estado`) VALUES
-(1, 'disponible'),
-(2, 'prueba'),
-(3, 'eliminado');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4660,15 +5031,16 @@ CREATE TABLE IF NOT EXISTS `estado_modulo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `estado` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `estado_modulo`
 --
 
 INSERT INTO `estado_modulo` (`id`, `estado`) VALUES
-(1, 'eliminado'),
-(2, 'prueba');
+(1, 'disponible'),
+(2, 'prueba'),
+(3, 'eliminado');
 
 -- --------------------------------------------------------
 
@@ -4680,15 +5052,16 @@ CREATE TABLE IF NOT EXISTS `estado_programa_academico` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `estado` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `estado_programa_academico`
 --
 
 INSERT INTO `estado_programa_academico` (`id`, `estado`) VALUES
-(1, 'eliminado'),
-(2, 'prueba');
+(1, 'disponible'),
+(2, 'prueba'),
+(3, 'eliminado');
 
 -- --------------------------------------------------------
 
@@ -4700,15 +5073,16 @@ CREATE TABLE IF NOT EXISTS `estado_seccion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `estado` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `estado_seccion`
 --
 
 INSERT INTO `estado_seccion` (`id`, `estado`) VALUES
-(1, 'eliminado'),
-(2, 'prueba');
+(1, 'disponible'),
+(2, 'prueba'),
+(3, 'eliminado');
 
 -- --------------------------------------------------------
 
@@ -4728,7 +5102,7 @@ CREATE TABLE IF NOT EXISTS `estado_usuario` (
 
 INSERT INTO `estado_usuario` (`id`, `estado`) VALUES
 (1, 'disponible'),
-(2, 'en espera'),
+(2, 'prueba'),
 (3, 'eliminado');
 
 -- --------------------------------------------------------
@@ -4799,17 +5173,7 @@ CREATE TABLE IF NOT EXISTS `glosario` (
   `tipo_herramienta_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_glosario_tipo_herramienta1_idx` (`tipo_herramienta_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
-
---
--- Volcado de datos para la tabla `glosario`
---
-
-INSERT INTO `glosario` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_eliminacion`, `fecha_acceso`, `tipo_herramienta_id`) VALUES
-(1, 'Diccionario de la lengua española', 'Versión electrónica del Diccionario de la lengua española, obra lexicográfica académica por excelencia.', NULL, NULL, NULL, NULL, 1),
-(2, 'UCT Diccionario Abreviado Mapudungun - Españo', 'Contiene un listado de entradas léxicas del mapudungun, ordenado alfabéticamente, con una versión abreviada de sus significados en español e inglés.', NULL, NULL, NULL, NULL, 1),
-(3, 'Glosario de términos geográficos', 'A. Acantilado: Costa alta y escarpada, de altura variable. Accesibilidad: Capacidad potencial de establecer contactos físicos y/o sociales', NULL, NULL, NULL, NULL, 1),
-(4, 'glosario sincronizacion', 'glosario sincronizacion descripcion', '2015-11-11 11:17:34', NULL, NULL, NULL, 1);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -4828,20 +5192,7 @@ CREATE TABLE IF NOT EXISTS `glosario_termino_definicion` (
   `glosario_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_glosario_termino_definicion_glosario1_idx` (`glosario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
-
---
--- Volcado de datos para la tabla `glosario_termino_definicion`
---
-
-INSERT INTO `glosario_termino_definicion` (`id`, `termino`, `definicion`, `fecha_creacion`, `fecha_modificacion`, `fecha_acceso`, `fecha_eliminacion`, `glosario_id`) VALUES
-(1, 'perfecto', 'Que tiene el mayor grado posible de bondad o excelencia en su línea', NULL, NULL, NULL, NULL, 1),
-(2, 'filete', 'Loncha delgada de carne magra o de pescado limpio de raspas.', NULL, NULL, NULL, NULL, 1),
-(3, '11111111111 termino', '11111111111 termino', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(4, 'gatitooooooooooooooo', 'Palabra ocupada para referirse a un amigo o conocido ej: que pasa perro, tambien usese, perrito, palabra abusada por el negro piñera ej: que pasa perrito, variaciones conocidas, que pasa papá', '2015-11-10 16:43:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
-(5, 'brigido', 'Expresion usada cuando el problema es muy grande', '2015-11-10 16:43:45', NULL, NULL, NULL, 1),
-(6, 'cuatico', 'Persona exagerada, Raro no común', '2015-11-10 16:45:44', NULL, NULL, NULL, 1),
-(7, 'termino sincronizacion editado', 'descripcion termino sincronizacion', '2015-11-11 11:18:10', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 4);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -4872,23 +5223,15 @@ CREATE TABLE IF NOT EXISTS `herramienta` (
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_eliminacion` datetime DEFAULT NULL,
   `recurso_id` int(11) DEFAULT NULL,
+  `recurso_tabla` varchar(255) DEFAULT NULL,
   `repositorio_id` int(11) DEFAULT NULL,
   `tipo_herramienta_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_herramienta_repositorio1_idx` (`repositorio_id`),
-  KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
-
---
--- Volcado de datos para la tabla `herramienta`
---
-
-INSERT INTO `herramienta` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `recurso_id`, `repositorio_id`, `tipo_herramienta_id`) VALUES
-(1, 'Diccionario de la lengua española', 'Versión electrónica del Diccionario de la lengua española, obra lexicográfica académica por excelencia.', NULL, NULL, NULL, NULL, 1, 1, 1),
-(2, 'UCT Diccionario Abreviado Mapudungun - Españo', 'Contiene un listado de entradas léxicas del mapudungun, ordenado alfabéticamente, con una versión abreviada de sus significados en español e inglés.', NULL, NULL, NULL, NULL, 2, 1, 1),
-(3, 'Glosario de términos geográficos', 'A. Acantilado: Costa alta y escarpada, de altura variable. Accesibilidad: Capacidad potencial de establecer contactos físicos y/o sociales', NULL, NULL, NULL, NULL, 3, 2, 1),
-(28, 'gggggggggg', 'gggggggggggggggggg', NULL, '2015-11-06 15:57:25', '2015-11-06 15:56:06', NULL, 28, 1, 1),
-(29, 'glosario sincronizacion', 'glosario sincronizacion descripcion', NULL, NULL, '2015-11-11 11:17:34', NULL, 4, 1, 1);
+  KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`),
+  KEY `recurso_id` (`recurso_id`),
+  KEY `recurso_tabla` (`recurso_tabla`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4902,24 +5245,7 @@ CREATE TABLE IF NOT EXISTS `icono_aplicacion_administrador` (
   `authitem_permiso_administrador_name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_icono_aplicacion_administrador_authitem_permiso_administ_idx` (`authitem_permiso_administrador_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
-
---
--- Volcado de datos para la tabla `icono_aplicacion_administrador`
---
-
-INSERT INTO `icono_aplicacion_administrador` (`id`, `estilo`, `authitem_permiso_administrador_name`) VALUES
-(1, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario_administrador";?>" >\n            <div class="tile-wide bg-teal fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-user"></span>\n                </div>\n                <span class="tile-label">\n                    <?php \n                        $pizza  = CHtml::encode(''administracion_usuario_administrador'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>\n                </span>\n            </div>\n        </a>', 'admin_usuario_administrador'),
-(2, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_rol_administrador";?>" >\n            <div class="tile bg-darkBlue fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-security"></span>\n                </div>\n                <span class="tile-label">            \n                    <?php \n                        $pizza  = CHtml::encode(''administracion_rol_administrador'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>                \n                </span>\n            </div>\n        </a>', 'admin_rol_administrador'),
-(3, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_rol_usuario";?>" >\n            <div class="tile bg-darkCyan fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-security"></span>\n                </div>\n                <span class="tile-label">            \n                    <?php \n                        $pizza  = CHtml::encode(''administracion_rol_usuario'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>                \n                </span>\n            </div>\n        </a>', 'admin_rol_usuario'),
-(4, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_usuario";?>" >\n            <div class="tile-wide bg-darkGreen fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-users"></span>\n                </div>\n                <span class="tile-label">\n                    <?php \n                        $pizza  = CHtml::encode(''administracion_usuario'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>\n                </span>\n            </div>\n        </a>', 'admin_usuario'),
-(5, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_institucion";?>" >\n            <div class="tile-large bg-darkPink fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-library"></span>\n                </div>\n                <span class="tile-label">\n                    <?php \n                        $pizza  = CHtml::encode(''administracion_institucion'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>\n                </span>\n            </div>\n        </a>', 'admin_institucion'),
-(6, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_curricular";?>" >\n            <div class="tile-wide bg-darkViolet fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-school"></span>\n                </div>\n                <span class="tile-label">            \n                    <?php \n                        $pizza  = CHtml::encode(''administracion_curricular'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>                \n                </span>\n            </div>\n        </a>', 'admin_curricular'),
-(7, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_escritorio";?>" >\n            <div class="tile-wide bg-green fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-display"></span>\n                </div>\n                <span class="tile-label">\n                    <?php \n                        $pizza  = CHtml::encode(''administracion_escritorio'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>\n                </span>\n            </div>\n        </a>', 'admin_escritorio'),
-(8, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_aplicacion";?>" >\n            <div class="tile bg-amber fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-widgets"></span>\n                </div>\n                <span class="tile-label">            \n                    <?php \n                        $pizza  = CHtml::encode(''administracion_aplicacion'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>                \n                </span>\n            </div>\n        </a>', 'admin_aplicacion'),
-(9, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_aula";?>"><div class="tile-wide bg-lime fg-white" data-role="tile"><div class="tile-content iconic"><span class="icon mif-books"></span></div><span class="tile-label"><?php $pizza=CHtml::encode(''administracion_aula'');$porciones=explode("_", $pizza);foreach($porciones as $p){echo $p." ";} ?></span></div></a>', 'admin_aula'),
-(10, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_repositorio";?>" >\n            <div class="tile-large bg-brown fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-cabinet"></span>\n                </div>\n                <span class="tile-label">            \n                    <?php \n                        $pizza  = CHtml::encode(''administracion_repositorio'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>                \n                </span>\n            </div>  \n        </a>', 'admin_repositorio'),
-(11, '<a href="<?php echo Yii::app()->getBaseUrl()."/admin_error_log_mensaje";?>" >\n            <div class="tile-large bg-red fg-white" data-role="tile">\n                <div class="tile-content iconic">\n                    <span class="icon mif-history"></span>\n                </div>\n                <span class="tile-label">\n                    <?php \n                        $pizza  = CHtml::encode(''administracion_error_log_mensaje'');\n                        $porciones = explode("_", $pizza);\n                        foreach ($porciones as $p)\n                        echo $p." "; // porción\n                    ?>\n                </span>\n            </div>  \n        </a>', 'admin_error_log_mensaje');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4930,40 +5256,30 @@ INSERT INTO `icono_aplicacion_administrador` (`id`, `estilo`, `authitem_permiso_
 CREATE TABLE IF NOT EXISTS `institucion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
-  `vision` varchar(45) DEFAULT NULL,
-  `mision` varchar(45) DEFAULT NULL,
+  `sigla` varchar(45) DEFAULT NULL,
+  `vision` text,
+  `mision` text,
   `acreditada` bit(1) DEFAULT NULL,
   `fecha_inicio_acreditacion` datetime DEFAULT NULL,
   `fecha_termino_acreditacion` datetime DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
+  `descripcion` text,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `estado_institucion_id` int(11) DEFAULT NULL,
+  `pais_id` int(11) DEFAULT NULL,
+  `region_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_institucion_estado_institucion1_idx` (`estado_institucion_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+  KEY `fk_institucion_estado_institucion1_idx` (`estado_institucion_id`),
+  KEY `fk_institucion_pais1_idx` (`pais_id`),
+  KEY `fk_institucion_region1_idx` (`region_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `institucion`
 --
 
-INSERT INTO `institucion` (`id`, `nombre`, `vision`, `mision`, `acreditada`, `fecha_inicio_acreditacion`, `fecha_termino_acreditacion`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_institucion_id`) VALUES
-(1, 'utem', 'vision', 'mision', b'0', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 'ajhsjah', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 2),
-(2, 'duoc', 'vision', 'mision', b'1', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 'kjahsa', '2015-08-06 15:40:32', '2015-08-06 15:40:32', 1),
-(3, 'usash', 'vision', 'mision', b'1', '2015-08-10 11:48:35', '2015-08-10 11:48:35', 'descripcion', NULL, NULL, 1),
-(4, 'catolica', 'vision', 'sakjhdksj', b'1', '2015-08-10 12:11:56', '2015-08-10 12:11:56', 'sdsdsdasd', '2015-08-10 12:16:53', '2015-08-10 12:22:20', NULL),
-(5, 'udp', 'kljsakdljsadl', 'olaolaolaolaola', b'1', '2015-08-12 10:28:29', '2015-08-12 10:28:29', 'kjsdjkjsahdkjsd', '2015-08-12 10:33:26', '2015-08-12 10:33:47', NULL),
-(6, 'kjksjaklsadklj', 'salkjdskljd', 'djlskdj', b'1', NULL, NULL, 'sdsadsadasd', '2015-09-21 16:11:06', NULL, NULL),
-(7, 'tvn', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8, 'chv', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, 'c13', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 'mega', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, 'la red', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, 'telecanal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(13, 'etc tv', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(14, 'utem', 'vision', 'mision', b'1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'des-utem', '2015-11-06 11:05:31', '2015-11-06 15:33:49', 3),
-(15, 'sdsadsad', 'sdsadsa', 'sadasd', b'1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'sadsdsadsadsadasd', '2015-11-06 13:12:08', NULL, 1),
-(16, 'dfdfdf', 'dfsdfdsf', 'sdfsdfsdfdf', b'1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'dsfdsfdfdf', '2015-11-06 13:14:05', NULL, NULL);
+INSERT INTO `institucion` (`id`, `nombre`, `sigla`, `vision`, `mision`, `acreditada`, `fecha_inicio_acreditacion`, `fecha_termino_acreditacion`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_institucion_id`, `pais_id`, `region_id`) VALUES
+(1, 'Universidad Tecnológica Metropolitana', 'Utem', 'vision', 'mision', b'1', '2015-11-24 17:15:19', '2015-11-24 17:15:19', 'des-utem', '2015-11-24 17:22:25', '2015-11-25 10:20:17', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4978,16 +5294,6 @@ CREATE TABLE IF NOT EXISTS `institucion_has_repositorio` (
   KEY `fk_institucion_has_repositorio_repositorio1_idx` (`repositorio_id`),
   KEY `fk_institucion_has_repositorio_institucion1_idx` (`institucion_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `institucion_has_repositorio`
---
-
-INSERT INTO `institucion_has_repositorio` (`institucion_id`, `repositorio_id`) VALUES
-(1, 1),
-(2, 1),
-(1, 2),
-(2, 2);
 
 -- --------------------------------------------------------
 
@@ -5008,12 +5314,9 @@ CREATE TABLE IF NOT EXISTS `institucion_has_rol_usuario` (
 --
 
 INSERT INTO `institucion_has_rol_usuario` (`institucion_id`, `rol_usuario_id`) VALUES
-(1, 2),
-(1, 3),
-(1, 4),
-(1, 186),
-(1, 187),
-(1, 188);
+(1, 195),
+(1, 196),
+(1, 197);
 
 -- --------------------------------------------------------
 
@@ -5023,13 +5326,16 @@ INSERT INTO `institucion_has_rol_usuario` (`institucion_id`, `rol_usuario_id`) V
 
 CREATE TABLE IF NOT EXISTS `link_interes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(45) DEFAULT NULL,
   `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` text,
+  `url` varchar(250) DEFAULT NULL,
+  `descripcion` tinytext,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
-  `fecha_elminacion` datetime DEFAULT NULL,
   `fecha_acceso` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `tipo_herramienta_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_link_interes_tipo_herramienta1_idx` (`tipo_herramienta_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5048,23 +5354,6 @@ CREATE TABLE IF NOT EXISTS `modelo_aprendizaje` (
   `fecha_eliminacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='			' AUTO_INCREMENT=44 ;
-
---
--- Volcado de datos para la tabla `modelo_aprendizaje`
---
-
-INSERT INTO `modelo_aprendizaje` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`) VALUES
-(1, 'A1 modelo de aprendizaje ', 'A1 descripcion modelo aprendizaje', NULL, NULL, NULL, NULL),
-(2, 'B2 modelo de aprendizaje', 'B2 descripcion modelo de aprendizaje', NULL, NULL, NULL, NULL),
-(3, 'C3 modelo aprendizaje', 'C3 descripcion modelo aprendizaje', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(36, 'BART', 'HOMERO', NULL, '2015-10-26 16:24:52', '2015-10-23 11:27:15', NULL),
-(37, 'MOU', 'DUFF', NULL, NULL, '2015-10-26 12:13:27', NULL),
-(38, 'HERMOSO', 'HERMOSURA', NULL, '2015-10-26 16:18:07', '2015-10-26 13:22:15', NULL),
-(39, 'AHH SIII', 'WOM', NULL, '2015-10-26 16:33:11', '2015-10-26 16:23:21', NULL),
-(40, 'CLARO ', 'MARTIN CARCAMO', NULL, NULL, '2015-10-26 16:33:45', NULL),
-(41, 'NEXTEL', 'TONKA', NULL, '2015-10-26 16:35:28', '2015-10-26 16:35:07', NULL),
-(42, 'e-learning', 'descripcion modelo aprendizaje  e-learning', NULL, NULL, '2015-11-03 12:57:37', NULL),
-(43, 'full', 'descripcion modelo aprendizaje full', NULL, NULL, '2015-11-03 16:15:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -5090,20 +5379,6 @@ CREATE TABLE IF NOT EXISTS `modelo_aprendizaje_has_herramienta` (
   KEY `fk_modelo_aprendizaje_has_herramienta_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='	' AUTO_INCREMENT=40 ;
 
---
--- Volcado de datos para la tabla `modelo_aprendizaje_has_herramienta`
---
-
-INSERT INTO `modelo_aprendizaje_has_herramienta` (`id`, `trabajo_grupal`, `archivo_recurso`, `link_interes`, `glosario`, `contenido_libre`, `foro`, `evaluacion`, `autoevaluacion`, `proyecto`, `recepcion_trabajo`, `evaluacion_no_objetiva`, `modelo_aprendizaje_id`) VALUES
-(32, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 36),
-(33, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 37),
-(34, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 38),
-(35, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 39),
-(36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 40),
-(37, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 41),
-(38, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 42),
-(39, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 43);
-
 -- --------------------------------------------------------
 
 --
@@ -5113,7 +5388,8 @@ INSERT INTO `modelo_aprendizaje_has_herramienta` (`id`, `trabajo_grupal`, `archi
 CREATE TABLE IF NOT EXISTS `modulo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
+  `codigo` varchar(45) DEFAULT NULL,
+  `descripcion` tinytext,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `estado_modulo_id` int(11) DEFAULT NULL,
@@ -5123,20 +5399,20 @@ CREATE TABLE IF NOT EXISTS `modulo` (
   KEY `fk_modulo_estado_modulo1_idx` (`estado_modulo_id`),
   KEY `fk_modulo_entidad1_idx` (`entidad_id`),
   KEY `fk_modulo_institucion1_idx` (`institucion_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Volcado de datos para la tabla `modulo`
 --
 
-INSERT INTO `modulo` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_modulo_id`, `entidad_id`, `institucion_id`) VALUES
-(1, 'matematicas', 'des-matematicas', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, NULL, NULL),
-(2, 'lenguaje', 'des-lenguaje', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, NULL, NULL),
-(3, 'calculo', 'des-calculo', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, NULL, NULL),
-(4, 'historia', 'des-historia', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, NULL, NULL),
-(5, 'algebra', 'des-algebra', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, NULL, NULL),
-(6, 'dibujo', 'des-dibujo', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, NULL, NULL),
-(7, 'estadistica', 'des-estadistica', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, NULL, NULL);
+INSERT INTO `modulo` (`id`, `nombre`, `codigo`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_modulo_id`, `entidad_id`, `institucion_id`) VALUES
+(9, 'Apresto uso plataforma', NULL, 'des-Apresto-uso-plataforma', '2015-11-20 16:08:35', NULL, 1, NULL, NULL),
+(10, 'Determinacion huella de carbono', NULL, 'des-Determinacion-huella-de-carbono', '2015-11-20 16:09:19', NULL, 1, NULL, NULL),
+(11, 'Determinacion huella hidrica', NULL, 'des-Determinacion-huella-hidrica', '2015-11-20 16:10:10', NULL, 1, NULL, NULL),
+(12, 'Apresto plataforma', NULL, 'des-Apresto-plataforma', '2015-11-20 16:10:42', NULL, 1, NULL, NULL),
+(13, NULL, NULL, NULL, '2015-11-25 11:42:26', NULL, 3, NULL, NULL),
+(14, NULL, NULL, NULL, '2015-11-25 11:47:15', NULL, 3, NULL, NULL),
+(15, 'ola', 'ola', 'ola', '2015-11-25 11:47:29', NULL, 1, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -5149,17 +5425,14 @@ CREATE TABLE IF NOT EXISTS `pais` (
   `nombre` varchar(45) DEFAULT NULL,
   `codigo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `pais`
 --
 
 INSERT INTO `pais` (`id`, `nombre`, `codigo`) VALUES
-(1, 'chile', 'chile02'),
-(2, 'brasil', 'ar34'),
-(3, 'dasdsadsad', 'sadsadsad'),
-(4, 'uiituiooru', 'oriuiorutre');
+(2, 'argentina', 'arg123');
 
 -- --------------------------------------------------------
 
@@ -5213,20 +5486,7 @@ CREATE TABLE IF NOT EXISTS `pregunta_login` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pregunta` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
-
---
--- Volcado de datos para la tabla `pregunta_login`
---
-
-INSERT INTO `pregunta_login` (`id`, `pregunta`) VALUES
-(1, 'donde naciste'),
-(2, 'nombre de tu mama'),
-(3, 'nombre de tu perro'),
-(4, 'mejor amigo '),
-(5, 'interes'),
-(6, 'ola que haces'),
-(7, 'fgdsfgdfgdfgdfd');
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5240,97 +5500,7 @@ CREATE TABLE IF NOT EXISTS `privilegio_administrador` (
   `controlador_administrador_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_privilegio_administrador_controlador_administrador1_idx` (`controlador_administrador_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=85 ;
-
---
--- Volcado de datos para la tabla `privilegio_administrador`
---
-
-INSERT INTO `privilegio_administrador` (`id`, `nombre`, `controlador_administrador_id`) VALUES
-(1, 'index', 1),
-(2, 'view', 1),
-(3, 'admin', 1),
-(4, 'create', 1),
-(5, 'update', 1),
-(6, 'delete', 1),
-(7, 'index', 2),
-(8, 'view', 2),
-(9, 'admin', 2),
-(10, 'create', 2),
-(11, 'update', 2),
-(12, 'delete', 2),
-(13, 'index', 3),
-(14, 'view', 3),
-(15, 'admin', 3),
-(16, 'create', 3),
-(17, 'update', 3),
-(18, 'delete', 3),
-(19, 'index', 4),
-(20, 'view', 4),
-(21, 'admin', 4),
-(22, 'create', 4),
-(23, 'update', 4),
-(24, 'delete', 4),
-(25, 'index', 5),
-(26, 'view', 5),
-(27, 'admin', 5),
-(28, 'create', 5),
-(29, 'update', 5),
-(30, 'delete', 5),
-(31, 'index', 6),
-(32, 'view', 6),
-(33, 'admin', 6),
-(34, 'create', 6),
-(35, 'update', 6),
-(36, 'delete', 6),
-(37, 'index', 7),
-(38, 'view', 7),
-(39, 'admin', 7),
-(40, 'create', 7),
-(41, 'update', 7),
-(42, 'delete', 7),
-(43, 'index', 8),
-(44, 'view', 8),
-(45, 'admin', 8),
-(46, 'create', 8),
-(47, 'update', 8),
-(48, 'delete', 8),
-(49, 'index', 9),
-(50, 'view', 9),
-(51, 'admin', 9),
-(52, 'create', 9),
-(53, 'update', 9),
-(54, 'delete', 9),
-(55, 'index', 10),
-(56, 'view', 10),
-(57, 'admin', 10),
-(58, 'create', 10),
-(59, 'update', 10),
-(60, 'delete', 10),
-(61, 'index', 11),
-(62, 'view', 11),
-(63, 'admin', 11),
-(64, 'create', 11),
-(65, 'update', 11),
-(66, 'delete', 11),
-(67, 'index', 12),
-(68, 'view', 12),
-(69, 'admin', 12),
-(70, 'create', 12),
-(71, 'update', 12),
-(72, 'delete', 12),
-(73, 'index', 13),
-(74, 'view', 13),
-(75, 'admin', 13),
-(76, 'create', 13),
-(77, 'update', 13),
-(78, 'delete', 13),
-(79, 'index', 14),
-(80, 'view', 14),
-(81, 'admin', 14),
-(82, 'create', 14),
-(83, 'update', 14),
-(84, 'delete', 14);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5344,37 +5514,7 @@ CREATE TABLE IF NOT EXISTS `privilegio_usuario` (
   `controlador_usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_privilegio_controlador_usuario1_idx` (`controlador_usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
-
---
--- Volcado de datos para la tabla `privilegio_usuario`
---
-
-INSERT INTO `privilegio_usuario` (`id`, `nombre`, `controlador_usuario_id`) VALUES
-(1, 'index', 1),
-(2, 'view', 1),
-(3, 'admiin', 1),
-(4, 'create', 1),
-(5, 'update', 1),
-(6, 'delete', 1),
-(7, 'index', 2),
-(8, 'view', 2),
-(9, 'admin', 2),
-(10, 'create', 2),
-(11, 'update', 2),
-(12, 'delete', 2),
-(13, 'index', 3),
-(14, 'view', 3),
-(15, 'admin', 3),
-(16, 'create', 3),
-(17, 'update', 3),
-(18, 'delete', 3),
-(19, 'index', 4),
-(20, 'view', 4),
-(21, 'admin', 4),
-(22, 'create', 4),
-(23, 'update', 4),
-(24, 'delete', 4);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5396,18 +5536,18 @@ CREATE TABLE IF NOT EXISTS `programa_academico` (
   KEY `fk_programa_academico_entidad1_idx` (`entidad_id`),
   KEY `fk_programa_academico_institucion1_idx` (`institucion_id`),
   KEY `fk_programa_academico_estado_programa_academico1_idx` (`estado_programa_academico_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Volcado de datos para la tabla `programa_academico`
 --
 
 INSERT INTO `programa_academico` (`id`, `nombre`, `descripcion`, `version`, `fecha_creacion`, `fecha_modificacion`, `entidad_id`, `institucion_id`, `estado_programa_academico_id`) VALUES
-(1, 'ingenieria en informatica', 'des-info', '1.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49', 1, NULL, NULL),
-(2, 'diseño', 'des-diseño', '1.5', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, 2, NULL),
-(3, 'derecho', 'des-derecho', '2.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49', 2, NULL, NULL),
-(4, 'juegos', 'des-juegos', '3.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, 5, NULL),
-(5, 'redes', 'des-redes', '4.0', '2015-08-11 15:59:49', '2015-08-11 15:59:49', NULL, 2, NULL);
+(8, 'Ingenieria en subtentabilidad', 'des-Ingenieria-en-subtentabilidad', '1.0', '2015-11-20 16:07:33', '2015-11-26 11:53:26', NULL, 1, 1),
+(9, 'Ingenieria en informatica', 'des-Ingenieria-en-informatica', '1.0', '2015-11-26 11:50:15', '2015-11-26 11:53:43', NULL, 1, 1),
+(10, 'Diseño', 'des-diseño', '1.0', '2015-11-26 11:50:39', '2015-11-26 11:53:50', NULL, 1, 1),
+(11, 'derecho', 'des-derecho', '1.0', '2015-11-26 11:50:56', NULL, NULL, NULL, 1),
+(12, 'Ingenieria en redes', 'des-Ingenieria-en-redes', '1.0', '2015-11-26 11:51:31', NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -5428,13 +5568,11 @@ CREATE TABLE IF NOT EXISTS `programa_academico_has_modulo` (
 --
 
 INSERT INTO `programa_academico_has_modulo` (`programa_academico_id`, `modulo_id`) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(1, 4),
-(1, 5),
-(1, 6),
-(1, 7);
+(8, 9),
+(8, 10),
+(8, 11),
+(8, 12),
+(8, 15);
 
 -- --------------------------------------------------------
 
@@ -5483,28 +5621,7 @@ CREATE TABLE IF NOT EXISTS `region` (
   `pais_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_region_pais1_idx` (`pais_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
-
---
--- Volcado de datos para la tabla `region`
---
-
-INSERT INTO `region` (`id`, `nombre`, `codigo`, `pais_id`) VALUES
-(1, 'Arica y Parinacota', 'XV', 1),
-(2, 'Tarapaca', 'I', 1),
-(3, 'Antofagasta', 'II', 1),
-(4, 'Atacama', 'III', 1),
-(5, 'Coquimbo', 'IV', 1),
-(6, 'Valparaiso', 'V', 1),
-(7, 'Metropolitana de Santiago', 'RM', 1),
-(8, 'Ohiggins', 'VI', 1),
-(9, 'Maule', 'VII', 1),
-(10, 'Biobio', 'VIII', 1),
-(11, 'La Araucania', 'IX', 1),
-(12, 'Los Rios', 'XIV', 1),
-(13, 'Los Lagos', 'X', 1),
-(14, 'Aysen', 'XI', 1),
-(15, 'Magallanes', 'XII', 1);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5524,8 +5641,7 @@ CREATE TABLE IF NOT EXISTS `reko_session` (
 --
 
 INSERT INTO `reko_session` (`id`, `expire`, `data`) VALUES
-('ggkfje1ahe43634b8ihdm460q1', 1447252994, ''),
-('i6d98msv1a1svcrnjle631lmv1', 1447253689, 0x30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a313a2231223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d696e737469747563696f6e49647c733a313a2231223b696e737469747563696f6e4e6f6d6272657c733a343a227574656d223b696e737469747563696f6e566973696f6e7c733a363a22766973696f6e223b696e737469747563696f6e4d6973696f6e7c733a363a226d6973696f6e223b696e737469747563696f6e416372656469746164617c733a313a2230223b696e737469747563696f6e4665636861496e6963696f416372656469746163696f6e7c733a31393a22323031352d30382d30362031353a34303a3332223b696e737469747563696f6e46656368615465726d696e6f416372656469746163696f6e7c733a31393a22323031352d30382d30362031353a34303a3332223b);
+('k736161fg7nmcmt4ordv5e86s2', 1448564449, 0x30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a333a22323438223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d);
 
 -- --------------------------------------------------------
 
@@ -5548,17 +5664,7 @@ CREATE TABLE IF NOT EXISTS `repositorio` (
   KEY `fk_repositorio_tipo_repositorio1_idx` (`tipo_repositorio_id`),
   KEY `fk_repositorio_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`),
   KEY `fk_repositorio_guia_instruccional1_idx` (`guia_instruccional_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='\n	\n	\n	\n\n\n	\n\n	\n	' AUTO_INCREMENT=5 ;
-
---
--- Volcado de datos para la tabla `repositorio`
---
-
-INSERT INTO `repositorio` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `tipo_repositorio_id`, `modelo_aprendizaje_id`, `guia_instruccional_id`) VALUES
-(1, '1A repositorio', '1A repositorio', NULL, NULL, NULL, NULL, 1, 43, NULL),
-(2, '2B repositorio', '2B repositorio', NULL, NULL, NULL, NULL, 1, 42, NULL),
-(3, 'repositorio 1 ', 'descripcion repositorio q', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, NULL, NULL),
-(4, 'repositorio 2', 'descripcion repositorio 2', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, NULL, NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='\n	\n	\n	\n\n\n	\n\n	\n	' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5583,18 +5689,14 @@ CREATE TABLE IF NOT EXISTS `rol_administrador` (
   `nombre` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `rol_administrador`
 --
 
 INSERT INTO `rol_administrador` (`id`, `nombre`, `descripcion`) VALUES
-(1, 'superadministrador', NULL),
-(5, 'root', ''),
-(6, 'supervisor usuario', 'usuario y rol usuario'),
-(7, 'mantenedor', 'descripcion mantenedor'),
-(8, '', '');
+(1, 'superadministrador', 'super administrador');
 
 -- --------------------------------------------------------
 
@@ -5629,13 +5731,7 @@ INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_adminis
 (1, 'admin_rol_administrador'),
 (1, 'admin_rol_usuario'),
 (1, 'admin_usuario'),
-(1, 'admin_usuario_administrador'),
-(5, 'admin_aplicacion'),
-(5, 'admin_rol_usuario'),
-(5, 'admin_usuario'),
-(5, 'admin_usuario_administrador'),
-(6, 'admin_rol_usuario'),
-(6, 'admin_usuario');
+(1, 'admin_usuario_administrador');
 
 -- --------------------------------------------------------
 
@@ -5650,161 +5746,6 @@ CREATE TABLE IF NOT EXISTS `rol_administrador_has_privilegio_administrador` (
   KEY `fk_rol_administrador_has_privilegio_administrador_privilegi_idx` (`privilegio_administrador_id`),
   KEY `fk_rol_administrador_has_privilegio_administrador_rol_admin_idx` (`rol_administrador_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `rol_administrador_has_privilegio_administrador`
---
-
-INSERT INTO `rol_administrador_has_privilegio_administrador` (`rol_administrador_id`, `privilegio_administrador_id`) VALUES
-(1, 31),
-(5, 31),
-(1, 32),
-(5, 32),
-(1, 33),
-(5, 33),
-(1, 34),
-(5, 34),
-(1, 35),
-(5, 35),
-(1, 36),
-(5, 36),
-(1, 37),
-(5, 37),
-(1, 38),
-(5, 38),
-(1, 39),
-(5, 39),
-(1, 40),
-(5, 40),
-(1, 41),
-(5, 41),
-(1, 42),
-(5, 42),
-(1, 43),
-(5, 43),
-(6, 43),
-(1, 44),
-(5, 44),
-(6, 44),
-(1, 45),
-(5, 45),
-(6, 45),
-(1, 46),
-(5, 46),
-(6, 46),
-(1, 47),
-(5, 47),
-(6, 47),
-(1, 48),
-(5, 48),
-(6, 48),
-(1, 49),
-(5, 49),
-(6, 49),
-(1, 50),
-(5, 50),
-(6, 50),
-(1, 51),
-(5, 51),
-(6, 51),
-(1, 52),
-(5, 52),
-(6, 52),
-(1, 53),
-(5, 53),
-(6, 53),
-(1, 54),
-(5, 54),
-(6, 54),
-(1, 55),
-(5, 55),
-(6, 55),
-(1, 56),
-(6, 56),
-(1, 57),
-(5, 57),
-(6, 57),
-(1, 58),
-(5, 58),
-(6, 58),
-(1, 59),
-(5, 59),
-(6, 59),
-(1, 60),
-(5, 60),
-(6, 60),
-(1, 61),
-(5, 61),
-(6, 61),
-(1, 62),
-(5, 62),
-(6, 62),
-(1, 63),
-(5, 63),
-(6, 63),
-(1, 64),
-(5, 64),
-(6, 64),
-(1, 65),
-(5, 65),
-(6, 65),
-(1, 66),
-(5, 66),
-(6, 66),
-(1, 67),
-(5, 67),
-(6, 67),
-(1, 68),
-(5, 68),
-(6, 68),
-(1, 69),
-(5, 69),
-(6, 69),
-(1, 70),
-(5, 70),
-(6, 70),
-(1, 71),
-(5, 71),
-(6, 71),
-(1, 72),
-(5, 72),
-(6, 72),
-(1, 73),
-(5, 73),
-(6, 73),
-(1, 74),
-(5, 74),
-(6, 74),
-(1, 75),
-(5, 75),
-(6, 75),
-(1, 76),
-(5, 76),
-(6, 76),
-(1, 77),
-(5, 77),
-(6, 77),
-(1, 78),
-(5, 78),
-(6, 78),
-(1, 79),
-(5, 79),
-(6, 79),
-(1, 80),
-(5, 80),
-(6, 80),
-(1, 81),
-(5, 81),
-(6, 81),
-(1, 82),
-(5, 82),
-(6, 82),
-(1, 83),
-(5, 83),
-(6, 83),
-(1, 84),
-(5, 84),
-(6, 84);
 
 -- --------------------------------------------------------
 
@@ -5824,27 +5765,24 @@ CREATE TABLE IF NOT EXISTS `rol_usuario` (
   `fecha_modificacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `rol_usuario_general_id` (`rol_usuario_general_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=190 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=202 ;
 
 --
 -- Volcado de datos para la tabla `rol_usuario`
 --
 
 INSERT INTO `rol_usuario` (`id`, `nombre`, `descripcion`, `tipo`, `rol_usuario_general_id`, `fecha_creacion`, `fecha_eliminacion`, `fecha_acceso`, `fecha_modificacion`) VALUES
-(1, 'superusuario', 'rol superusuario', NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 'profesor', 'rol profesor', NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 'alumno', 'rol alumno', NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 'ayudante', 'rol ayudante', 'rol_usuario_general', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(5, 'inspector', 'rol inspector', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
-(6, 'percutor', 'rol percutor', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
-(7, 'constructor', 'rol constructor', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
-(88, 'profesor', 'rol profesor', 'rol_usuario_institucion', 2, '2015-10-09 18:13:43', NULL, NULL, '2015-10-09 18:13:43'),
-(89, 'alumno', 'rol alumno', 'rol_usuario_institucion', 3, '2015-10-09 18:13:44', NULL, NULL, '2015-10-09 18:13:44'),
-(90, 'ayudante', 'rol ayudante', 'rol_usuario_institucion', 4, '2015-10-09 18:13:45', NULL, NULL, '2015-10-09 18:13:45'),
-(186, 'profesor', 'rol profesor', 'rol_usuario_institucion', 2, '2015-10-15 11:31:41', NULL, NULL, '2015-10-15 11:31:41'),
-(187, 'alumno', 'rol alumno', 'rol_usuario_institucion', 3, '2015-10-15 11:31:42', NULL, NULL, '2015-10-15 11:31:42'),
-(188, 'ayudante', 'rol ayudante', 'rol_usuario_institucion', 4, '2015-10-15 11:31:44', NULL, NULL, '2015-10-15 11:31:44'),
-(189, 'destructor', 'rol destructor', 'rol_usuario_general', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(190, 'tutor academico', 'des-tutor-academico', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
+(191, 'tutor ayundante', 'des-tutor-ayundante', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
+(192, 'tutor auxiliar', 'des-tutor-auxiliar', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
+(193, 'alumno', 'des-alumno', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
+(194, 'tutor seguimiento', 'des-tutor-seguimiento', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
+(195, 'tutor academico', 'des-tutor-academico', 'rol_usuario_institucion', 190, '2015-11-20 13:14:57', NULL, NULL, '2015-11-20 13:14:57'),
+(196, 'tutor ayundante', 'des-tutor-ayundante', 'rol_usuario_institucion', 191, '2015-11-20 13:14:57', NULL, NULL, '2015-11-20 13:14:57'),
+(197, 'tutor auxiliar', 'des-tutor-auxiliar', 'rol_usuario_institucion', 192, '2015-11-20 13:14:57', NULL, NULL, '2015-11-20 13:14:57'),
+(198, 'alumno', 'des-alumno', 'rol_usuario_institucion', 193, '2015-11-20 13:14:57', NULL, NULL, '2015-11-20 13:14:57'),
+(199, 'tutor seguimiento', 'des-tutor-seguimiento', 'rol_usuario_institucion', 194, '2015-11-20 13:14:58', NULL, NULL, '2015-11-20 13:14:58'),
+(201, 'alumno', 'des-alumno', 'rol_usuario_institucion', 193, '2015-11-20 15:54:48', NULL, NULL, '2015-11-20 15:54:48');
 
 -- --------------------------------------------------------
 
@@ -5865,19 +5803,16 @@ CREATE TABLE IF NOT EXISTS `rol_usuario_has_authitem_permiso_usuario` (
 --
 
 INSERT INTO `rol_usuario_has_authitem_permiso_usuario` (`rol_usuario_id`, `authitem_permiso_usuario_name`) VALUES
-(1, 'aula'),
-(1, 'mesa_de_ayuda'),
-(1, 'repositorio'),
-(2, 'aula'),
-(2, 'repositorio'),
-(3, 'aula'),
-(3, 'repositorio'),
-(4, 'mesa_de_ayuda'),
-(186, 'aula'),
-(186, 'repositorio'),
-(187, 'aula'),
-(187, 'repositorio'),
-(188, 'mesa_de_ayuda');
+(190, 'aula'),
+(191, 'aula'),
+(192, 'aula'),
+(193, 'aula'),
+(194, 'aula'),
+(195, 'aula'),
+(196, 'aula'),
+(197, 'aula'),
+(199, 'aula'),
+(201, 'aula');
 
 -- --------------------------------------------------------
 
@@ -5893,96 +5828,6 @@ CREATE TABLE IF NOT EXISTS `rol_usuario_has_privilegio_usuario` (
   KEY `fk_rol_usuario_has_privilegio_usuario_rol_usuario1_idx` (`rol_usuario_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `rol_usuario_has_privilegio_usuario`
---
-
-INSERT INTO `rol_usuario_has_privilegio_usuario` (`rol_usuario_id`, `privilegio_usuario_id`) VALUES
-(1, 1),
-(2, 1),
-(88, 1),
-(186, 1),
-(1, 2),
-(2, 2),
-(88, 2),
-(186, 2),
-(1, 3),
-(2, 3),
-(88, 3),
-(186, 3),
-(1, 4),
-(2, 4),
-(88, 4),
-(186, 4),
-(1, 5),
-(2, 5),
-(88, 5),
-(186, 5),
-(1, 6),
-(2, 6),
-(88, 6),
-(186, 6),
-(1, 7),
-(2, 7),
-(88, 7),
-(186, 7),
-(1, 8),
-(2, 8),
-(88, 8),
-(186, 8),
-(1, 9),
-(2, 9),
-(88, 9),
-(186, 9),
-(1, 10),
-(2, 10),
-(88, 10),
-(186, 10),
-(1, 11),
-(2, 11),
-(88, 11),
-(186, 11),
-(1, 12),
-(2, 12),
-(88, 12),
-(186, 12),
-(1, 13),
-(3, 13),
-(187, 13),
-(1, 14),
-(3, 14),
-(187, 14),
-(1, 15),
-(3, 15),
-(187, 15),
-(1, 16),
-(3, 16),
-(187, 16),
-(1, 17),
-(3, 17),
-(187, 17),
-(1, 18),
-(3, 18),
-(187, 18),
-(1, 19),
-(3, 19),
-(187, 19),
-(1, 20),
-(3, 20),
-(187, 20),
-(1, 21),
-(3, 21),
-(187, 21),
-(1, 22),
-(3, 22),
-(187, 22),
-(1, 23),
-(3, 23),
-(187, 23),
-(1, 24),
-(3, 24),
-(187, 24);
-
 -- --------------------------------------------------------
 
 --
@@ -5992,23 +5837,44 @@ INSERT INTO `rol_usuario_has_privilegio_usuario` (`rol_usuario_id`, `privilegio_
 CREATE TABLE IF NOT EXISTS `seccion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
+  `codigo` varchar(45) DEFAULT NULL,
   `jornada` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
+  `descripcion` text,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
-  `modulo_id` int(11) NOT NULL,
   `estado_seccion_id` int(11) DEFAULT NULL,
+  `modulo_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_seccion_modulo1_idx` (`modulo_id`),
-  KEY `fk_seccion_estado_seccion1_idx` (`estado_seccion_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  KEY `fk_seccion_estado_seccion1_idx` (`estado_seccion_id`),
+  KEY `fk_seccion_modulo1_idx` (`modulo_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- Volcado de datos para la tabla `seccion`
 --
 
-INSERT INTO `seccion` (`id`, `nombre`, `jornada`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `modulo_id`, `estado_seccion_id`) VALUES
-(6, 'mnbvbnmvc', 'nmcvbbnmvxc', 'cmnvbnmcbvx', '2015-08-12 11:38:53', '2015-08-12 11:39:57', 1, NULL);
+INSERT INTO `seccion` (`id`, `nombre`, `codigo`, `jornada`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_seccion_id`, `modulo_id`) VALUES
+(6, 'seccion 8', 'dfdsfdsf', 'sdfsdfsfd', 'dfsdfsdfsdf', '2015-11-25 12:32:04', '2015-11-25 12:34:07', NULL, 15),
+(9, 'sadsad', 'sadsadas', 'asdsada', 'asdsadsad', '2015-11-25 16:56:09', NULL, 1, 9),
+(11, 'sadsad', 'sadsadas', 'asdsada', 'asdsadsad', '2015-11-25 16:56:52', NULL, 1, 10),
+(13, 'seccion13', 'seccion13', 'vespertina', 'rtrtrtretre', '2015-11-25 17:04:11', '2015-11-25 17:07:26', NULL, 15),
+(16, 'sdsdsadsadjhsajdh', 'sjhdkjsahdksak', 'sajkhdkjsadhskadkh', 'sakjhdkjsahdkjsadk', '2015-11-25 17:09:43', NULL, 3, 9),
+(21, 'ioiorueour', 'wiouewueqouo', 'wqueiu', 'wueweio', '2015-11-26 10:40:32', '2015-11-26 10:50:02', 3, 12);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_image`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_image` (
+  `id_image` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `title` varchar(45) NOT NULL,
+  `folder` text NOT NULL,
+  `image` text NOT NULL,
+  PRIMARY KEY (`id_image`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -6020,14 +5886,7 @@ CREATE TABLE IF NOT EXISTS `tipo_herramienta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Volcado de datos para la tabla `tipo_herramienta`
---
-
-INSERT INTO `tipo_herramienta` (`id`, `nombre`) VALUES
-(1, 'herramienta_troncal');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -6039,14 +5898,7 @@ CREATE TABLE IF NOT EXISTS `tipo_repositorio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='				' AUTO_INCREMENT=2 ;
-
---
--- Volcado de datos para la tabla `tipo_repositorio`
---
-
-INSERT INTO `tipo_repositorio` (`id`, `descripcion`) VALUES
-(1, 'repositorio_troncal');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='				' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -6081,48 +5933,29 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `estado_usuario_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_usuario_estado_usuario1_idx` (`estado_usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=236 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=252 ;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `estado_usuario_id`) VALUES
-(1, 'creyes', '123', '2015-09-09 12:23:17', '2015-11-06 11:00:30', '2015-09-09 12:23:17', 1),
-(2, 'francisco', '123', '2015-09-09 12:23:17', '2015-11-11 11:20:24', '2015-09-09 12:23:17', NULL),
-(3, 'victor', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
-(4, 'marcelo', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
-(5, 'patricio', '123', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
-(6, 'usuario6', 'clave6', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
-(7, 'usuario7', 'clave7', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
-(8, 'usuario8', 'clave8', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
-(9, 'usuario9', 'clave9', '2015-09-09 12:23:17', '2015-09-09 12:23:17', '2015-09-09 12:23:17', 3),
-(10, 'andres', '123', NULL, NULL, '2015-08-25 10:16:24', NULL),
-(11, 'carlos', '123', NULL, NULL, '2015-08-25 10:16:31', NULL),
-(12, 'ricardo', '123', NULL, NULL, '2015-08-25 10:16:41', NULL),
-(13, 'rodrigo', '123', NULL, NULL, '2015-08-25 10:16:52', NULL),
-(14, 'daniel', '123', NULL, NULL, '2015-08-25 10:17:00', NULL),
-(15, 'matias', '123', NULL, NULL, '2015-08-25 10:19:12', NULL),
-(186, 'usuario viejo', 'viejo clave', NULL, '2015-08-10 16:09:43', '2015-08-10 16:09:16', NULL),
-(187, 'nbnvmcvmc', 'nmcbvnmcxvnv', NULL, '2015-08-12 09:57:23', '2015-08-12 09:57:11', NULL),
-(189, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
-(190, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
-(191, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
-(192, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
-(193, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
-(194, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
-(195, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
-(196, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
-(197, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
-(198, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
-(199, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
-(200, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
-(201, '1', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
-(202, '2', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
-(203, '3', 'usuario', '0000-00-00 00:00:00', '2015-08-07 11:05:41', '2015-08-07 11:05:41', NULL),
-(233, 'dmorales', '123456', NULL, '2015-11-06 11:00:21', '2015-11-06 10:59:52', 3),
-(234, 'kof', '123456', NULL, '2015-11-09 18:00:16', '2015-11-06 11:02:20', NULL),
-(235, 'iaiai', 'aiiaiaii', NULL, NULL, '2015-11-09 17:53:09', NULL);
+(236, 'dmorales', '123', NULL, NULL, '2015-11-20 12:53:05', NULL),
+(237, 'jlopez', '123', NULL, NULL, '2015-11-20 12:53:16', NULL),
+(238, 'piriarte', '123', NULL, NULL, '2015-11-20 12:53:33', NULL),
+(239, 'cconcha', '123', NULL, NULL, '2015-11-20 12:53:43', NULL),
+(240, 'mgarcia', '123', NULL, NULL, '2015-11-20 12:53:53', NULL),
+(241, 'fcarvajal', '123', NULL, NULL, '2015-11-20 12:54:31', NULL),
+(242, 'vguzman', '123', NULL, NULL, '2015-11-20 12:54:48', NULL),
+(243, 'vinzunza', '123', NULL, NULL, '2015-11-20 12:54:59', NULL),
+(244, 'ctorres', '123', NULL, NULL, '2015-11-20 12:55:12', NULL),
+(245, 'mzuniga', '123', NULL, NULL, '2015-11-20 12:55:43', NULL),
+(246, 'fortiz', '123', NULL, NULL, '2015-11-20 12:55:53', NULL),
+(247, 'msanhueza', '123', NULL, NULL, '2015-11-20 12:56:21', NULL),
+(248, 'creyes', '123', NULL, NULL, '2015-11-20 12:56:52', NULL),
+(249, 'hugo', '123', NULL, NULL, '2015-11-20 15:14:42', NULL),
+(250, 'jperez', '123', NULL, NULL, '2015-11-20 15:54:15', NULL),
+(251, 'sdsdsad', 'sdsadd', NULL, NULL, '2015-11-24 11:55:22', NULL);
 
 -- --------------------------------------------------------
 
@@ -6136,16 +5969,14 @@ CREATE TABLE IF NOT EXISTS `usuario_administrador` (
   `clave` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `usuario` (`usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `usuario_administrador`
 --
 
 INSERT INTO `usuario_administrador` (`id`, `usuario`, `clave`) VALUES
-(1, 'creyes', '123'),
-(2, 'jlopez', '123'),
-(3, 'dmorales', '123');
+(1, 'creyes', '123');
 
 -- --------------------------------------------------------
 
@@ -6166,8 +5997,7 @@ CREATE TABLE IF NOT EXISTS `usuario_administrador_has_rol_administrador` (
 --
 
 INSERT INTO `usuario_administrador_has_rol_administrador` (`usuario_administrador_id`, `rol_administrador_id`) VALUES
-(1, 1),
-(2, 6);
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -6187,13 +6017,12 @@ CREATE TABLE IF NOT EXISTS `usuario_has_institucion` (
 --
 
 INSERT INTO `usuario_has_institucion` (`usuario_id`, `institucion_id`) VALUES
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 1),
-(5, 1),
-(6, 2),
-(6, 1);
+(236, 1),
+(237, 1),
+(238, 1),
+(239, 1),
+(240, 1),
+(241, 1);
 
 -- --------------------------------------------------------
 
@@ -6211,6 +6040,16 @@ CREATE TABLE IF NOT EXISTS `usuario_has_modulo` (
   KEY `fk_usuario_has_modulo_rol_usuario1_idx` (`rol_usuario_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `usuario_has_modulo`
+--
+
+INSERT INTO `usuario_has_modulo` (`usuario_id`, `modulo_id`, `rol_usuario_id`) VALUES
+(248, 9, 198),
+(236, 15, 195),
+(236, 15, 196),
+(236, 15, 197);
+
 -- --------------------------------------------------------
 
 --
@@ -6226,6 +6065,16 @@ CREATE TABLE IF NOT EXISTS `usuario_has_programa_academico` (
   KEY `fk_usuario_has_programa_academico_usuario1_idx` (`usuario_id`),
   KEY `fk_usuario_has_programa_academico_rol_usuario1_idx` (`rol_usuario_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuario_has_programa_academico`
+--
+
+INSERT INTO `usuario_has_programa_academico` (`usuario_id`, `programa_academico_id`, `rol_usuario_id`) VALUES
+(236, 8, 195),
+(236, 8, 196),
+(236, 8, 197),
+(248, 8, 198);
 
 -- --------------------------------------------------------
 
@@ -6246,13 +6095,9 @@ CREATE TABLE IF NOT EXISTS `usuario_has_rol_usuario` (
 --
 
 INSERT INTO `usuario_has_rol_usuario` (`usuario_id`, `rol_usuario_id`) VALUES
-(1, 1),
-(4, 2),
-(5, 2),
-(2, 3),
-(3, 3),
-(3, 186),
-(4, 186);
+(236, 195),
+(236, 196),
+(236, 197);
 
 -- --------------------------------------------------------
 
@@ -6262,17 +6107,30 @@ INSERT INTO `usuario_has_rol_usuario` (`usuario_id`, `rol_usuario_id`) VALUES
 
 CREATE TABLE IF NOT EXISTS `usuario_has_seccion` (
   `usuario_id` int(11) NOT NULL,
-  `seccion_id` int(11) NOT NULL,
   `rol_usuario_id` int(11) NOT NULL,
-  PRIMARY KEY (`usuario_id`,`seccion_id`,`rol_usuario_id`),
-  KEY `fk_usuario_has_seccion_seccion1_idx` (`seccion_id`),
+  `seccion_id` int(11) NOT NULL,
+  PRIMARY KEY (`usuario_id`,`rol_usuario_id`,`seccion_id`),
   KEY `fk_usuario_has_seccion_usuario1_idx` (`usuario_id`),
-  KEY `fk_usuario_has_seccion_rol_usuario1_idx` (`rol_usuario_id`)
+  KEY `fk_usuario_has_seccion_rol_usuario1_idx` (`rol_usuario_id`),
+  KEY `fk_usuario_has_seccion_seccion1_idx` (`seccion_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuario_has_seccion`
+--
+
+INSERT INTO `usuario_has_seccion` (`usuario_id`, `rol_usuario_id`, `seccion_id`) VALUES
+(236, 195, 6);
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `archivo_recurso`
+--
+ALTER TABLE `archivo_recurso`
+  ADD CONSTRAINT `fk_archivo_recurso_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `authassignment_administrador`
@@ -6355,9 +6213,9 @@ ALTER TABLE `dato_personal`
 -- Filtros para la tabla `entidad`
 --
 ALTER TABLE `entidad`
-  ADD CONSTRAINT `fk_entidad_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_entidad_entidad1` FOREIGN KEY (`entidad_id`) REFERENCES `entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_entidad_estado_entidad1` FOREIGN KEY (`estado_entidad_id`) REFERENCES `estado_entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_entidad_estado_entidad1` FOREIGN KEY (`estado_entidad_id`) REFERENCES `estado_entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_entidad_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `escritorio_administrador`
@@ -6394,7 +6252,9 @@ ALTER TABLE `icono_aplicacion_administrador`
 -- Filtros para la tabla `institucion`
 --
 ALTER TABLE `institucion`
-  ADD CONSTRAINT `fk_institucion_estado_institucion1` FOREIGN KEY (`estado_institucion_id`) REFERENCES `estado_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_institucion_estado_institucion1` FOREIGN KEY (`estado_institucion_id`) REFERENCES `estado_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_institucion_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_institucion_region1` FOREIGN KEY (`region_id`) REFERENCES `region` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `institucion_has_repositorio`
@@ -6411,6 +6271,12 @@ ALTER TABLE `institucion_has_rol_usuario`
   ADD CONSTRAINT `fk_institucion_has_rol_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `link_interes`
+--
+ALTER TABLE `link_interes`
+  ADD CONSTRAINT `fk_link_interes_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `modelo_aprendizaje_has_herramienta`
 --
 ALTER TABLE `modelo_aprendizaje_has_herramienta`
@@ -6420,8 +6286,8 @@ ALTER TABLE `modelo_aprendizaje_has_herramienta`
 -- Filtros para la tabla `modulo`
 --
 ALTER TABLE `modulo`
-  ADD CONSTRAINT `fk_modulo_estado_modulo1` FOREIGN KEY (`estado_modulo_id`) REFERENCES `estado_modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_modulo_entidad1` FOREIGN KEY (`entidad_id`) REFERENCES `entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_modulo_estado_modulo1` FOREIGN KEY (`estado_modulo_id`) REFERENCES `estado_modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_modulo_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
@@ -6518,8 +6384,8 @@ ALTER TABLE `rol_usuario_has_privilegio_usuario`
 -- Filtros para la tabla `seccion`
 --
 ALTER TABLE `seccion`
-  ADD CONSTRAINT `fk_seccion_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_seccion_estado_seccion1` FOREIGN KEY (`estado_seccion_id`) REFERENCES `estado_seccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_seccion_estado_seccion1` FOREIGN KEY (`estado_seccion_id`) REFERENCES `estado_seccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_seccion_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario`
@@ -6567,9 +6433,9 @@ ALTER TABLE `usuario_has_rol_usuario`
 -- Filtros para la tabla `usuario_has_seccion`
 --
 ALTER TABLE `usuario_has_seccion`
+  ADD CONSTRAINT `fk_usuario_has_seccion_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_usuario_has_seccion_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_has_seccion_seccion1` FOREIGN KEY (`seccion_id`) REFERENCES `seccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_has_seccion_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_has_seccion_seccion1` FOREIGN KEY (`seccion_id`) REFERENCES `seccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -3,11 +3,10 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-11-2015 a las 12:09:30
+-- Tiempo de generación: 30-11-2015 a las 14:01:49
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
-SET foreign_key_checks = 0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -354,7 +353,8 @@ end$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_actualizar_modulo`(
 nuevo_id int,
 nuevo_nombre varchar(50),
-nuevo_descripcion varchar(50),
+nuevo_codigo varchar(50),
+nuevo_descripcion text,
 nuevo_fecha_modificacion datetime,
 nuevo_estado_modulo_id int,
 nuevo_entidad_id int,
@@ -364,6 +364,7 @@ begin
 update modulo set 
 id = nuevo_id,
 nombre = nuevo_nombre,
+codigo = nuevo_codigo,
 descripcion = nuevo_descripcion,
 fecha_modificacion = nuevo_fecha_modificacion,
 estado_modulo_id = nuevo_estado_modulo_id,
@@ -398,27 +399,30 @@ end$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_actualizar_seccion`(
 nuevo_id int,
 nuevo_nombre varchar(50),
+nuevo_codigo varchar(50),
 nuevo_jornada varchar(50),
-nuevo_descripcion varchar(50),
-nuevo_modulo_id int,
+nuevo_descripcion text,
+nuevo_fecha_modificacion datetime,
 nuevo_estado_seccion_id int,
-nuevo_fecha_modificacion datetime
+nuevo_modulo_id int
 )
 begin
 update seccion set
 id = nuevo_id,
 nombre = nuevo_nombre,
+codigo = nuevo_codigo,
 jornada = nuevo_jornada,
 descripcion = nuevo_descripcion,
-modulo_id = nuevo_modulo_id,
+fecha_modificacion = now(),
 estado_seccion_id = nuevo_estado_seccion_id,
-fecha_modificacion = now()
+modulo_id = nuevo_modulo_id
 where id = nuevo_id;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_agregar_modulo`(
 nuevo_nombre varchar(50),
-nuevo_descripcion varchar(50),
+nuevo_codigo varchar(50),
+nuevo_descripcion text,
 nuevo_fecha_creacion datetime,
 nuevo_estado_modulo_id int,
 nuevo_entidad_id int,
@@ -428,6 +432,7 @@ OUT llave_id int(11)
 begin
 insert into modulo(
 nombre,
+codigo,
 descripcion,
 fecha_creacion,
 estado_modulo_id,
@@ -436,6 +441,7 @@ institucion_id
 )
 values(
 nuevo_nombre,
+nuevo_codigo,
 nuevo_descripcion,
 now(),
 nuevo_estado_modulo_id,
@@ -479,29 +485,32 @@ end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_agregar_seccion`(
 nuevo_nombre varchar(50),
+nuevo_codigo varchar(50),
 nuevo_jornada varchar(50),
-nuevo_descripcion varchar(50),
-nuevo_modulo_id int,
-nuevo_estado_seccion_id int,
+nuevo_descripcion text,
 nuevo_fecha_creacion datetime,
+nuevo_estado_seccion_id int,
+nuevo_modulo_id int,
 OUT llave_id int(11)
 )
 begin
 insert into seccion(
 nombre,
+codigo,
 jornada,
 descripcion,
-modulo_id,
+fecha_creacion,
 estado_seccion_id,
-fecha_creacion
+modulo_id
 )
 values(
 nuevo_nombre,
+nuevo_codigo,
 nuevo_jornada,
 nuevo_descripcion,
-nuevo_modulo_id,
+now(),
 nuevo_estado_seccion_id,
-now()
+nuevo_modulo_id
 );
 SELECT LAST_INSERT_ID () into llave_id;
 end$$
@@ -1046,7 +1055,7 @@ BEGIN
 	update modulo m,estado_modulo em
 	set m.estado_modulo_id = em.id 
 	where m.id = nuevo_id
-	and em.id = 2;
+	and em.id = 3;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_eliminado_logico_programa_academico`(nuevo_id int)
@@ -1062,7 +1071,7 @@ BEGIN
 	update seccion s,estado_seccion es
 	set s.estado_seccion_id = es.id 
 	where s.id = nuevo_id
-	and es.id = 2;
+	and es.id = 3;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_listar2_entidad_entidad`(nuevo_entidad_id int(11))
@@ -1158,9 +1167,7 @@ BEGIN
 		UNION SELECT A.*,B.estado
 				FROM 
 					(seccion A LEFT JOIN estado_seccion B ON A.estado_seccion_id = B.id), modulo C
-				WHERE A.estado_seccion_id IS NULL
-                AND   A.modulo_id = C.id
-                AND   C.estado_modulo_id !=3;
+				WHERE A.estado_seccion_id IS NULL;
                 
 END$$
 
@@ -1376,9 +1383,9 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_lista_programa_modulo`(nuevo_programa_id int(11))
 BEGIN
-SELECT A.nombre,B.programa_academico_id,B.modulo_id FROM `programa_academico` A, `programa_academico_has_modulo` B 
+SELECT A.nombre,B.programa_academico_id,B.modulo_id,C.nombre FROM `programa_academico` A, `programa_academico_has_modulo` B, `modulo` C
 WHERE A.id = B.programa_academico_id
-AND A.id = nuevo_programa_id UNION SELECT null,null,A.id FROM (`modulo` A LEFT JOIN `programa_academico_has_modulo` B ON A.id = B.modulo_id AND B.programa_academico_id = nuevo_programa_id)
+AND A.id = nuevo_programa_id UNION SELECT null,null,A.id,A.nombre FROM (`modulo` A LEFT JOIN `programa_academico_has_modulo` B ON A.id = B.modulo_id AND B.programa_academico_id = nuevo_programa_id)
 WHERE B.modulo_id is NULL
 order by modulo_id;
 END$$
@@ -1449,25 +1456,33 @@ end$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_actualizar_institucion`(
 nuevo_id int,
 nuevo_nombre varchar(50),
-nuevo_vision varchar(50),
-nuevo_mision varchar(50),
+nuevo_sigla varchar(50),
+nuevo_vision text,
+nuevo_mision text,
 nuevo_acreditada bit(1),
 nuevo_fecha_inicio_acreditacion datetime,
 nuevo_fecha_termino_acreditacion datetime,
-nuevo_descripcion varchar(50),
-nuevo_fecha_modificacion datetime
+nuevo_descripcion text,
+nuevo_fecha_modificacion datetime,
+nuevo_estado_id int,
+nuevo_pais_id int,
+nuevo_region_id int
 )
 begin
 update institucion set
 id = nuevo_id,
 nombre = nuevo_nombre,
+sigla = nuevo_sigla,
 vision = nuevo_vision,
 mision = nuevo_mision,
 acreditada = nuevo_acreditada,
 fecha_inicio_acreditacion = nuevo_fecha_inicio_acreditacion,
 fecha_termino_acreditacion = nuevo_fecha_termino_acreditacion,
 descripcion = nuevo_descripcion,
-fecha_modificacion = now()
+fecha_modificacion = now(),
+estado_institucion_id = nuevo_estado_id,
+pais_id = nuevo_pais_id,
+region_id = nuevo_region_id
 where id = nuevo_id;
 end$$
 
@@ -1502,35 +1517,47 @@ end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_agregar_institucion`(
 nuevo_nombre varchar(50),
-nuevo_vision varchar(50),
-nuevo_mision varchar(50),
+nuevo_sigla varchar(50),
+nuevo_vision text,
+nuevo_mision text,
 nuevo_acreditada bit(1),
 nuevo_fecha_inicio_acreditacion datetime,
 nuevo_fecha_termino_acreditacion datetime,
-nuevo_descripcion varchar(50),
+nuevo_descripcion text,
 nuevo_fecha_creacion datetime,
+nuevo_estado_id int,
+nuevo_pais_id int,
+nuevo_region_id int,
 OUT llave_id int(11)
 )
 begin
 insert into institucion(
 nombre,
+sigla,
 vision,
 mision,
 acreditada,
 fecha_inicio_acreditacion,
 fecha_termino_acreditacion,
 descripcion,
-fecha_creacion
+fecha_creacion,
+estado_institucion_id,
+pais_id,
+region_id
 )
 values(
 nuevo_nombre,
+nuevo_sigla,
 nuevo_vision, 
 nuevo_mision, 
 nuevo_acreditada, 
 nuevo_fecha_inicio_acreditacion, 
 nuevo_fecha_termino_acreditacion, 
 nuevo_descripcion, 
-now()
+now(),
+nuevo_estado_id,
+nuevo_pais_id,
+nuevo_region_id
 );
 SELECT LAST_INSERT_ID () into llave_id;
 end$$
@@ -1654,7 +1681,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_institucion_listar_institu
 BEGIN
 	SELECT
 		A.*,
-		B.estado 
+        B.estado
 
 	FROM 
 		institucion A,
@@ -3618,6 +3645,18 @@ DELETE FROM dato_personal
 WHERE id = nuevo_id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_eliminado_fisico_pais`(nuevo_id int)
+BEGIN
+DELETE FROM pais
+WHERE id = nuevo_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_eliminado_fisico_region`(nuevo_id int)
+BEGIN
+DELETE FROM region
+WHERE id = nuevo_id;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_eliminado_logico_usuario`(nuevo_id int)
 BEGIN
 	update usuario usu,estado_usuario ea
@@ -3646,6 +3685,19 @@ BEGIN
             AND  	A.usuario_id = B.id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_datos_academicos_por_usuario`(nuevo_id int)
+BEGIN
+	SELECT 
+		A.*
+        
+	FROM 
+		dato_academico A,
+		usuario B
+        
+	WHERE A.usuario_id = B.id
+    AND   B.id = nuevo_id;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_datos_laborales_por_estado`()
 BEGIN
 	SELECT A.*, B.usuario
@@ -3665,6 +3717,19 @@ BEGIN
 			WHERE	B.estado_usuario_id IS NULL
             AND  	A.usuario_id = B.id;
     
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_datos_laborales_por_usuario`(nuevo_id int)
+BEGIN
+	SELECT 
+		A.*
+        
+	FROM 
+		dato_laboral A,
+		usuario B
+        
+	WHERE A.usuario_id = B.id
+    AND   B.id = nuevo_id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_datos_login_por_estado`()
@@ -3707,6 +3772,19 @@ BEGIN
 			FROM	(usuario B LEFT JOIN estado_usuario C ON B.estado_usuario_id = C.id), dato_personal A
 			WHERE	B.estado_usuario_id IS NULL
             AND  	A.usuario_id = B.id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_datos_personales_por_usuario`(nuevo_id int)
+BEGIN
+	SELECT 
+		A.*
+        
+	FROM 
+		dato_personal A,
+		usuario B
+        
+	WHERE A.usuario_id = B.id
+    AND   B.id = nuevo_id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_listar_estado_usuario`(nuevo_id_usuario varchar(50))
@@ -3874,6 +3952,50 @@ BEGIN
     AND   B.id = nuevo_id;    
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_components_agregar_archivo`(
+	 nuevo_archivo_nombre VARCHAR(255),
+     nuevo_archivo_mime_type TEXT,
+     nuevo_archivo_tamano INT(11),
+     nuevo_archivo_ruta TEXT,
+     nuevo_archivo_usuario_id INT(11),
+     nuevo_archivo_contenedor_id INT(11),
+     nuevo_archivo_contenedor_tabla VARCHAR(255),
+	 OUT last_insert_archivo_id INT(11)
+)
+BEGIN
+	
+	INSERT INTO archivo(
+		nombre,
+        mime_type,
+        tamano,
+        ruta,
+        usuario_id,
+        fecha_creacion,
+        contenedor_id,
+        contenedor_tabla        
+    )
+    VALUES(
+		nuevo_archivo_nombre,
+        nuevo_archivo_mime_type,
+        nuevo_archivo_tamano,
+        nuevo_archivo_ruta,
+        nuevo_archivo_usuario_id,
+        NOW(),
+        nuevo_archivo_contenedor_id,
+        nuevo_archivo_contenedor_tabla        
+    );
+    
+	SELECT LAST_INSERT_ID () INTO last_insert_archivo_id;
+        
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_components_eliminar_archivo`(nuevo_archivo_id INT)
+BEGIN
+
+DELETE FROM archivo WHERE id = nuevo_archivo_id;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_components_obtener_institucion_usuario`(nuevo_usuario_id int)
 BEGIN
 
@@ -3888,6 +4010,18 @@ AND UI.usuario_id = U.id
 AND U.id = nuevo_usuario_id
 ORDER BY institucion_id;
 
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_component_lista_archivos`(nuevo_contenedor_id INT,nuevo_contenedor_tabla VARCHAR(255))
+BEGIN
+
+SELECT A.*
+
+FROM archivo A
+WHERE A.contenedor_id = nuevo_contenedor_id
+AND A.contenedor_tabla = nuevo_contenedor_tabla
+
+ORDER BY A.id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_escritorio_administrador_get_icono_permiso_usuario`(nuevo_usuario_id int)
@@ -3977,11 +4111,58 @@ BEGIN
     
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_agregar_archivo_recurso_repositorio_troncal`(
+
+	nuevo_repositorio_id INT,
+    nuevo_archivo_recurso_nombre VARCHAR(255),
+    nuevo_archivo_recurso_descripcion TEXT,
+    nuevo_recurso_tabla VARCHAR (255),
+	OUT last_insert_archivo_recurso_id INT    
+)
+BEGIN
+
+	INSERT INTO archivo_recurso(
+		nombre,
+        descripcion,
+        fecha_creacion,
+        tipo_herramienta_id
+    )
+    VALUES(
+		nuevo_archivo_recurso_nombre,
+        nuevo_archivo_recurso_descripcion,
+        NOW(),
+        1
+    );
+    
+	SELECT LAST_INSERT_ID () INTO last_insert_archivo_recurso_id;
+ 
+    INSERT INTO herramienta(
+		nombre,
+        descripcion,
+        fecha_creacion,
+        recurso_id,
+        recurso_tabla,
+        repositorio_id,
+        tipo_herramienta_id
+    )
+    VALUES (
+		nuevo_archivo_recurso_nombre,
+        nuevo_archivo_recurso_descripcion,
+        NOW(),
+        last_insert_archivo_recurso_id,
+        nuevo_recurso_tabla,
+        nuevo_repositorio_id,
+        1
+    );
+    
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_agregar_glosario_repositorio_troncal`(
 	
     nuevo_repositorio_id INT,
     nuevo_glosario_nombre VARCHAR(255),
     nuevo_glosario_descripcion TEXT,
+    nuevo_recurso_tabla VARCHAR (255),
     OUT last_insert_glosario_id INT
 )
 BEGIN
@@ -4006,6 +4187,7 @@ BEGIN
         descripcion,
         fecha_creacion,
         recurso_id,
+		recurso_tabla,
         repositorio_id,
         tipo_herramienta_id
     )
@@ -4014,6 +4196,7 @@ BEGIN
         nuevo_glosario_descripcion,
         NOW(),
         last_insert_glosario_id,
+        nuevo_recurso_tabla,
         nuevo_repositorio_id,
         1
     );
@@ -4122,6 +4305,23 @@ AND I.id = nuevo_institucion_id;
 		
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_archivo_recurso_repositorio_troncal`(nuevo_repositorio_id INT)
+BEGIN
+
+	SELECT AR.*
+    FROM
+		repositorio R,
+        herramienta H,
+        archivo_recurso AR
+	WHERE R.id = H.repositorio_id
+    AND H.recurso_id = AR.id 
+    AND R.id = nuevo_repositorio_id
+    AND H.recurso_tabla = 'archivo_recurso'
+    
+    ORDER BY AR.id;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_glosario_repositorio`(nuevo_repositorio_id INT)
 BEGIN
 
@@ -4134,7 +4334,10 @@ BEGIN
 			
 	WHERE R.id = H.repositorio_id
 	AND H.recurso_id = G.id
-	AND R.id = nuevo_repositorio_id;
+	AND R.id = nuevo_repositorio_id
+	AND H.recurso_tabla = 'glosario'
+    
+    ORDER BY G.id;
 
 END$$
 
@@ -4169,6 +4372,35 @@ ORDER BY repositorio_id;
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_modificar_archivo_recurso_repositorio_troncal`(
+
+	nuevo_archivo_recurso_id INT,
+    nuevo_repositorio_id INT,
+    nuevo_archivo_recurso_nombre VARCHAR(255),
+    nuevo_archivo_recurso_descripcion TEXT,
+    OUT last_insert_archivo_recurso_id INT
+
+)
+BEGIN
+	
+	UPDATE archivo_recurso SET
+		nombre = nuevo_archivo_recurso_nombre,
+        descripcion = nuevo_archivo_recurso_descripcion,
+        fecha_modificacion = NOW()
+	WHERE archivo_recurso.id = nuevo_archivo_recurso_id;
+    
+    SET last_insert_archivo_recurso_id = nuevo_archivo_recurso_id;
+    
+    UPDATE herramienta SET
+		nombre = nuevo_archivo_recurso_nombre,
+        descripcion = nuevo_archivo_recurso_descripcion,
+        fecha_modificacion = NOW()
+	WHERE herramienta.recurso_id = nuevo_archivo_recurso_id
+    AND herramienta.recurso_tabla = 'archivo_recurso'
+    ;
+    
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_modificar_glosario_repositorio_troncal`(
 	
     nuevo_glosario_id INT,
@@ -4193,7 +4425,9 @@ BEGIN
         descripcion = nuevo_glosario_descripcion,
         fecha_modificacion = NOW()
 	WHERE herramienta.recurso_id = nuevo_glosario_id
-    AND herramienta.repositorio_id = nuevo_repositorio_id;
+    AND herramienta.repositorio_id = nuevo_repositorio_id
+	AND herramienta.recurso_tabla = 'glosario'
+    ;
     
     
 END$$
@@ -4279,6 +4513,34 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `archivo`
+--
+
+CREATE TABLE IF NOT EXISTS `archivo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) DEFAULT NULL,
+  `mime_type` text,
+  `tamano` int(11) DEFAULT NULL,
+  `ruta` text,
+  `usuario_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `fecha_acceso` datetime DEFAULT NULL,
+  `fecha_eliminacion` datetime DEFAULT NULL,
+  `lectura` tinyint(1) DEFAULT NULL,
+  `escritura` tinyint(1) DEFAULT NULL,
+  `descarga` tinyint(1) DEFAULT NULL,
+  `eliminacion` tinyint(1) DEFAULT NULL,
+  `contenedor_id` int(11) DEFAULT NULL,
+  `contenedor_tabla` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `contenedor_id` (`contenedor_id`),
+  KEY `contenedor_tabla` (`contenedor_tabla`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `archivo_recurso`
 --
 
@@ -4290,7 +4552,9 @@ CREATE TABLE IF NOT EXISTS `archivo_recurso` (
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_elminacion` datetime DEFAULT NULL,
   `fecha_acceso` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `tipo_herramienta_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_archivo_recurso_tipo_herramienta1_idx` (`tipo_herramienta_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -4448,7 +4712,7 @@ CREATE TABLE IF NOT EXISTS `controlador_administrador` (
   `authitem_permiso_administrador_name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_controlador_administrador_authitem_permiso_administrador_idx` (`authitem_permiso_administrador_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4462,7 +4726,7 @@ CREATE TABLE IF NOT EXISTS `controlador_usuario` (
   `authitem_permiso_usuario_name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_controlador_authitem_permiso_usuario1_idx` (`authitem_permiso_usuario_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4483,7 +4747,7 @@ CREATE TABLE IF NOT EXISTS `dato_academico` (
   `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_dato_academico_usuario1_idx` (`usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4506,7 +4770,7 @@ CREATE TABLE IF NOT EXISTS `dato_laboral` (
   `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_dato_laboral_usuario1_idx` (`usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4521,7 +4785,7 @@ CREATE TABLE IF NOT EXISTS `dato_login` (
   PRIMARY KEY (`id`),
   KEY `fk_dato_login_usuario1_idx` (`usuario_id`),
   KEY `fk_dato_login_codigo_seguridad1_idx` (`codigo_seguridad_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4580,7 +4844,7 @@ CREATE TABLE IF NOT EXISTS `dato_personal` (
   `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_dato_personal_usuario1_idx` (`usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=501 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4597,11 +4861,15 @@ CREATE TABLE IF NOT EXISTS `entidad` (
   `institucion_id` int(11) NOT NULL,
   `entidad_id` int(11) DEFAULT NULL,
   `estado_entidad_id` int(11) DEFAULT NULL,
+  `pais_id` int(11) DEFAULT NULL,
+  `region_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_entidad_institucion1_idx` (`institucion_id`),
   KEY `fk_entidad_entidad1_idx` (`entidad_id`),
-  KEY `fk_entidad_estado_entidad1_idx` (`estado_entidad_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+  KEY `fk_entidad_estado_entidad1_idx` (`estado_entidad_id`),
+  KEY `fk_entidad_pais1_idx` (`pais_id`),
+  KEY `fk_entidad_region1_idx` (`region_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4641,7 +4909,7 @@ CREATE TABLE IF NOT EXISTS `estado_codigo_seguridad` (
   `codigo_seguridad_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_estado_codigo_seguridad_codigo_seguridad1_idx` (`codigo_seguridad_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4653,7 +4921,7 @@ CREATE TABLE IF NOT EXISTS `estado_entidad` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `estado` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4665,7 +4933,7 @@ CREATE TABLE IF NOT EXISTS `estado_institucion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `estado` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4677,7 +4945,7 @@ CREATE TABLE IF NOT EXISTS `estado_modulo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `estado` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4689,7 +4957,7 @@ CREATE TABLE IF NOT EXISTS `estado_programa_academico` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `estado` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4701,7 +4969,7 @@ CREATE TABLE IF NOT EXISTS `estado_seccion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `estado` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4783,7 +5051,7 @@ CREATE TABLE IF NOT EXISTS `glosario` (
   `tipo_herramienta_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_glosario_tipo_herramienta1_idx` (`tipo_herramienta_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -4802,7 +5070,7 @@ CREATE TABLE IF NOT EXISTS `glosario_termino_definicion` (
   `glosario_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_glosario_termino_definicion_glosario1_idx` (`glosario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -4833,12 +5101,15 @@ CREATE TABLE IF NOT EXISTS `herramienta` (
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_eliminacion` datetime DEFAULT NULL,
   `recurso_id` int(11) DEFAULT NULL,
+  `recurso_tabla` varchar(255) DEFAULT NULL,
   `repositorio_id` int(11) DEFAULT NULL,
   `tipo_herramienta_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_herramienta_repositorio1_idx` (`repositorio_id`),
-  KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 ;
+  KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`),
+  KEY `recurso_id` (`recurso_id`),
+  KEY `recurso_tabla` (`recurso_tabla`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4852,7 +5123,7 @@ CREATE TABLE IF NOT EXISTS `icono_aplicacion_administrador` (
   `authitem_permiso_administrador_name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_icono_aplicacion_administrador_authitem_permiso_administ_idx` (`authitem_permiso_administrador_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4863,18 +5134,23 @@ CREATE TABLE IF NOT EXISTS `icono_aplicacion_administrador` (
 CREATE TABLE IF NOT EXISTS `institucion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
-  `vision` varchar(45) DEFAULT NULL,
-  `mision` varchar(45) DEFAULT NULL,
+  `sigla` varchar(45) DEFAULT NULL,
+  `vision` text,
+  `mision` text,
   `acreditada` bit(1) DEFAULT NULL,
   `fecha_inicio_acreditacion` datetime DEFAULT NULL,
   `fecha_termino_acreditacion` datetime DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
+  `descripcion` text,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `estado_institucion_id` int(11) DEFAULT NULL,
+  `pais_id` int(11) DEFAULT NULL,
+  `region_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_institucion_estado_institucion1_idx` (`estado_institucion_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+  KEY `fk_institucion_estado_institucion1_idx` (`estado_institucion_id`),
+  KEY `fk_institucion_pais1_idx` (`pais_id`),
+  KEY `fk_institucion_region1_idx` (`region_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4915,14 +5191,14 @@ CREATE TABLE IF NOT EXISTS `link_interes` (
   `titulo` varchar(45) DEFAULT NULL,
   `nombre` varchar(45) DEFAULT NULL,
   `url` varchar(250) DEFAULT NULL,
-  `descripcion` text,
+  `descripcion` tinytext,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_acceso` datetime DEFAULT NULL,
   `tipo_herramienta_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_link_interes_tipo_herramienta1_idx` (`tipo_herramienta_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4974,7 +5250,8 @@ CREATE TABLE IF NOT EXISTS `modelo_aprendizaje_has_herramienta` (
 CREATE TABLE IF NOT EXISTS `modulo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
+  `codigo` varchar(45) DEFAULT NULL,
+  `descripcion` tinytext,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `estado_modulo_id` int(11) DEFAULT NULL,
@@ -4984,7 +5261,7 @@ CREATE TABLE IF NOT EXISTS `modulo` (
   KEY `fk_modulo_estado_modulo1_idx` (`estado_modulo_id`),
   KEY `fk_modulo_entidad1_idx` (`entidad_id`),
   KEY `fk_modulo_institucion1_idx` (`institucion_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4997,7 +5274,7 @@ CREATE TABLE IF NOT EXISTS `pais` (
   `nombre` varchar(45) DEFAULT NULL,
   `codigo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5051,7 +5328,7 @@ CREATE TABLE IF NOT EXISTS `pregunta_login` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pregunta` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5065,7 +5342,7 @@ CREATE TABLE IF NOT EXISTS `privilegio_administrador` (
   `controlador_administrador_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_privilegio_administrador_controlador_administrador1_idx` (`controlador_administrador_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=85 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5079,7 +5356,7 @@ CREATE TABLE IF NOT EXISTS `privilegio_usuario` (
   `controlador_usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_privilegio_controlador_usuario1_idx` (`controlador_usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5101,7 +5378,7 @@ CREATE TABLE IF NOT EXISTS `programa_academico` (
   KEY `fk_programa_academico_entidad1_idx` (`entidad_id`),
   KEY `fk_programa_academico_institucion1_idx` (`institucion_id`),
   KEY `fk_programa_academico_estado_programa_academico1_idx` (`estado_programa_academico_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5164,7 +5441,7 @@ CREATE TABLE IF NOT EXISTS `region` (
   `pais_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_region_pais1_idx` (`pais_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5200,7 +5477,7 @@ CREATE TABLE IF NOT EXISTS `repositorio` (
   KEY `fk_repositorio_tipo_repositorio1_idx` (`tipo_repositorio_id`),
   KEY `fk_repositorio_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`),
   KEY `fk_repositorio_guia_instruccional1_idx` (`guia_instruccional_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='\n	\n	\n	\n\n\n	\n\n	\n	' AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='\n	\n	\n	\n\n\n	\n\n	\n	' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5225,7 +5502,7 @@ CREATE TABLE IF NOT EXISTS `rol_administrador` (
   `nombre` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5273,7 +5550,7 @@ CREATE TABLE IF NOT EXISTS `rol_usuario` (
   `fecha_modificacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `rol_usuario_general_id` (`rol_usuario_general_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=190 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5312,16 +5589,32 @@ CREATE TABLE IF NOT EXISTS `rol_usuario_has_privilegio_usuario` (
 CREATE TABLE IF NOT EXISTS `seccion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
+  `codigo` varchar(45) DEFAULT NULL,
   `jornada` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
+  `descripcion` text,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
-  `modulo_id` int(11) NOT NULL,
   `estado_seccion_id` int(11) DEFAULT NULL,
+  `modulo_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_seccion_modulo1_idx` (`modulo_id`),
-  KEY `fk_seccion_estado_seccion1_idx` (`estado_seccion_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+  KEY `fk_seccion_estado_seccion1_idx` (`estado_seccion_id`),
+  KEY `fk_seccion_modulo1_idx` (`modulo_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_image`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_image` (
+  `id_image` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `title` varchar(45) NOT NULL,
+  `folder` text NOT NULL,
+  `image` text NOT NULL,
+  PRIMARY KEY (`id_image`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5333,7 +5626,7 @@ CREATE TABLE IF NOT EXISTS `tipo_herramienta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5345,7 +5638,7 @@ CREATE TABLE IF NOT EXISTS `tipo_repositorio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='				' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='				' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5380,7 +5673,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `estado_usuario_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_usuario_estado_usuario1_idx` (`estado_usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=236 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5394,7 +5687,7 @@ CREATE TABLE IF NOT EXISTS `usuario_administrador` (
   `clave` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `usuario` (`usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5477,17 +5770,23 @@ CREATE TABLE IF NOT EXISTS `usuario_has_rol_usuario` (
 
 CREATE TABLE IF NOT EXISTS `usuario_has_seccion` (
   `usuario_id` int(11) NOT NULL,
-  `seccion_id` int(11) NOT NULL,
   `rol_usuario_id` int(11) NOT NULL,
-  PRIMARY KEY (`usuario_id`,`seccion_id`,`rol_usuario_id`),
-  KEY `fk_usuario_has_seccion_seccion1_idx` (`seccion_id`),
+  `seccion_id` int(11) NOT NULL,
+  PRIMARY KEY (`usuario_id`,`rol_usuario_id`,`seccion_id`),
   KEY `fk_usuario_has_seccion_usuario1_idx` (`usuario_id`),
-  KEY `fk_usuario_has_seccion_rol_usuario1_idx` (`rol_usuario_id`)
+  KEY `fk_usuario_has_seccion_rol_usuario1_idx` (`rol_usuario_id`),
+  KEY `fk_usuario_has_seccion_seccion1_idx` (`seccion_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `archivo_recurso`
+--
+ALTER TABLE `archivo_recurso`
+  ADD CONSTRAINT `fk_archivo_recurso_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `authassignment_administrador`
@@ -5570,9 +5869,9 @@ ALTER TABLE `dato_personal`
 -- Filtros para la tabla `entidad`
 --
 ALTER TABLE `entidad`
-  ADD CONSTRAINT `fk_entidad_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_entidad_entidad1` FOREIGN KEY (`entidad_id`) REFERENCES `entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_entidad_estado_entidad1` FOREIGN KEY (`estado_entidad_id`) REFERENCES `estado_entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_entidad_estado_entidad1` FOREIGN KEY (`estado_entidad_id`) REFERENCES `estado_entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_entidad_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `escritorio_administrador`
@@ -5609,7 +5908,9 @@ ALTER TABLE `icono_aplicacion_administrador`
 -- Filtros para la tabla `institucion`
 --
 ALTER TABLE `institucion`
-  ADD CONSTRAINT `fk_institucion_estado_institucion1` FOREIGN KEY (`estado_institucion_id`) REFERENCES `estado_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_institucion_estado_institucion1` FOREIGN KEY (`estado_institucion_id`) REFERENCES `estado_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_institucion_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_institucion_region1` FOREIGN KEY (`region_id`) REFERENCES `region` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `institucion_has_repositorio`
@@ -5641,8 +5942,8 @@ ALTER TABLE `modelo_aprendizaje_has_herramienta`
 -- Filtros para la tabla `modulo`
 --
 ALTER TABLE `modulo`
-  ADD CONSTRAINT `fk_modulo_estado_modulo1` FOREIGN KEY (`estado_modulo_id`) REFERENCES `estado_modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_modulo_entidad1` FOREIGN KEY (`entidad_id`) REFERENCES `entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_modulo_estado_modulo1` FOREIGN KEY (`estado_modulo_id`) REFERENCES `estado_modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_modulo_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
@@ -5739,8 +6040,8 @@ ALTER TABLE `rol_usuario_has_privilegio_usuario`
 -- Filtros para la tabla `seccion`
 --
 ALTER TABLE `seccion`
-  ADD CONSTRAINT `fk_seccion_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_seccion_estado_seccion1` FOREIGN KEY (`estado_seccion_id`) REFERENCES `estado_seccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_seccion_estado_seccion1` FOREIGN KEY (`estado_seccion_id`) REFERENCES `estado_seccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_seccion_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario`
@@ -5788,9 +6089,9 @@ ALTER TABLE `usuario_has_rol_usuario`
 -- Filtros para la tabla `usuario_has_seccion`
 --
 ALTER TABLE `usuario_has_seccion`
+  ADD CONSTRAINT `fk_usuario_has_seccion_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_usuario_has_seccion_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_has_seccion_seccion1` FOREIGN KEY (`seccion_id`) REFERENCES `seccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_has_seccion_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_has_seccion_seccion1` FOREIGN KEY (`seccion_id`) REFERENCES `seccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
