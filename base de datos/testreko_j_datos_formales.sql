@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-11-2015 a las 16:47:13
+-- Tiempo de generación: 30-11-2015 a las 15:12:57
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -98,6 +98,15 @@ INSERT INTO `dato_personal` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_
 (506, 'Francisco', 'Francisco', 'Carvajal', 'Carvajal', '2015-11-20 12:53:05', 30, 11111111, 1, 'calle 18', 161, 2147483647, 52072575, 'santiago', 'santiago', 'diseño', 'soltero', 'espanol', 'chilena', 241);
 
 --
+-- Volcado de datos para la tabla `estado_institucion`
+--
+
+INSERT INTO `estado_institucion` (`id`, `estado`) VALUES
+(1, 'disponible'),
+(2, 'prueba'),
+(3, 'eliminado');
+
+--
 -- Volcado de datos para la tabla `estado_modulo`
 --
 
@@ -125,56 +134,100 @@ INSERT INTO `estado_seccion` (`id`, `estado`) VALUES
 (3, 'eliminado');
 
 --
+-- Volcado de datos para la tabla `estado_usuario`
+--
+
+INSERT INTO `estado_usuario` (`id`, `estado`) VALUES
+(1, 'disponible'),
+(2, 'prueba'),
+(3, 'eliminado');
+
+--
 -- Volcado de datos para la tabla `institucion`
 --
 
-INSERT INTO `institucion` (`id`, `nombre`, `vision`, `mision`, `acreditada`, `fecha_inicio_acreditacion`, `fecha_termino_acreditacion`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_institucion_id`) VALUES
-(17, 'Universidad Tecnológica Metropolitana', '\r\nLa Universidad Tecnológica Metropolitana, será r', 'Misión', b'1', '2015-11-20 12:33:15', '2015-11-20 12:33:15', 'descripcion utem', '2015-11-20 12:51:24', NULL, NULL),
-(18, 'duoc', '', '', b'0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '2015-11-20 15:14:13', NULL, NULL);
+INSERT INTO `institucion` (`id`, `nombre`, `sigla`, `vision`, `mision`, `acreditada`, `fecha_inicio_acreditacion`, `fecha_termino_acreditacion`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_institucion_id`, `pais_id`, `region_id`) VALUES
+(1, 'Universidad Tecnológica Metropolitana', 'Utem', 'vision', 'mision', b'1', '2015-11-24 17:15:19', '2015-11-24 17:15:19', 'des-utem', '2015-11-24 17:22:25', '2015-11-25 10:20:17', NULL, NULL, NULL);
 
 --
 -- Volcado de datos para la tabla `institucion_has_rol_usuario`
 --
 
 INSERT INTO `institucion_has_rol_usuario` (`institucion_id`, `rol_usuario_id`) VALUES
-(17, 190),
-(17, 191),
-(17, 192),
-(17, 193),
-(18, 193),
-(17, 194),
-(17, 195),
-(17, 196),
-(17, 197),
-(17, 198),
-(17, 199),
-(18, 201);
+(1, 195),
+(1, 196),
+(1, 197);
+
+--
+-- Volcado de datos para la tabla `modelo_aprendizaje`
+--
+
+INSERT INTO `modelo_aprendizaje` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`) VALUES
+(44, 'Modelo Aprendizaje Full Herramientas', 'Modelo de aprendizaje que posse todas las herramientas disponibles del sistema', NULL, NULL, '2015-11-30 11:49:10', NULL);
+
+--
+-- Volcado de datos para la tabla `modelo_aprendizaje_has_herramienta`
+--
+
+INSERT INTO `modelo_aprendizaje_has_herramienta` (`id`, `trabajo_grupal`, `archivo_recurso`, `link_interes`, `glosario`, `contenido_libre`, `foro`, `evaluacion`, `autoevaluacion`, `proyecto`, `recepcion_trabajo`, `evaluacion_no_objetiva`, `modelo_aprendizaje_id`) VALUES
+(40, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 44);
 
 --
 -- Volcado de datos para la tabla `modulo`
 --
 
-INSERT INTO `modulo` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_modulo_id`, `entidad_id`, `institucion_id`) VALUES
-(9, 'Apresto uso plataforma', 'des-Apresto-uso-plataforma', '2015-11-20 16:08:35', NULL, 1, NULL, 17),
-(10, 'Determinacion huella de carbono', 'des-Determinacion-huella-de-carbono', '2015-11-20 16:09:19', NULL, 1, NULL, 17),
-(11, 'Determinacion huella hidrica', 'des-Determinacion-huella-hidrica', '2015-11-20 16:10:10', NULL, 1, NULL, 17),
-(12, 'Apresto plataforma', 'des-Apresto-plataforma', '2015-11-20 16:10:42', NULL, 1, NULL, 18);
+INSERT INTO `modulo` (`id`, `nombre`, `codigo`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_modulo_id`, `entidad_id`, `institucion_id`) VALUES
+(9, 'Apresto uso plataforma', NULL, 'des-Apresto-uso-plataforma', '2015-11-20 16:08:35', NULL, 1, NULL, NULL),
+(10, 'Determinacion huella de carbono', NULL, 'des-Determinacion-huella-de-carbono', '2015-11-20 16:09:19', NULL, 1, NULL, NULL),
+(11, 'Determinacion huella hidrica', NULL, 'des-Determinacion-huella-hidrica', '2015-11-20 16:10:10', NULL, 1, NULL, NULL),
+(12, 'Apresto plataforma', NULL, 'des-Apresto-plataforma', '2015-11-20 16:10:42', NULL, 1, NULL, NULL),
+(13, NULL, NULL, NULL, '2015-11-25 11:42:26', NULL, 3, NULL, NULL),
+(14, NULL, NULL, NULL, '2015-11-25 11:47:15', NULL, 3, NULL, NULL),
+(15, 'ola', 'ola', 'ola', '2015-11-25 11:47:29', NULL, 1, NULL, 1);
+
+--
+-- Volcado de datos para la tabla `pais`
+--
+
+INSERT INTO `pais` (`id`, `nombre`, `codigo`) VALUES
+(2, 'argentina', 'arg123');
 
 --
 -- Volcado de datos para la tabla `programa_academico`
 --
 
 INSERT INTO `programa_academico` (`id`, `nombre`, `descripcion`, `version`, `fecha_creacion`, `fecha_modificacion`, `entidad_id`, `institucion_id`, `estado_programa_academico_id`) VALUES
-(8, 'Ingenieria en subtentabilidad', 'des-Ingenieria-en-subtentabilidad', '1.0', '2015-11-20 16:07:33', NULL, NULL, 17, 1);
+(8, 'Ingenieria en subtentabilidad', 'des-Ingenieria-en-subtentabilidad', '1.0', '2015-11-20 16:07:33', '2015-11-26 11:53:26', NULL, 1, 1),
+(9, 'Ingenieria en informatica', 'des-Ingenieria-en-informatica', '1.0', '2015-11-26 11:50:15', '2015-11-26 11:53:43', NULL, 1, 1),
+(10, 'Diseño', 'des-diseño', '1.0', '2015-11-26 11:50:39', '2015-11-26 11:53:50', NULL, 1, 1),
+(11, 'derecho', 'des-derecho', '1.0', '2015-11-26 11:50:56', NULL, NULL, NULL, 1),
+(12, 'Ingenieria en redes', 'des-Ingenieria-en-redes', '1.0', '2015-11-26 11:51:31', NULL, NULL, NULL, 1);
+
+--
+-- Volcado de datos para la tabla `programa_academico_has_modulo`
+--
+
+INSERT INTO `programa_academico_has_modulo` (`programa_academico_id`, `modulo_id`) VALUES
+(8, 9),
+(8, 10),
+(8, 11),
+(8, 12),
+(8, 15);
 
 --
 -- Volcado de datos para la tabla `reko_session`
 --
 
 INSERT INTO `reko_session` (`id`, `expire`, `data`) VALUES
-('6omkpt95pn065204prfu4r40j3', 1448049396, 0x30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a333a22323438223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d696e737469747563696f6e49647c733a323a223137223b696e737469747563696f6e4e6f6d6272657c733a33383a22556e697665727369646164205465636e6f6cc3b367696361204d6574726f706f6c6974616e61223b696e737469747563696f6e566973696f6e7c733a35323a220d0a4c6120556e697665727369646164205465636e6f6cc3b367696361204d6574726f706f6c6974616e612c20736572c3a12072223b696e737469747563696f6e4d6973696f6e7c733a373a224d697369c3b36e223b696e737469747563696f6e416372656469746164617c733a313a2231223b696e737469747563696f6e4665636861496e6963696f416372656469746163696f6e7c733a31393a22323031352d31312d32302031323a33333a3135223b696e737469747563696f6e46656368615465726d696e6f416372656469746163696f6e7c733a31393a22323031352d31312d32302031323a33333a3135223b),
-('jk66nsto64vid87fpof1hloje3', 1448050157, 0x30373333353130383865316330316231363262316162353236386465653766615f5f72657475726e55726c7c733a33363a222f7465737472656b6f2f61756c612f61756c612f6c69737461646f50726f6772616d6173223b30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a333a22323438223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d696e737469747563696f6e49647c733a323a223137223b696e737469747563696f6e4e6f6d6272657c733a33383a22556e697665727369646164205465636e6f6cc3b367696361204d6574726f706f6c6974616e61223b696e737469747563696f6e566973696f6e7c733a35323a220d0a4c6120556e697665727369646164205465636e6f6cc3b367696361204d6574726f706f6c6974616e612c20736572c3a12072223b696e737469747563696f6e4d6973696f6e7c733a373a224d697369c3b36e223b696e737469747563696f6e416372656469746164617c733a313a2231223b696e737469747563696f6e4665636861496e6963696f416372656469746163696f6e7c733a31393a22323031352d31312d32302031323a33333a3135223b696e737469747563696f6e46656368615465726d696e6f416372656469746163696f6e7c733a31393a22323031352d31312d32302031323a33333a3135223b),
-('vn6vmk38m3iao0rhtqdm39a555', 1448049799, 0x30373333353130383865316330316231363262316162353236386465653766615f5f72657475726e55726c7c733a33363a222f7465737472656b6f2f61756c612f61756c612f6c69737461646f50726f6772616d6173223b30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a333a22323438223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d696e737469747563696f6e49647c733a323a223137223b696e737469747563696f6e4e6f6d6272657c733a33383a22556e697665727369646164205465636e6f6cc3b367696361204d6574726f706f6c6974616e61223b696e737469747563696f6e566973696f6e7c733a35323a220d0a4c6120556e697665727369646164205465636e6f6cc3b367696361204d6574726f706f6c6974616e612c20736572c3a12072223b696e737469747563696f6e4d6973696f6e7c733a373a224d697369c3b36e223b696e737469747563696f6e416372656469746164617c733a313a2231223b696e737469747563696f6e4665636861496e6963696f416372656469746163696f6e7c733a31393a22323031352d31312d32302031323a33333a3135223b696e737469747563696f6e46656368615465726d696e6f416372656469746163696f6e7c733a31393a22323031352d31312d32302031323a33333a3135223b);
+('go9fohsknnob19jdvc5b5d2895', 1451485690, 0x30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a333a22323438223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d),
+('mm68sh5t6r8fmfngagt34go890', 1451486800, 0x30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a333a22323438223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d);
+
+--
+-- Volcado de datos para la tabla `repositorio`
+--
+
+INSERT INTO `repositorio` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `tipo_repositorio_id`, `modelo_aprendizaje_id`, `guia_instruccional_id`) VALUES
+(1, 'A reposiorio', 'A repositorio descripcion', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 44, NULL);
 
 --
 -- Volcado de datos para la tabla `rol_administrador`
@@ -241,8 +294,20 @@ INSERT INTO `rol_usuario_has_authitem_permiso_usuario` (`rol_usuario_id`, `authi
 -- Volcado de datos para la tabla `seccion`
 --
 
-INSERT INTO `seccion` (`id`, `nombre`, `jornada`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `modulo_id`, `estado_seccion_id`) VALUES
-(1, 'seccion-1', 'diurna', 'des-seccion', NULL, NULL, 9, 1);
+INSERT INTO `seccion` (`id`, `nombre`, `codigo`, `jornada`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_seccion_id`, `modulo_id`) VALUES
+(6, 'seccion 8', 'dfdsfdsf', 'sdfsdfsfd', 'dfsdfsdfsdf', '2015-11-25 12:32:04', '2015-11-25 12:34:07', NULL, 15),
+(9, 'sadsad', 'sadsadas', 'asdsada', 'asdsadsad', '2015-11-25 16:56:09', NULL, 1, 9),
+(11, 'sadsad', 'sadsadas', 'asdsada', 'asdsadsad', '2015-11-25 16:56:52', NULL, 1, 10),
+(13, 'seccion13', 'seccion13', 'vespertina', 'rtrtrtretre', '2015-11-25 17:04:11', '2015-11-25 17:07:26', NULL, 15),
+(16, 'sdsdsadsadjhsajdh', 'sjhdkjsahdksak', 'sajkhdkjsadhskadkh', 'sakjhdkjsahdkjsadk', '2015-11-25 17:09:43', NULL, 3, 9),
+(21, 'ioiorueour', 'wiouewueqouo', 'wqueiu', 'wueweio', '2015-11-26 10:40:32', '2015-11-26 10:50:02', 3, 12);
+
+--
+-- Volcado de datos para la tabla `tipo_repositorio`
+--
+
+INSERT INTO `tipo_repositorio` (`id`, `descripcion`) VALUES
+(1, 'troncal');
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -263,7 +328,8 @@ INSERT INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modifica
 (247, 'msanhueza', '123', NULL, NULL, '2015-11-20 12:56:21', NULL),
 (248, 'creyes', '123', NULL, NULL, '2015-11-20 12:56:52', NULL),
 (249, 'hugo', '123', NULL, NULL, '2015-11-20 15:14:42', NULL),
-(250, 'jperez', '123', NULL, NULL, '2015-11-20 15:54:15', NULL);
+(250, 'jperez', '123', NULL, NULL, '2015-11-20 15:54:15', NULL),
+(251, 'sdsdsad', 'sdsadd', NULL, NULL, '2015-11-24 11:55:22', NULL);
 
 --
 -- Volcado de datos para la tabla `usuario_administrador`
@@ -284,34 +350,31 @@ INSERT INTO `usuario_administrador_has_rol_administrador` (`usuario_administrado
 --
 
 INSERT INTO `usuario_has_institucion` (`usuario_id`, `institucion_id`) VALUES
-(244, 17),
-(245, 17),
-(246, 17),
-(247, 17),
-(248, 17),
-(236, 17),
-(249, 18),
-(237, 17),
-(238, 17),
-(239, 17),
-(240, 17),
-(241, 17),
-(242, 17),
-(243, 17),
-(250, 18);
+(236, 1),
+(237, 1),
+(238, 1),
+(239, 1),
+(240, 1),
+(241, 1);
 
 --
 -- Volcado de datos para la tabla `usuario_has_modulo`
 --
 
 INSERT INTO `usuario_has_modulo` (`usuario_id`, `modulo_id`, `rol_usuario_id`) VALUES
-(248, 9, 198);
+(248, 9, 198),
+(236, 15, 195),
+(236, 15, 196),
+(236, 15, 197);
 
 --
 -- Volcado de datos para la tabla `usuario_has_programa_academico`
 --
 
 INSERT INTO `usuario_has_programa_academico` (`usuario_id`, `programa_academico_id`, `rol_usuario_id`) VALUES
+(236, 8, 195),
+(236, 8, 196),
+(236, 8, 197),
 (248, 8, 198);
 
 --
@@ -319,19 +382,16 @@ INSERT INTO `usuario_has_programa_academico` (`usuario_id`, `programa_academico_
 --
 
 INSERT INTO `usuario_has_rol_usuario` (`usuario_id`, `rol_usuario_id`) VALUES
-(236, 198),
-(237, 198),
-(238, 198),
-(239, 198),
-(240, 198),
-(241, 198),
-(242, 198),
-(243, 198),
-(244, 198),
-(245, 198),
-(246, 198),
-(247, 198),
-(248, 198);
+(236, 195),
+(236, 196),
+(236, 197);
+
+--
+-- Volcado de datos para la tabla `usuario_has_seccion`
+--
+
+INSERT INTO `usuario_has_seccion` (`usuario_id`, `rol_usuario_id`, `seccion_id`) VALUES
+(236, 195, 6);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
