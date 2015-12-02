@@ -23,6 +23,8 @@ class UsuarioHasInstitucionController extends Controller {
             $idInstitucion = $_GET['id'];
         }
         
+        
+        
         $listado = $modelo->listaInstitucionUsuario($idInstitucion);
        
             

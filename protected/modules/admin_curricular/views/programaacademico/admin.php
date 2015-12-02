@@ -44,7 +44,7 @@ $(document).ready(function() {
                         <td><?php echo $programa['fecha_creacion']?></td>
                         <td><?php echo $programa['fecha_modificacion']?></td>
                         <td><?php echo $programa['entidad_id'] ? : $programa['entidad_id'] = $vacioEntidad ?></td>
-                        <td><?php echo $programa['institucion_id'] ? : $programa['institucion_id'] = $vacioInstitucion ?></td>
+                        <td><?php echo $programa['nombre_institucion'] ? : $programa['institucion_id'] = $vacioInstitucion ?></td>
                         <td><?php echo $programa['estado'] ? : $programa['estado'] = $vacioEstado ?></td>
                         <td>                                        
                             <?php 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 30-11-2015 a las 14:02:56
+-- Tiempo de generación: 02-12-2015 a las 10:06:57
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -1127,19 +1127,41 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_listar_programas_academicos_por_estado`()
 BEGIN
-	SELECT A.*,B.estado
+	SELECT 
+		A.*,
+        B.estado,
+        C.nombre as nombre_institucion
 
 		FROM 
 			 programa_academico A,
-			 estado_programa_academico B
+			 estado_programa_academico B,
+             institucion C
 			 
 		WHERE A.estado_programa_academico_id = B.id
-		AND  A.estado_programa_academico_id !=3
+        AND   A.institucion_id = C.id
+		AND   A.estado_programa_academico_id !=3
+        
 		
-		UNION SELECT A.*,B.estado
-				FROM 
-					programa_academico A LEFT JOIN estado_programa_academico B ON A.estado_programa_academico_id = B.id
-				WHERE A.estado_programa_academico_id IS NULL;
+		UNION SELECT 
+				A.*,
+                B.estado,
+				C.nombre as nombre_institucion
+				
+                FROM 
+					programa_academico A LEFT JOIN estado_programa_academico B ON A.estado_programa_academico_id = B.id,
+                    institucion C
+                    				
+                WHERE A.estado_programa_academico_id IS NULL
+                
+			UNION SELECT 
+				A.*,
+                null,
+				B.nombre as nombre_institucion
+				
+                FROM 
+					programa_academico A LEFT JOIN institucion B ON A.institucion_id = B.id
+                WHERE A.institucion_id IS NULL;
+
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_curricular_listar_programas_por_institucion`(nuevo_id int)
@@ -3834,11 +3856,32 @@ BEGIN
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_lista_institucion_usuario`(nuevo_institucion_id int(11))
 BEGIN
-SELECT A.nombre,B.institucion_id, B.usuario_id,C.usuario FROM `institucion` A, `usuario_has_institucion` B, `usuario` C 
-WHERE A.id = B.institucion_id
-AND A.id = nuevo_institucion_id UNION SELECT null,null,A.id,A.usuario FROM (`usuario` A LEFT JOIN `usuario_has_institucion` B ON A.id = B.usuario_id AND B.institucion_id = nuevo_institucion_id)
-WHERE B.usuario_id is NULL
-order by usuario_id asc;
+	SELECT 
+		A.nombre,
+		B.institucion_id, 
+        B.usuario_id,
+        C.usuario
+	
+    FROM 
+		`institucion` A, 
+        `usuario_has_institucion` B,
+        usuario C
+
+	WHERE A.id = B.institucion_id
+    AND  C.id = B.usuario_id
+	AND A.id = nuevo_institucion_id
+ 
+	UNION 
+		SELECT 	null,
+				null,
+                A.id,
+                A.usuario
+		
+        FROM (`usuario` A LEFT JOIN `usuario_has_institucion` B ON A.id = B.usuario_id AND B.institucion_id = nuevo_institucion_id)
+        
+        WHERE B.usuario_id is NULL
+		order by usuario_id asc;
+
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_usuario_lista_usuario_estado`(nuevo_usuario_id int(11))
@@ -4536,7 +4579,15 @@ CREATE TABLE IF NOT EXISTS `archivo` (
   PRIMARY KEY (`id`),
   KEY `contenedor_id` (`contenedor_id`),
   KEY `contenedor_tabla` (`contenedor_tabla`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `archivo`
+--
+
+INSERT INTO `archivo` (`id`, `nombre`, `mime_type`, `tamano`, `ruta`, `usuario_id`, `fecha_creacion`, `fecha_modificacion`, `fecha_acceso`, `fecha_eliminacion`, `lectura`, `escritura`, `descarga`, `eliminacion`, `contenedor_id`, `contenedor_tabla`) VALUES
+(1, '952841-Modelo de probabilidad Normal.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 24435, '/reko-archivos/Universidad Tecnológica Metropolitana/repositorio-id-1/glosario/glosario-id-6/', 248, '2015-12-01 11:57:38', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6, 'glosario'),
+(2, '431567-Modelo de probabilidad Normal.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 24435, '/reko-archivos/Universidad Tecnológica Metropolitana/repositorio-id-1/archivo_recurso/archivo_recurso-id-1/', 248, '2015-12-01 11:58:37', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'archivo_recurso');
 
 -- --------------------------------------------------------
 
@@ -4555,7 +4606,14 @@ CREATE TABLE IF NOT EXISTS `archivo_recurso` (
   `tipo_herramienta_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_archivo_recurso_tipo_herramienta1_idx` (`tipo_herramienta_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `archivo_recurso`
+--
+
+INSERT INTO `archivo_recurso` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_elminacion`, `fecha_acceso`, `tipo_herramienta_id`) VALUES
+(1, 'archivo_recurso_1', 'des-archivo_recurso_1', '2015-12-01 11:58:23', NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -4778,7 +4836,15 @@ CREATE TABLE IF NOT EXISTS `controlador_usuario` (
   `authitem_permiso_usuario_name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_controlador_authitem_permiso_usuario1_idx` (`authitem_permiso_usuario_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `controlador_usuario`
+--
+
+INSERT INTO `controlador_usuario` (`id`, `nombre`, `authitem_permiso_usuario_name`) VALUES
+(1, 'Default', 'aula'),
+(2, 'Default', 'repositorio');
 
 -- --------------------------------------------------------
 
@@ -5173,7 +5239,14 @@ CREATE TABLE IF NOT EXISTS `glosario` (
   `tipo_herramienta_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_glosario_tipo_herramienta1_idx` (`tipo_herramienta_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Volcado de datos para la tabla `glosario`
+--
+
+INSERT INTO `glosario` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_eliminacion`, `fecha_acceso`, `tipo_herramienta_id`) VALUES
+(6, 'glosario1', 'glosario1', '2015-12-01 11:55:55', NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -5192,7 +5265,14 @@ CREATE TABLE IF NOT EXISTS `glosario_termino_definicion` (
   `glosario_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_glosario_termino_definicion_glosario1_idx` (`glosario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `glosario_termino_definicion`
+--
+
+INSERT INTO `glosario_termino_definicion` (`id`, `termino`, `definicion`, `fecha_creacion`, `fecha_modificacion`, `fecha_acceso`, `fecha_eliminacion`, `glosario_id`) VALUES
+(7, 'termino1', 'deficion1', '2015-12-01 11:56:52', NULL, NULL, NULL, 6);
 
 -- --------------------------------------------------------
 
@@ -5231,7 +5311,18 @@ CREATE TABLE IF NOT EXISTS `herramienta` (
   KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`),
   KEY `recurso_id` (`recurso_id`),
   KEY `recurso_tabla` (`recurso_tabla`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `herramienta`
+--
+
+INSERT INTO `herramienta` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `recurso_id`, `recurso_tabla`, `repositorio_id`, `tipo_herramienta_id`) VALUES
+(1, 'glosario1', 'glosario1', NULL, NULL, '2015-12-01 11:55:55', NULL, 6, 'glosario', 1, 1),
+(2, 'skljdsadjkl', 'skljdsadjkl', NULL, '2015-12-01 12:00:27', '2015-12-01 11:58:23', NULL, 1, 'archivo_recurso', 1, 1),
+(3, 'skljdsadjkl', 'skljdsadjkl', NULL, '2015-12-01 12:00:27', '2015-12-01 11:59:55', NULL, 1, NULL, 1, 1),
+(4, 'osodosdo', 'osodosdo', NULL, '2015-12-02 09:51:24', '2015-12-02 09:42:48', NULL, 2, NULL, 1, 1),
+(5, 'sdad', 'sasddsdsdsadsadsadsadsaddsssd', NULL, NULL, '2015-12-02 09:49:24', NULL, 3, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5295,6 +5386,13 @@ CREATE TABLE IF NOT EXISTS `institucion_has_repositorio` (
   KEY `fk_institucion_has_repositorio_institucion1_idx` (`institucion_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `institucion_has_repositorio`
+--
+
+INSERT INTO `institucion_has_repositorio` (`institucion_id`, `repositorio_id`) VALUES
+(1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -5302,8 +5400,8 @@ CREATE TABLE IF NOT EXISTS `institucion_has_repositorio` (
 --
 
 CREATE TABLE IF NOT EXISTS `institucion_has_rol_usuario` (
-  `institucion_id` int(11) NOT NULL,
-  `rol_usuario_id` int(11) NOT NULL,
+  `institucion_id` int(11) NOT NULL DEFAULT '0',
+  `rol_usuario_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`institucion_id`,`rol_usuario_id`),
   KEY `fk_institucion_has_rol_usuario_rol_usuario1_idx` (`rol_usuario_id`),
   KEY `fk_institucion_has_rol_usuario_institucion1_idx` (`institucion_id`)
@@ -5314,9 +5412,8 @@ CREATE TABLE IF NOT EXISTS `institucion_has_rol_usuario` (
 --
 
 INSERT INTO `institucion_has_rol_usuario` (`institucion_id`, `rol_usuario_id`) VALUES
-(1, 195),
-(1, 196),
-(1, 197);
+(1, 1),
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -5333,10 +5430,19 @@ CREATE TABLE IF NOT EXISTS `link_interes` (
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_acceso` datetime DEFAULT NULL,
-  `tipo_herramienta_id` int(11) NOT NULL,
+  `tipo_herramienta_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_link_interes_tipo_herramienta1_idx` (`tipo_herramienta_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `link_interes`
+--
+
+INSERT INTO `link_interes` (`id`, `titulo`, `nombre`, `url`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_acceso`, `tipo_herramienta_id`) VALUES
+(1, 'kljskljadkljsadjkl', 'skljdsadjkl', 'https://', 'mnmmmmnn,m,', '2015-12-01 11:59:54', '2015-12-01 12:00:27', NULL, 1),
+(2, 'aoaoaoo', 'osodosdo', 'https://', 'hola mundo', '2015-12-02 09:42:48', '2015-12-02 09:51:24', NULL, 1),
+(3, 'sasasasad', 'sdad', 'https://dssas', 'sasddsdsdsadsadsadsadsaddsssd', '2015-12-02 09:49:24', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -5353,7 +5459,14 @@ CREATE TABLE IF NOT EXISTS `modelo_aprendizaje` (
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_eliminacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='			' AUTO_INCREMENT=44 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='			' AUTO_INCREMENT=45 ;
+
+--
+-- Volcado de datos para la tabla `modelo_aprendizaje`
+--
+
+INSERT INTO `modelo_aprendizaje` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`) VALUES
+(44, 'modelo-full', 'des-modelo-full', NULL, NULL, '2015-11-30 16:09:24', NULL);
 
 -- --------------------------------------------------------
 
@@ -5377,7 +5490,14 @@ CREATE TABLE IF NOT EXISTS `modelo_aprendizaje_has_herramienta` (
   `modelo_aprendizaje_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_modelo_aprendizaje_has_herramienta_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='	' AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='	' AUTO_INCREMENT=41 ;
+
+--
+-- Volcado de datos para la tabla `modelo_aprendizaje_has_herramienta`
+--
+
+INSERT INTO `modelo_aprendizaje_has_herramienta` (`id`, `trabajo_grupal`, `archivo_recurso`, `link_interes`, `glosario`, `contenido_libre`, `foro`, `evaluacion`, `autoevaluacion`, `proyecto`, `recepcion_trabajo`, `evaluacion_no_objetiva`, `modelo_aprendizaje_id`) VALUES
+(40, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 44);
 
 -- --------------------------------------------------------
 
@@ -5514,7 +5634,15 @@ CREATE TABLE IF NOT EXISTS `privilegio_usuario` (
   `controlador_usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_privilegio_controlador_usuario1_idx` (`controlador_usuario_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `privilegio_usuario`
+--
+
+INSERT INTO `privilegio_usuario` (`id`, `nombre`, `controlador_usuario_id`) VALUES
+(1, 'index', 1),
+(2, 'index', 2);
 
 -- --------------------------------------------------------
 
@@ -5641,7 +5769,11 @@ CREATE TABLE IF NOT EXISTS `reko_session` (
 --
 
 INSERT INTO `reko_session` (`id`, `expire`, `data`) VALUES
-('k736161fg7nmcmt4ordv5e86s2', 1448564449, 0x30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a333a22323438223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d);
+('18pmg9ggn45hmu67tfsgu9q7u6', 1451592075, 0x30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a333a22323438223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d696e737469747563696f6e49647c733a313a2231223b696e737469747563696f6e4e6f6d6272657c733a33383a22556e697665727369646164205465636e6f6cc3b367696361204d6574726f706f6c6974616e61223b696e737469747563696f6e566973696f6e7c733a363a22766973696f6e223b696e737469747563696f6e4d6973696f6e7c733a363a226d6973696f6e223b696e737469747563696f6e416372656469746164617c733a313a2231223b696e737469747563696f6e4665636861496e6963696f416372656469746163696f6e7c733a31393a22323031352d31312d32342031373a31353a3139223b696e737469747563696f6e46656368615465726d696e6f416372656469746163696f6e7c733a31393a22323031352d31312d32342031373a31353a3139223b),
+('6i1iguo8dphbs5849uk1dhidc5', 1449061592, 0x30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a333a22323337223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a226a6c6f70657a223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d696e737469747563696f6e49647c733a313a2231223b696e737469747563696f6e4e6f6d6272657c733a33383a22556e697665727369646164205465636e6f6cc3b367696361204d6574726f706f6c6974616e61223b696e737469747563696f6e566973696f6e7c733a363a22766973696f6e223b696e737469747563696f6e4d6973696f6e7c733a363a226d6973696f6e223b696e737469747563696f6e416372656469746164617c733a313a2231223b696e737469747563696f6e4665636861496e6963696f416372656469746163696f6e7c733a31393a22323031352d31312d32342031373a31353a3139223b696e737469747563696f6e46656368615465726d696e6f416372656469746163696f6e7c733a31393a22323031352d31312d32342031373a31353a3139223b),
+('c1jm7hmu6rgesmli99p3mb4sd4', 1449061608, 0x30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a333a22323438223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d696e737469747563696f6e49647c733a313a2231223b696e737469747563696f6e4e6f6d6272657c733a33383a22556e697665727369646164205465636e6f6cc3b367696361204d6574726f706f6c6974616e61223b696e737469747563696f6e566973696f6e7c733a363a22766973696f6e223b696e737469747563696f6e4d6973696f6e7c733a363a226d6973696f6e223b696e737469747563696f6e416372656469746164617c733a313a2231223b696e737469747563696f6e4665636861496e6963696f416372656469746163696f6e7c733a31393a22323031352d31312d32342031373a31353a3139223b696e737469747563696f6e46656368615465726d696e6f416372656469746163696f6e7c733a31393a22323031352d31312d32342031373a31353a3139223b),
+('k0uij5hoh6lvn5pcsnqlg46sc1', 1449061582, 0x30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a333a22323336223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a383a22646d6f72616c6573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d),
+('leocktimso2uv1vfska7bhqc82', 1451591191, 0x30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a333a22323438223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d696e737469747563696f6e49647c733a313a2231223b696e737469747563696f6e4e6f6d6272657c733a33383a22556e697665727369646164205465636e6f6cc3b367696361204d6574726f706f6c6974616e61223b696e737469747563696f6e566973696f6e7c733a363a22766973696f6e223b696e737469747563696f6e4d6973696f6e7c733a363a226d6973696f6e223b696e737469747563696f6e416372656469746164617c733a313a2231223b696e737469747563696f6e4665636861496e6963696f416372656469746163696f6e7c733a31393a22323031352d31312d32342031373a31353a3139223b696e737469747563696f6e46656368615465726d696e6f416372656469746163696f6e7c733a31393a22323031352d31312d32342031373a31353a3139223b);
 
 -- --------------------------------------------------------
 
@@ -5664,7 +5796,14 @@ CREATE TABLE IF NOT EXISTS `repositorio` (
   KEY `fk_repositorio_tipo_repositorio1_idx` (`tipo_repositorio_id`),
   KEY `fk_repositorio_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`),
   KEY `fk_repositorio_guia_instruccional1_idx` (`guia_instruccional_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='\n	\n	\n	\n\n\n	\n\n	\n	' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='\n	\n	\n	\n\n\n	\n\n	\n	' AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `repositorio`
+--
+
+INSERT INTO `repositorio` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `tipo_repositorio_id`, `modelo_aprendizaje_id`, `guia_instruccional_id`) VALUES
+(1, 'repositorio-full', 'des-repositorio-full', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 44, NULL);
 
 -- --------------------------------------------------------
 
@@ -5765,24 +5904,15 @@ CREATE TABLE IF NOT EXISTS `rol_usuario` (
   `fecha_modificacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `rol_usuario_general_id` (`rol_usuario_general_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=202 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `rol_usuario`
 --
 
 INSERT INTO `rol_usuario` (`id`, `nombre`, `descripcion`, `tipo`, `rol_usuario_general_id`, `fecha_creacion`, `fecha_eliminacion`, `fecha_acceso`, `fecha_modificacion`) VALUES
-(190, 'tutor academico', 'des-tutor-academico', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
-(191, 'tutor ayundante', 'des-tutor-ayundante', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
-(192, 'tutor auxiliar', 'des-tutor-auxiliar', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
-(193, 'alumno', 'des-alumno', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
-(194, 'tutor seguimiento', 'des-tutor-seguimiento', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
-(195, 'tutor academico', 'des-tutor-academico', 'rol_usuario_institucion', 190, '2015-11-20 13:14:57', NULL, NULL, '2015-11-20 13:14:57'),
-(196, 'tutor ayundante', 'des-tutor-ayundante', 'rol_usuario_institucion', 191, '2015-11-20 13:14:57', NULL, NULL, '2015-11-20 13:14:57'),
-(197, 'tutor auxiliar', 'des-tutor-auxiliar', 'rol_usuario_institucion', 192, '2015-11-20 13:14:57', NULL, NULL, '2015-11-20 13:14:57'),
-(198, 'alumno', 'des-alumno', 'rol_usuario_institucion', 193, '2015-11-20 13:14:57', NULL, NULL, '2015-11-20 13:14:57'),
-(199, 'tutor seguimiento', 'des-tutor-seguimiento', 'rol_usuario_institucion', 194, '2015-11-20 13:14:58', NULL, NULL, '2015-11-20 13:14:58'),
-(201, 'alumno', 'des-alumno', 'rol_usuario_institucion', 193, '2015-11-20 15:54:48', NULL, NULL, '2015-11-20 15:54:48');
+(1, 'superadministrador', 'descripcion superadministrador', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
+(2, 'superadministrador', 'descripcion superadministrador', 'rol_usuario_institucion', 1, '2015-12-01 16:11:26', NULL, NULL, '2015-12-01 16:11:26');
 
 -- --------------------------------------------------------
 
@@ -5791,8 +5921,8 @@ INSERT INTO `rol_usuario` (`id`, `nombre`, `descripcion`, `tipo`, `rol_usuario_g
 --
 
 CREATE TABLE IF NOT EXISTS `rol_usuario_has_authitem_permiso_usuario` (
-  `rol_usuario_id` int(11) NOT NULL,
-  `authitem_permiso_usuario_name` varchar(64) NOT NULL,
+  `rol_usuario_id` int(11) NOT NULL DEFAULT '0',
+  `authitem_permiso_usuario_name` varchar(64) NOT NULL DEFAULT '',
   PRIMARY KEY (`rol_usuario_id`,`authitem_permiso_usuario_name`),
   KEY `fk_rol_usuario_has_authitem_permiso_usuario_authitem_permis_idx` (`authitem_permiso_usuario_name`),
   KEY `fk_rol_usuario_has_authitem_permiso_usuario_rol_usuario1_idx` (`rol_usuario_id`)
@@ -5803,16 +5933,10 @@ CREATE TABLE IF NOT EXISTS `rol_usuario_has_authitem_permiso_usuario` (
 --
 
 INSERT INTO `rol_usuario_has_authitem_permiso_usuario` (`rol_usuario_id`, `authitem_permiso_usuario_name`) VALUES
-(190, 'aula'),
-(191, 'aula'),
-(192, 'aula'),
-(193, 'aula'),
-(194, 'aula'),
-(195, 'aula'),
-(196, 'aula'),
-(197, 'aula'),
-(199, 'aula'),
-(201, 'aula');
+(1, 'aula'),
+(1, 'repositorio'),
+(2, 'aula'),
+(2, 'repositorio');
 
 -- --------------------------------------------------------
 
@@ -5827,6 +5951,16 @@ CREATE TABLE IF NOT EXISTS `rol_usuario_has_privilegio_usuario` (
   KEY `fk_rol_usuario_has_privilegio_usuario_privilegio_usuario1_idx` (`privilegio_usuario_id`),
   KEY `fk_rol_usuario_has_privilegio_usuario_rol_usuario1_idx` (`rol_usuario_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `rol_usuario_has_privilegio_usuario`
+--
+
+INSERT INTO `rol_usuario_has_privilegio_usuario` (`rol_usuario_id`, `privilegio_usuario_id`) VALUES
+(1, 1),
+(2, 1),
+(1, 2),
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -5886,7 +6020,14 @@ CREATE TABLE IF NOT EXISTS `tipo_herramienta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `tipo_herramienta`
+--
+
+INSERT INTO `tipo_herramienta` (`id`, `nombre`) VALUES
+(1, 'herramienta_troncal');
 
 -- --------------------------------------------------------
 
@@ -5898,7 +6039,14 @@ CREATE TABLE IF NOT EXISTS `tipo_repositorio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='				' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='				' AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `tipo_repositorio`
+--
+
+INSERT INTO `tipo_repositorio` (`id`, `descripcion`) VALUES
+(1, 'repositorio_troncal');
 
 -- --------------------------------------------------------
 
@@ -6022,7 +6170,8 @@ INSERT INTO `usuario_has_institucion` (`usuario_id`, `institucion_id`) VALUES
 (238, 1),
 (239, 1),
 (240, 1),
-(241, 1);
+(241, 1),
+(248, 1);
 
 -- --------------------------------------------------------
 
@@ -6031,9 +6180,9 @@ INSERT INTO `usuario_has_institucion` (`usuario_id`, `institucion_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `usuario_has_modulo` (
-  `usuario_id` int(11) NOT NULL,
-  `modulo_id` int(11) NOT NULL,
-  `rol_usuario_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL DEFAULT '0',
+  `modulo_id` int(11) NOT NULL DEFAULT '0',
+  `rol_usuario_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`usuario_id`,`modulo_id`,`rol_usuario_id`),
   KEY `fk_usuario_has_modulo_modulo1_idx` (`modulo_id`),
   KEY `fk_usuario_has_modulo_usuario1_idx` (`usuario_id`),
@@ -6057,9 +6206,9 @@ INSERT INTO `usuario_has_modulo` (`usuario_id`, `modulo_id`, `rol_usuario_id`) V
 --
 
 CREATE TABLE IF NOT EXISTS `usuario_has_programa_academico` (
-  `usuario_id` int(11) NOT NULL,
-  `programa_academico_id` int(11) NOT NULL,
-  `rol_usuario_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL DEFAULT '0',
+  `programa_academico_id` int(11) NOT NULL DEFAULT '0',
+  `rol_usuario_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`usuario_id`,`programa_academico_id`,`rol_usuario_id`),
   KEY `fk_usuario_has_programa_academico_programa_academico1_idx` (`programa_academico_id`),
   KEY `fk_usuario_has_programa_academico_usuario1_idx` (`usuario_id`),
@@ -6083,8 +6232,8 @@ INSERT INTO `usuario_has_programa_academico` (`usuario_id`, `programa_academico_
 --
 
 CREATE TABLE IF NOT EXISTS `usuario_has_rol_usuario` (
-  `usuario_id` int(11) NOT NULL,
-  `rol_usuario_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL DEFAULT '0',
+  `rol_usuario_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`usuario_id`,`rol_usuario_id`),
   KEY `fk_usuario_has_rol_usuario_rol_usuario1_idx` (`rol_usuario_id`),
   KEY `fk_usuario_has_rol_usuario_usuario1_idx` (`usuario_id`)
@@ -6095,9 +6244,7 @@ CREATE TABLE IF NOT EXISTS `usuario_has_rol_usuario` (
 --
 
 INSERT INTO `usuario_has_rol_usuario` (`usuario_id`, `rol_usuario_id`) VALUES
-(236, 195),
-(236, 196),
-(236, 197);
+(248, 2);
 
 -- --------------------------------------------------------
 
@@ -6106,10 +6253,10 @@ INSERT INTO `usuario_has_rol_usuario` (`usuario_id`, `rol_usuario_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `usuario_has_seccion` (
-  `usuario_id` int(11) NOT NULL,
-  `rol_usuario_id` int(11) NOT NULL,
-  `seccion_id` int(11) NOT NULL,
-  PRIMARY KEY (`usuario_id`,`rol_usuario_id`,`seccion_id`),
+  `usuario_id` int(11) NOT NULL DEFAULT '0',
+  `rol_usuario_id` int(11) NOT NULL DEFAULT '0',
+  `seccion_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`rol_usuario_id`,`seccion_id`,`usuario_id`),
   KEY `fk_usuario_has_seccion_usuario1_idx` (`usuario_id`),
   KEY `fk_usuario_has_seccion_rol_usuario1_idx` (`rol_usuario_id`),
   KEY `fk_usuario_has_seccion_seccion1_idx` (`seccion_id`)
@@ -6186,8 +6333,8 @@ ALTER TABLE `dato_laboral`
 -- Filtros para la tabla `dato_login`
 --
 ALTER TABLE `dato_login`
-  ADD CONSTRAINT `fk_dato_login_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_dato_login_codigo_seguridad1` FOREIGN KEY (`codigo_seguridad_id`) REFERENCES `codigo_seguridad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_dato_login_codigo_seguridad1` FOREIGN KEY (`codigo_seguridad_id`) REFERENCES `codigo_seguridad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_dato_login_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `dato_login_has_pregunta_login`
@@ -6294,22 +6441,22 @@ ALTER TABLE `modulo`
 -- Filtros para la tabla `pais_has_dato_academico`
 --
 ALTER TABLE `pais_has_dato_academico`
-  ADD CONSTRAINT `fk_pais_has_dato_academico_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_pais_has_dato_academico_dato_academico1` FOREIGN KEY (`dato_academico_id`) REFERENCES `dato_academico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_pais_has_dato_academico_dato_academico1` FOREIGN KEY (`dato_academico_id`) REFERENCES `dato_academico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pais_has_dato_academico_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pais_has_dato_laboral`
 --
 ALTER TABLE `pais_has_dato_laboral`
-  ADD CONSTRAINT `fk_pais_has_dato_laboral_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_pais_has_dato_laboral_dato_laboral1` FOREIGN KEY (`dato_laboral_id`) REFERENCES `dato_laboral` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_pais_has_dato_laboral_dato_laboral1` FOREIGN KEY (`dato_laboral_id`) REFERENCES `dato_laboral` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pais_has_dato_laboral_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pais_has_dato_personal`
 --
 ALTER TABLE `pais_has_dato_personal`
-  ADD CONSTRAINT `fk_pais_has_dato_personal_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_pais_has_dato_personal_dato_personal1` FOREIGN KEY (`dato_personal_id`) REFERENCES `dato_personal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_pais_has_dato_personal_dato_personal1` FOREIGN KEY (`dato_personal_id`) REFERENCES `dato_personal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pais_has_dato_personal_pais1` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `privilegio_administrador`
@@ -6328,15 +6475,15 @@ ALTER TABLE `privilegio_usuario`
 --
 ALTER TABLE `programa_academico`
   ADD CONSTRAINT `fk_programa_academico_entidad1` FOREIGN KEY (`entidad_id`) REFERENCES `entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_programa_academico_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_programa_academico_estado_programa_academico1` FOREIGN KEY (`estado_programa_academico_id`) REFERENCES `estado_programa_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_programa_academico_estado_programa_academico1` FOREIGN KEY (`estado_programa_academico_id`) REFERENCES `estado_programa_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_programa_academico_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `programa_academico_has_modulo`
 --
 ALTER TABLE `programa_academico_has_modulo`
-  ADD CONSTRAINT `fk_programa_academico_has_modulo_programa_academico1` FOREIGN KEY (`programa_academico_id`) REFERENCES `programa_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_programa_academico_has_modulo_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_programa_academico_has_modulo_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_programa_academico_has_modulo_programa_academico1` FOREIGN KEY (`programa_academico_id`) REFERENCES `programa_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `region`
@@ -6348,37 +6495,37 @@ ALTER TABLE `region`
 -- Filtros para la tabla `repositorio`
 --
 ALTER TABLE `repositorio`
-  ADD CONSTRAINT `fk_repositorio_tipo_repositorio1` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_repositorio_guia_instruccional1` FOREIGN KEY (`guia_instruccional_id`) REFERENCES `guia_instruccional` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_repositorio_modelo_aprendizaje1` FOREIGN KEY (`modelo_aprendizaje_id`) REFERENCES `modelo_aprendizaje` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_repositorio_guia_instruccional1` FOREIGN KEY (`guia_instruccional_id`) REFERENCES `guia_instruccional` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_repositorio_tipo_repositorio1` FOREIGN KEY (`tipo_repositorio_id`) REFERENCES `tipo_repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_administrador_has_authitem_permiso_administrador`
 --
 ALTER TABLE `rol_administrador_has_authitem_permiso_administrador`
-  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_rol_a1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_authi1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_authi1` FOREIGN KEY (`authitem_permiso_administrador_name`) REFERENCES `authitem_permiso_administrador` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_administrador_has_authitem_permiso_administrador_rol_a1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_administrador_has_privilegio_administrador`
 --
 ALTER TABLE `rol_administrador_has_privilegio_administrador`
-  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_rol_adminis1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_privilegio_1` FOREIGN KEY (`privilegio_administrador_id`) REFERENCES `privilegio_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_privilegio_1` FOREIGN KEY (`privilegio_administrador_id`) REFERENCES `privilegio_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_administrador_has_privilegio_administrador_rol_adminis1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_usuario_has_authitem_permiso_usuario`
 --
 ALTER TABLE `rol_usuario_has_authitem_permiso_usuario`
-  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_authitem_permiso_1` FOREIGN KEY (`authitem_permiso_usuario_name`) REFERENCES `authitem_permiso_usuario` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_authitem_permiso_1` FOREIGN KEY (`authitem_permiso_usuario_name`) REFERENCES `authitem_permiso_usuario` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_usuario_has_authitem_permiso_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_usuario_has_privilegio_usuario`
 --
 ALTER TABLE `rol_usuario_has_privilegio_usuario`
-  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_privilegio_usuario1` FOREIGN KEY (`privilegio_usuario_id`) REFERENCES `privilegio_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_privilegio_usuario1` FOREIGN KEY (`privilegio_usuario_id`) REFERENCES `privilegio_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rol_usuario_has_privilegio_usuario_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `seccion`
@@ -6397,31 +6544,31 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `usuario_administrador_has_rol_administrador`
 --
 ALTER TABLE `usuario_administrador_has_rol_administrador`
-  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_usuario_admini1` FOREIGN KEY (`usuario_administrador_id`) REFERENCES `usuario_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_rol_administra1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_rol_administra1` FOREIGN KEY (`rol_administrador_id`) REFERENCES `rol_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_usuario_administrador_has_rol_administrador_usuario_admini1` FOREIGN KEY (`usuario_administrador_id`) REFERENCES `usuario_administrador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario_has_institucion`
 --
 ALTER TABLE `usuario_has_institucion`
-  ADD CONSTRAINT `usuario_has_institucion_ibfk_2` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`),
-  ADD CONSTRAINT `usuario_has_institucion_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `usuario_has_institucion_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`),
+  ADD CONSTRAINT `usuario_has_institucion_ibfk_2` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`);
 
 --
 -- Filtros para la tabla `usuario_has_modulo`
 --
 ALTER TABLE `usuario_has_modulo`
-  ADD CONSTRAINT `fk_usuario_has_modulo_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_usuario_has_modulo_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_has_modulo_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_has_modulo_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_usuario_has_modulo_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario_has_programa_academico`
 --
 ALTER TABLE `usuario_has_programa_academico`
-  ADD CONSTRAINT `fk_usuario_has_programa_academico_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_usuario_has_programa_academico_programa_academico1` FOREIGN KEY (`programa_academico_id`) REFERENCES `programa_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_has_programa_academico_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_has_programa_academico_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_usuario_has_programa_academico_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario_has_rol_usuario`
@@ -6434,8 +6581,8 @@ ALTER TABLE `usuario_has_rol_usuario`
 --
 ALTER TABLE `usuario_has_seccion`
   ADD CONSTRAINT `fk_usuario_has_seccion_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_has_seccion_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_has_seccion_seccion1` FOREIGN KEY (`seccion_id`) REFERENCES `seccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_has_seccion_seccion1` FOREIGN KEY (`seccion_id`) REFERENCES `seccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_usuario_has_seccion_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
