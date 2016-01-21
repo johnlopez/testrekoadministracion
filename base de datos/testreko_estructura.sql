@@ -3,10 +3,10 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 02-12-2015 a las 10:07:06
+-- Tiempo de generación: 21-01-2016 a las 14:26:13
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
-SET foreign_key_checks = 0;
+
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -1871,6 +1871,36 @@ BEGIN
     );
     
      SELECT LAST_INSERT_ID () INTO last_insert_modelo_aprendizaje_herramienta_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_agregar_repositorio_troncal`(
+
+	nuevo_repositorio_nombre VARCHAR(255),
+    nuevo_repositorio_descripcion VARCHAR(255),
+    
+    OUT last_insert_repositorio_id INT(11)
+
+)
+BEGIN
+
+	INSERT INTO repositorio(
+		nombre,
+        descripcion,
+        fecha_creacion,
+        fecha_modificacion,
+        tipo_repositorio_id   
+        
+    )
+    VALUES(
+		nuevo_repositorio_nombre,
+        nuevo_repositorio_descripcion,
+        NOW(),
+        NOW(),
+        1
+    );
+	
+    SELECT LAST_INSERT_ID () INTO last_insert_repositorio_id;
+    
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_admin_repositorio_asignar_modelo_aprendizaje_repositorio`(nuevo_repositorio_id int , nuevo_modelo_id int)
@@ -4055,6 +4085,20 @@ ORDER BY institucion_id;
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_component_listar_archivos_copia_repositorio`(lista_repositorio_id VARCHAR(255))
+BEGIN
+
+SET @sql = CONCAT('SELECT C.*
+				FROM 
+						archivo_copia_repositorio_modulo_temp C
+				WHERE   C.repositorio_id_old IN (',lista_repositorio_id,')');
+
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_component_lista_archivos`(nuevo_contenedor_id INT,nuevo_contenedor_tabla VARCHAR(255))
 BEGIN
 
@@ -4320,6 +4364,342 @@ BEGIN
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_agregar_recepcion_trabajo_repositorio_troncal`(
+
+	nuevo_repositorio_id INT,
+    nuevo_recepcion_trabajo_nombre VARCHAR (255),
+    nuevo_recepcion_trabajo_descripcion TEXT,
+    nuevo_recurso_tabla VARCHAR (255),
+    nuevo_recepcion_trabajo_entrega_publica BOOL,
+    OUT last_insert_recepcion_trabajo_id INT
+)
+BEGIN
+	
+    INSERT INTO recepcion_trabajo(
+		nombre,
+        descripcion,
+        fecha_creacion,
+        tipo_herramienta_id,
+        entrega_publica
+	)
+    VALUES(
+		nuevo_recepcion_trabajo_nombre,
+        nuevo_recepcion_trabajo_descripcion,
+        NOW(),
+        1,
+        nuevo_recepcion_trabajo_entrega_publica
+    );
+    SELECT LAST_INSERT_ID() INTO last_insert_recepcion_trabajo_id;
+    
+    INSERT INTO herramienta(
+		nombre,
+        descripcion,
+        fecha_creacion,
+        recurso_id,
+        recurso_tabla,
+        repositorio_id,
+        tipo_herramienta_id
+	)
+    VALUES(
+		nuevo_recepcion_trabajo_nombre,
+        nuevo_recepcion_trabajo_descripcion,
+        NOW(),
+        last_insert_recepcion_trabajo_id,
+        nuevo_recurso_tabla,
+        nuevo_repositorio_id,
+        1
+	);
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_asignar_archivo_a_modulo`(
+    nuevo_contenedor_id INT,
+    nuevo_contenedor_tabla VARCHAR (255),
+    nuevo_repositorio_id INT,
+    nuevo_repositorio_copia_id INT,
+    last_insert_contenedor_id INT,
+    nuevo_modulo_id INT
+)
+BEGIN
+-- DECLARE archivos_totales INT DEFAULT NULL; -- no me sirvieron
+-- DECLARE archivos_concat TEXT DEFAULT NULL; -- no me sirvieron
+DECLARE k INT DEFAULT 0;
+    
+DECLARE nuevo_archivo_id INT DEFAULT NULL;
+
+DECLARE modulo_nombre VARCHAR(255)  DEFAULT NULL;
+DECLARE modulo_codigo VARCHAR(255)  DEFAULT NULL;
+
+SET @archivos_totales = 0;
+SET @archivos_concat = NULL;
+
+-- OBTENIENDO LOS VALORES FALTANTES DE MODULO ----------------------------------------------------------------------------------------------
+        SELECT M.nombre,M.codigo INTO modulo_nombre,modulo_codigo
+        FROM 
+                modulo M
+        WHERE M.id = nuevo_modulo_id;
+
+-- CONTANDO CANTIDAD DE ARCHIVOS DE EL GLOSARIO ORIGINAL -------------------------------------------------------------------------------
+		SET @sql = nuevo_contenedor_tabla;
+		SET @sql = CONCAT('SELECT COUNT(A.id) INTO @archivos_totales
+							 FROM 
+									archivo A,
+									',@sql,' H
+									
+							 WHERE A.contenedor_id = H.id 
+							 AND H.id = ',nuevo_contenedor_id,'
+							 AND A.contenedor_tabla = "',@sql,'"');
+
+		PREPARE stmt FROM @sql;
+		EXECUTE stmt;
+		DEALLOCATE PREPARE stmt;
+-- CONCATENANDO LOS ID DE LOS ARCHIVOS DEL GLOSARIO ORIGINAL -------------------------------------------------------------------------------        
+        SET @sql = nuevo_contenedor_tabla;
+        SET @sql = CONCAT('SELECT GROUP_CONCAT(A.id) INTO @archivos_concat
+                             FROM 
+                             archivo A,
+                             ',@sql,'  H
+                             WHERE A.contenedor_id = H.id 
+							 AND H.id = ',nuevo_contenedor_id,'
+							 AND A.contenedor_tabla = "',@sql,'"');
+
+        PREPARE stmt FROM @sql;
+        EXECUTE stmt;
+        DEALLOCATE PREPARE stmt;
+-- -----------------------------------------------------------------------------------------------------------------------------------------        
+        WHILE k < @archivos_totales DO
+            SET nuevo_archivo_id = getValueFromArray(@archivos_concat, ',', k);              
+-- COPIANDO ARCHIVOS -----------------------------------------------------------------------------------------------------------------------
+            INSERT INTO archivo_copia_repositorio_modulo_temp(
+                    id_old,
+                    nombre_old,
+                    mime_type_old,
+                    tamano_old,
+                    ruta_old,
+                    usuario_id_old,
+                    fecha_creacion_old,
+                    fecha_modificacion_old,
+                    fecha_acceso_old,
+                    fecha_eliminacion_old,
+                    lectura_old,
+                    escritura_old,
+                    descarga_old,
+                    eliminacion_old,
+                    contenedor_id_old,
+                    contenedor_tabla_old,
+                    repositorio_id_old,
+                    repositorio_id_new,
+                    contenedor_id_new,
+                    modulo_id,
+                    modulo_nombre,
+                    modulo_codigo                    
+            ) 
+            SELECT 
+                    A.id,
+                    A.nombre, -- 1
+                    A.mime_type, -- 2
+                    A.tamano, -- 3
+                    A.ruta,-- 4
+                    A.usuario_id,-- 5
+                    NOW(),-- 6
+                    NOW(),-- 7
+                    null,-- 8
+                    null,-- 9
+                    A.lectura,-- 10 
+                    A.escritura,-- 11
+                    A.descarga,-- 12
+                    A.eliminacion,-- 13
+                    A.contenedor_id,-- 14
+                    A.contenedor_tabla,-- 15                    
+                    nuevo_repositorio_id,-- 16
+                    nuevo_repositorio_copia_id,-- 17 
+                    last_insert_contenedor_id,-- 18 
+                    nuevo_modulo_id, -- 19
+                    modulo_nombre,-- 20
+                    modulo_codigo -- 21
+                    
+            FROM    archivo A
+            WHERE A.id = nuevo_archivo_id;            
+            
+            SET k = k + 1;
+        END WHILE;
+        SET k = 0;        
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_asignar_glosario_a_modulo`(nuevo_repositorio_id INT,nuevo_repositorio_copia_id INT,nuevo_modulo_id INT)
+BEGIN
+
+DECLARE glosarios_totales INT DEFAULT NULL;
+DECLARE glosarios_concat TEXT DEFAULT NULL;
+
+DECLARE nuevo_glosario_id INT DEFAULT NULL;
+DECLARE i INT DEFAULT 0;
+
+DECLARE last_insert_glosario_id INT DEFAULT NULL;
+
+DECLARE terminos_totales INT DEFAULT NULL;
+DECLARE terminos_concat TEXT DEFAULT NULL;
+
+DECLARE j INT DEFAULT 0;
+
+DECLARE nuevo_termino_id INT DEFAULT NULL;
+
+DECLARE nombre_tabla VARCHAR(255) DEFAULT NULL;
+
+
+-- CONTANDO CANTIDAD DE GLOSARIOS DE EL REPOSITORIO ORIGINAL -------------------------------------------------------------------------------
+	SELECT COUNT(G.id) INTO glosarios_totales
+	FROM
+			glosario G,
+			herramienta H,
+			repositorio R
+	WHERE R.id = H.repositorio_id
+	AND H.recurso_id = G.id 
+	AND R.id = nuevo_repositorio_id;
+
+-- CONCATENANDO LOS ID DE LOS GLOSARIOS DEL REPOSITORIO ORIGINAL ---------------------------------------------------------------------------        
+	SELECT GROUP_CONCAT(G.id) INTO glosarios_concat
+    FROM
+			glosario G,
+			herramienta H,
+			repositorio R
+	WHERE R.id = H.repositorio_id
+	AND H.recurso_id = G.id 
+	AND R.id = nuevo_repositorio_id; 
+
+    WHILE i < glosarios_totales DO
+		SET nuevo_glosario_id = getValueFromArray(glosarios_concat, ',', i);	
+-- COPIANDO UN GLOSARIO --------------------------------------------------------------------------------------------------------------------        
+        INSERT INTO glosario(
+				nombre,
+                descripcion,
+                fecha_creacion,
+                fecha_modificacion,
+                fecha_eliminacion,
+                fecha_acceso,
+                tipo_herramienta_id,
+                glosario_general_id
+		) 
+		SELECT 
+				G.nombre,
+                G.descripcion,
+                NOW(),
+                NOW(),
+                null,
+                null,
+                2,
+				nuevo_glosario_id
+		FROM	glosario G		
+		WHERE 	G.id= nuevo_glosario_id;
+        
+		SELECT LAST_INSERT_ID() INTO last_insert_glosario_id;
+        
+-- CREANDO LA ASOCIACION DE LA TABLA HERRAMIENTA CORRESPONDIENTE ---------------------------------------------------------------------------
+         INSERT INTO herramienta(
+				nombre,
+                descripcion,
+                fecha_acceso,
+                fecha_modificacion,
+                fecha_creacion,
+                fecha_eliminacion,
+                recurso_id,
+                recurso_tabla,
+                repositorio_id,
+                tipo_herramienta_id,
+                herramienta_general_id
+		) 
+		SELECT 
+				H.nombre,
+                H.descripcion,
+                null,
+                NOW(),
+                NOW(),
+                null,
+                last_insert_glosario_id,
+                H.recurso_tabla,
+				nuevo_repositorio_copia_id,
+                2,
+				H.id
+                
+		FROM	herramienta H,
+				repositorio R,
+				glosario G
+				
+		WHERE R.id = nuevo_repositorio_id
+        AND H.repositorio_id = R.id
+        AND H.recurso_id = G.id 
+        AND G.id = nuevo_glosario_id
+        AND H.recurso_tabla = 'glosario';
+-- COPIANDO TERMINOS -----------------------------------------------------------------------------------------------------------------------
+-- CONTANDO CANTIDAD DE TERMINOS DE EL GLOSARIO ORIGINAL -------------------------------------------------------------------------------
+		SELECT COUNT(T.id) INTO terminos_totales
+		FROM
+				glosario G,
+				glosario_termino_definicion T
+				
+		WHERE G.id = nuevo_glosario_id
+		AND G.id = T.glosario_id;		
+
+-- CONCATENANDO LOS ID DE LOS TERMINOS DEL GLOSARIO ORIGINAL -------------------------------------------------------------------------------        
+		SELECT GROUP_CONCAT(T.id) INTO terminos_concat
+		FROM
+				glosario G,
+				glosario_termino_definicion T
+				
+		WHERE G.id = nuevo_glosario_id
+		AND G.id = T.glosario_id;
+-- -----------------------------------------------------------------------------------------------------------------------------------------        
+        WHILE j < terminos_totales DO
+			SET nuevo_termino_id = getValueFromArray(terminos_concat, ',', j);	
+			
+-- COPIANDO TERMINOS -----------------------------------------------------------------------------------------------------------------------
+			INSERT INTO glosario_termino_definicion(
+					termino,
+                    definicion,
+                    fecha_creacion,
+                    fecha_modificacion,
+                    fecha_acceso,
+                    fecha_eliminacion,
+                    glosario_id
+			) 
+			SELECT 
+					T.termino,
+                    T.definicion,
+                    NOW(),
+					NOW(),
+					null,
+                    null,
+					last_insert_glosario_id
+					
+			FROM	glosario_termino_definicion T
+            WHERE T.id = nuevo_termino_id;            
+            
+			SET j = j + 1;
+		END WHILE;
+		SET j = 0; 
+-- COPIANDO ARCHIVOS -----------------------------------------------------------------------------------------------------------------------------------------        
+		SELECT TABLE_NAME INTO nombre_tabla
+        FROM INFORMATION_SCHEMA.TABLES
+		WHERE table_schema = 'testreko'
+		AND TABLE_NAME = 'glosario';
+        
+        CALL sp_repositorio_asignar_archivo_a_modulo(
+				 nuevo_glosario_id,
+				 nombre_tabla,
+                 nuevo_repositorio_id,
+                 nuevo_repositorio_copia_id,
+                 last_insert_glosario_id,
+                 nuevo_modulo_id
+		);
+-- COPIANDO ARCHIVOS -----------------------------------------------------------------------------------------------------------------------------------------        
+        
+		SET i = i + 1;
+	END WHILE;
+	SET i = 0;	
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_asignar_mod_aprendizaje_rep_troncal_admin`(nuevo_repositorio_id int , nuevo_modelo_id int)
 begin
 UPDATE repositorio_troncal_admin SET modelo_aprendizaje_id =  nuevo_modelo_id
@@ -4333,6 +4713,123 @@ UPDATE repositorio_troncal_app SET modelo_aprendizaje_id =  nuevo_modelo_id
 WHERE id = nuevo_repositorio_id;
 
 end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_asignar_repositorio_a_modulo`(lista_repositorio_id text, lista_largo int, nuevo_modulo_id int)
+BEGIN
+DECLARE x INT DEFAULT 0;
+DECLARE nuevo_repositorio_id INT default NULL;
+DECLARE repositorio_id_tmp INT default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+DECLARE repositorio_copia INT DEFAULT NULL;
+
+WHILE x < lista_largo DO
+	SET nuevo_repositorio_id = getValueFromArray(lista_repositorio_id, ',', x);	
+-- 	ASIGNOR REPOSITORIO A MODULO -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    SELECT repositorio_id INTO repositorio_id_tmp FROM modulo_has_repositorio WHERE repositorio_id = nuevo_repositorio_id AND modulo_id = nuevo_modulo_id;
+    IF ( repositorio_id_tmp IS NULL) THEN
+		INSERT INTO modulo_has_repositorio (`repositorio_id`,`modulo_id`) VALUES (nuevo_repositorio_id,nuevo_modulo_id);
+        
+--  	COPIAR REPOSITORIO -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --    
+		INSERT INTO repositorio(
+				nombre,
+                descripcion,
+                fecha_acceso,
+                fecha_modificacion,
+                fecha_creacion,
+                fecha_eliminacion,
+                tipo_repositorio_id,
+                modelo_aprendizaje_id,
+                guia_instruccional_id,
+                repositorio_general_id
+		) 
+		SELECT 
+				R.nombre,
+				R.descripcion,
+                null,
+                now(),
+                now(),
+                null,
+				2,
+				R.modelo_aprendizaje_id,
+				R.guia_instruccional_id,
+				R.id
+				
+		FROM	repositorio R		
+		WHERE 	R.id= nuevo_repositorio_id; 
+		
+		SELECT LAST_INSERT_ID () into repositorio_copia;
+        
+-- 		ASIGNAR REPOSITORIO COPIA A MODULO --------------------------------------------------------------------------------------------------------------------------------      
+		SELECT repositorio_id INTO repositorio_id_tmp FROM modulo_has_repositorio WHERE repositorio_id = repositorio_copia AND modulo_id = nuevo_modulo_id;
+		IF ( repositorio_id_tmp IS NULL) THEN
+			INSERT INTO modulo_has_repositorio (`repositorio_id`,`modulo_id`) VALUES (repositorio_copia,nuevo_modulo_id);
+		ELSE
+			SET repositorio_id_tmp = NULL;
+		END IF;
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --  
+-- -----COPIANDO HERRAMIENTAS --------------------------------------------------------------------------------------------------------
+-- -----COPIANDO GLOSARIO --------------------------------------------------------------------------------------------------------
+		CALL sp_repositorio_asignar_glosario_a_modulo(nuevo_repositorio_id, repositorio_copia,nuevo_modulo_id);
+
+-- -----COPIANDO HERRAMIENTAS --------------------------------------------------------------------------------------------------------
+
+        
+	ELSE
+		SET repositorio_id_tmp = NULL;
+    END IF; 
+    SET x = x +1;
+    SET repositorio_copia = NULL;
+        
+END WHILE;
+SELECT resultado, nuevo_repositorio_id, repositorio_id_tmp;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_desasignar_repositorio_a_modulo`(lista_repositorio_id text, lista_largo int, nuevo_modulo_id int)
+BEGIN
+DECLARE x int DEFAULT 0;
+DECLARE nuevo_repositorio_id int default NULL;
+DECLARE repositorio_id_tmp int default NULL;
+DECLARE resultado BOOLEAN DEFAULT TRUE;
+
+DECLARE repositorio_copia INT DEFAULT NULL;
+
+WHILE x < lista_largo DO
+	SET nuevo_repositorio_id = getValueFromArray(lista_repositorio_id, ',', x);	
+
+-- 	SELECT R.id INTO repositorio_copia
+-- 	FROM
+-- 			repositorio R,
+-- 			modulo_has_repositorio MR
+
+-- 	WHERE R.repositorio_general_id = nuevo_repositorio_id
+-- 	AND MR.repositorio_id = R.id
+-- 	AND MR.modulo_id = nuevo_modulo_id;
+    
+-- DESASIGNANDO HERRAMIENTAS ---------------------------------------------------------------------------------------------------------------    
+
+-- DESASIGNANDO HERRAMIENTAS ---------------------------------------------------------------------------------------------------------------
+-- 	DELETE MR.*
+-- 	FROM modulo_has_repositorio MR
+-- 	WHERE MR.repositorio_id = repositorio_copia;
+
+-- 	DELETE R.*
+-- 	FROM repositorio R
+-- 	WHERE R.id = repositorio_copia;
+
+	SELECT repositorio_id INTO repositorio_id_tmp FROM modulo_has_repositorio WHERE repositorio_id = nuevo_repositorio_id AND modulo_id = nuevo_modulo_id;
+    IF ( repositorio_id_tmp IS NOT NULL) THEN
+		DELETE FROM modulo_has_repositorio WHERE modulo_id = nuevo_modulo_id AND repositorio_id = nuevo_repositorio_id;
+	ELSE
+		SET repositorio_id_tmp = NULL;
+    END IF;    
+    
+    
+    SET x = x +1;
+END WHILE;
+
+SELECT resultado, nuevo_repositorio_id, repositorio_id_tmp;
+
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_listar_repositorio`(nuevo_institucion_id INT )
 BEGIN
@@ -4384,6 +4881,32 @@ BEGIN
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_glosario_repositorio_aula`(nuevo_repositorio_id INT,nuevo_modulo_id INT)
+BEGIN
+
+	SELECT G.*
+
+	FROM
+			modulo M,
+            modulo_has_repositorio MR,
+			repositorio R,
+			herramienta H,
+			glosario G
+			
+	WHERE R.id = H.repositorio_id
+	AND H.recurso_id = G.id
+	AND R.id = nuevo_repositorio_id
+	AND H.recurso_tabla = 'glosario'
+    
+    AND M.id = nuevo_modulo_id
+    AND M.id = MR.modulo_id
+    AND R.id = MR.repositorio_id 
+    AND R.tipo_repositorio_id = 2
+    
+    ORDER BY G.id;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_glosario_termino_definicion`(nuevo_glosario_id INT)
 BEGIN
 
@@ -4395,6 +4918,87 @@ BEGIN
 	WHERE G.id = GTD.glosario_id
 	AND G.id = nuevo_glosario_id
     ORDER BY GTD.id;	
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_modulos_institucion`(nuevo_institucion_id INT)
+BEGIN
+
+	SELECT M.*
+
+	FROM	modulo M,
+			institucion I
+
+	WHERE M.institucion_id = I.id
+	AND I.id = nuevo_institucion_id
+
+	ORDER BY M.id;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_modulo_repositorio`(nuevo_modulo_id int(11))
+BEGIN
+SELECT 
+		M.nombre,
+		MR.modulo_id,
+		MR.repositorio_id 
+FROM 
+		`modulo` M, 
+		`modulo_has_repositorio` MR,
+        repositorio R
+		
+WHERE M.id = MR.modulo_id
+AND M.id = nuevo_modulo_id 
+AND R.id = MR.repositorio_id
+AND R.tipo_repositorio_id = 1
+
+UNION 
+
+SELECT 
+		null,
+        null,
+        R.id 
+FROM 
+		(`repositorio` R LEFT JOIN `modulo_has_repositorio` MR ON R.id = MR.repositorio_id AND MR.modulo_id = nuevo_modulo_id)
+        
+WHERE MR.repositorio_id is NULL
+AND R.tipo_repositorio_id = 1
+order by repositorio_id;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_modulo_repositorio_aula`(nuevo_modulo_id int(11))
+BEGIN
+SELECT R.*
+
+FROM 
+		modulo M,
+        modulo_has_repositorio MR,
+        repositorio R
+
+WHERE M.id = MR.modulo_id
+AND MR.repositorio_id = R.id 
+AND M.id = nuevo_modulo_id
+AND R.tipo_repositorio_id = 2
+ORDER BY R.id;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_lista_recepcion_trabajo_repositorio_troncal`(nuevo_repositorio_id INT)
+BEGIN
+	
+    SELECT RT.*
+    FROM 
+		repositorio R,
+        herramienta H,
+        recepcion_trabajo RT
+        
+	WHERE R.id = H.repositorio_id
+    AND H.recurso_id = RT.id
+    AND R.id = nuevo_repositorio_id
+    AND H.recurso_tabla = 'recepcion_trabajo'
+    
+    ORDER BY RT.id;
 
 END$$
 
@@ -4473,6 +5077,35 @@ BEGIN
     ;
     
     
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_modificar_recepcion_trabajo_repositorio_troncal`(
+	nuevo_recepcion_trabajo_id INT,
+    nuevo_repositorio_id INT,
+    nuevo_recepcion_trabajo_nombre VARCHAR(255),
+    nuevo_recepcion_trabajo_descripcion TEXT,
+    OUT last_insert_recepcion_trabajo_id INT
+)
+BEGIN
+    UPDATE recepcion_trabajo SET
+        nombre = nuevo_recepcion_trabajo_nombre,
+        descripcion = nuevo_recepcion_trabajo_descripcion,
+        fecha_modificacion = NOW()
+    
+    WHERE recepcion_trabajo.id = nuevo_recepcion_trabajo_id;
+   
+    
+    SET last_insert_recepcion_trabajo_id = nuevo_recepcion_trabajo_id;
+    
+    UPDATE herramienta SET
+        nombre = nuevo_recepcion_trabajo_nombre,
+        descripcion = nuevo_recepcion_trabajo_descripcion,
+        fecha_modificacion = NOW()
+    WHERE herramienta.recurso_id = nuevo_recepcion_trabajo_id
+    AND herramienta.repositorio_id = nuevo_repositorio_id
+    AND herramienta.recurso_tabla = 'recepcion_trabajo'
+    ;
+
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_repositorio_obtener_herramientas_disponibles_repositorio`(nuevo_repositorio_id int(11))
@@ -4579,7 +5212,41 @@ CREATE TABLE IF NOT EXISTS `archivo` (
   PRIMARY KEY (`id`),
   KEY `contenedor_id` (`contenedor_id`),
   KEY `contenedor_tabla` (`contenedor_tabla`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `archivo_copia_repositorio_modulo_temp`
+--
+
+CREATE TABLE IF NOT EXISTS `archivo_copia_repositorio_modulo_temp` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_old` int(11) DEFAULT NULL,
+  `nombre_old` varchar(255) DEFAULT NULL,
+  `mime_type_old` text,
+  `tamano_old` int(11) DEFAULT NULL,
+  `ruta_old` text,
+  `usuario_id_old` int(11) DEFAULT NULL,
+  `fecha_creacion_old` datetime DEFAULT NULL,
+  `fecha_modificacion_old` datetime DEFAULT NULL,
+  `fecha_acceso_old` datetime DEFAULT NULL,
+  `fecha_eliminacion_old` datetime DEFAULT NULL,
+  `lectura_old` tinyint(1) DEFAULT NULL,
+  `escritura_old` tinyint(1) DEFAULT NULL,
+  `descarga_old` tinyint(1) DEFAULT NULL,
+  `eliminacion_old` tinyint(1) DEFAULT NULL,
+  `contenedor_id_old` int(11) DEFAULT NULL,
+  `contenedor_tabla_old` varchar(255) DEFAULT NULL,
+  `repositorio_id_old` int(11) DEFAULT NULL,
+  `repositorio_id_new` int(11) DEFAULT NULL,
+  `contenedor_id_new` int(11) DEFAULT NULL,
+  `modulo_id` int(11) DEFAULT NULL,
+  `modulo_nombre` varchar(255) DEFAULT NULL,
+  `modulo_codigo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `repositorio_id_old` (`repositorio_id_old`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -5092,9 +5759,11 @@ CREATE TABLE IF NOT EXISTS `glosario` (
   `fecha_eliminacion` datetime DEFAULT NULL,
   `fecha_acceso` datetime DEFAULT NULL,
   `tipo_herramienta_id` int(11) DEFAULT NULL,
+  `glosario_general_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_glosario_tipo_herramienta1_idx` (`tipo_herramienta_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  KEY `fk_glosario_tipo_herramienta1_idx` (`tipo_herramienta_id`),
+  KEY `fk_glosario_glosario1_idx` (`glosario_general_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=84 ;
 
 -- --------------------------------------------------------
 
@@ -5113,7 +5782,7 @@ CREATE TABLE IF NOT EXISTS `glosario_termino_definicion` (
   `glosario_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_glosario_termino_definicion_glosario1_idx` (`glosario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=76 ;
 
 -- --------------------------------------------------------
 
@@ -5147,12 +5816,14 @@ CREATE TABLE IF NOT EXISTS `herramienta` (
   `recurso_tabla` varchar(255) DEFAULT NULL,
   `repositorio_id` int(11) DEFAULT NULL,
   `tipo_herramienta_id` int(11) DEFAULT NULL,
+  `herramienta_general_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_herramienta_repositorio1_idx` (`repositorio_id`),
   KEY `fk_herramienta_tipo_herramienta1_idx` (`tipo_herramienta_id`),
   KEY `recurso_id` (`recurso_id`),
-  KEY `recurso_tabla` (`recurso_tabla`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  KEY `recurso_tabla` (`recurso_tabla`),
+  KEY `fk_herramienta_herramienta1_idx` (`herramienta_general_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=102 ;
 
 -- --------------------------------------------------------
 
@@ -5193,7 +5864,7 @@ CREATE TABLE IF NOT EXISTS `institucion` (
   KEY `fk_institucion_estado_institucion1_idx` (`estado_institucion_id`),
   KEY `fk_institucion_pais1_idx` (`pais_id`),
   KEY `fk_institucion_region1_idx` (`region_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -5305,6 +5976,20 @@ CREATE TABLE IF NOT EXISTS `modulo` (
   KEY `fk_modulo_entidad1_idx` (`entidad_id`),
   KEY `fk_modulo_institucion1_idx` (`institucion_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `modulo_has_repositorio`
+--
+
+CREATE TABLE IF NOT EXISTS `modulo_has_repositorio` (
+  `modulo_id` int(11) NOT NULL,
+  `repositorio_id` int(11) NOT NULL,
+  PRIMARY KEY (`modulo_id`,`repositorio_id`),
+  KEY `fk_modulo_has_repositorio_repositorio1_idx` (`repositorio_id`),
+  KEY `fk_modulo_has_repositorio_modulo1_idx` (`modulo_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -5463,13 +6148,16 @@ CREATE TABLE IF NOT EXISTS `proyecto` (
 CREATE TABLE IF NOT EXISTS `recepcion_trabajo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
+  `entrega_publica` tinyint(1) DEFAULT NULL,
   `descripcion` text,
   `fecha_creacion` datetime DEFAULT NULL,
-  `fecha_modifcacion` datetime DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
   `fecha_eliminacion` datetime DEFAULT NULL,
   `fecha_acceso` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `tipo_herramienta_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_recepcion_trabajo_tipo_herramienta1_idx` (`tipo_herramienta_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -5516,11 +6204,13 @@ CREATE TABLE IF NOT EXISTS `repositorio` (
   `tipo_repositorio_id` int(11) DEFAULT NULL,
   `modelo_aprendizaje_id` int(11) DEFAULT NULL,
   `guia_instruccional_id` int(11) DEFAULT NULL,
+  `repositorio_general_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_repositorio_tipo_repositorio1_idx` (`tipo_repositorio_id`),
   KEY `fk_repositorio_modelo_aprendizaje1_idx` (`modelo_aprendizaje_id`),
-  KEY `fk_repositorio_guia_instruccional1_idx` (`guia_instruccional_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='\n	\n	\n	\n\n\n	\n\n	\n	' AUTO_INCREMENT=2 ;
+  KEY `fk_repositorio_guia_instruccional1_idx` (`guia_instruccional_id`),
+  KEY `fk_repositorio_repositorio1_idx` (`repositorio_general_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='\n	\n	\n	\n\n\n	\n\n	\n	' AUTO_INCREMENT=68 ;
 
 -- --------------------------------------------------------
 
@@ -5669,7 +6359,7 @@ CREATE TABLE IF NOT EXISTS `tipo_herramienta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -5681,7 +6371,7 @@ CREATE TABLE IF NOT EXISTS `tipo_repositorio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='				' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='				' AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -5926,6 +6616,7 @@ ALTER TABLE `escritorio_administrador`
 -- Filtros para la tabla `glosario`
 --
 ALTER TABLE `glosario`
+  ADD CONSTRAINT `fk_glosario_glosario1` FOREIGN KEY (`glosario_general_id`) REFERENCES `glosario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_glosario_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
@@ -5938,7 +6629,7 @@ ALTER TABLE `glosario_termino_definicion`
 -- Filtros para la tabla `herramienta`
 --
 ALTER TABLE `herramienta`
-  ADD CONSTRAINT `fk_herramienta_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_herramienta_herramienta1` FOREIGN KEY (`herramienta_general_id`) REFERENCES `herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_herramienta_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
@@ -5959,8 +6650,7 @@ ALTER TABLE `institucion`
 -- Filtros para la tabla `institucion_has_repositorio`
 --
 ALTER TABLE `institucion_has_repositorio`
-  ADD CONSTRAINT `fk_institucion_has_repositorio_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_institucion_has_repositorio_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_institucion_has_repositorio_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `institucion_has_rol_usuario`
@@ -5988,6 +6678,13 @@ ALTER TABLE `modulo`
   ADD CONSTRAINT `fk_modulo_entidad1` FOREIGN KEY (`entidad_id`) REFERENCES `entidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_modulo_estado_modulo1` FOREIGN KEY (`estado_modulo_id`) REFERENCES `estado_modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_modulo_institucion1` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `modulo_has_repositorio`
+--
+ALTER TABLE `modulo_has_repositorio`
+  ADD CONSTRAINT `fk_modulo_has_repositorio_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_modulo_has_repositorio_repositorio1` FOREIGN KEY (`repositorio_id`) REFERENCES `repositorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `pais_has_dato_academico`
@@ -6034,8 +6731,13 @@ ALTER TABLE `programa_academico`
 -- Filtros para la tabla `programa_academico_has_modulo`
 --
 ALTER TABLE `programa_academico_has_modulo`
-  ADD CONSTRAINT `fk_programa_academico_has_modulo_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_programa_academico_has_modulo_programa_academico1` FOREIGN KEY (`programa_academico_id`) REFERENCES `programa_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `recepcion_trabajo`
+--
+ALTER TABLE `recepcion_trabajo`
+  ADD CONSTRAINT `fk_recepcion_trabajo_tipo_herramienta1` FOREIGN KEY (`tipo_herramienta_id`) REFERENCES `tipo_herramienta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `region`
@@ -6083,8 +6785,7 @@ ALTER TABLE `rol_usuario_has_privilegio_usuario`
 -- Filtros para la tabla `seccion`
 --
 ALTER TABLE `seccion`
-  ADD CONSTRAINT `fk_seccion_estado_seccion1` FOREIGN KEY (`estado_seccion_id`) REFERENCES `estado_seccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_seccion_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_seccion_estado_seccion1` FOREIGN KEY (`estado_seccion_id`) REFERENCES `estado_seccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario`
@@ -6110,7 +6811,6 @@ ALTER TABLE `usuario_has_institucion`
 -- Filtros para la tabla `usuario_has_modulo`
 --
 ALTER TABLE `usuario_has_modulo`
-  ADD CONSTRAINT `fk_usuario_has_modulo_modulo1` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_usuario_has_modulo_rol_usuario1` FOREIGN KEY (`rol_usuario_id`) REFERENCES `rol_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_usuario_has_modulo_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
