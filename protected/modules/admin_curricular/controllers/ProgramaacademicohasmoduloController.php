@@ -27,7 +27,7 @@ class ProgramaAcademicoHasModuloController extends Controller {
              
             $tmpObj->modulo_id = (int)$item['modulo_id'];
             $tmpObj->programa_academico_id = (int)$item['programa_academico_id']; 
-            $tmpObj->nombre = $item['nombre'];
+  
          
             $objetoProgramaArray[] = $tmpObj;
         }

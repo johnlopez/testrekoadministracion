@@ -21,6 +21,7 @@
  */
 class Repositorio extends CActiveRecord
 {
+        public $lastInsertRepositorioId;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -129,5 +130,15 @@ class Repositorio extends CActiveRecord
             $comando->bindParam(':nuevo_modelo_id',$nuevo_modelo_id );
             $comando->execute();
             return $comando;
+        }
+        
+        public function agregarRepositorioTroncal($nuevoRepostorioNombre,$nuevoRepositorioDescripcion) {
+            
+            $command = Yii::app()->db->createCommand("CALL sp_admin_repositorio_agregar_repositorio_troncal(:nuevoRepostorioNombre,:nuevoRepositorioDescripcion,@last_insert_repositorio_id)");
+            $command->bindParam(':nuevoRepostorioNombre',$nuevoRepostorioNombre);
+            $command->bindParam(':nuevoRepositorioDescripcion',$nuevoRepositorioDescripcion);
+            $resultado = $command->execute(); 
+            $this->lastInsertRepositorioId = Yii::app()->db->createCommand("select @last_insert_repositorio_id as result;")->queryScalar();
+            return $resultado;            
         }
 }
