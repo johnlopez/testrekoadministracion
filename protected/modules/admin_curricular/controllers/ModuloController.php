@@ -28,7 +28,7 @@ class ModuloController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin','indexInstitucion2','indexEntidad2','AsignarModuloInstitucion','AsignarModuloEntidad','borrar','listaModulos','index2'),
+				'actions'=>array('index','view','admin','indexInstitucion2','indexEntidad2','AsignarModuloInstitucion','AsignarModuloEntidad','borrar','listaModulos','index2','contrato','AceptacionContrato'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -362,4 +362,23 @@ class ModuloController extends Controller
             $listadoModulos = $modulo->listarModulosPorPrograma($idPrograma);
             $this->render('index2', array('listadoModulos' => $listadoModulos));
         }
+        
+        public function actionContrato() {
+            
+            $modulo = new Modulo();
+            
+            if(isset($_POST['id'])){
+                $idModulo = $_POST['id'];
+            }
+            
+            $listadoContrato = $modulo->listarContratoModulo($idModulo);
+            $this->render('contrato', array('listadoContrato' => $listadoContrato,'idModulo' => $idModulo));
+        }
+        
+//        public function actionAceptacionContrato() {
+//            
+//            echo 'Hola mundo';
+//            
+//            $this->redirect('contrato');
+//        }
 }
