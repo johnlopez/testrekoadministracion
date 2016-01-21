@@ -6,7 +6,7 @@
 -- Tiempo de generación: 21-01-2016 a las 14:26:26
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
-
+SET foreign_key_checks = 0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- Volcado de datos para la tabla `archivo`
 --
 
-INSERT INTO `archivo` (`id`, `nombre`, `mime_type`, `tamano`, `ruta`, `usuario_id`, `fecha_creacion`, `fecha_modificacion`, `fecha_acceso`, `fecha_eliminacion`, `lectura`, `escritura`, `descarga`, `eliminacion`, `contenedor_id`, `contenedor_tabla`) VALUES
+INSERT IGNORE INTO `archivo` (`id`, `nombre`, `mime_type`, `tamano`, `ruta`, `usuario_id`, `fecha_creacion`, `fecha_modificacion`, `fecha_acceso`, `fecha_eliminacion`, `lectura`, `escritura`, `descarga`, `eliminacion`, `contenedor_id`, `contenedor_tabla`) VALUES
 (1, '952841-Modelo de probabilidad Normal.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 24435, '/reko-archivos/utem/repositorio-id-1/glosario/glosario-id-6/', 248, '2015-12-01 11:57:38', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6, 'glosario'),
 (3, '772994-8_prueba.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 11318, '/reko-archivos/utem/repositorio-id-1/glosario/glosario-id-7/', 248, '2015-12-03 16:37:16', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 7, 'glosario'),
 (4, '268118-John Cena - 6x8 white.png', 'image/png', 301071, '/reko-archivos/utem/repositorio-id-48/glosario/glosario-id-65/', 248, '2015-12-21 16:32:30', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 65, 'glosario'),
@@ -36,7 +36,7 @@ INSERT INTO `archivo` (`id`, `nombre`, `mime_type`, `tamano`, `ruta`, `usuario_i
 -- Volcado de datos para la tabla `archivo_copia_repositorio_modulo_temp`
 --
 
-INSERT INTO `archivo_copia_repositorio_modulo_temp` (`id`, `id_old`, `nombre_old`, `mime_type_old`, `tamano_old`, `ruta_old`, `usuario_id_old`, `fecha_creacion_old`, `fecha_modificacion_old`, `fecha_acceso_old`, `fecha_eliminacion_old`, `lectura_old`, `escritura_old`, `descarga_old`, `eliminacion_old`, `contenedor_id_old`, `contenedor_tabla_old`, `repositorio_id_old`, `repositorio_id_new`, `contenedor_id_new`, `modulo_id`, `modulo_nombre`, `modulo_codigo`) VALUES
+INSERT IGNORE INTO `archivo_copia_repositorio_modulo_temp` (`id`, `id_old`, `nombre_old`, `mime_type_old`, `tamano_old`, `ruta_old`, `usuario_id_old`, `fecha_creacion_old`, `fecha_modificacion_old`, `fecha_acceso_old`, `fecha_eliminacion_old`, `lectura_old`, `escritura_old`, `descarga_old`, `eliminacion_old`, `contenedor_id_old`, `contenedor_tabla_old`, `repositorio_id_old`, `repositorio_id_new`, `contenedor_id_new`, `modulo_id`, `modulo_nombre`, `modulo_codigo`) VALUES
 (1, 1, '952841-Modelo de probabilidad Normal.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 24435, '/reko-archivos/utem/repositorio-id-1/glosario/glosario-id-6/', 248, '2015-12-28 17:18:15', '2015-12-28 17:18:15', NULL, NULL, NULL, NULL, NULL, NULL, 6, 'glosario', 1, 65, 81, 15, 'ola', 'ola'),
 (2, 3, '772994-8_prueba.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 11318, '/reko-archivos/utem/repositorio-id-1/glosario/glosario-id-7/', 248, '2015-12-28 17:18:16', '2015-12-28 17:18:16', NULL, NULL, NULL, NULL, NULL, NULL, 7, 'glosario', 1, 65, 82, 15, 'ola', 'ola'),
 (3, 4, '268118-John Cena - 6x8 white.png', 'image/png', 301071, '/reko-archivos/utem/repositorio-id-48/glosario/glosario-id-65/', 248, '2015-12-28 17:18:16', '2015-12-28 17:18:16', NULL, NULL, NULL, NULL, NULL, NULL, 65, 'glosario', 48, 66, 83, 15, 'ola', 'ola');
@@ -45,14 +45,14 @@ INSERT INTO `archivo_copia_repositorio_modulo_temp` (`id`, `id_old`, `nombre_old
 -- Volcado de datos para la tabla `archivo_recurso`
 --
 
-INSERT INTO `archivo_recurso` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_elminacion`, `fecha_acceso`, `tipo_herramienta_id`) VALUES
+INSERT IGNORE INTO `archivo_recurso` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_elminacion`, `fecha_acceso`, `tipo_herramienta_id`) VALUES
 (1, 'archivo_recurso_1', 'des-archivo_recurso_1', '2015-12-01 11:58:23', NULL, NULL, NULL, 1);
 
 --
 -- Volcado de datos para la tabla `authassignment_administrador`
 --
 
-INSERT INTO `authassignment_administrador` (`itemname`, `userid`, `bizrule`, `data`) VALUES
+INSERT IGNORE INTO `authassignment_administrador` (`itemname`, `userid`, `bizrule`, `data`) VALUES
 ('', '', NULL, NULL),
 ('administracion_rol_administrador', '1', NULL, NULL),
 ('administracion_rol_usuario', '1', NULL, NULL),
@@ -74,7 +74,7 @@ INSERT INTO `authassignment_administrador` (`itemname`, `userid`, `bizrule`, `da
 -- Volcado de datos para la tabla `authitem_permiso_administrador`
 --
 
-INSERT INTO `authitem_permiso_administrador` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
+INSERT IGNORE INTO `authitem_permiso_administrador` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
 ('', 0, NULL, NULL, NULL),
 ('administracion_rol_administrador', 2, NULL, NULL, NULL),
 ('administracion_rol_usuario', 2, NULL, NULL, NULL),
@@ -96,7 +96,7 @@ INSERT INTO `authitem_permiso_administrador` (`name`, `type`, `description`, `bi
 -- Volcado de datos para la tabla `authitem_permiso_usuario`
 --
 
-INSERT INTO `authitem_permiso_usuario` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
+INSERT IGNORE INTO `authitem_permiso_usuario` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
 ('aula', 2, 'des-aula', NULL, NULL),
 ('repositorio', 2, 'des-repositorio', NULL, NULL);
 
@@ -104,7 +104,7 @@ INSERT INTO `authitem_permiso_usuario` (`name`, `type`, `description`, `bizrule`
 -- Volcado de datos para la tabla `controlador_usuario`
 --
 
-INSERT INTO `controlador_usuario` (`id`, `nombre`, `authitem_permiso_usuario_name`) VALUES
+INSERT IGNORE INTO `controlador_usuario` (`id`, `nombre`, `authitem_permiso_usuario_name`) VALUES
 (1, 'Default', 'aula'),
 (2, 'Default', 'repositorio');
 
@@ -112,21 +112,21 @@ INSERT INTO `controlador_usuario` (`id`, `nombre`, `authitem_permiso_usuario_nam
 -- Volcado de datos para la tabla `dato_academico`
 --
 
-INSERT INTO `dato_academico` (`id`, `universidad`, `carrera`, `ano_cursado`, `duracion_carrera`, `sede`, `direccion_sede`, `comuna_sede`, `ciudad_sede`, `usuario_id`) VALUES
+INSERT IGNORE INTO `dato_academico` (`id`, `universidad`, `carrera`, `ano_cursado`, `duracion_carrera`, `sede`, `direccion_sede`, `comuna_sede`, `ciudad_sede`, `usuario_id`) VALUES
 (4, 'Duoc', 'Ingenieria en informatica', 3, 4, 'Antonio varas', 'antonio varas 666', 'providencia', 'santiago', 236);
 
 --
 -- Volcado de datos para la tabla `dato_laboral`
 --
 
-INSERT INTO `dato_laboral` (`id`, `nombre_empresa`, `ano_antiguedad`, `cargo`, `actividad`, `comuna_empresa`, `ciudad_empresa`, `telefono_empresa`, `celular_empresa`, `rut_numero`, `digito_verificador`, `usuario_id`) VALUES
+INSERT IGNORE INTO `dato_laboral` (`id`, `nombre_empresa`, `ano_antiguedad`, `cargo`, `actividad`, `comuna_empresa`, `ciudad_empresa`, `telefono_empresa`, `celular_empresa`, `rut_numero`, `digito_verificador`, `usuario_id`) VALUES
 (3, 'Utem Virtual', 3, 'Analista', 'creacion de reko 2', 'santiago', 'santiago', 227578121, 2147483647, 1578951, 1, 236);
 
 --
 -- Volcado de datos para la tabla `dato_personal`
 --
 
-INSERT INTO `dato_personal` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `fecha_nacimiento`, `edad`, `rut`, `digito_verificador`, `direccion_personal`, `numero_casa`, `telefono_personal`, `celular_personal`, `comuna_personal`, `ciudad_personal`, `interes`, `estado_civil`, `idioma`, `nacionalidad`, `usuario_id`) VALUES
+INSERT IGNORE INTO `dato_personal` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `fecha_nacimiento`, `edad`, `rut`, `digito_verificador`, `direccion_personal`, `numero_casa`, `telefono_personal`, `celular_personal`, `comuna_personal`, `ciudad_personal`, `interes`, `estado_civil`, `idioma`, `nacionalidad`, `usuario_id`) VALUES
 (501, 'Diego ', 'Antonio', 'Morales', 'Hernandez', '2015-11-20 12:33:15', 23, 18087707, 9, 'Avenida el raleo ', 1396, 82460780, 52072575, 'buin', 'santiago', 'nada', 'soltero', 'español', 'chilena', 236),
 (503, 'Christian', 'Andres', 'Reyes', 'Arellano', '2015-11-20 13:30:42', 38, 13230098, 4, 'calle 18', 161, 2147483647, 2147483647, 'santiago', 'santiago', 'informatica', 'soltero', 'espanol', 'chilena', 248),
 (504, 'John', 'Paul', 'Lopez', 'Suarez', '2015-11-20 13:46:42', 25, 17382459, 9, 'calle 18', 161, 2147483647, 2147483647, 'san bernardo', 'santiago', 'informatica', 'soltero', 'espanol', 'chilena', 237),
@@ -137,7 +137,7 @@ INSERT INTO `dato_personal` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_
 -- Volcado de datos para la tabla `estado_institucion`
 --
 
-INSERT INTO `estado_institucion` (`id`, `estado`) VALUES
+INSERT IGNORE INTO `estado_institucion` (`id`, `estado`) VALUES
 (1, 'disponible'),
 (2, 'prueba'),
 (3, 'eliminado');
@@ -146,7 +146,7 @@ INSERT INTO `estado_institucion` (`id`, `estado`) VALUES
 -- Volcado de datos para la tabla `estado_modulo`
 --
 
-INSERT INTO `estado_modulo` (`id`, `estado`) VALUES
+INSERT IGNORE INTO `estado_modulo` (`id`, `estado`) VALUES
 (1, 'disponible'),
 (2, 'prueba'),
 (3, 'eliminado');
@@ -155,7 +155,7 @@ INSERT INTO `estado_modulo` (`id`, `estado`) VALUES
 -- Volcado de datos para la tabla `estado_programa_academico`
 --
 
-INSERT INTO `estado_programa_academico` (`id`, `estado`) VALUES
+INSERT IGNORE INTO `estado_programa_academico` (`id`, `estado`) VALUES
 (1, 'disponible'),
 (2, 'prueba'),
 (3, 'eliminado');
@@ -164,7 +164,7 @@ INSERT INTO `estado_programa_academico` (`id`, `estado`) VALUES
 -- Volcado de datos para la tabla `estado_seccion`
 --
 
-INSERT INTO `estado_seccion` (`id`, `estado`) VALUES
+INSERT IGNORE INTO `estado_seccion` (`id`, `estado`) VALUES
 (1, 'disponible'),
 (2, 'prueba'),
 (3, 'eliminado');
@@ -173,7 +173,7 @@ INSERT INTO `estado_seccion` (`id`, `estado`) VALUES
 -- Volcado de datos para la tabla `estado_usuario`
 --
 
-INSERT INTO `estado_usuario` (`id`, `estado`) VALUES
+INSERT IGNORE INTO `estado_usuario` (`id`, `estado`) VALUES
 (1, 'disponible'),
 (2, 'prueba'),
 (3, 'eliminado');
@@ -182,7 +182,7 @@ INSERT INTO `estado_usuario` (`id`, `estado`) VALUES
 -- Volcado de datos para la tabla `glosario`
 --
 
-INSERT INTO `glosario` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_eliminacion`, `fecha_acceso`, `tipo_herramienta_id`, `glosario_general_id`) VALUES
+INSERT IGNORE INTO `glosario` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_eliminacion`, `fecha_acceso`, `tipo_herramienta_id`, `glosario_general_id`) VALUES
 (6, 'glosario1', 'glosario1', '2015-12-01 11:55:55', NULL, NULL, NULL, 1, NULL),
 (7, 'glosario 2', 'descripcion glosario 2', '2015-12-03 16:34:22', NULL, NULL, NULL, 1, NULL),
 (65, 'glosario repositorio 2', 'descripcion glosario repositorio 2', '2015-12-21 16:31:58', NULL, NULL, NULL, 1, NULL),
@@ -194,7 +194,7 @@ INSERT INTO `glosario` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `fecha_
 -- Volcado de datos para la tabla `glosario_termino_definicion`
 --
 
-INSERT INTO `glosario_termino_definicion` (`id`, `termino`, `definicion`, `fecha_creacion`, `fecha_modificacion`, `fecha_acceso`, `fecha_eliminacion`, `glosario_id`) VALUES
+INSERT IGNORE INTO `glosario_termino_definicion` (`id`, `termino`, `definicion`, `fecha_creacion`, `fecha_modificacion`, `fecha_acceso`, `fecha_eliminacion`, `glosario_id`) VALUES
 (7, 'termino1', 'deficion1', '2015-12-01 11:56:52', NULL, NULL, NULL, 6),
 (8, 'cogito ergo sum', 'pienso y luego exito', '2015-12-03 16:35:16', NULL, NULL, NULL, 7),
 (74, 'termino1', 'deficion1', '2015-12-28 17:18:15', '2015-12-28 17:18:15', NULL, NULL, 81),
@@ -204,7 +204,7 @@ INSERT INTO `glosario_termino_definicion` (`id`, `termino`, `definicion`, `fecha
 -- Volcado de datos para la tabla `herramienta`
 --
 
-INSERT INTO `herramienta` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `recurso_id`, `recurso_tabla`, `repositorio_id`, `tipo_herramienta_id`, `herramienta_general_id`) VALUES
+INSERT IGNORE INTO `herramienta` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `recurso_id`, `recurso_tabla`, `repositorio_id`, `tipo_herramienta_id`, `herramienta_general_id`) VALUES
 (1, 'glosario1', 'glosario1', NULL, NULL, '2015-12-01 11:55:55', NULL, 6, 'glosario', 1, 1, NULL),
 (2, 'skljdsadjkl', 'skljdsadjkl', NULL, '2015-12-01 12:00:27', '2015-12-01 11:58:23', NULL, 1, 'archivo_recurso', 1, 1, NULL),
 (3, 'skljdsadjkl', 'skljdsadjkl', NULL, '2015-12-01 12:00:27', '2015-12-01 11:59:55', NULL, 1, NULL, 1, 1, NULL),
@@ -225,7 +225,7 @@ INSERT INTO `herramienta` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha
 -- Volcado de datos para la tabla `institucion`
 --
 
-INSERT INTO `institucion` (`id`, `nombre`, `sigla`, `vision`, `mision`, `acreditada`, `fecha_inicio_acreditacion`, `fecha_termino_acreditacion`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_institucion_id`, `pais_id`, `region_id`) VALUES
+INSERT IGNORE INTO `institucion` (`id`, `nombre`, `sigla`, `vision`, `mision`, `acreditada`, `fecha_inicio_acreditacion`, `fecha_termino_acreditacion`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_institucion_id`, `pais_id`, `region_id`) VALUES
 (1, 'utem', 'Utem', 'vision', 'mision', b'1', '2015-11-24 17:15:19', '2015-11-24 17:15:19', 'des-utem', '2015-11-24 17:22:25', '2015-11-25 10:20:17', NULL, NULL, NULL),
 (2, 'utem pregrado', 'utem', 'vision utem pregrado', 'mision utem pregrado', b'1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'descripcion utem pregrado', '2016-01-11 18:05:30', NULL, 1, NULL, NULL);
 
@@ -233,7 +233,7 @@ INSERT INTO `institucion` (`id`, `nombre`, `sigla`, `vision`, `mision`, `acredit
 -- Volcado de datos para la tabla `institucion_has_repositorio`
 --
 
-INSERT INTO `institucion_has_repositorio` (`institucion_id`, `repositorio_id`) VALUES
+INSERT IGNORE INTO `institucion_has_repositorio` (`institucion_id`, `repositorio_id`) VALUES
 (1, 1),
 (1, 48),
 (1, 49);
@@ -242,7 +242,7 @@ INSERT INTO `institucion_has_repositorio` (`institucion_id`, `repositorio_id`) V
 -- Volcado de datos para la tabla `institucion_has_rol_usuario`
 --
 
-INSERT INTO `institucion_has_rol_usuario` (`institucion_id`, `rol_usuario_id`) VALUES
+INSERT IGNORE INTO `institucion_has_rol_usuario` (`institucion_id`, `rol_usuario_id`) VALUES
 (1, 1),
 (1, 2);
 
@@ -250,7 +250,7 @@ INSERT INTO `institucion_has_rol_usuario` (`institucion_id`, `rol_usuario_id`) V
 -- Volcado de datos para la tabla `link_interes`
 --
 
-INSERT INTO `link_interes` (`id`, `titulo`, `nombre`, `url`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_acceso`, `tipo_herramienta_id`) VALUES
+INSERT IGNORE INTO `link_interes` (`id`, `titulo`, `nombre`, `url`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_acceso`, `tipo_herramienta_id`) VALUES
 (1, 'kljskljadkljsadjkl', 'skljdsadjkl', 'https://', 'mnmmmmnn,m,', '2015-12-01 11:59:54', '2015-12-01 12:00:27', NULL, 1),
 (2, 'aoaoaoo', 'osodosdo', 'https://', 'hola mundo', '2015-12-02 09:42:48', '2015-12-02 09:51:24', NULL, 1),
 (3, 'sasasasad', 'sdad', 'https://dssas', 'sasddsdsdsadsadsadsadsaddsssd', '2015-12-02 09:49:24', NULL, NULL, 1);
@@ -259,21 +259,21 @@ INSERT INTO `link_interes` (`id`, `titulo`, `nombre`, `url`, `descripcion`, `fec
 -- Volcado de datos para la tabla `modelo_aprendizaje`
 --
 
-INSERT INTO `modelo_aprendizaje` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`) VALUES
+INSERT IGNORE INTO `modelo_aprendizaje` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`) VALUES
 (44, 'modelo-full', 'des-modelo-full', NULL, NULL, '2015-11-30 16:09:24', NULL);
 
 --
 -- Volcado de datos para la tabla `modelo_aprendizaje_has_herramienta`
 --
 
-INSERT INTO `modelo_aprendizaje_has_herramienta` (`id`, `trabajo_grupal`, `archivo_recurso`, `link_interes`, `glosario`, `contenido_libre`, `foro`, `evaluacion`, `autoevaluacion`, `proyecto`, `recepcion_trabajo`, `evaluacion_no_objetiva`, `modelo_aprendizaje_id`) VALUES
+INSERT IGNORE INTO `modelo_aprendizaje_has_herramienta` (`id`, `trabajo_grupal`, `archivo_recurso`, `link_interes`, `glosario`, `contenido_libre`, `foro`, `evaluacion`, `autoevaluacion`, `proyecto`, `recepcion_trabajo`, `evaluacion_no_objetiva`, `modelo_aprendizaje_id`) VALUES
 (40, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 44);
 
 --
 -- Volcado de datos para la tabla `modulo`
 --
 
-INSERT INTO `modulo` (`id`, `nombre`, `codigo`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_modulo_id`, `entidad_id`, `institucion_id`) VALUES
+INSERT IGNORE INTO `modulo` (`id`, `nombre`, `codigo`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_modulo_id`, `entidad_id`, `institucion_id`) VALUES
 (9, 'Apresto uso plataforma', NULL, 'des-Apresto-uso-plataforma', '2015-11-20 16:08:35', NULL, 1, NULL, NULL),
 (10, 'Determinacion huella de carbono', NULL, 'des-Determinacion-huella-de-carbono', '2015-11-20 16:09:19', NULL, 1, NULL, NULL),
 (11, 'Determinacion huella hidrica', NULL, 'des-Determinacion-huella-hidrica', '2015-11-20 16:10:10', NULL, 1, NULL, NULL),
@@ -286,7 +286,7 @@ INSERT INTO `modulo` (`id`, `nombre`, `codigo`, `descripcion`, `fecha_creacion`,
 -- Volcado de datos para la tabla `modulo_has_repositorio`
 --
 
-INSERT INTO `modulo_has_repositorio` (`modulo_id`, `repositorio_id`) VALUES
+INSERT IGNORE INTO `modulo_has_repositorio` (`modulo_id`, `repositorio_id`) VALUES
 (15, 1),
 (15, 48),
 (15, 49),
@@ -298,14 +298,14 @@ INSERT INTO `modulo_has_repositorio` (`modulo_id`, `repositorio_id`) VALUES
 -- Volcado de datos para la tabla `pais`
 --
 
-INSERT INTO `pais` (`id`, `nombre`, `codigo`) VALUES
+INSERT IGNORE INTO `pais` (`id`, `nombre`, `codigo`) VALUES
 (2, 'argentina', 'arg123');
 
 --
 -- Volcado de datos para la tabla `privilegio_usuario`
 --
 
-INSERT INTO `privilegio_usuario` (`id`, `nombre`, `controlador_usuario_id`) VALUES
+INSERT IGNORE INTO `privilegio_usuario` (`id`, `nombre`, `controlador_usuario_id`) VALUES
 (1, 'index', 1),
 (2, 'index', 2);
 
@@ -313,7 +313,7 @@ INSERT INTO `privilegio_usuario` (`id`, `nombre`, `controlador_usuario_id`) VALU
 -- Volcado de datos para la tabla `programa_academico`
 --
 
-INSERT INTO `programa_academico` (`id`, `nombre`, `descripcion`, `version`, `fecha_creacion`, `fecha_modificacion`, `entidad_id`, `institucion_id`, `estado_programa_academico_id`) VALUES
+INSERT IGNORE INTO `programa_academico` (`id`, `nombre`, `descripcion`, `version`, `fecha_creacion`, `fecha_modificacion`, `entidad_id`, `institucion_id`, `estado_programa_academico_id`) VALUES
 (8, 'Ingenieria en subtentabilidad', 'des-Ingenieria-en-subtentabilidad', '1.0', '2015-11-20 16:07:33', '2015-11-26 11:53:26', NULL, 1, 1),
 (9, 'Ingenieria en informatica', 'des-Ingenieria-en-informatica', '1.0', '2015-11-26 11:50:15', '2015-11-26 11:53:43', NULL, 1, 1),
 (10, 'Diseño', 'des-diseño', '1.0', '2015-11-26 11:50:39', '2015-11-26 11:53:50', NULL, 1, 1),
@@ -324,7 +324,7 @@ INSERT INTO `programa_academico` (`id`, `nombre`, `descripcion`, `version`, `fec
 -- Volcado de datos para la tabla `programa_academico_has_modulo`
 --
 
-INSERT INTO `programa_academico_has_modulo` (`programa_academico_id`, `modulo_id`) VALUES
+INSERT IGNORE INTO `programa_academico_has_modulo` (`programa_academico_id`, `modulo_id`) VALUES
 (8, 9),
 (8, 10),
 (8, 11),
@@ -334,7 +334,7 @@ INSERT INTO `programa_academico_has_modulo` (`programa_academico_id`, `modulo_id
 -- Volcado de datos para la tabla `recepcion_trabajo`
 --
 
-INSERT INTO `recepcion_trabajo` (`id`, `nombre`, `entrega_publica`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_eliminacion`, `fecha_acceso`, `tipo_herramienta_id`) VALUES
+INSERT IGNORE INTO `recepcion_trabajo` (`id`, `nombre`, `entrega_publica`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `fecha_eliminacion`, `fecha_acceso`, `tipo_herramienta_id`) VALUES
 (1, 'Recepcion Trabajo JPxxx', NULL, 'Descripcion Recepcion Trabajo J', '2015-12-03 12:48:33', '2015-12-03 16:21:46', NULL, NULL, 1),
 (2, 'Recepcion Trabajo J', NULL, '123', '2015-12-03 17:50:04', NULL, NULL, NULL, 1),
 (3, 'Recepcion Trabajo J', NULL, '123', '2015-12-03 17:54:58', NULL, NULL, NULL, 1),
@@ -345,7 +345,7 @@ INSERT INTO `recepcion_trabajo` (`id`, `nombre`, `entrega_publica`, `descripcion
 -- Volcado de datos para la tabla `reko_session`
 --
 
-INSERT INTO `reko_session` (`id`, `expire`, `data`) VALUES
+INSERT IGNORE INTO `reko_session` (`id`, `expire`, `data`) VALUES
 ('2pq178cgupnscaksilfud0aba2', 1454100721, 0x30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a333a22323438223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d696e737469747563696f6e49647c733a313a2231223b696e737469747563696f6e4e6f6d6272657c733a343a227574656d223b696e737469747563696f6e566973696f6e7c733a363a22766973696f6e223b696e737469747563696f6e4d6973696f6e7c733a363a226d6973696f6e223b696e737469747563696f6e416372656469746164617c733a313a2231223b696e737469747563696f6e4665636861496e6963696f416372656469746163696f6e7c733a31393a22323031352d31312d32342031373a31353a3139223b696e737469747563696f6e46656368615465726d696e6f416372656469746163696f6e7c733a31393a22323031352d31312d32342031373a31353a3139223b6769695f5f72657475726e55726c7c733a31333a222f7465737472656b6f2f676969223b6769695f5f69647c733a353a227969696572223b6769695f5f6e616d657c733a353a227969696572223b6769695f5f7374617465737c613a303a7b7d),
 ('35e3862hp3uhmal9m7fvt4ekp2', 1453302036, 0x30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a333a22323438223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d696e737469747563696f6e49647c733a313a2231223b696e737469747563696f6e4e6f6d6272657c733a33383a22556e697665727369646164205465636e6f6cc3b367696361204d6574726f706f6c6974616e61223b696e737469747563696f6e566973696f6e7c733a363a22766973696f6e223b696e737469747563696f6e4d6973696f6e7c733a363a226d6973696f6e223b696e737469747563696f6e416372656469746164617c733a313a2231223b696e737469747563696f6e4665636861496e6963696f416372656469746163696f6e7c733a31393a22323031352d31312d32342031373a31353a3139223b696e737469747563696f6e46656368615465726d696e6f416372656469746163696f6e7c733a31393a22323031352d31312d32342031373a31353a3139223b),
 ('403ing0khod8i77p05fgmcfg34', 1455204045, 0x30373333353130383865316330316231363262316162353236386465653766615f5f69647c733a333a22323438223b30373333353130383865316330316231363262316162353236386465653766615f5f6e616d657c733a363a22637265796573223b30373333353130383865316330316231363262316162353236386465653766615f5f7374617465737c613a303a7b7d696e737469747563696f6e49647c733a313a2231223b696e737469747563696f6e4e6f6d6272657c733a343a227574656d223b696e737469747563696f6e566973696f6e7c733a363a22766973696f6e223b696e737469747563696f6e4d6973696f6e7c733a363a226d6973696f6e223b696e737469747563696f6e416372656469746164617c733a313a2231223b696e737469747563696f6e4665636861496e6963696f416372656469746163696f6e7c733a31393a22323031352d31312d32342031373a31353a3139223b696e737469747563696f6e46656368615465726d696e6f416372656469746163696f6e7c733a31393a22323031352d31312d32342031373a31353a3139223b7265706f7369746f72696f7c4f3a31313a225265706f7369746f72696f223a31313a7b733a31393a2200434163746976655265636f7264005f6e6577223b623a303b733a32363a2200434163746976655265636f7264005f61747472696275746573223b613a31313a7b733a323a226964223b733a313a2231223b733a363a226e6f6d627265223b733a31363a227265706f7369746f72696f2d66756c6c223b733a31313a226465736372697063696f6e223b733a32303a226465732d7265706f7369746f72696f2d66756c6c223b733a31323a2266656368615f61636365736f223b733a31393a22303030302d30302d30302030303a30303a3030223b733a31383a2266656368615f6d6f64696669636163696f6e223b733a31393a22303030302d30302d30302030303a30303a3030223b733a31343a2266656368615f6372656163696f6e223b733a31393a22303030302d30302d30302030303a30303a3030223b733a31373a2266656368615f656c696d696e6163696f6e223b733a31393a22303030302d30302d30302030303a30303a3030223b733a31393a227469706f5f7265706f7369746f72696f5f6964223b733a313a2231223b733a32313a226d6f64656c6f5f617072656e64697a616a655f6964223b733a323a223434223b733a32313a22677569615f696e737472756363696f6e616c5f6964223b4e3b733a32323a227265706f7369746f72696f5f67656e6572616c5f6964223b4e3b7d733a32333a2200434163746976655265636f7264005f72656c61746564223b613a303a7b7d733a31373a2200434163746976655265636f7264005f63223b4e3b733a31383a2200434163746976655265636f7264005f706b223b733a313a2231223b733a32313a2200434163746976655265636f7264005f616c696173223b733a313a2274223b733a31353a2200434d6f64656c005f6572726f7273223b613a303a7b7d733a31393a2200434d6f64656c005f76616c696461746f7273223b4e3b733a31373a2200434d6f64656c005f7363656e6172696f223b733a363a22757064617465223b733a31343a220043436f6d706f6e656e74005f65223b4e3b733a31343a220043436f6d706f6e656e74005f6d223b4e3b7d),
@@ -376,7 +376,7 @@ INSERT INTO `reko_session` (`id`, `expire`, `data`) VALUES
 -- Volcado de datos para la tabla `repositorio`
 --
 
-INSERT INTO `repositorio` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `tipo_repositorio_id`, `modelo_aprendizaje_id`, `guia_instruccional_id`, `repositorio_general_id`) VALUES
+INSERT IGNORE INTO `repositorio` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `fecha_eliminacion`, `tipo_repositorio_id`, `modelo_aprendizaje_id`, `guia_instruccional_id`, `repositorio_general_id`) VALUES
 (1, 'repositorio-full', 'des-repositorio-full', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 44, NULL, NULL),
 (48, 'repositorio-full-2', 'descripcion repositorio full 2', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 44, NULL, NULL),
 (49, 'repositorio-full-3', 'descripcion repositorio full 3', NULL, '2015-12-21 13:23:15', '2015-12-21 13:23:15', NULL, 1, 44, NULL, NULL),
@@ -388,14 +388,14 @@ INSERT INTO `repositorio` (`id`, `nombre`, `descripcion`, `fecha_acceso`, `fecha
 -- Volcado de datos para la tabla `rol_administrador`
 --
 
-INSERT INTO `rol_administrador` (`id`, `nombre`, `descripcion`) VALUES
+INSERT IGNORE INTO `rol_administrador` (`id`, `nombre`, `descripcion`) VALUES
 (1, 'superadministrador', 'super administrador');
 
 --
 -- Volcado de datos para la tabla `rol_administrador_has_authitem_permiso_administrador`
 --
 
-INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_administrador_id`, `authitem_permiso_administrador_name`) VALUES
+INSERT IGNORE INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_administrador_id`, `authitem_permiso_administrador_name`) VALUES
 (1, 'administracion_rol_administrador'),
 (1, 'administracion_rol_usuario'),
 (1, 'administracion_usuario'),
@@ -416,7 +416,7 @@ INSERT INTO `rol_administrador_has_authitem_permiso_administrador` (`rol_adminis
 -- Volcado de datos para la tabla `rol_usuario`
 --
 
-INSERT INTO `rol_usuario` (`id`, `nombre`, `descripcion`, `tipo`, `rol_usuario_general_id`, `fecha_creacion`, `fecha_eliminacion`, `fecha_acceso`, `fecha_modificacion`) VALUES
+INSERT IGNORE INTO `rol_usuario` (`id`, `nombre`, `descripcion`, `tipo`, `rol_usuario_general_id`, `fecha_creacion`, `fecha_eliminacion`, `fecha_acceso`, `fecha_modificacion`) VALUES
 (1, 'superadministrador', 'descripcion superadministrador', 'rol_usuario_general', NULL, NULL, NULL, NULL, NULL),
 (2, 'superadministrador', 'descripcion superadministrador', 'rol_usuario_institucion', 1, '2015-12-01 16:11:26', NULL, NULL, '2015-12-01 16:11:26');
 
@@ -424,7 +424,7 @@ INSERT INTO `rol_usuario` (`id`, `nombre`, `descripcion`, `tipo`, `rol_usuario_g
 -- Volcado de datos para la tabla `rol_usuario_has_authitem_permiso_usuario`
 --
 
-INSERT INTO `rol_usuario_has_authitem_permiso_usuario` (`rol_usuario_id`, `authitem_permiso_usuario_name`) VALUES
+INSERT IGNORE INTO `rol_usuario_has_authitem_permiso_usuario` (`rol_usuario_id`, `authitem_permiso_usuario_name`) VALUES
 (1, 'aula'),
 (1, 'repositorio'),
 (2, 'aula'),
@@ -434,7 +434,7 @@ INSERT INTO `rol_usuario_has_authitem_permiso_usuario` (`rol_usuario_id`, `authi
 -- Volcado de datos para la tabla `rol_usuario_has_privilegio_usuario`
 --
 
-INSERT INTO `rol_usuario_has_privilegio_usuario` (`rol_usuario_id`, `privilegio_usuario_id`) VALUES
+INSERT IGNORE INTO `rol_usuario_has_privilegio_usuario` (`rol_usuario_id`, `privilegio_usuario_id`) VALUES
 (1, 1),
 (2, 1),
 (1, 2),
@@ -444,7 +444,7 @@ INSERT INTO `rol_usuario_has_privilegio_usuario` (`rol_usuario_id`, `privilegio_
 -- Volcado de datos para la tabla `seccion`
 --
 
-INSERT INTO `seccion` (`id`, `nombre`, `codigo`, `jornada`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_seccion_id`, `modulo_id`) VALUES
+INSERT IGNORE INTO `seccion` (`id`, `nombre`, `codigo`, `jornada`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `estado_seccion_id`, `modulo_id`) VALUES
 (6, 'seccion 8', 'dfdsfdsf', 'sdfsdfsfd', 'dfsdfsdfsdf', '2015-11-25 12:32:04', '2015-11-25 12:34:07', NULL, 15),
 (9, 'sadsad', 'sadsadas', 'asdsada', 'asdsadsad', '2015-11-25 16:56:09', NULL, 1, 9),
 (11, 'sadsad', 'sadsadas', 'asdsada', 'asdsadsad', '2015-11-25 16:56:52', NULL, 1, 10),
@@ -456,7 +456,7 @@ INSERT INTO `seccion` (`id`, `nombre`, `codigo`, `jornada`, `descripcion`, `fech
 -- Volcado de datos para la tabla `tipo_herramienta`
 --
 
-INSERT INTO `tipo_herramienta` (`id`, `nombre`) VALUES
+INSERT IGNORE INTO `tipo_herramienta` (`id`, `nombre`) VALUES
 (1, 'herramienta_troncal'),
 (2, 'herramienta_troncal_modulo');
 
@@ -464,7 +464,7 @@ INSERT INTO `tipo_herramienta` (`id`, `nombre`) VALUES
 -- Volcado de datos para la tabla `tipo_repositorio`
 --
 
-INSERT INTO `tipo_repositorio` (`id`, `descripcion`) VALUES
+INSERT IGNORE INTO `tipo_repositorio` (`id`, `descripcion`) VALUES
 (1, 'repositorio_troncal'),
 (2, 'repositorio_troncal_modulo');
 
@@ -472,7 +472,7 @@ INSERT INTO `tipo_repositorio` (`id`, `descripcion`) VALUES
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `estado_usuario_id`) VALUES
+INSERT IGNORE INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modificacion`, `fecha_creacion`, `estado_usuario_id`) VALUES
 (236, 'dmorales', '123', NULL, NULL, '2015-11-20 12:53:05', NULL),
 (237, 'jlopez', '123', NULL, NULL, '2015-11-20 12:53:16', NULL),
 (238, 'piriarte', '123', NULL, NULL, '2015-11-20 12:53:33', NULL),
@@ -494,21 +494,21 @@ INSERT INTO `usuario` (`id`, `usuario`, `clave`, `fecha_acceso`, `fecha_modifica
 -- Volcado de datos para la tabla `usuario_administrador`
 --
 
-INSERT INTO `usuario_administrador` (`id`, `usuario`, `clave`) VALUES
+INSERT IGNORE INTO `usuario_administrador` (`id`, `usuario`, `clave`) VALUES
 (1, 'creyes', '123');
 
 --
 -- Volcado de datos para la tabla `usuario_administrador_has_rol_administrador`
 --
 
-INSERT INTO `usuario_administrador_has_rol_administrador` (`usuario_administrador_id`, `rol_administrador_id`) VALUES
+INSERT IGNORE INTO `usuario_administrador_has_rol_administrador` (`usuario_administrador_id`, `rol_administrador_id`) VALUES
 (1, 1);
 
 --
 -- Volcado de datos para la tabla `usuario_has_institucion`
 --
 
-INSERT INTO `usuario_has_institucion` (`usuario_id`, `institucion_id`) VALUES
+INSERT IGNORE INTO `usuario_has_institucion` (`usuario_id`, `institucion_id`) VALUES
 (236, 1),
 (237, 1),
 (238, 1),
@@ -522,7 +522,7 @@ INSERT INTO `usuario_has_institucion` (`usuario_id`, `institucion_id`) VALUES
 -- Volcado de datos para la tabla `usuario_has_modulo`
 --
 
-INSERT INTO `usuario_has_modulo` (`usuario_id`, `modulo_id`, `rol_usuario_id`) VALUES
+INSERT IGNORE INTO `usuario_has_modulo` (`usuario_id`, `modulo_id`, `rol_usuario_id`) VALUES
 (248, 9, 198),
 (236, 15, 195),
 (236, 15, 196),
@@ -533,7 +533,7 @@ INSERT INTO `usuario_has_modulo` (`usuario_id`, `modulo_id`, `rol_usuario_id`) V
 -- Volcado de datos para la tabla `usuario_has_programa_academico`
 --
 
-INSERT INTO `usuario_has_programa_academico` (`usuario_id`, `programa_academico_id`, `rol_usuario_id`) VALUES
+INSERT IGNORE INTO `usuario_has_programa_academico` (`usuario_id`, `programa_academico_id`, `rol_usuario_id`) VALUES
 (236, 8, 195),
 (236, 8, 196),
 (236, 8, 197),
@@ -544,14 +544,14 @@ INSERT INTO `usuario_has_programa_academico` (`usuario_id`, `programa_academico_
 -- Volcado de datos para la tabla `usuario_has_rol_usuario`
 --
 
-INSERT INTO `usuario_has_rol_usuario` (`usuario_id`, `rol_usuario_id`) VALUES
+INSERT IGNORE INTO `usuario_has_rol_usuario` (`usuario_id`, `rol_usuario_id`) VALUES
 (248, 2);
 
 --
 -- Volcado de datos para la tabla `usuario_has_seccion`
 --
 
-INSERT INTO `usuario_has_seccion` (`usuario_id`, `rol_usuario_id`, `seccion_id`) VALUES
+INSERT IGNORE INTO `usuario_has_seccion` (`usuario_id`, `rol_usuario_id`, `seccion_id`) VALUES
 (236, 195, 6);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
